@@ -448,6 +448,23 @@ table .column-dk_invoice_id .invoice_error {
 	appearance: textfield;
 }
 
+#woocommerce-product-data ul.wc-tabs li.dk_connection_options a::before {
+	content: "\f113";
+	color: #900;
+}
+
+#woocommerce-product-data ul.wc-tabs li.dk_connection_options a span {
+	color: #900;
+}
+
+#dk_connection_product_tab .intro {
+	font-weight: bold;
+}
+
+#dk_connection_product_tab .intro strong, #dk_connection_product_tab .intro abbr {
+	color: #900;
+}
+
 @media screen and (max-width: 1200px) {
 	#dk_variations_tab .dk-variations .dk-variation {
 		flex-direction: column;

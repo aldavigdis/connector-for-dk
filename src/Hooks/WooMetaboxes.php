@@ -31,21 +31,6 @@ class WooMetaboxes {
 	 */
 	public function __construct() {
 		add_action(
-			'woocommerce_product_options_pricing',
-			array( $this, 'render_product_options_pricing_partial' )
-		);
-
-		add_action(
-			'woocommerce_product_options_advanced',
-			array( $this, 'render_product_options_advanced_partial' )
-		);
-
-		add_action(
-			'woocommerce_product_options_sku',
-			array( $this, 'render_product_options_sku_partial' )
-		);
-
-		add_action(
 			'woocommerce_update_product',
 			array( $this, 'save_product_meta' ),
 			10,
@@ -72,6 +57,42 @@ class WooMetaboxes {
 		);
 
 		add_action( 'init', array( __CLASS__, 'add_image_sizes' ) );
+
+		add_filter(
+			'woocommerce_product_data_tabs',
+			array( __CLASS__, 'add_product_data_tab' ),
+			98
+		);
+
+		add_action(
+			'woocommerce_product_data_panels',
+			array( __CLASS__, 'dk_connection_panel' ),
+		);
+	}
+
+	/**
+	 * Add the "DK Sync" tab to the product data box
+	 *
+	 * @see https://woocommerce.github.io/code-reference/files/woocommerce-includes-admin-meta-boxes-class-wc-meta-box-product-data.html#source-view.76
+	 *
+	 * @param array $tabs The tabs array to filter.
+	 */
+	public static function add_product_data_tab( array $tabs ): array {
+		$tabs['dk_connection'] = array(
+			'label'    => __( 'DK Sync', '1984-dk-woo' ),
+			'target'   => 'dk_connection_product_tab',
+			'class'    => array( 'hide_if_grouped' ),
+			'priority' => 100,
+		);
+
+		return $tabs;
+	}
+
+	/**
+	 * Render the "DK Sync" panel content
+	 */
+	public static function dk_connection_panel(): void {
+		require dirname( __DIR__, 2 ) . '/views/dk_connection_product_panel.php';
 	}
 
 	/**
@@ -127,28 +148,6 @@ class WooMetaboxes {
 	 */
 	public static function variations_panel(): void {
 		require dirname( __DIR__, 2 ) . '/views/dk_product_variations.php';
-	}
-
-	/**
-	 * Render the pricing metabox partial
-	 */
-	public static function render_product_options_pricing_partial(): void {
-		require dirname( __DIR__, 2 ) . '/views/product_options_pricing_partial.php';
-	}
-
-	/**
-	 * Render the advanced partial
-	 */
-	public static function render_product_options_advanced_partial(): void {
-		require dirname( __DIR__, 2 ) .
-			'/views/product_options_advanced_partial.php';
-	}
-
-	/**
-	 * Render the SKU metabox partial
-	 */
-	public static function render_product_options_sku_partial(): void {
-		require dirname( __DIR__, 2 ) . '/views/product_options_sku_partial.php';
 	}
 
 	/**

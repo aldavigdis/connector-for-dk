@@ -77,6 +77,12 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 		);
 
 		if ( ! is_string( $invoice_number ) ) {
+			$wc_order->add_order_note(
+				__(
+					'DK could not create an invoice due to an error.',
+					'1984-dk-woo'
+				)
+			);
 			return new WP_REST_Response( status: 400 );
 		}
 

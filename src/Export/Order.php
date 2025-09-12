@@ -182,7 +182,7 @@ class Order {
 				$variation_line['Code'] = $variation_values[0];
 
 				if ( isset( $variation_values[1] ) ) {
-					$variation_line['Code2'] = array_values( $variation_values )[0];
+					$variation_line['Code2'] = $variation_values[1];
 				}
 
 				$variation_line['Quantity'] = $item->get_quantity();

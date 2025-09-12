@@ -688,7 +688,7 @@ class Products {
 	 * @param float $percentage The tax rate to look up.
 	 *
 	 * @return string The matched tax class. Defaults to empty string, for the
-	 *                default rate.
+	 *                default rate if no match is found.
 	 */
 	public static function tax_class_from_rate( float $percentage ): string {
 		if ( is_null( WC()->countries ) ) {
@@ -699,22 +699,19 @@ class Products {
 			return 'Zero rate';
 		}
 
-		$tax_rates = array(
-			'' => array_values( WC_Tax::get_base_tax_rates( '' ) )[0],
-		);
+		$classes       = WC_Tax::get_rates_for_tax_class( '' );
+		$other_classes = WC_Tax::get_tax_classes();
 
-		foreach ( WC_Tax::get_tax_classes() as $tax_class ) {
-			$values = array_values(
-				WC_Tax::get_base_tax_rates( $tax_class )
+		foreach ( $other_classes as $oc ) {
+			$classes = array_merge(
+				$classes,
+				WC_Tax::get_rates_for_tax_class( $oc )
 			);
-			if ( ! empty( $values ) ) {
-				$tax_rates[ $tax_class ] = $values[0];
-			}
 		}
 
-		foreach ( $tax_rates as $class => $r ) {
-			if ( $percentage === $r['rate'] ) {
-				return $class;
+		foreach ( $classes as $class ) {
+			if ( floatval( $class->tax_rate ) === $percentage ) {
+				return $class->tax_rate_class;
 			}
 		}
 

@@ -87,6 +87,20 @@ class KennitalaField {
 
 		add_action(
 			'woocommerce_store_api_checkout_order_processed',
+			array( __CLASS__, 'set_order_billing_meta' ),
+			10,
+			1
+		);
+
+		add_action(
+			'woocommerce_checkout_order_processed',
+			array( __CLASS__, 'set_order_billing_meta' ),
+			10,
+			2
+		);
+
+		add_action(
+			'woocommerce_store_api_checkout_order_processed',
 			array( __CLASS__, 'add_order_kennitala_to_the_customer_from_api' ),
 			10,
 			1
@@ -335,6 +349,42 @@ class KennitalaField {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Set metadata for billing that may be missing
+	 *
+	 * Sets the billing_kennitala order meta for orders that arrive via the
+	 * block version of the checkout page.
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
+	public static function set_order_billing_meta(
+		WC_Order $wc_order
+	): void {
+		$kennitala = self::get_kennitala_from_order( $wc_order );
+
+		$wc_order->update_meta_data(
+			'billing_kennitala',
+			self::sanitize_kennitala( $kennitala )
+		);
+
+		if (
+			Config::get_customer_requests_kennitala_invoice() &&
+			! boolval(
+				$wc_order->get_meta(
+					'_wc_other/1984_woo_dk/kennitala_invoice_requested',
+					true
+				)
+			)
+		) {
+			$wc_order->update_meta_data(
+				'_wc_other/1984_woo_dk/kennitala_invoice_requested',
+				'0'
+			);
+		}
+
+		$wc_order->save_meta_data();
 	}
 
 	/**

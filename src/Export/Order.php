@@ -121,7 +121,11 @@ class Order {
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
 	public static function to_dk_order_body( WC_Order $wc_order ): array {
-		$kennitala = OrderHelper::get_kennitala( $wc_order );
+		if ( Config::get_customer_requests_kennitala_invoice() && ! OrderHelper::get_kennitala_invoice_requested( $wc_order ) ) {
+			$kennitala = Config::get_default_kennitala();
+		} else {
+			$kennitala = OrderHelper::get_kennitala( $wc_order );
+		}
 
 		$order_props     = array();
 		$recipient_array = array();

@@ -172,7 +172,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p>
 				<?php
 				esc_html_e(
-					'While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK. Here you can also enable the product conversion feature.',
+					'While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK.',
 					'1984-dk-woo'
 				);
 				?>

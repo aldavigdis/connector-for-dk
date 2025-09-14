@@ -175,7 +175,7 @@ class Admin {
 	 */
 	public static function add_dk_invoice_metabox(): void {
 		add_meta_box(
-			'nineteen-eighty-woo-dk-invoice-metabox',
+			'connector-for-dk-invoice-metabox',
 			__( 'DK Invoice', 'connector-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'woocommerce_page_wc-orders',
@@ -184,7 +184,7 @@ class Admin {
 		);
 
 		add_meta_box(
-			'nineteen-eighty-woo-dk-invoice-metabox',
+			'connector-for-dk-invoice-metabox',
 			__( 'DK Invoice', 'connector-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'shop_order',
@@ -314,19 +314,19 @@ class Admin {
 	 */
 	public static function enqueue_styles_and_scripts(): void {
 		wp_enqueue_style(
-			handle: 'nineteen-eighty-woo',
+			handle: 'connector-for-dk',
 			src: plugins_url( 'style/admin.css', dirname( __DIR__ ) ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_style(
-			handle: 'nineteen-eighty-woo-product',
+			handle: 'connector-for-dk-product',
 			src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo-admin',
+			'connector-for-dk-admin',
 			plugins_url( 'js/admin.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -334,7 +334,7 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo-products',
+			'connector-for-dk-products',
 			plugins_url( 'js/products.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -342,7 +342,7 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo-order',
+			'connector-for-dk-order',
 			plugins_url( 'js/order.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -350,7 +350,7 @@ class Admin {
 		);
 
 		wp_set_script_translations(
-			'nineteen-eighty-woo-products',
+			'connector-for-dk-products',
 			'connector-for-dk',
 			dirname( plugin_dir_path( __FILE__ ), 2 ) . '/languages'
 		);

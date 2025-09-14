@@ -1,110 +1,110 @@
 class NineteenEightyWooOrder {
 	static invoiceMetaBox() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox'
+			'connector-for-dk-invoice-metabox'
 		);
 	}
 
 	static invoiceNumberInput() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-number-input'
+			'connector-for-dk-invoice-metabox-invoice-number-input'
 		);
 	}
 
 	static creditInvoiceInput() {
 		return document.getElementById(
-			'connector-for-dk-dk-invoice-metabox-credit-invoice-number-input'
+			'connector-for-dk-invoice-metabox-credit-invoice-number-input'
 		);
 	}
 
 	static invoiceNumberInvalid() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-number-invalid'
+			'connector-for-dk-invoice-metabox-invoice-number-invalid'
 		);
 	}
 
 	static creditInvoiceInvalid() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-credit-invoice-metabox-invoice-number-invalid'
+			'connector-for-dk-credit-invoice-metabox-invoice-number-invalid'
 		);
 	}
 
 	static getPdfButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-get-pdf-button'
+			'connector-for-dk-invoice-metabox-invoice-get-pdf-button'
 		);
 	}
 
 	static getCreditPdfButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-get-pdf-button'
+			'connector-for-dk-invoice-metabox-credit-invoice-get-pdf-button'
 		);
 	}
 
 
 	static createDkInvoiceButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-make-dk-invoice-button'
+			'connector-for-dk-invoice-metabox-make-dk-invoice-button'
 		);
 	}
 
 	static updateInvoiceButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-number-update-button'
+			'connector-for-dk-invoice-metabox-invoice-number-update-button'
 		);
 	}
 
 	static updateCreditInvoiceButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-number-update-button'
+			'connector-for-dk-invoice-metabox-credit-invoice-number-update-button'
 		);
 	}
 
 	static invoiceLoader() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-loader'
+			'connector-for-dk-invoice-metabox-invoice-loader'
 		);
 	}
 
 	static creditInvoiceLoader() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-loader'
+			'connector-for-dk-invoice-metabox-credit-invoice-loader'
 		);
 	}
 
 	static invoicePdfNotFoundError() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-pdf-not-found-error'
+			'connector-for-dk-invoice-metabox-pdf-not-found-error'
 		);
 	}
 
 	static invoiceNumberAssignedMessage() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-number-assigned-message'
+			'connector-for-dk-invoice-metabox-number-assigned-message'
 		);
 	}
 
 	static invoiceAssignmentError() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-number-not-assigned-error'
+			'connector-for-dk-invoice-metabox-number-not-assigned-error'
 		);
 	}
 
 	static invoiceCreatedMessage() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-created-message'
+			'connector-for-dk-invoice-metabox-created-message'
 		);
 	}
 
 	static invoiceCreationError() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-creation-error'
+			'connector-for-dk-invoice-metabox-creation-error'
 		);
 	}
 
 	static resetMessages() {
 		const messageNodes = document.querySelectorAll(
-			'#nineteen-eighty-woo-dk-invoice-messages p'
+			'#connector-for-dk-invoice-messages p'
 		);
 
 		messageNodes.forEach(

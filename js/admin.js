@@ -1,18 +1,18 @@
 class NineteenEightyWoo {
 	static settingsForm() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-form' );
+		return document.querySelector( '#connector-for-dk-settings-form' );
 	}
 	static settingsErrorIndicator() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
+		return document.querySelector( '#connector-for-dk-settings-error' );
 	}
 	static settingsErrorIndicator() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
+		return document.querySelector( '#connector-for-dk-settings-error' );
 	}
 	static settingsLoader() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-loader' );
+		return document.querySelector( '#connector-for-dk-settings-loader' );
 	}
 	static settingsSubmit() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-submit' );
+		return document.querySelector( '#connector-for-dk-settings-submit' );
 	}
 	static shippingSkuField() {
 		return document.querySelector( '#shipping_sku_field' );

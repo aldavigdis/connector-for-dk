@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div
-	class="wrap nineteen-eighty-woo-wrap"
-	id="nineteen-eighty-woo-wrap"
+	class="wrap connector-for-dk-wrap"
+	id="connector-for-dk-wrap"
 >
 	<form
-		id="nineteen-eighty-woo-settings-form"
+		id="connector-for-dk-settings-form"
 		class="type-form"
 		novalidate
 	>
@@ -38,13 +38,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<tbody>
 					<tr>
 						<th scope="row">
-							<label for="nineteen-eighty-woo-key-input">
+							<label for="connector-for-dk-key-input">
 								<?php esc_html_e( 'API Key', 'connector-for-dk' ); ?>
 							</label>
 						</th>
 						<td>
 							<input
-								id="nineteen-eighty-woo-key-input"
+								id="connector-for-dk-key-input"
 								class="regular-text api-key-input"
 								name="api_key"
 								type="text"
@@ -698,7 +698,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</section>
 
 		<div class="submit-container">
-			<div id="nineteen-eighty-woo-settings-error" class="hidden" aria-live="polite">
+			<div id="connector-for-dk-settings-error" class="hidden" aria-live="polite">
 				<p>
 					<?php
 					echo sprintf(
@@ -711,7 +711,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</p>
 			</div>
 			<img
-				id="nineteen-eighty-woo-settings-loader"
+				id="connector-for-dk-settings-loader"
 				class="loader hidden"
 				src="<?php echo esc_url( get_admin_url() . 'images/wpspin_light-2x.gif' ); ?>"
 				width="32"
@@ -721,7 +721,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				type="submit"
 				value="<?php esc_attr_e( 'Save', 'connector-for-dk' ); ?>"
 				class="button button-primary button-hero"
-				id="nineteen-eighty-woo-settings-submit"
+				id="connector-for-dk-settings-submit"
 			/>
 		</div>
 	</form>

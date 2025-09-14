@@ -34,7 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NineteenEightyFour\\NineteenEightyWoo\\": "src/"
+            "AldaVigdis\\ConnectorForDK\\": "src/"
         }
     },
     "require": {

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Service;
+namespace AldaVigdis\ConnectorForDK\Service;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
+use AldaVigdis\ConnectorForDK\Config;
 use stdClass;
 use WP_Error;
 use WP_Http;

@@ -17,7 +17,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace AldaVigdis\ConnectorForDK;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,10 +40,10 @@ new Hooks\WooUpdateProduct();
 
 register_activation_hook(
 	__FILE__,
-	'NineteenEightyFour\NineteenEightyWoo\Cron\Schedule::activate'
+	'AldaVigdis\ConnectorForDK\Cron\Schedule::activate'
 );
 
 register_deactivation_hook(
 	__FILE__,
-	'NineteenEightyFour\NineteenEightyWoo\Cron\Schedule::deactivate'
+	'AldaVigdis\ConnectorForDK\Cron\Schedule::deactivate'
 );

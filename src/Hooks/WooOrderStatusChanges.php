@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WP_Error;
 

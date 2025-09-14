@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
+namespace AldaVigdis\ConnectorForDK\Helpers;
 
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ImportProductVariations;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use WC_Product;
 use WC_Product_Variation;
 use WC_Tax;

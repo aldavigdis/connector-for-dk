@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Export\Product;
-use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Export\Product;
+use AldaVigdis\ConnectorForDK\Export\SalesPerson;
+use AldaVigdis\ConnectorForDK\Export\Customer;
 use stdClass;
 use WC_Order;
 

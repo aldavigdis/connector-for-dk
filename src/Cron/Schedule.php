@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Cron;
+namespace AldaVigdis\ConnectorForDK\Cron;
 
 /**
  * The cron task scheduling class
@@ -16,7 +16,7 @@ class Schedule {
 	public function __construct() {
 		add_action(
 			'1984_dk_woo_hourly',
-			array( 'NineteenEightyFour\NineteenEightyWoo\Cron\Hourly', 'run' ),
+			array( 'AldaVigdis\ConnectorForDK\Cron\Hourly', 'run' ),
 			10,
 			0
 		);

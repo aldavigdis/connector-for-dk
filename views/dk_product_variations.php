@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Rest;
+namespace AldaVigdis\ConnectorForDK\Rest;
 
 use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
-use NineteenEightyFour\NineteenEightyWoo\Rest\PostEndpointTemplate;
-use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
+use AldaVigdis\ConnectorForDK\Rest\PostEndpointTemplate;
+use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
 
 /**
  * The Order Invoice Number REST API class

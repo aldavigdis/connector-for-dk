@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Rest;
+namespace AldaVigdis\ConnectorForDK\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Rest\EmptyBodyEndpointTemplate;
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 
 /**
  * The Order Invoice PDF REST API endpoint

@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Rest;
+namespace AldaVigdis\ConnectorForDK\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Rest\EmptyBodyEndpointTemplate;
-use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
+use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 
 /**
  * The Order DK Invoice endpoint class

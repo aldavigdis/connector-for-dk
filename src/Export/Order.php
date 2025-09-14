@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WC_Order_Item_Product;
 use WP_Error;
@@ -255,7 +255,7 @@ class Order {
 	 * If that does not work out, the default kennitala will be used for the
 	 * customer.
 	 *
-	 * @see NineteenEightyFour\NineteenEightyWoo\Config::get_default_kennitala()
+	 * @see AldaVigdis\ConnectorForDK\Config::get_default_kennitala()
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 *

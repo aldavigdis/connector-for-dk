@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
+use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 use WC_Product;
 use WC_Product_Variable;
 use WC_Product_Variation;

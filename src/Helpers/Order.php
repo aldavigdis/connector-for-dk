@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
+namespace AldaVigdis\ConnectorForDK\Helpers;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
+use AldaVigdis\ConnectorForDK\Config;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;

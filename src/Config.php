@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace AldaVigdis\ConnectorForDK;
 
-use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments as ImportSalesPayments;
-use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
+use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
+use AldaVigdis\ConnectorForDK\Hooks\KennitalaField;
 use stdClass;
 
 /**

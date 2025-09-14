@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Export\Order as ExportOrder;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
+use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
 use DateTime;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 
 /**
  * The Invoice Export class

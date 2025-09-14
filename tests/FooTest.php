@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Tests;
+namespace AldaVigdis\ConnectorForDK\Tests;
 
-use NineteenEightyFour\NineteenEightyWoo\Foo;
+use AldaVigdis\ConnectorForDK\Foo;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 

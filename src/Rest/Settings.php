@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Rest;
+namespace AldaVigdis\ConnectorForDK\Rest;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Currency;
-use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
-use NineteenEightyFour\NineteenEightyWoo\Import\Currencies as ImportCurrencies;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Currency;
+use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
+use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
-use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 
 /**
  * The REST API Settings endpoint class

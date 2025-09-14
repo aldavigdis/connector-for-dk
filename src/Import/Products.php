@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Import;
+namespace AldaVigdis\ConnectorForDK\Import;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
-use NineteenEightyFour\NineteenEightyWoo\Currency;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use AldaVigdis\ConnectorForDK\Currency;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
 use DateTime;
 use stdClass;
 use WC_DateTime;

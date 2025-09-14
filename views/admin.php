@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-use NineteenEightyFour\NineteenEightyWoo\Hooks\Admin;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments;
-use NineteenEightyFour\NineteenEightyWoo\Hooks\KennitalaField;
+use AldaVigdis\ConnectorForDK\Hooks\Admin;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Import\SalesPayments;
+use AldaVigdis\ConnectorForDK\Hooks\KennitalaField;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace AldaVigdis\ConnectorForDK;
 
 /**
  * The Foo class

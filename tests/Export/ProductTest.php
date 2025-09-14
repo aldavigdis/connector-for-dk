@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Tests\Export;
+namespace AldaVigdis\ConnectorForDK\Tests\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Product as ExportProduct;
+use AldaVigdis\ConnectorForDK\Export\Product as ExportProduct;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 use WC_Product;

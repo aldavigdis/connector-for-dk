@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

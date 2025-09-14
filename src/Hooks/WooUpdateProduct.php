@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Product as ExportProduct;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Export\Product as ExportProduct;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 
 use WP_Post;
 use WC_Product;

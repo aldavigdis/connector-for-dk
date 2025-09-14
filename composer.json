@@ -44,7 +44,7 @@
     },
     "extra": {
         "imposter": {
-            "namespace": "NineteenEightyFour\\NineteenEightyWoo"
+            "namespace": "AldaVigdis\\ConnectorForDK"
         }
     },
     "scripts": {

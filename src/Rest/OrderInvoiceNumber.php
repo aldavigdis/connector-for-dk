@@ -86,7 +86,7 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 						// Translators: %1$s is a placeholder for the invoice number that was manually entered.
 						__(
 							'Invoice number set to %1$s.',
-							'1984-dk-woo'
+							'connector-for-dk'
 						),
 						$rest_json->invoice_number
 					)
@@ -111,7 +111,7 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 					// Translators: %1$s is a placeholder for the invoice number that was manually entered.
 					__(
 						'Credit invoice number set to %1$s.',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					$rest_json->invoice_number
 				)

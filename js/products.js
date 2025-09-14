@@ -151,8 +151,8 @@ class NineteenEightyWooProducts {
 						);
 						const mediaPopover               = wp.media(
 							{
-								title: __( 'Select or upload image for this variation', '1984-dk-woo' ),
-								button: { text: __( 'Use', '1984-dk-woo' ) },
+								title: __( 'Select or upload image for this variation', 'connector-for-dk' ),
+								button: { text: __( 'Use', 'connector-for-dk' ) },
 								multiple: false,
 								library: {
 									type: 'image'

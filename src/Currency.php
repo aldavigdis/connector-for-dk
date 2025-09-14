@@ -154,7 +154,7 @@ class Currency {
 				// Translators: The %s stands for the currency code.
 				__(
 					'The currency code ‘%s’ is invalid.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				strtoupper( $currency_code )
 			)
@@ -175,7 +175,7 @@ class Currency {
 				// Translators: The %s stands for the currency code.
 				__(
 					'The currency rate for ‘%s’ has not been set.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				strtoupper( $currency_code )
 			)

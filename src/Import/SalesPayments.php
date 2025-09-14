@@ -70,21 +70,21 @@ class SalesPayments {
 	public static function get_payment_term_name( string $key ): string {
 		switch ( $key ) {
 			case 'D15':
-				return __( '15 Day Payment Deadline (D15)', '1984-dk-woo' );
+				return __( '15 Day Payment Deadline (D15)', 'connector-for-dk' );
 			case 'D20':
-				return __( '20 Day Payment Deadline (D20)', '1984-dk-woo' );
+				return __( '20 Day Payment Deadline (D20)', 'connector-for-dk' );
 			case 'D30':
-				return __( '30 Day Payment Deadline (D30)', '1984-dk-woo' );
+				return __( '30 Day Payment Deadline (D30)', 'connector-for-dk' );
 			case 'LM':
-				return __( 'Current Month (LM)', '1984-dk-woo' );
+				return __( 'Current Month (LM)', 'connector-for-dk' );
 			case 'M15':
-				return __( 'Current Month + 15 Days (M15)', '1984-dk-woo' );
+				return __( 'Current Month + 15 Days (M15)', 'connector-for-dk' );
 			case 'M20':
-				return __( 'Current Month + 20 Days (M20)', '1984-dk-woo' );
+				return __( 'Current Month + 20 Days (M20)', 'connector-for-dk' );
 			case 'POST':
-				return __( 'Postal COD (POST)', '1984-dk-woo' );
+				return __( 'Postal COD (POST)', 'connector-for-dk' );
 			case 'STGR':
-				return __( 'Cash Payment (STGR)', '1984-dk-woo' );
+				return __( 'Cash Payment (STGR)', 'connector-for-dk' );
 		}
 
 		return $key;
@@ -160,21 +160,21 @@ class SalesPayments {
 	public static function get_payment_mode_name( string $key ): string {
 		switch ( $key ) {
 			case 'ABG':
-				return __( 'A or B Giro Request (ABG)', '1984-dk-woo' );
+				return __( 'A or B Giro Request (ABG)', 'connector-for-dk' );
 			case 'BM':
-				return __( 'Bank Transfer (BM)', '1984-dk-woo' );
+				return __( 'Bank Transfer (BM)', 'connector-for-dk' );
 			case 'CG':
-				return __( 'C Giro Request (CG)', '1984-dk-woo' );
+				return __( 'C Giro Request (CG)', 'connector-for-dk' );
 			case 'GKR':
-				return __( 'Card Payment (GKR)', '1984-dk-woo' );
+				return __( 'Card Payment (GKR)', 'connector-for-dk' );
 			case 'GM':
-				return __( 'Giro Transfer (GM)', '1984-dk-woo' );
+				return __( 'Giro Transfer (GM)', 'connector-for-dk' );
 			case 'IB':
-				return __( 'Bank Collection Service (IB)', '1984-dk-woo' );
+				return __( 'Bank Collection Service (IB)', 'connector-for-dk' );
 			case 'STGR':
-				return __( 'Cash Payment (STGR)', '1984-dk-woo' );
+				return __( 'Cash Payment (STGR)', 'connector-for-dk' );
 			case 'TGR':
-				return __( 'Cheque Payment (TGR)', '1984-dk-woo' );
+				return __( 'Cheque Payment (TGR)', 'connector-for-dk' );
 		}
 
 		return $key;

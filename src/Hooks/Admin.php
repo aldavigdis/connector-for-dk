@@ -108,7 +108,7 @@ class Admin {
 	public static function plugin_list_notice(): string {
 		$text = __(
 			'Note: The Connector for DK is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
-			'1984-dk-woo'
+			'connector-for-dk'
 		);
 
 		return "<p>$text</p>";
@@ -139,7 +139,7 @@ class Admin {
 	 * Get the URL for the plugin settings page
 	 */
 	private static function settings_url(): string {
-		return get_admin_url( path: '?page=1984-dk-woo' );
+		return get_admin_url( path: '?page=connector-for-dk' );
 	}
 
 	/**
@@ -165,7 +165,7 @@ class Admin {
 	 */
 	private static function community_link(): string {
 		$url  = self::community_url();
-		$text = __( 'Community Support', '1984-dk-woo' );
+		$text = __( 'Community Support', 'connector-for-dk' );
 
 		return "<a href=\"$url\" target=\"_blank\">$text</a>";
 	}
@@ -176,7 +176,7 @@ class Admin {
 	public static function add_dk_invoice_metabox(): void {
 		add_meta_box(
 			'nineteen-eighty-woo-dk-invoice-metabox',
-			__( 'DK Invoice', '1984-dk-woo' ),
+			__( 'DK Invoice', 'connector-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'woocommerce_page_wc-orders',
 			context: 'side',
@@ -185,7 +185,7 @@ class Admin {
 
 		add_meta_box(
 			'nineteen-eighty-woo-dk-invoice-metabox',
-			__( 'DK Invoice', '1984-dk-woo' ),
+			__( 'DK Invoice', 'connector-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'shop_order',
 			context: 'side',
@@ -213,7 +213,7 @@ class Admin {
 		return array_merge(
 			$first,
 			array(
-				'dk_invoice_id' => esc_html__( 'DK Invoice', '1984-dk-woo' ),
+				'dk_invoice_id' => esc_html__( 'DK Invoice', 'connector-for-dk' ),
 			),
 			$last
 		);
@@ -268,7 +268,7 @@ class Admin {
 			if ( ! empty( $invoice_creation_error ) ) {
 				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
 				echo '<span class="invoice_error">';
-				esc_html_e( 'Error', '1984-dk-woo' );
+				esc_html_e( 'Error', 'connector-for-dk' );
 				echo '</span>';
 				return;
 			}
@@ -281,7 +281,7 @@ class Admin {
 	public static function load_textdomain(): void {
 		$plugin_path = dirname( dirname( plugin_basename( __FILE__ ) ) );
 		load_plugin_textdomain(
-			domain: '1984-dk-woo',
+			domain: 'connector-for-dk',
 			plugin_rel_path: $plugin_path . '/../languages'
 		);
 	}
@@ -292,10 +292,10 @@ class Admin {
 	public static function add_menu_page(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Connector for DK', '1984-dk-woo' ),
-			__( 'Connector for DK', '1984-dk-woo' ),
+			__( 'Connector for DK', 'connector-for-dk' ),
+			__( 'Connector for DK', 'connector-for-dk' ),
 			'manage_options',
-			'1984-dk-woo',
+			'connector-for-dk',
 			array( __CLASS__, 'render_admin_page' )
 		);
 	}
@@ -351,7 +351,7 @@ class Admin {
 
 		wp_set_script_translations(
 			'nineteen-eighty-woo-products',
-			'1984-dk-woo',
+			'connector-for-dk',
 			dirname( plugin_dir_path( __FILE__ ), 2 ) . '/languages'
 		);
 	}
@@ -377,7 +377,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'Please make sure that a product with the Product Code ‘%s’ exsists in DK before saving.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -389,7 +389,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'The Item Code ‘%s’ was found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -401,7 +401,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'The Item Code ‘%s’ was not found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -438,7 +438,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'Please make sure that a sales person with the number ‘%s’ exsists in DK before saving.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -450,7 +450,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -462,7 +462,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was not found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -497,7 +497,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'Please make sure that a customer record with the kennitala ‘%s’ exsists in DK before you continue.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( Config::get_default_kennitala() )
 			);
@@ -509,7 +509,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A customer record with the kennitala ‘%s’ was found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( Config::get_default_kennitala() )
 			);
@@ -521,7 +521,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A custmer record with the kennitala ‘%s’ was not found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( Config::get_default_kennitala() )
 			);

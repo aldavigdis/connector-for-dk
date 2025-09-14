@@ -256,7 +256,7 @@ class KennitalaField {
 		$first_bit = array_slice( $fields, 0, 2 );
 
 		$first_bit['kennitala'] = array(
-			'label' => __( 'Kennitala', '1984-dk-woo' ),
+			'label' => __( 'Kennitala', 'connector-for-dk' ),
 			'value' => $formatted_kennitala,
 		);
 
@@ -280,7 +280,7 @@ class KennitalaField {
 			array_slice( $fields['billing']['fields'], 0, 2 ),
 			array(
 				'kennitala' => array(
-					'label'       => __( 'Kennitala', '1984-dk-woo' ),
+					'label'       => __( 'Kennitala', 'connector-for-dk' ),
 					'description' => '',
 				),
 			),
@@ -442,7 +442,7 @@ class KennitalaField {
 			array(
 				'id'                => '1984_woo_dk_checkout_kennitala',
 				'type'              => 'text',
-				'label'             => __( 'Kennitala', '1984-dk-woo' ),
+				'label'             => __( 'Kennitala', 'connector-for-dk' ),
 				'custom_attributes' => array(
 					'pattern' => self::KENNITALA_PATTERN,
 				),
@@ -459,7 +459,7 @@ class KennitalaField {
 					'checked_value' => false,
 					'label'         => __(
 						'Request an Invoice with Kennitala',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 				),
 				1
@@ -586,11 +586,11 @@ class KennitalaField {
 				'id'                => '1984_woo_dk/kennitala',
 				'label'             => __(
 					'Kennitala',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				'optionalLabel'     => __(
 					'Kennitala (Optional)',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				'location'          => 'order',
 				'type'              => 'text',
@@ -609,11 +609,11 @@ class KennitalaField {
 					'id'            => '1984_woo_dk/kennitala_invoice_requested',
 					'label'         => __(
 						'Request an Invoice with Kennitala',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					'optionalLabel' => __(
 						'Request an Invoice with Kennitala (optional)',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					'location'      => 'order',
 					'type'          => 'checkbox',
@@ -655,7 +655,7 @@ class KennitalaField {
 				'invalid_kennitala',
 				__(
 					'Invalid kennitala. A kennitala is a string of 10 numeric characters.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 			);
 		}

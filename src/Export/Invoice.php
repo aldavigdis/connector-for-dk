@@ -185,7 +185,7 @@ class Invoice {
 
 		$subject = sprintf(
 			// Translators: The %1$s is a placeholder for the site's title.
-			__( 'Your Invoice From %1$s', '1984-dk-woo' ),
+			__( 'Your Invoice From %1$s', 'connector-for-dk' ),
 			get_bloginfo( 'name' )
 		);
 

@@ -205,7 +205,7 @@ class Order {
 
 				$order_props['Lines'][] = array(
 					'ItemCode'     => Config::get_cost_sku(),
-					'Text'         => __( 'Fee', '1984-dk-woo' ),
+					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Price'        => $fee_price_with_tax,
 					'IncludingVAT' => true,
@@ -222,7 +222,7 @@ class Order {
 
 			$order_props['Lines'][] = array(
 				'ItemCode'     => Config::get_shipping_sku(),
-				'Text'         => __( 'Shipping', '1984-dk-woo' ),
+				'Text'         => __( 'Shipping', 'connector-for-dk' ),
 				'Text2'        => $shipping_method->get_name(),
 				'Quantity'     => 1,
 				'Price'        => $shipping_total,

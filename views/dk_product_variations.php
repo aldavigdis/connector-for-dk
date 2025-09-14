@@ -32,7 +32,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 			echo esc_html(
 				__(
 					"DK's own ‘Product Variations’ feature is required to add or remove product variations that originate in DK.",
-					'1984-dk-woo'
+					'connector-for-dk'
 				)
 			);
 			?>
@@ -40,7 +40,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 	</div>
 
 	<div class="dk-variations-defaults">
-		<h3><?php echo esc_html( __( 'Default Attributes', '1984-dk-woo' ) ); ?></h3>
+		<h3><?php echo esc_html( __( 'Default Attributes', 'connector-for-dk' ) ); ?></h3>
 		<div class="dk-variation-default">
 			<?php foreach ( $wc_product->get_attributes( 'edit' ) as $key => $attribute ) : ?>
 			<label>
@@ -50,7 +50,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 				<select
 					name="dk_variable_defaults[<?php echo esc_attr( $key ); ?>]"
 				>
-					<option value=""><?php echo esc_html( __( '(None)', '1984-dk-woo' ) ); ?></option>
+					<option value=""><?php echo esc_html( __( '(None)', 'connector-for-dk' ) ); ?></option>
 					<?php foreach ( $attribute->get_options() as $option ) : ?>
 					<option
 						value="<?php echo esc_attr( $option ); ?>"
@@ -79,7 +79,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 					echo esc_html(
 						sprintf(
 							// Translators: The %d is the variation ID.
-							__( 'Variation #%d', '1984-dk-woo' ),
+							__( 'Variation #%d', 'connector-for-dk' ),
 							$variation_id
 						)
 					);
@@ -89,7 +89,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 				<div class="dk-variation-image">
 					<button
 						class="add-thumbnail-button"
-						title="<?php echo esc_html( __( 'Replace Image', '1984-dk-woo' ) ); ?>"
+						title="<?php echo esc_html( __( 'Replace Image', 'connector-for-dk' ) ); ?>"
 						data-variation-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
 					>
 						<img
@@ -103,7 +103,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 						data-remove-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
 						<?php disabled( empty( $variation->get_image_id( 'edit' ) ) ); ?>
 					>
-						<?php echo esc_html( __( 'Remove Image', '1984-dk-woo' ) ); ?>
+						<?php echo esc_html( __( 'Remove Image', 'connector-for-dk' ) ); ?>
 					</button>
 					<input
 						type="hidden"
@@ -133,7 +133,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( ProductHelper::variation_price_override( $variation ) ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Override price for this product variation', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Override price for this product variation', 'connector-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -148,7 +148,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 										echo esc_html(
 											sprintf(
 												// Translators: The %s is the currency symbol for WooCommerce.
-												__( 'Price (%s)', '1984-dk-woo' ),
+												__( 'Price (%s)', 'connector-for-dk' ),
 												get_woocommerce_currency_symbol()
 											)
 										);
@@ -170,7 +170,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 										echo esc_html(
 											sprintf(
 												// Translators: The %s is the currency symbol for WooCommerce.
-												__( 'Sale Price (%s)', '1984-dk-woo' ),
+												__( 'Sale Price (%s)', 'connector-for-dk' ),
 												get_woocommerce_currency_symbol()
 											)
 										);
@@ -190,7 +190,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<span>
 										<?php
 										echo esc_html(
-											__( 'On sale from', '1984-dk-woo' ),
+											__( 'On sale from', 'connector-for-dk' ),
 										);
 										?>
 									</span>
@@ -207,7 +207,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<span>
 										<?php
 										echo esc_html(
-											__( 'On sale to', '1984-dk-woo' ),
+											__( 'On sale to', 'connector-for-dk' ),
 										);
 										?>
 									</span>
@@ -232,7 +232,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( ProductHelper::variation_inventory_override( $variation ) ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Override inventory', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Override inventory', 'connector-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -250,7 +250,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 										<?php checked( ProductHelper::variation_inventory_track_in_wc( $variation ) ); ?>
 									/>
 									<span>
-										<?php echo esc_html( __( 'Set stock quantity', '1984-dk-woo' ) ); ?>
+										<?php echo esc_html( __( 'Set stock quantity', 'connector-for-dk' ) ); ?>
 									</span>
 								</label>
 							</div>
@@ -260,7 +260,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 								<div class="dk-variation-field">
 									<label>
 										<span>
-											<?php echo esc_html( __( 'Quantity', '1984-dk-woo' ) ); ?>
+											<?php echo esc_html( __( 'Quantity', 'connector-for-dk' ) ); ?>
 										</span>
 										<input
 											type="number"
@@ -272,7 +272,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 								</div>
 								<fieldset>
 									<legend>
-										<?php echo esc_html( __( 'Backorders', '1984-dk-woo' ) ); ?>
+										<?php echo esc_html( __( 'Backorders', 'connector-for-dk' ) ); ?>
 									</legend>
 									<div class="dk-variation-subcheckbox">
 										<label>
@@ -284,7 +284,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
 											/>
 											<span>
-												<?php echo esc_html( __( 'Do not allow backorders', '1984-dk-woo' ) ); ?>
+												<?php echo esc_html( __( 'Do not allow backorders', 'connector-for-dk' ) ); ?>
 											</span>
 										</label>
 									</div>
@@ -298,7 +298,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
 											/>
 											<span>
-												<?php echo esc_html( __( 'Allow backorders, but notify customer', '1984-dk-woo' ) ); ?>
+												<?php echo esc_html( __( 'Allow backorders, but notify customer', 'connector-for-dk' ) ); ?>
 											</span>
 										</label>
 									</div>
@@ -312,7 +312,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
 											/>
 											<span>
-												<?php echo esc_html( __( 'Allow backorders', '1984-dk-woo' ) ); ?>
+												<?php echo esc_html( __( 'Allow backorders', 'connector-for-dk' ) ); ?>
 											</span>
 										</label>
 									</div>
@@ -324,7 +324,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 					<div class="dk-variation-textarea">
 						<label>
 							<span>
-								<?php echo esc_html( __( 'Description', '1984-dk-woo' ) ); ?>
+								<?php echo esc_html( __( 'Description', 'connector-for-dk' ) ); ?>
 							</span>
 							<textarea
 								name="dk_variable_description[<?php echo esc_attr( $variation_id ); ?>]"
@@ -342,7 +342,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( in_array( $variation->get_status( 'edit' ), array( 'publish', false ), true ), true ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Enabled', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Enabled', 'connector-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -355,7 +355,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( $variation->get_downloadable( 'edit' ), true ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Downloadable', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Downloadable', 'connector-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -368,7 +368,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 									<?php checked( $variation->get_virtual( 'edit' ), true ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Virtual', '1984-dk-woo' ) ); ?>
+									<?php echo esc_html( __( 'Virtual', 'connector-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -376,7 +376,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 					<div class="dk-variation-textinput">
 						<label>
 							<span>
-								<?php echo esc_attr( __( 'Menu Order', '1984-dk-woo' ) ); ?>
+								<?php echo esc_attr( __( 'Menu Order', 'connector-for-dk' ) ); ?>
 							</span>
 							<input
 								class="tiny"

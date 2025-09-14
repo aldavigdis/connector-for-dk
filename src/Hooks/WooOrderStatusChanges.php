@@ -77,7 +77,7 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'An invoice was not created as the customer entered a kennitala. The invoice needs to be created manually.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				)
 			);
 
@@ -91,7 +91,7 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'An invoice was not created as the customer did not enter a kennitala. The invoice needs to be created manually.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				)
 			);
 
@@ -102,7 +102,7 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in DK for this order as a line item in this order does not have a SKU.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				)
 			);
 
@@ -117,7 +117,7 @@ class WooOrderStatusChanges {
 					// Translators: %1$s is a placeholder for the invoice number generated in DK.
 					__(
 						'An invoice for this order has been created in DK. The invoice number is %1$s.',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					$invoice_number
 				)
@@ -128,14 +128,14 @@ class WooOrderStatusChanges {
 					$wc_order->add_order_note(
 						__(
 							'An email containing the invoice as a PDF attachment was sent to the customer.',
-							'1984-dk-woo'
+							'connector-for-dk'
 						)
 					);
 				} else {
 					$wc_order->add_order_note(
 						__(
 							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-							'1984-dk-woo'
+							'connector-for-dk'
 						)
 					);
 				}
@@ -156,7 +156,7 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'Unable to create an invoice in DK: ',
-					'1984-dk-woo'
+					'connector-for-dk'
 				) . $invoice_number->get_error_code()
 			);
 			$wc_order->save();
@@ -164,7 +164,7 @@ class WooOrderStatusChanges {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in DK due to an unhandled error.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				)
 			);
 		}

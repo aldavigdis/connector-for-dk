@@ -13,7 +13,7 @@ class NineteenEightyWooOrder {
 
 	static creditInvoiceInput() {
 		return document.getElementById(
-			'1984-dk-woo-dk-invoice-metabox-credit-invoice-number-input'
+			'connector-for-dk-dk-invoice-metabox-credit-invoice-number-input'
 		);
 	}
 

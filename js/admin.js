@@ -20,8 +20,6 @@ class ConnectorForDK {
 	static onSettingsFormSubmit(event) {
 		event.preventDefault();
 
-		console.log(event.target);
-
 		ConnectorForDK.settingsLoader().classList.remove( 'hidden' );
 		ConnectorForDK.settingsSubmit().disabled = true;
 

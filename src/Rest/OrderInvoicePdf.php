@@ -14,7 +14,7 @@ use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
  * The Order Invoice PDF REST API endpoint
  */
 class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
-	const NAMESPACE = 'NineteenEightyWoo/v1';
+	const NAMESPACE = 'ConnectorForDK/v1';
 	const PATH      = '/order_invoice_pdf/(?P<invoice_number>[\d]+)';
 
 	/**

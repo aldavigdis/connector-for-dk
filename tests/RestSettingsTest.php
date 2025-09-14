@@ -74,11 +74,11 @@ final class RestSettingstest extends TestCase {
 		wp_delete_user( $this->admin_user );
 	}
 
-	#[TestDox( 'creates the NineteenEightyWoo/v1 namespace in the WP REST API' )]
+	#[TestDox( 'creates the ConnectorForDK/v1 namespace in the WP REST API' )]
 	public function testNamespaceExsists(): void {
 		$request  = new WP_REST_Request(
 			'GET',
-			'/NineteenEightyWoo/v1'
+			'/ConnectorForDK/v1'
 		);
 		$response = rest_do_request( $request );
 
@@ -90,7 +90,7 @@ final class RestSettingstest extends TestCase {
 		// We're assuming an external request here, so we're not using a nonce value.
 		$request  = new WP_REST_Request(
 			'POST',
-			'/NineteenEightyWoo/v1/settings'
+			'/ConnectorForDK/v1/settings'
 		);
 		$response = rest_do_request( $request );
 
@@ -106,7 +106,7 @@ final class RestSettingstest extends TestCase {
 		wp_set_current_user( $this->admin_user_id );
 		$request = new WP_REST_Request(
 			'POST',
-			'/NineteenEightyWoo/v1/settings'
+			'/ConnectorForDK/v1/settings'
 		);
 
 		$request->add_header( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );

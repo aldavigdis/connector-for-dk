@@ -1,6 +1,6 @@
 const { __, _x, _n, _nx } = wp.i18n;
 
-class NineteenEightyWooProducts {
+class ConnectorForDKProducts {
 	static assignClickToDKPriceCheckboxes() {
 		const checkboxes = document.querySelectorAll(
 			'[data-variation-price-checkbox-for]'
@@ -222,10 +222,10 @@ class NineteenEightyWooProducts {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		NineteenEightyWooProducts.assignClickToDKPriceCheckboxes();
-		NineteenEightyWooProducts.assignClickToDKInventoryCheckboxes();
-		NineteenEightyWooProducts.assignClickToDKQuantityCheckboxes();
-		NineteenEightyWooProducts.assignClickToDKThumbnailImages();
-		NineteenEightyWooProducts.assignClickToDKThumbnailRemoveButton();
+		ConnectorForDKProducts.assignClickToDKPriceCheckboxes();
+		ConnectorForDKProducts.assignClickToDKInventoryCheckboxes();
+		ConnectorForDKProducts.assignClickToDKQuantityCheckboxes();
+		ConnectorForDKProducts.assignClickToDKThumbnailImages();
+		ConnectorForDKProducts.assignClickToDKThumbnailRemoveButton();
 	}
 );

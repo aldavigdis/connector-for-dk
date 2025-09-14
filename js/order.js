@@ -1,4 +1,4 @@
-class NineteenEightyWooOrder {
+class ConnectorForDKOrder {
 	static invoiceMetaBox() {
 		return document.getElementById(
 			'connector-for-dk-invoice-metabox'
@@ -138,7 +138,7 @@ class NineteenEightyWooOrder {
 		this.resetMessages();
 		this.invoiceLoader().classList.remove( 'hidden' );
 
-		const invoiceID = NineteenEightyWooOrder.formData().get(
+		const invoiceID = ConnectorForDKOrder.formData().get(
 			'1984_woo_dk_invoice_number'
 		);
 
@@ -148,7 +148,7 @@ class NineteenEightyWooOrder {
 	static getPdfCreditInvoiceButtonClickAction() {
 		this.creditInvoiceLoader().classList.remove( 'hidden' );
 
-		const creditInvoiceID = NineteenEightyWooOrder.formData().get(
+		const creditInvoiceID = ConnectorForDKOrder.formData().get(
 			'1984_woo_dk_credit_invoice_number'
 		);
 
@@ -162,7 +162,7 @@ class NineteenEightyWooOrder {
 
 	static async getInvoicePdf( invoiceID ) {
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_pdf/' + invoiceID,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + invoiceID,
 			{
 				method: 'GET',
 				headers: {
@@ -192,7 +192,7 @@ class NineteenEightyWooOrder {
 
 	static async getCreditInvoicePdf( invoiceID ) {
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_pdf/' + invoiceID,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + invoiceID,
 			{
 				method: 'GET',
 				headers: {
@@ -224,7 +224,7 @@ class NineteenEightyWooOrder {
 		};
 
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_number',
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_number',
 			{
 				method: 'POST',
 				headers: {
@@ -332,7 +332,7 @@ class NineteenEightyWooOrder {
 
 	static async requestNewDkInvoice( orderId ) {
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_dk_invoice/' + orderId,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_dk_invoice/' + orderId,
 			{
 				method: 'POST',
 				headers: {
@@ -378,58 +378,58 @@ class NineteenEightyWooOrder {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		if ( NineteenEightyWooOrder.invoiceMetaBox() ) {
-			NineteenEightyWooOrder.updateInvoiceButton().addEventListener(
+		if ( ConnectorForDKOrder.invoiceMetaBox() ) {
+			ConnectorForDKOrder.updateInvoiceButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.updateInvoiceButtonClickEvent( e );
+					ConnectorForDKOrder.updateInvoiceButtonClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.updateCreditInvoiceButton().addEventListener(
+			ConnectorForDKOrder.updateCreditInvoiceButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.updateCreditInvoiceButtonClickEvent( e );
+					ConnectorForDKOrder.updateCreditInvoiceButtonClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.getPdfButton().addEventListener(
+			ConnectorForDKOrder.getPdfButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.getPdfClickEvent( e );
+					ConnectorForDKOrder.getPdfClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.getCreditPdfButton().addEventListener(
+			ConnectorForDKOrder.getCreditPdfButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.getCreditPdfClickEvent( e );
+					ConnectorForDKOrder.getCreditPdfClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.invoiceNumberInput().addEventListener(
+			ConnectorForDKOrder.invoiceNumberInput().addEventListener(
 				'input',
 				( e ) => {
-					NineteenEightyWooOrder.disableUpdateInvoiceFieldIfInvalid();
+					ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
 				}
 			);
 
-			NineteenEightyWooOrder.disableUpdateInvoiceFieldIfInvalid();
+			ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
 
-			NineteenEightyWooOrder.creditInvoiceInput().addEventListener(
+			ConnectorForDKOrder.creditInvoiceInput().addEventListener(
 				'input',
 				( e ) => {
-					NineteenEightyWooOrder.disableUpdateCreditInvoiceFieldIfInvalid();
+					ConnectorForDKOrder.disableUpdateCreditInvoiceFieldIfInvalid();
 				}
 			);
 
-			NineteenEightyWooOrder.disableUpdateCreditInvoiceFieldIfInvalid();
+			ConnectorForDKOrder.disableUpdateCreditInvoiceFieldIfInvalid();
 
-			if ( NineteenEightyWooOrder.createDkInvoiceButton() ) {
-				NineteenEightyWooOrder.createDkInvoiceButton().addEventListener(
+			if ( ConnectorForDKOrder.createDkInvoiceButton() ) {
+				ConnectorForDKOrder.createDkInvoiceButton().addEventListener(
 					'click',
 					( e ) => {
-						NineteenEightyWooOrder.createDkInvoiceClickAction();
+						ConnectorForDKOrder.createDkInvoiceClickAction();
 					}
 				);
 			}

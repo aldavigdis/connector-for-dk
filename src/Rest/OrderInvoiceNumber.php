@@ -16,7 +16,7 @@ use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
  * The Order Invoice Number REST API class
  */
 class OrderInvoiceNumber implements PostEndpointTemplate {
-	const NAMESPACE = 'NineteenEightyWoo/v1';
+	const NAMESPACE = 'ConnectorForDK/v1';
 	const PATH      = '/order_invoice_number/';
 	const SCHEMA    = 'rest/order_invoice_number.json';
 

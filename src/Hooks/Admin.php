@@ -12,7 +12,7 @@ use stdClass;
 use WC_Order;
 
 /**
- * The NineteenEightyWoo Admin class
+ * The ConnectorForDK Admin class
  *
  * Handles the wp-admin related functionality for the plugin; loads views,
  * enqueues scripts and stylesheets etc.

@@ -19,7 +19,7 @@ use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
  * order in DK.
  */
 class OrderDKInvoice implements EmptyBodyEndpointTemplate {
-	const NAMESPACE = 'NineteenEightyWoo/v1';
+	const NAMESPACE = 'ConnectorForDK/v1';
 	const PATH      = '/order_dk_invoice/(?P<order_id>[\d]+)';
 
 	/**

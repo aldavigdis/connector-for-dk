@@ -171,7 +171,7 @@ class WooMetaboxes {
 	}
 
 	/**
-	 * Save the NineteenEightyWoo related meta tags for a product using superglobals
+	 * Save the ConnectorForDK related meta tags for a product using superglobals
 	 *
 	 * Fired during the `save_post_product` hook.
 	 *

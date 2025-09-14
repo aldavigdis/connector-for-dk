@@ -8,22 +8,22 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Currency;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
-use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 
 /**
  * The REST API Settings endpoint class
  *
- * Handles the `NineteenEightyWoo/v1/settings/` REST endpoint.
+ * Handles the `ConnectorForDK/v1/settings/` REST endpoint.
  */
 class Settings {
 	/**
 	 * The Constructor for the Settings REST endpoint
 	 *
-	 * Registers the NineteenEightyWoo/v1/settings/ endpoint, that receives
+	 * Registers the ConnectorForDK/v1/settings/ endpoint, that receives
 	 * requests from the admin interface.
 	 */
 	public function __construct() {
@@ -37,7 +37,7 @@ class Settings {
 	 */
 	public static function register_route(): bool {
 		return register_rest_route(
-			'NineteenEightyWoo/v1',
+			'ConnectorForDK/v1',
 			'/settings/',
 			array(
 				'methods'             => 'POST',

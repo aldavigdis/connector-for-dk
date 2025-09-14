@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		novalidate
 	>
 		<h1 class="wp-heading-inline">
-			<?php esc_html_e( '1984 Connector for DK and WooCommerce', '1984-dk-woo' ); ?>
+			<?php esc_html_e( 'Connector for DK', 'connector-for-dk' ); ?>
 		</h1>
 		<section class="section">
 			<h2><?php esc_html_e( 'Authentication', '1984-dk-woo' ); ?></h2>
@@ -731,14 +731,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p>
 			<?php
 			esc_html_e(
-				'The 1984 Connector for DK and WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+				'The Connector for DK WordPress plugin is developed, maintained and supported on goodwill basis by Alda Vigdis as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 Hosting',
 				'1984-dk-woo'
 			);
 			?>
 		</p>
-		<img
-			alt="<?php esc_attr_e( 'Ninteen-Eighty-Four', '1984-dk-woo' ); ?>"
-			src="<?php echo esc_attr( Admin::logo_url() ); ?>"
-		/>
 	</div>
 </div>

@@ -107,7 +107,7 @@ class Admin {
 	 */
 	public static function plugin_list_notice(): string {
 		$text = __(
-			'Note: The 1984 Connector for DK and WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+			'Note: The Connector for DK is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
 			'1984-dk-woo'
 		);
 
@@ -353,22 +353,6 @@ class Admin {
 			'nineteen-eighty-woo-products',
 			'1984-dk-woo',
 			dirname( plugin_dir_path( __FILE__ ), 2 ) . '/languages'
-		);
-	}
-
-	/**
-	 * The url for the 1984 logo
-	 *
-	 * @param string $asset_version The asset version to use, to invalidate cache on update.
-	 *
-	 * @return string The full URL for the SVG version of the 1984 logo.
-	 */
-	public static function logo_url(
-		string $asset_version = self::ASSET_VERSION
-	): string {
-		return plugins_url(
-			'style/1984-logo-semitrans.svg?v=' . $asset_version,
-			dirname( __DIR__ )
 		);
 	}
 

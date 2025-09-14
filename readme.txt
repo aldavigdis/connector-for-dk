@@ -1,10 +1,10 @@
-=== 1984 Connector for DK and WooCommerce ===
+=== Connector for DK and WooCommerce ===
 Stable tag: 0.4.6
-Contributors: @1984cto, @aldavigdis
-Tags: DK, dkPlus, Accounting, Inventory, Invoicing
-Requires at least: 6.2.6
-Tested up to: 6.6
-Requires PHP: 8.1
+Contributors: @aldavigdis
+Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
+Requires at least: 6.7.3
+Tested up to: 6.8.2
+Requires PHP: 8.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,7 +22,7 @@ You will need to finish setting up your WooCommerce shop, including tax rates, p
 
 In order to get started, you need to set up an account with DK's dkPlus web service:
 
-Enter your API key in the form provided for a user with sufficient privileges under *WooCommerce 🠆 Connector for DK*, correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account and make sure that other settings are in accordance with how they are set up in DK.
+Enter your dkPlus API key in the form provided for a user with sufficient privileges under *WooCommerce 🠆 Connector for DK*, correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account and make sure that other settings are in accordance with how they are set up in DK.
 
 Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce, as long as the correct inventory codes are set and a correct SKU is set for each item.
 
@@ -70,4 +70,5 @@ Yes. There are still issues with the kennitala field
 
 This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per [their own General Terms and Conditions](https://dk.kreatives.is/wp-content/uploads/2024/08/General_Terms_and_Conditions_1_2024.pdf) (PDF) and [Privacy Policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanarenglish) (PDF).
 
-This plugin is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf. 1984's own Terms of Service can be found at [https://1984.hosting/tos/](https://1984.hosting/tos/).
+This plugin is developed, maintained and supported on goodwill basis by the original developer, without any warranty or guarantees as per the GPL license. As it connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changed. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.
+

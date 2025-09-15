@@ -16,14 +16,14 @@ use stdClass;
 class Config {
 	const DK_API_KEY_REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$';
 
-	const DEFAULT_CUSTOMER_NUMBER_PREFIX = 'WCC';
-	const DEFAULT_PRODUCT_NUMBER_PREFIX  = 'WCP';
-	const DEFAULT_INVOICE_NUMBER_PREFIX  = 'WCI';
+	const PREFIX     = 'connector_for_dk_';
+	const OLD_PREFIX = '1984_woo_dk_';
 
 	const DEFAULT_SHIPPING_SKU = 'shipping';
 	const DEFAULT_COUPON_SKU   = 'coupon';
 	const DEFAULT_COST_SKU     = 'cost';
 	const DEFAULT_SALES_PERSON = 'websales';
+	const DEFAULT_KENNITALA    = '0000000000';
 
 	const DEFAULT_LEDGER_CODE_STANDARD_SALE     = 's002';
 	const DEFAULT_LEDGER_CODE_STANDARD_PURCHASE = 'i001';
@@ -32,6 +32,44 @@ class Config {
 
 	const DEFAULT_LEDGER_CODE_DOMESTIC_CUSTOMERS      = '0001';
 	const DEFAULT_LEDGER_CODE_INTERNATIONAL_CUSTOMERS = '0002';
+
+	/**
+	 * Get a configuration option
+	 *
+	 * @param string                               $option the option to fetch.
+	 * @param string|int|float|array|stdClass|bool $default The default value.
+	 */
+	public static function get_option(
+		string $option,
+		string|int|float|array|stdClass|bool $default = false
+	): string|int|float|array|stdClass|bool {
+		$old_option = get_option( self::OLD_PREFIX . $option );
+
+		if ( $old_option ) {
+			return $old_option;
+		}
+
+		return get_option( self::PREFIX . $option, $default );
+	}
+
+	/**
+	 * Update a configuration value
+	 *
+	 * @param string                               $option The option to fetch.
+	 * @param string|int|float|array|stdClass|bool $value The value to set.
+	 */
+	public static function update_option(
+		string $option,
+		string|int|float|array|stdClass|bool $value
+	): bool {
+		delete_option( self::OLD_PREFIX . $option );
+
+		if ( is_bool( $value ) ) {
+			return update_option( self::PREFIX . $option, intval( $value ) );
+		}
+
+		return update_option( self::PREFIX . $option, $value );
+	}
 
 	/**
 	 * Get the DK API key
@@ -51,7 +89,7 @@ class Config {
 			return getenv( 'DK_API_KEY' );
 		}
 
-		return get_option( '1984_woo_dk_api_key' );
+		return self::get_option( 'api_key' );
 	}
 
 	/**
@@ -66,7 +104,7 @@ class Config {
 		if ( preg_match( '/' . self::DK_API_KEY_REGEX . '/', $value ) === 0 ) {
 			return false;
 		}
-		return update_option( '1984_woo_dk_api_key', $value );
+		return self::update_option( 'api_key', $value );
 	}
 
 	/**
@@ -91,8 +129,8 @@ class Config {
 			return false;
 		}
 
-		return update_option(
-			'1984_woo_dk_payment_method_' . $woo_id,
+		return self::update_option(
+			'payment_method_' . $woo_id,
 			(object) array(
 				'woo_id'  => $woo_id,
 				'dk_id'   => $dk_payment_method->dk_id,
@@ -129,10 +167,7 @@ class Config {
 			$default = false;
 		}
 
-		return get_option(
-			'1984_woo_dk_payment_method_' . $woo_id,
-			$default
-		);
+		return self::get_option( 'payment_method_' . $woo_id, $default );
 	}
 
 	/**
@@ -211,8 +246,8 @@ class Config {
 	 * Get the shipping SKU
 	 */
 	public static function get_shipping_sku(): string {
-		return (string) get_option(
-			'1984_woo_dk_shipping_sku',
+		return (string) self::get_option(
+			'shipping_sku',
 			self::DEFAULT_SHIPPING_SKU
 		);
 	}
@@ -223,17 +258,14 @@ class Config {
 	 * @param string $sku The SKU.
 	 */
 	public static function set_shipping_sku( string $sku ): bool {
-		return update_option( '1984_woo_dk_shipping_sku', $sku );
+		return self::update_option( 'shipping_sku', $sku );
 	}
 
 	/**
 	 * Get the cost SKU
 	 */
 	public static function get_cost_sku(): string {
-		return (string) get_option(
-			'1984_woo_dk_cost_sku',
-			self::DEFAULT_COST_SKU
-		);
+		return (string) self::get_option( 'cost_sku', self::DEFAULT_COST_SKU );
 	}
 
 	/**
@@ -245,7 +277,7 @@ class Config {
 	 * @param string $sku The cost SKU.
 	 */
 	public static function set_cost_sku( string $sku ): bool {
-		return update_option( '1984_woo_dk_cost_sku', $sku );
+		return self::update_option( 'cost_sku', $sku );
 	}
 
 	/**
@@ -255,9 +287,9 @@ class Config {
 	 * kennitala. (Yes, DK is silly like this.)
 	 */
 	public static function get_default_kennitala(): string {
-		return (string) get_option(
-			'1984_woo_dk_default_kennitala',
-			'0000000000'
+		return (string) self::get_option(
+			'default_kennitala',
+			self::DEFAULT_KENNITALA
 		);
 	}
 
@@ -267,8 +299,8 @@ class Config {
 	 * @param string $kennitala The kennitala (may be unsanitized).
 	 */
 	public static function set_default_kennitala( string $kennitala ): bool {
-		return update_option(
-			'1984_woo_dk_default_kennitala',
+		return self::update_option(
+			'default_kennitala',
 			KennitalaField::sanitize_kennitala( $kennitala )
 		);
 	}
@@ -278,8 +310,8 @@ class Config {
 	 * classic, shortcode based checkout page
 	 */
 	public static function get_kennitala_classic_field_enabled(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_kennitala_classic_field_enabled',
+		return (bool) self::get_option(
+			'kennitala_classic_field_enabled',
 			true
 		);
 	}
@@ -293,8 +325,8 @@ class Config {
 	public static function set_kennitala_classic_field_enabled(
 		bool $enabled
 	): bool {
-		return update_option(
-			'1984_woo_dk_kennitala_classic_field_enabled',
+		return self::update_option(
+			'kennitala_classic_field_enabled',
 			$enabled
 		);
 	}
@@ -304,8 +336,8 @@ class Config {
 	 * checkout page
 	 */
 	public static function get_kennitala_block_field_enabled(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_kennitala_block_field_enabled',
+		return (bool) self::get_option(
+			'kennitala_block_field_enabled',
 			false
 		);
 	}
@@ -319,8 +351,8 @@ class Config {
 	public static function set_kennitala_block_field_enabled(
 		bool $enabled
 	): bool {
-		return update_option(
-			'1984_woo_dk_kennitala_block_field_enabled',
+		return self::update_option(
+			'kennitala_block_field_enabled',
 			$enabled
 		);
 	}
@@ -329,8 +361,8 @@ class Config {
 	 * Get the default sales person number
 	 */
 	public static function get_default_sales_person_number(): string {
-		return (string) get_option(
-			'1984_woo_dk_default_sales_person_number',
+		return (string) self::get_option(
+			'default_sales_person_number',
 			self::DEFAULT_SALES_PERSON
 		);
 	}
@@ -343,8 +375,8 @@ class Config {
 	public static function set_default_sales_person_number(
 		string $sales_person_number
 	): bool {
-		return update_option(
-			'1984_woo_dk_default_sales_person_number',
+		return self::update_option(
+			'default_sales_person_number',
 			$sales_person_number
 		);
 	}
@@ -379,8 +411,8 @@ class Config {
 				break;
 		}
 
-		return (string) get_option(
-			'1984_woo_dk_ledger_code_' . $key,
+		return (string) self::get_option(
+			'ledger_code_' . $key,
 			$default_value
 		);
 	}
@@ -399,7 +431,7 @@ class Config {
 		string $key = 'standard',
 		string $value = 's002'
 	): bool {
-		return update_option( '1984_woo_dk_ledger_code_' . $key, $value );
+		return self::update_option( 'ledger_code_' . $key, $value );
 	}
 
 	/**
@@ -408,7 +440,7 @@ class Config {
 	 * @return bool True if enabled, false if disabled.
 	 */
 	public static function get_product_price_sync(): bool {
-		return (bool) get_option( '1984_woo_dk_product_price_sync', true );
+		return (bool) self::get_option( 'product_price_sync', true );
 	}
 
 	/**
@@ -418,9 +450,9 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_price_sync( bool $value ): bool {
-		return update_option(
-			'1984_woo_dk_product_price_sync',
-			(int) $value
+		return self::update_option(
+			'product_price_sync',
+			$value
 		);
 	}
 
@@ -430,7 +462,7 @@ class Config {
 	 * @return bool True if enabled, false if disabled.
 	 */
 	public static function get_product_quantity_sync(): bool {
-		return (bool) get_option( '1984_woo_dk_product_quantity_sync', true );
+		return (bool) self::get_option( 'product_quantity_sync', true );
 	}
 
 	/**
@@ -440,10 +472,7 @@ class Config {
 	 *                    false to disable.
 	 */
 	public static function set_product_quantity_sync( bool $value ): bool {
-		return update_option(
-			'1984_woo_dk_product_quantity_sync',
-			(int) $value
-		);
+		return self::update_option( 'product_quantity_sync', $value );
 	}
 
 	/**
@@ -452,7 +481,7 @@ class Config {
 	 * @return bool True if enabled, false if disabled.
 	 */
 	public static function get_product_name_sync(): bool {
-		return (bool) get_option( '1984_woo_dk_product_name_sync', true );
+		return (bool) self::get_option( 'product_name_sync', false );
 	}
 
 	/**
@@ -461,10 +490,7 @@ class Config {
 	 * @param bool $value True to enable product name sync, false to disable it.
 	 */
 	public static function set_product_name_sync( bool $value ): bool {
-		return (bool) update_option(
-			'1984_woo_dk_product_name_sync',
-			(int) $value
-		);
+		return (bool) self::update_option( 'product_name_sync', $value );
 	}
 
 	/**
@@ -473,10 +499,7 @@ class Config {
 	 * @return bool True if enabled, false if disabled.
 	 */
 	public static function get_email_invoice(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_email_invoice',
-			true
-		);
+		return (bool) self::get_option( 'email_invoice', true );
 	}
 
 	/**
@@ -485,18 +508,15 @@ class Config {
 	 * @param bool $value True to enable invoice emailing, false to disable it.
 	 */
 	public static function set_email_invoice( bool $value ): bool {
-		return update_option(
-			'1984_woo_dk_email_invoice',
-			(int) $value
-		);
+		return self::update_option( 'email_invoice', $value );
 	}
 
 	/**
 	 * Get wether customers should request to have an invoice with a kennitala
 	 */
 	public static function get_customer_requests_kennitala_invoice(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_customer_requests_kennitala_invoice',
+		return (bool) self::get_option(
+			'customer_requests_kennitala_invoice',
 			false
 		);
 	}
@@ -510,9 +530,9 @@ class Config {
 	public static function set_customer_requests_kennitala_invoice(
 		bool $value
 	): bool {
-		return update_option(
-			'1984_woo_dk_customer_requests_kennitala_invoice',
-			(int) $value
+		return self::update_option(
+			'customer_requests_kennitala_invoice',
+			$value
 		);
 	}
 
@@ -520,8 +540,8 @@ class Config {
 	 * Get wether invoices should be made automatically if a kennitala is set for the order
 	 */
 	public static function get_make_invoice_if_kennitala_is_set(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_make_invoice_if_kennitala_is_set',
+		return (bool) self::get_option(
+			'make_invoice_if_kennitala_is_set',
 			true
 		);
 	}
@@ -535,9 +555,9 @@ class Config {
 	public static function set_make_invoice_if_kennitala_is_set(
 		bool $value
 	): bool {
-		return (bool) update_option(
-			'1984_woo_dk_make_invoice_if_kennitala_is_set',
-			(int) $value
+		return (bool) self::update_option(
+			'make_invoice_if_kennitala_is_set',
+			$value
 		);
 	}
 
@@ -545,8 +565,8 @@ class Config {
 	 * Get wether an invoice should be made automatically for an orhder if a kennitala is missing
 	 */
 	public static function get_make_invoice_if_kennitala_is_missing(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
+		return (bool) self::get_option(
+			'make_invoice_if_kennitala_is_missing',
 			true
 		);
 	}
@@ -560,9 +580,9 @@ class Config {
 	public static function set_make_invoice_if_kennitala_is_missing(
 		bool $value
 	): bool {
-		return (bool) update_option(
-			'1984_woo_dk_make_invoice_if_kennitala_is_missing',
-			(int) $value
+		return (bool) self::update_option(
+			'ake_invoice_if_kennitala_is_missing',
+			$value
 		);
 	}
 
@@ -575,10 +595,7 @@ class Config {
 	 * @return string The currency code.
 	 */
 	public static function get_dk_currency(): string {
-		return (string) get_option(
-			'1984_woo_dk_dk_currency',
-			'ISK'
-		);
+		return (string) self::get_option( 'dk_currency', 'ISK' );
 	}
 
 	/**
@@ -587,20 +604,14 @@ class Config {
 	 * @param string $currency The currency code.
 	 */
 	public static function set_dk_currency( string $currency ): bool {
-		return update_option(
-			'1984_woo_dk_dk_currency',
-			$currency
-		);
+		return self::update_option( 'dk_currency', $currency );
 	}
 
 	/**
 	 * Get wether products that are not for online store should be imported as drafts
 	 */
 	public static function get_import_nonweb_products(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_import_nonweb_products',
-			true
-		);
+		return (bool) self::get_option( 'import_nonweb_products', false );
 	}
 
 	/**
@@ -610,20 +621,14 @@ class Config {
 	 *                    disalbe it.
 	 */
 	public static function set_import_nonweb_products( bool $value ): bool {
-		return update_option(
-			'1984_woo_dk_import_nonweb_products',
-			(int) $value
-		);
+		return self::update_option( 'import_nonweb_products', $value );
 	}
 
 	/**
 	 * Get wether to delete inactive products on sync
 	 */
 	public static function get_delete_inactive_products(): bool {
-		return (bool) get_option(
-			'1984_woo_dk_delete_inactive_products',
-			true
-		);
+		return (bool) self::get_option( 'delete_inactive_products', false );
 	}
 
 	/**
@@ -633,10 +638,7 @@ class Config {
 	 *             false to disable it.
 	 */
 	public static function set_delete_inactive_products( bool $value ): bool {
-		return update_option(
-			'1984_woo_dk_delete_inactive_products',
-			(int) $value
-		);
+		return self::update_option( 'delete_inactive_products', $value );
 	}
 
 	/**
@@ -649,8 +651,8 @@ class Config {
 	 */
 	public static function get_domestic_customer_ledger_code(): string {
 		return (string) (
-			get_option(
-				'1984_woo_dk_domestic_customer_ledger_code',
+			self::get_option(
+				'domestic_customer_ledger_code',
 				self::DEFAULT_LEDGER_CODE_DOMESTIC_CUSTOMERS
 			)
 		);
@@ -666,10 +668,7 @@ class Config {
 	public static function set_domestic_customer_ledger_code(
 		string $value
 	): bool {
-		return update_option(
-			'1984_woo_dk_domestic_customer_ledger_code',
-			(string) $value
-		);
+		return self::update_option( 'domestic_customer_ledger_code', $value );
 	}
 
 	/**
@@ -682,8 +681,8 @@ class Config {
 	 */
 	public static function get_international_customer_ledger_code(): string {
 		return (string) (
-			get_option(
-				'1984_woo_dk_international_customer_ledger_code',
+			self::get_option(
+				'international_customer_ledger_code',
 				self::DEFAULT_LEDGER_CODE_INTERNATIONAL_CUSTOMERS
 			)
 		);
@@ -699,9 +698,9 @@ class Config {
 	public static function set_international_customer_ledger_code(
 		string $value
 	): bool {
-		return update_option(
-			'1984_woo_dk_international_customer_ledger_code',
-			(string) $value
+		return self::update_option(
+			'international_customer_ledger_code',
+			$value
 		);
 	}
 
@@ -714,9 +713,7 @@ class Config {
 	 * however generally used internally.
 	 */
 	public static function get_use_attribute_description(): bool {
-		return (bool) (
-			get_option( '1984_woo_dk_use_attribute_description', true )
-		);
+		return (bool) self::get_option( 'use_attribute_description', true );
 	}
 
 	/**
@@ -727,10 +724,7 @@ class Config {
 	 *                    use the codes from DK instead.
 	 */
 	public static function set_use_attribute_description( bool $value ): bool {
-		return update_option(
-			'1984_woo_dk_use_attribute_description',
-			(int) $value
-		);
+		return self::update_option( 'use_attribute_description', $value );
 	}
 
 	/**
@@ -742,8 +736,9 @@ class Config {
 	 * the code. The code is also used internally despite this value.
 	 */
 	public static function get_use_attribute_value_description(): bool {
-		return (bool) (
-			get_option( '1984_woo_dk_use_attribute_value_description', true )
+		return (bool) self::get_option(
+			'use_attribute_value_description',
+			true
 		);
 	}
 
@@ -757,9 +752,6 @@ class Config {
 	public static function set_use_attribute_value_description(
 		bool $value
 	): bool {
-		return update_option(
-			'1984_woo_dk_use_attribute_value_description',
-			(int) $value
-		);
+		return self::update_option( 'use_attribute_value_description', $value );
 	}
 }

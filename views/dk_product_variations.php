@@ -20,7 +20,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 ?>
 
 <div id="dk_variations_tab" class="panel hidden">
-	<?php wp_nonce_field( 'set_1984_woo_dk_variations', 'set_1984_woo_dk_variations_nonce' ); ?>
+	<?php wp_nonce_field( 'connector_for_dk_variations', 'connector_for_dk_variations_nonce' ); ?>
 
 	<div class="inline notice woocommerce-message show_if_variable">
 		<img

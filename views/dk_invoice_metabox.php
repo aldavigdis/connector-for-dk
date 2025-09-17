@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $wc_order = wc_get_order();
 
-$invoice_number        = $wc_order->get_meta( '1984_woo_dk_invoice_number', true, 'edit' );
-$credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number', true, 'edit' );
+$invoice_number        = OrderHelper::get_invoice_number( $wc_order );
+$credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 ?>
 
 <div
@@ -29,7 +29,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 			id="connector-for-dk-invoice-metabox-invoice-number-input"
 			class="regular-text"
 			aria-live="polite"
-			name="1984_woo_dk_invoice_number"
+			name="connector_for_dk_invoice_number"
 			type="text"
 			autocomplete="off"
 			value="<?php echo esc_attr( $invoice_number ); ?>"
@@ -128,7 +128,7 @@ $credit_invoice_number = $wc_order->get_meta( '1984_woo_dk_credit_invoice_number
 		<input
 			id="connector-for-dk-invoice-metabox-credit-invoice-number-input"
 			class="regular-text"
-			name="1984_woo_dk_credit_invoice_number"
+			name="connector_for_dk_credit_invoice_number"
 			type="text"
 			autocomplete="off"
 			value="<?php echo esc_attr( $credit_invoice_number ); ?>"

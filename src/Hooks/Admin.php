@@ -8,6 +8,7 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Export\Product;
 use AldaVigdis\ConnectorForDK\Export\SalesPerson;
 use AldaVigdis\ConnectorForDK\Export\Customer;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use stdClass;
 use WC_Order;
 
@@ -233,22 +234,14 @@ class Admin {
 			$wc_order = wc_get_order( $wc_order );
 		}
 		if ( $column_name === 'dk_invoice_id' ) {
-			$invoice_number = $wc_order->get_meta(
-				'1984_woo_dk_invoice_number',
-				true,
-				'view'
+			$invoice_number = OrderHelper::get_invoice_number( $wc_order );
+
+			$credit_invoice_number = OrderHelper::get_credit_invoice_number(
+				$wc_order
 			);
 
-			$credit_invoice_number = $wc_order->get_meta(
-				'1984_woo_dk_credit_invoice_number',
-				true,
-				'view'
-			);
-
-			$invoice_creation_error = $wc_order->get_meta(
-				'1984_dk_woo_invoice_creation_error',
-				true,
-				'view'
+			$invoice_creation_error = OrderHelper::get_invoice_creation_error(
+				$wc_order
 			);
 
 			if ( ! empty( $invoice_number ) ) {

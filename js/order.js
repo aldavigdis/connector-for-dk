@@ -139,7 +139,7 @@ class ConnectorForDKOrder {
 		this.invoiceLoader().classList.remove( 'hidden' );
 
 		const invoiceID = ConnectorForDKOrder.formData().get(
-			'1984_woo_dk_invoice_number'
+			'connector_for_dk_invoice_number'
 		);
 
 		this.getInvoicePdf( invoiceID );
@@ -149,7 +149,7 @@ class ConnectorForDKOrder {
 		this.creditInvoiceLoader().classList.remove( 'hidden' );
 
 		const creditInvoiceID = ConnectorForDKOrder.formData().get(
-			'1984_woo_dk_credit_invoice_number'
+			'connector_for_dk_credit_invoice_number'
 		);
 
 		this.getCreditInvoicePdf( creditInvoiceID );
@@ -182,7 +182,7 @@ class ConnectorForDKOrder {
 			const json = await response.json();
 
 			window.open(
-				'data:application/pdf;base64,' + json.data,
+				'data:application/pdf;base64,' + json.data.toString(),
 				'_blank'
 			)
 		} else {
@@ -268,7 +268,7 @@ class ConnectorForDKOrder {
 		this.updateInvoiceButton().disabled = true;
 
 		const postID        = parseInt( this.formData().get( 'post_ID' ) );
-		const invoiceNumber = parseInt( this.formData().get( '1984_woo_dk_invoice_number' ) );
+		const invoiceNumber = parseInt( this.formData().get( 'connector_for_dk_invoice_number' ) );
 
 		this.submitInvoiceNumber( postID, invoiceNumber, 'debit' );
 	}
@@ -278,14 +278,14 @@ class ConnectorForDKOrder {
 		this.updateCreditInvoiceButton().disabled = true;
 
 		const postID        = parseInt( this.formData().get( 'post_ID' ) );
-		const invoiceNumber = parseInt( this.formData().get( '1984_woo_dk_credit_invoice_number' ) );
+		const invoiceNumber = parseInt( this.formData().get( 'connector_for_dk_credit_invoice_number' ) );
 
 		this.submitInvoiceNumber( postID, invoiceNumber, 'credit' );
 	}
 
 	static disableUpdateInvoiceFieldIfInvalid() {
 		const invoiceNumber = this.formData().get(
-			'1984_woo_dk_invoice_number'
+			'connector_for_dk_invoice_number'
 		);
 
 		if ( /^[1-9][0-9]{0,}$/.test( invoiceNumber ) ) {
@@ -312,7 +312,7 @@ class ConnectorForDKOrder {
 
 	static disableUpdateCreditInvoiceFieldIfInvalid() {
 		const creditInvoiceNumber = this.formData().get(
-			'1984_woo_dk_credit_invoice_number'
+			'connector_for_dk_credit_invoice_number'
 		);
 
 		if ( /^[1-9][0-9]{0,}$/.test( creditInvoiceNumber ) ) {

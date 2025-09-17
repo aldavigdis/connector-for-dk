@@ -93,7 +93,7 @@ class Order {
 		int $dk_order_number
 	): int {
 		$wc_order->update_meta_data(
-			'1984_woo_dk_order_number',
+			'connector_for_dk_dk_order_number',
 			$dk_order_number
 		);
 
@@ -111,7 +111,7 @@ class Order {
 		WC_Order $wc_order
 	): int|string {
 		return $wc_order->get_meta(
-			'1984_woo_dk_order_number'
+			'connector_for_dk_dk_order_number'
 		);
 	}
 

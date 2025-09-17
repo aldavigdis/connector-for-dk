@@ -282,7 +282,7 @@ class Invoice {
 		string $dk_invoice_number
 	): string {
 		$wc_order->update_meta_data(
-			'1984_woo_dk_invoice_number',
+			'connector_for_dk_invoice_number',
 			$dk_invoice_number
 		);
 
@@ -300,7 +300,7 @@ class Invoice {
 		WC_Order $wc_order
 	): string {
 		return (string) $wc_order->get_meta(
-			'1984_woo_dk_invoice_number'
+			'connector_for_dk_invoice_number'
 		);
 	}
 
@@ -315,7 +315,7 @@ class Invoice {
 		string $dk_credit_invoice_number
 	): string {
 		$wc_order->update_meta_data(
-			'1984_woo_dk_credit_invoice_number',
+			'connector_for_dk_credit_invoice_number',
 			$dk_credit_invoice_number
 		);
 
@@ -335,7 +335,7 @@ class Invoice {
 		WC_Order $wc_order
 	): string {
 		return (string) $wc_order->get_meta(
-			'1984_woo_dk_credit_invoice_number'
+			'connector_for_dk_credit_invoice_number'
 		);
 	}
 }

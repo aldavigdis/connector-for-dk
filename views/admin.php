@@ -730,7 +730,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p>
 			<?php
 			esc_html_e(
-				'The Connector for DK WordPress plugin is developed, maintained and supported on goodwill basis by Alda Vigdis as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 Hosting',
+				'The Connector for DK WordPress plugin is developed, maintained and supported on goodwill basis by Alda Vigdis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 ehf.',
 				'connector-for-dk'
 			);
 			?>

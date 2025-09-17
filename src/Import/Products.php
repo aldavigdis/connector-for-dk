@@ -309,7 +309,7 @@ class Products {
 			$wc_product->set_tax_class( $price->tax_class );
 
 			$wc_product->update_meta_data(
-				'1984_woo_dk_dk_currency',
+				'connector_for_dk_currency',
 				$price->currency
 			);
 
@@ -337,7 +337,7 @@ class Products {
 		$current_date_and_time = new DateTime();
 
 		$wc_product->update_meta_data(
-			'last_downstream_sync',
+			'connector_for_dk_last_downstream_sync',
 			$current_date_and_time->format( 'U' )
 		);
 
@@ -460,7 +460,7 @@ class Products {
 				$wc_product->set_tax_class( $price->tax_class );
 
 				$wc_product->update_meta_data(
-					'1984_woo_dk_dk_currency',
+					'connector_for_dk_currency',
 					$price->currency
 				);
 
@@ -485,7 +485,7 @@ class Products {
 		$current_date_and_time = new DateTime();
 
 		$wc_product->update_meta_data(
-			'last_downstream_sync',
+			'connector_for_dk_last_downstream_sync',
 			$current_date_and_time->format( 'U' )
 		);
 

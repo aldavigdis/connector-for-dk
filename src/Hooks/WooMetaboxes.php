@@ -24,6 +24,13 @@ class WooMetaboxes {
 		'1984_woo_dk_credit_invoice_number',
 		'1984_woo_dk_invoice_number',
 		'last_downstream_sync',
+		'connector_for_dk_price_sync',
+		'connector_for_dk_stock_sync',
+		'connector_for_dk_name_sync',
+		'connector_for_dk_currency',
+		'connector_for_dk_credit_invoice_number',
+		'connector_for_dk_invoice_number',
+		'connector_for_dk_last_downstream_sync',
 	);
 
 	/**
@@ -253,10 +260,10 @@ class WooMetaboxes {
 		WC_Product_Variable $wc_product
 	): void {
 		if (
-			! empty( $_POST['set_1984_woo_dk_variations_nonce'] ) &&
+			! empty( $_POST['connector_for_dk_variations_nonce'] ) &&
 			wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
 				'set_1984_woo_dk_variations'
 			)
@@ -426,10 +433,10 @@ class WooMetaboxes {
 		WC_Product_Variable $wc_product
 	): void {
 		if (
-			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! isset( $_POST['connector_for_dk_variations_nonce'] ) ||
 			! wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
 				'set_1984_woo_dk_variations'
 			) ||
@@ -471,10 +478,10 @@ class WooMetaboxes {
 		WC_Product_Variation $variation
 	): void {
 		if (
-			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! isset( $_POST['connector_for_dk_variations_nonce'] ) ||
 			! wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
 				'set_1984_woo_dk_variations'
 			)
@@ -538,10 +545,10 @@ class WooMetaboxes {
 		WC_Product_Variation $variation
 	): void {
 		if (
-			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! isset( $_POST['connector_for_dk_variations_nonce'] ) ||
 			! wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
 				'set_1984_woo_dk_variations'
 			)
@@ -581,10 +588,10 @@ class WooMetaboxes {
 		WC_Product_Variation $variation
 	): void {
 		if (
-			! isset( $_POST['set_1984_woo_dk_variations_nonce'] ) ||
+			! isset( $_POST['connector_for_dk_variations_nonce'] ) ||
 			! wp_verify_nonce(
 				sanitize_text_field(
-					wp_unslash( $_POST['set_1984_woo_dk_variations_nonce'] )
+					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
 				'set_1984_woo_dk_variations'
 			)

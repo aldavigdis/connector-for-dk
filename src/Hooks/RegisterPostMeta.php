@@ -23,7 +23,7 @@ class RegisterPostMeta {
 	public function __construct() {
 		register_post_meta(
 			'product',
-			'1984_woo_dk_price_sync',
+			'connector_for_dk_price_sync',
 			array(
 				'type'        => 'string',
 				'description' => 'Wether to enable price sync with DK',
@@ -34,7 +34,7 @@ class RegisterPostMeta {
 
 		register_post_meta(
 			'product',
-			'1984_woo_dk_stock_sync',
+			'connector_for_dk_stock_sync',
 			array(
 				'type'        => 'string',
 				'description' => 'Wether to enable stock sync with DK',
@@ -45,7 +45,7 @@ class RegisterPostMeta {
 
 		register_post_meta(
 			'product',
-			'1984_woo_dk_dk_currency',
+			'connector_for_dk_currency',
 			array(
 				'type'        => 'string',
 				'description' => 'The original currency from DK',
@@ -56,7 +56,7 @@ class RegisterPostMeta {
 
 		register_post_meta(
 			'order',
-			'1984_woo_dk_order_number',
+			'connector_for_dk_dk_order_number',
 			array(
 				'type'        => 'integer',
 				'description' => 'The order number assigned to the order in DK',
@@ -66,7 +66,7 @@ class RegisterPostMeta {
 
 		register_post_meta(
 			'order',
-			'1984_woo_dk_invoice_number',
+			'connector_for_dk_invoice_number',
 			array(
 				'type'        => 'string',
 				'description' => 'The invoice number assigned to the order in DK',

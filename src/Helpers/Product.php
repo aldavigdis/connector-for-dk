@@ -23,8 +23,8 @@ class Product {
 	/**
 	 * Check if name sync is enabled for a product
 	 *
-	 * Checks for the `1984_woo_dk_name_sync` meta is set for the product and
-	 * uses that. If not, it uses the global setting for name sync.
+	 * Checks for the `connector_for_dk_name_sync` meta bein set for the product
+	 * and uses that. If not, it uses the global setting for name sync.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
 	 *
@@ -36,7 +36,7 @@ class Product {
 		}
 
 		$meta_value = $wc_product->get_meta(
-			'1984_woo_dk_name_sync',
+			'connector_for_dk_name_sync',
 			true,
 			'edit'
 		);
@@ -54,7 +54,7 @@ class Product {
 	/**
 	 * Check if price sync is enabled for a product
 	 *
-	 * Checks for the `1984_woo_dk_price_sync` meta is set for the product and
+	 * Checks for the `connector_for_dk_price_sync` meta is set for the product and
 	 * uses that. If not, it uses the global setting for price sync.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
@@ -73,7 +73,7 @@ class Product {
 		}
 
 		$product_dk_currency = $wc_product->get_meta(
-			'1984_woo_dk_dk_currency',
+			'connector_for_dk_currency',
 			true,
 			'edit'
 		);
@@ -86,7 +86,7 @@ class Product {
 		}
 
 		$meta_value = $wc_product->get_meta(
-			'1984_woo_dk_price_sync',
+			'connector_for_dk_price_sync',
 			true,
 			'edit'
 		);
@@ -104,7 +104,7 @@ class Product {
 	/**
 	 * Check if quantity sync is enabled for a product
 	 *
-	 * Checks for the `1984_woo_dk_stock_sync` meta is set for the product and
+	 * Checks for the `connector_for_dk_stock_sync` meta is set for the product and
 	 * uses that. If not, it uses the global setting for price sync.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
@@ -126,7 +126,7 @@ class Product {
 		}
 
 		$meta_value = $wc_product->get_meta(
-			'1984_woo_dk_stock_sync',
+			'connector_for_dk_stock_sync',
 			true,
 			'edit'
 		);
@@ -285,7 +285,7 @@ class Product {
 	 */
 	public static function get_currency( WC_Product $wc_product ): string {
 		$product_currency = $wc_product->get_meta(
-			'1984_woo_dk_dk_currency',
+			'connector_for_dk_currency',
 			true,
 			'edit'
 		);

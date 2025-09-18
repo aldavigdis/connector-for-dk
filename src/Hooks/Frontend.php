@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ProductVariations;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Import\ProductVariations as ProductVariations;
 
 /**
  * The frontend class

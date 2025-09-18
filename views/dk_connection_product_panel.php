@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
-use NineteenEightyFour\NineteenEightyWoo\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -36,12 +36,12 @@ $product_currency = ProductHelper::get_currency( $wc_product );
 	<div class="options_group">
 
 		<?php
-		$stock_sync_meta = $wc_product->get_meta( '1984_woo_dk_stock_sync', true, 'edit' );
-		wp_nonce_field( 'set_1984_woo_dk_stock_sync', 'set_1984_woo_dk_stock_sync_nonce' );
+		$stock_sync_meta = $wc_product->get_meta( 'connector_for_dk_stock_sync', true, 'edit' );
+		wp_nonce_field( 'set_connector_for_dk_stock_sync', 'set_connector_for_dk_stock_sync_nonce' );
 		woocommerce_wp_radio(
 			array(
-				'id'      => '1984_woo_dk_stock_sync',
-				'name'    => '1984_woo_dk_stock_sync',
+				'id'      => 'connector_for_dk_stock_sync',
+				'name'    => 'connector_for_dk_stock_sync',
 				'label'   => __( 'Sync Inventory with DK', '1984-dk-woo' ),
 				'value'   => $stock_sync_meta,
 				'options' => array(
@@ -91,12 +91,12 @@ $product_currency = ProductHelper::get_currency( $wc_product );
 		<?php else : ?>
 
 			<?php
-			$price_sync_meta = $wc_product->get_meta( '1984_woo_dk_price_sync', true, 'edit' );
-			wp_nonce_field( 'set_1984_woo_dk_price_sync', 'set_1984_woo_dk_price_sync_nonce' );
+			$price_sync_meta = $wc_product->get_meta( 'connector_for_dk_price_sync', true, 'edit' );
+			wp_nonce_field( 'set_connector_for_dk_price_sync', 'set_connector_for_dk_price_sync_nonce' );
 			woocommerce_wp_radio(
 				array(
-					'id'      => '1984_woo_dk_price_sync',
-					'name'    => '1984_woo_dk_price_sync',
+					'id'      => 'connector_for_dk_price_sync',
+					'name'    => 'connector_for_dk_price_sync',
 					'label'   => __( 'Sync Price with DK', '1984-dk-woo' ),
 					'value'   => $price_sync_meta,
 					'options' => array(
@@ -131,12 +131,12 @@ $product_currency = ProductHelper::get_currency( $wc_product );
 	<div class="options_group">
 
 		<?php
-		$name_sync_meta = $wc_product->get_meta( '1984_woo_dk_name_sync', true, 'edit' );
-		wp_nonce_field( 'set_1984_woo_dk_name_sync', 'set_1984_woo_dk_name_sync_nonce' );
+		$name_sync_meta = $wc_product->get_meta( 'connector_for_dk_name_sync', true, 'edit' );
+		wp_nonce_field( 'set_connector_for_dk_name_sync', 'set_connector_for_dk_name_sync_nonce' );
 		woocommerce_wp_radio(
 			array(
-				'id'      => '1984_woo_dk_name_sync',
-				'name'    => '1984_woo_dk_name_sync',
+				'id'      => 'connector_for_dk_name_sync',
+				'name'    => 'connector_for_dk_name_sync',
 				'label'   => __( 'Sync Name with DK', '1984-dk-woo' ),
 				'value'   => $name_sync_meta,
 				'options' => array(

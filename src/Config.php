@@ -17,7 +17,7 @@ class Config {
 	const DK_API_KEY_REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$';
 
 	const PREFIX     = 'connector_for_dk_';
-	const OLD_PREFIX = '1984_woo_dk_';
+	const OLD_PREFIX = 'connector_for_dk_';
 
 	const DEFAULT_SHIPPING_SKU = 'shipping';
 	const DEFAULT_COUPON_SKU   = 'coupon';
@@ -78,7 +78,7 @@ class Config {
 	 *
 	 * 1. The DK_API_KEY constant (defined in wp-config.php)
 	 * 2. The DK_API_KEY environment variable
-	 * 3. The 1984_woo_dk_api_key WP option
+	 * 3. The connector_for_dk_api_key WP option
 	 */
 	public static function get_dk_api_key(): string|false {
 		if ( defined( 'DK_API_KEY' ) ) {

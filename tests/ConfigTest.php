@@ -26,7 +26,7 @@ final class ConfigTest extends TestCase {
 		assertEquals( $original_key, Config::get_dk_api_key() );
 
 		putenv( 'DK_API_KEY' );
-		update_option( '1984_woo_dk_api_key', $new_key );
+		update_option( 'connector_for_dk_api_key', $new_key );
 
 		assertEquals( $new_key, Config::get_dk_api_key() );
 	}

@@ -17,12 +17,12 @@ use WC_Product_Variation;
  */
 class WooMetaboxes {
 	const PROTECTED_META = array(
-		'1984_woo_dk_price_sync',
-		'1984_woo_dk_stock_sync',
-		'1984_woo_dk_name_sync',
-		'1984_woo_dk_dk_currency',
-		'1984_woo_dk_credit_invoice_number',
-		'1984_woo_dk_invoice_number',
+		'connector_for_dk_price_sync',
+		'connector_for_dk_stock_sync',
+		'connector_for_dk_name_sync',
+		'connector_for_dk_dk_currency',
+		'connector_for_dk_credit_invoice_number',
+		'connector_for_dk_invoice_number',
 		'last_downstream_sync',
 		'connector_for_dk_price_sync',
 		'connector_for_dk_stock_sync',
@@ -209,7 +209,7 @@ class WooMetaboxes {
 	/**
 	 * Set a product sync meta value from a POST superglobal
 	 *
-	 * Checks the relevant nonces and sets the `1984_woo_dk_` product meta from
+	 * Checks the relevant nonces and sets the `connector_for_dk_` product meta from
 	 * a $_POST superglobal.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
@@ -219,8 +219,8 @@ class WooMetaboxes {
 		WC_Product $wc_product,
 		string $meta_key
 	): void {
-		$nonce_superglobal = "set_1984_woo_dk_{$meta_key}_sync_nonce";
-		$wc_meta_key       = "1984_woo_dk_{$meta_key}_sync";
+		$nonce_superglobal = "set_connector_for_dk_{$meta_key}_sync_nonce";
+		$wc_meta_key       = "connector_for_dk_{$meta_key}_sync";
 
 		if (
 			! empty( $_POST[ $nonce_superglobal ] ) &&
@@ -228,7 +228,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST[ $nonce_superglobal ] )
 				),
-				"set_1984_woo_dk_{$meta_key}_sync"
+				"set_connector_for_dk_{$meta_key}_sync"
 			)
 		) {
 			if ( isset( $_POST[ $wc_meta_key ] ) ) {
@@ -265,7 +265,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_1984_woo_dk_variations'
+				'set_connector_for_dk_variations'
 			)
 		) {
 			self::set_default_attributes_via_post( $wc_product );
@@ -438,7 +438,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_1984_woo_dk_variations'
+				'set_connector_for_dk_variations'
 			) ||
 			! isset( $_POST['dk_variable_defaults'] )
 		) {
@@ -483,7 +483,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_1984_woo_dk_variations'
+				'set_connector_for_dk_variations'
 			)
 		) {
 			return;
@@ -550,7 +550,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_1984_woo_dk_variations'
+				'set_connector_for_dk_variations'
 			)
 		) {
 			return;
@@ -593,7 +593,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_1984_woo_dk_variations'
+				'set_connector_for_dk_variations'
 			)
 		) {
 			return;

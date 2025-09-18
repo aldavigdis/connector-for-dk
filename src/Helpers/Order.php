@@ -113,7 +113,7 @@ class Order {
 
 		if ( empty( $invoice_number ) ) {
 			$invoice_number = $wc_order->get_meta(
-				'1984_woo_dk_invoice_number',
+				'connector_for_dk_invoice_number',
 				true,
 				'edit'
 			);
@@ -133,7 +133,7 @@ class Order {
 
 		if ( empty( $credit_invoice_number ) ) {
 			$credit_invoice_number = $wc_order->get_meta(
-				'1984_woo_dk_credit_invoice_number',
+				'connector_for_dk_credit_invoice_number',
 				true,
 				'edit'
 			);

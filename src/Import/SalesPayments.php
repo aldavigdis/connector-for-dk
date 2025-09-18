@@ -102,7 +102,7 @@ class SalesPayments {
 	 * @return array<string>
 	 */
 	public static function get_payment_terms(): array {
-		$terms_transient = get_transient( '1984_woo_dk_payment_terms' );
+		$terms_transient = get_transient( 'connector_for_dk_payment_terms' );
 
 		if ( is_array( $terms_transient ) ) {
 			return $terms_transient;
@@ -114,7 +114,7 @@ class SalesPayments {
 				$plucked_terms = array_column( $terms, 'CODE' );
 
 				set_transient(
-					'1984_woo_dk_payment_terms',
+					'connector_for_dk_payment_terms',
 					$plucked_terms,
 					self::TRANSIENT_EXPIRY
 				);
@@ -190,7 +190,7 @@ class SalesPayments {
 	 * contents of DK_PAYMENT_MODES will be returned.
 	 */
 	public static function get_payment_modes(): array {
-		$modes_transient = get_transient( '1984_woo_dk_payment_modes' );
+		$modes_transient = get_transient( 'connector_for_dk_payment_modes' );
 
 		if ( is_array( $modes_transient ) ) {
 			return $modes_transient;
@@ -201,7 +201,7 @@ class SalesPayments {
 			$plucked_modes = array_column( $modes, 'CODE' );
 
 			set_transient(
-				'1984_woo_dk_payment_modes',
+				'connector_for_dk_payment_modes',
 				$plucked_modes,
 				self::TRANSIENT_EXPIRY
 			);
@@ -218,7 +218,7 @@ class SalesPayments {
 	 * Uses a transient to cache the results from the DK API for 24 hours.
 	 */
 	public static function get_methods(): array {
-		$methods_transient = get_transient( '1984_woo_dk_payment_methods' );
+		$methods_transient = get_transient( 'connector_for_dk_payment_methods' );
 
 		if ( ! $methods_transient ) {
 			$methods_from_dk = self::get_methods_from_dk();
@@ -310,7 +310,7 @@ class SalesPayments {
 	 */
 	public static function save_methods( array $methods ): bool {
 		return set_transient(
-			'1984_woo_dk_payment_methods',
+			'connector_for_dk_payment_methods',
 			$methods,
 			self::TRANSIENT_EXPIRY
 		);

@@ -168,7 +168,7 @@ class Customer {
 	public static function has_dk_customer_number(
 		WC_Customer $customer
 	): bool {
-		if ( empty( $customer->get_meta( '1984_woo_dk_customer_number' ) ) ) {
+		if ( empty( $customer->get_meta( 'connector_for_dk_customer_number' ) ) ) {
 			return false;
 		}
 

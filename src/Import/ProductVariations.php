@@ -21,7 +21,7 @@ use WP_Error;
  * variants.
  */
 class ProductVariations {
-	const TRANSIENTS       = array( '1984_woo_dk_variations' );
+	const TRANSIENTS       = array( 'connector_for_dk_variations' );
 	const TRANSIENT_EXPIRY = 1800;
 
 	const PRODUCTS_TABLE  = 'INITEMS.DAT';
@@ -183,7 +183,7 @@ class ProductVariations {
 	 */
 	public static function get_variations(): array {
 		$variations_transient = get_transient(
-			'1984_woo_dk_variations'
+			'connector_for_dk_variations'
 		);
 
 		if ( is_array( $variations_transient ) ) {
@@ -194,7 +194,7 @@ class ProductVariations {
 
 		if ( is_array( $variations_value ) ) {
 			set_transient(
-				'1984_woo_dk_variations',
+				'connector_for_dk_variations',
 				$variations_value,
 				self::TRANSIENT_EXPIRY
 			);
@@ -234,7 +234,7 @@ class ProductVariations {
 	 */
 	public static function get_attribute( string $code ): stdClass|false {
 		$attribute_transient = get_transient(
-			'1984_woo_dk_attribute_' . $code
+			'connector_for_dk_attribute_' . $code
 		);
 
 		if ( is_object( $attribute_transient ) ) {
@@ -245,7 +245,7 @@ class ProductVariations {
 
 		if ( $attribute_value ) {
 			set_transient(
-				'1984_woo_dk_attribute_' . $code,
+				'connector_for_dk_attribute_' . $code,
 				$attribute_value,
 				self::TRANSIENT_EXPIRY
 			);
@@ -304,7 +304,7 @@ class ProductVariations {
 		int $variation_id
 	): array {
 		$variation_attributes_transient = get_transient(
-			'1984_woo_dk_variation_attributes_' . (string) $variation_id
+			'connector_for_dk_variation_attributes_' . (string) $variation_id
 		);
 
 		if ( is_array( $variation_attributes_transient ) ) {
@@ -316,7 +316,7 @@ class ProductVariations {
 
 		if ( is_array( $variation_attributes_values ) ) {
 			set_transient(
-				'1984_woo_dk_variation_attributes_' . (string) $variation_id,
+				'connector_for_dk_variation_attributes_' . (string) $variation_id,
 				$variation_attributes_values,
 				self::TRANSIENT_EXPIRY
 			);
@@ -395,7 +395,7 @@ class ProductVariations {
 	 */
 	public static function get_attribute_values(): array {
 		$attribute_values_transient = get_transient(
-			'1984_woo_dk_attribute_values'
+			'connector_for_dk_attribute_values'
 		);
 
 		if ( is_array( $attribute_values_transient ) ) {
@@ -406,7 +406,7 @@ class ProductVariations {
 
 		if ( is_array( $attribute_values ) ) {
 			set_transient(
-				'1984_woo_dk_attribute_values',
+				'connector_for_dk_attribute_values',
 				$attribute_values,
 				self::TRANSIENT_EXPIRY
 			);

@@ -245,11 +245,11 @@ class Products {
 				$json_object->ItemCode
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_origin',
+				'connector_for_dk_origin',
 				'product_variation'
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variant_code',
+				'connector_for_dk_variant_code',
 				$variant_code
 			);
 			$wc_product->set_attributes(
@@ -262,18 +262,18 @@ class Products {
 				$variant_code
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variations',
+				'connector_for_dk_variations',
 				$merged_variations
 			);
 			$wc_product->save();
 		} else {
 			$wc_product = wc_get_product_object( 'simple' );
-			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+			$wc_product->update_meta_data( 'connector_for_dk_origin', 'product' );
 			$wc_product->save();
 		}
 
 		$wc_product->update_meta_data(
-			'1984_dk_woo_product_json',
+			'connector_for_dk_product_json',
 			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
 		);
 
@@ -314,7 +314,7 @@ class Products {
 			);
 
 			$wc_product->update_meta_data(
-				'1984_dk_woo_price',
+				'connector_for_dk_price',
 				$price,
 			);
 		} else {
@@ -390,7 +390,7 @@ class Products {
 		}
 
 		$wc_product->update_meta_data(
-			'1984_dk_woo_product_json',
+			'connector_for_dk_product_json',
 			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
 		);
 
@@ -399,11 +399,11 @@ class Products {
 				$json_object->ItemCode
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_origin',
+				'connector_for_dk_origin',
 				'product_variation'
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variant_code',
+				'connector_for_dk_variant_code',
 				$variant_code
 			);
 			$wc_product->set_attributes(
@@ -416,14 +416,14 @@ class Products {
 				$variant_code
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variations',
+				'connector_for_dk_variations',
 				$merged_variations
 			);
 			self::update_variations( $merged_variations, $wc_product );
 		} else {
-			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
-			$wc_product->update_meta_data( '1984_dk_woo_variant_code', '' );
-			$wc_product->update_meta_data( '1984_dk_woo_variations', '' );
+			$wc_product->update_meta_data( 'connector_for_dk_origin', 'product' );
+			$wc_product->update_meta_data( 'connector_for_dk_variant_code', '' );
+			$wc_product->update_meta_data( 'connector_for_dk_variations', '' );
 		}
 
 		if ( $json_object->ShowItemInWebShop ) {
@@ -465,7 +465,7 @@ class Products {
 				);
 
 				$wc_product->update_meta_data(
-					'1984_dk_woo_price',
+					'connector_for_dk_price',
 					$price,
 				);
 			} else {
@@ -845,7 +845,7 @@ class Products {
 				$variation->set_weight( $wc_product->get_weight() );
 				$variation->set_manage_stock( $wc_product->get_manage_stock() );
 
-				$price = $wc_product->get_meta( '1984_dk_woo_price' );
+				$price = $wc_product->get_meta( 'connector_for_dk_price' );
 
 				if ( is_object( $price ) ) {
 					$variation->set_regular_price( $price->price );
@@ -875,7 +875,7 @@ class Products {
 						$variation->set_backorders( $wc_product->get_backorders() );
 					}
 					if ( ProductHelper::price_sync_enabled( $variation ) ) {
-						$price = $wc_product->get_meta( '1984_dk_woo_price' );
+						$price = $wc_product->get_meta( 'connector_for_dk_price' );
 
 						if ( is_object( $price ) ) {
 							$variation->set_regular_price( $price->price );

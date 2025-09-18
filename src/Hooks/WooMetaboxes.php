@@ -109,7 +109,7 @@ class WooMetaboxes {
 	 * editor, accounting for high resolution displays.
 	 */
 	public static function add_image_sizes(): void {
-		add_image_size( '1984_dk_woo_variant', 400 );
+		add_image_size( 'connector_for_dk_variant', 400 );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class WooMetaboxes {
 	): array {
 		$wc_product = wc_get_product();
 
-		if ( $wc_product->get_meta( '1984_dk_woo_origin' ) !== 'product_variation' ) {
+		if ( $wc_product->get_meta( 'connector_for_dk_origin' ) !== 'product_variation' ) {
 			return $tabs;
 		}
 
@@ -140,7 +140,7 @@ class WooMetaboxes {
 
 		$tabs['attribute']['class'] = array( 'hide_if_variable' );
 
-		$tabs['1984_dk_woo_variations'] = array(
+		$tabs['connector_for_dk_variations'] = array(
 			'label'    => 'DK Variations',
 			'target'   => 'dk_variations_tab',
 			'priority' => 60,
@@ -307,7 +307,7 @@ class WooMetaboxes {
 
 				if ( isset( $_POST['dk_variable_price_override'][ $variation_id ] ) ) {
 					$variation->update_meta_data(
-						'1984_dk_woo_variable_price_override',
+						'connector_for_dk_variable_price_override',
 						1
 					);
 
@@ -318,7 +318,7 @@ class WooMetaboxes {
 
 				if ( isset( $_POST['dk_variable_inventory_override'][ $variation_id ] ) ) {
 					$variation->update_meta_data(
-						'1984_dk_woo_variable_inventory_override',
+						'connector_for_dk_variable_inventory_override',
 						'true'
 					);
 
@@ -328,7 +328,7 @@ class WooMetaboxes {
 						isset( $_POST['dk_variable_override_allow_backorders_in_wc'][ $variation_id ] )
 					) {
 						$variation->update_meta_data(
-							'1984_dk_woo_variable_quantity_track_in_wc',
+							'connector_for_dk_variable_quantity_track_in_wc',
 							'true'
 						);
 
@@ -371,12 +371,12 @@ class WooMetaboxes {
 		WC_Product_Variation $variation
 	): void {
 		$variation->delete_meta_data(
-			'1984_dk_woo_variable_price_override',
+			'connector_for_dk_variable_price_override',
 		);
 
 		$parent = wc_get_product( $variation->get_parent_id() );
 
-		$price = $parent->get_meta( '1984_dk_woo_price' );
+		$price = $parent->get_meta( 'connector_for_dk_price' );
 
 		if ( is_object( $price ) ) {
 			$variation->set_regular_price( $price->price );
@@ -401,14 +401,14 @@ class WooMetaboxes {
 	): void {
 		$parent = wc_get_product( $variation->get_parent_id() );
 
-		$variation->delete_meta_data( '1984_dk_woo_variable_inventory_override' );
-		$variation->delete_meta_data( '1984_dk_woo_variable_quantity_track_in_wc' );
+		$variation->delete_meta_data( 'connector_for_dk_variable_inventory_override' );
+		$variation->delete_meta_data( 'connector_for_dk_variable_quantity_track_in_wc' );
 
 		$variation->set_manage_stock( $parent->get_manage_stock() );
 		$variation->set_backorders( $parent->get_backorders() );
 
 		$product_json = json_decode(
-			$parent->get_meta( '1984_dk_woo_product_json' )
+			$parent->get_meta( 'connector_for_dk_product_json' )
 		);
 
 		$variation->set_stock_quantity(

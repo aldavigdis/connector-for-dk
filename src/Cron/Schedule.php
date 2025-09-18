@@ -15,7 +15,7 @@ class Schedule {
 	 */
 	public function __construct() {
 		add_action(
-			'1984_dk_woo_hourly',
+			'connector_for_dk_hourly',
 			array( 'AldaVigdis\ConnectorForDK\Cron\Hourly', 'run' ),
 			10,
 			0
@@ -26,14 +26,14 @@ class Schedule {
 	 * Activate scheduled events for the plugin
 	 */
 	public static function activate(): void {
-		wp_schedule_event( time(), 'hourly', '1984_dk_woo_hourly' );
+		wp_schedule_event( time(), 'hourly', 'connector_for_dk_hourly' );
 	}
 
 	/**
 	 * Deactivate scheduled events for the plugin
 	 */
 	public static function deactivate(): void {
-		wp_clear_scheduled_hook( '1984_dk_woo_every_minute' );
-		wp_clear_scheduled_hook( '1984_dk_woo_hourly' );
+		wp_clear_scheduled_hook( 'connector_for_dk_every_minute' );
+		wp_clear_scheduled_hook( 'connector_for_dk_hourly' );
 	}
 }

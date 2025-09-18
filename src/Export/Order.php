@@ -170,7 +170,7 @@ class Order {
 				'IncludingVAT'   => true,
 			);
 
-			$origin    = $product->get_meta( '1984_dk_woo_origin', true, 'edit' );
+			$origin    = $product->get_meta( 'connector_for_dk_origin', true, 'edit' );
 			$variation = wc_get_product( $order_item_product->get_variation_id() );
 
 			if ( $origin === 'product_variation' && $variation !== false ) {
@@ -220,14 +220,16 @@ class Order {
 				$shipping_method->get_total_tax()
 			)->toFloat();
 
-			$order_props['Lines'][] = array(
-				'ItemCode'     => Config::get_shipping_sku(),
-				'Text'         => __( 'Shipping', 'connector-for-dk' ),
-				'Text2'        => $shipping_method->get_name(),
-				'Quantity'     => 1,
-				'Price'        => $shipping_total,
-				'IncludingVAT' => true,
-			);
+			if ( $shipping_total !== 0.0 ) {
+				$order_props['Lines'][] = array(
+					'ItemCode'     => Config::get_shipping_sku(),
+					'Text'         => __( 'Shipping', 'connector-for-dk' ),
+					'Text2'        => $shipping_method->get_name(),
+					'Quantity'     => 1,
+					'Price'        => $shipping_total,
+					'IncludingVAT' => true,
+				);
+			}
 		}
 
 		return $order_props;

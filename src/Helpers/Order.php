@@ -153,7 +153,7 @@ class Order {
 
 		if ( empty( $error ) ) {
 			$error = $wc_order->get_meta(
-				'1984_dk_woo_invoice_creation_error',
+				'connector_for_dk_invoice_creation_error',
 				true,
 				'view'
 			);

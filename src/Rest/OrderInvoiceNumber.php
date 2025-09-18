@@ -119,11 +119,11 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		}
 
 		$wc_order->delete_meta_data(
-			'1984_dk_woo_invoice_creation_error'
+			'connector_for_dk_invoice_creation_error'
 		);
 
 		$wc_order->delete_meta_data(
-			'1984_dk_woo_invoice_creation_error_message'
+			'connector_for_dk_invoice_creation_error_message'
 		);
 
 		$wc_order->save_meta_data();

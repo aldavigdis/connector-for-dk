@@ -60,7 +60,7 @@ class WooOrderStatusChanges {
 		if (
 			! empty(
 				$wc_order->get_meta(
-					'1984_dk_woo_invoice_creation_error',
+					'connector_for_dk_invoice_creation_error',
 					true
 				)
 			)
@@ -142,15 +142,15 @@ class WooOrderStatusChanges {
 			}
 		} elseif ( $invoice_number instanceof WP_Error ) {
 			$wc_order->update_meta_data(
-				'1984_dk_woo_invoice_creation_error',
+				'connector_for_dk_invoice_creation_error',
 				$invoice_number->get_error_code()
 			);
 			$wc_order->update_meta_data(
-				'1984_dk_woo_invoice_creation_error_message',
+				'connector_for_dk_invoice_creation_error_message',
 				$invoice_number->get_error_message()
 			);
 			$wc_order->update_meta_data(
-				'1984_dk_woo_invoice_creation_error_data',
+				'connector_for_dk_invoice_creation_error_data',
 				$invoice_number->get_error_data()
 			);
 			$wc_order->add_order_note(

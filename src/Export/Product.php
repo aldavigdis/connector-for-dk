@@ -451,7 +451,7 @@ class Product {
 		if ( ProductHelper::name_sync_enabled( $wc_product ) ) {
 			if ( $wc_product instanceof WC_Product_Variation ) {
 				$original_name = $wc_product->get_meta(
-					'1984_dk_woo_original_name',
+					'connector_for_dk_original_name',
 					true
 				);
 

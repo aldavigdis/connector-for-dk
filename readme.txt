@@ -1,4 +1,4 @@
-=== Connector for DK and WooCommerce ===
+=== Connector for DK ===
 Stable tag: 0.4.6
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
@@ -25,6 +25,8 @@ In order to get started, you need to set up an account with DK's dkPlus web serv
 Enter your dkPlus API key in the form provided for a user with sufficient privileges under *WooCommerce 🠆 Connector for DK*, correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account and make sure that other settings are in accordance with how they are set up in DK.
 
 Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce, as long as the correct inventory codes are set and a correct SKU is set for each item.
+
+Always back up your accounting records, site data and disable any plugin that may be incompatible with Connector for DK.
 
 == Screenshots ==
 

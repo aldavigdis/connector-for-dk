@@ -70,7 +70,7 @@ class WooUpdateProduct {
 		}
 
 		$product_origin = $wc_product->get_meta(
-			'1984_dk_woo_origin',
+			'connector_for_dk_origin',
 			true,
 			'edit'
 		);
@@ -112,7 +112,7 @@ class WooUpdateProduct {
 		}
 
 		$product_origin = $wc_product->get_meta(
-			'1984_dk_woo_origin',
+			'connector_for_dk_origin',
 			true,
 			'edit'
 		);
@@ -174,7 +174,7 @@ class WooUpdateProduct {
 		}
 
 		$product_origin = $wc_product->get_meta(
-			'1984_dk_woo_origin',
+			'connector_for_dk_origin',
 			true,
 			'edit'
 		);

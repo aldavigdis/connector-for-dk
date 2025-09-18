@@ -32,7 +32,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 1. The admin interface for the plugin is located under the WooCommerce section in the sidebar and generally stays out of sight otherwise.
 2. You can set and synchronise stock status, prices, sale prices and sale dates between DK and WooCommerce on a per-product basis with the plugin, directly from the WooCommerce product editor.
-
+3. The product variation editor has been adapted to support and facilitate DK product variations
 
 == Frequently Asked Questions ==
 

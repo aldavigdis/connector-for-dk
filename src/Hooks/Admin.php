@@ -19,8 +19,9 @@ use WC_Order;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.4.6';
-	const PLUGIN_SLUG   = '1984-connector-for-dk-and-woocommerce';
+	const ASSET_VERSION    = '0.4.6';
+	const PLUGIN_SLUG      = 'connector-for-dk';
+	const TRANSIENT_EXPIRY = 1800;
 
 	/**
 	 * Constructor for the Admin interface class
@@ -365,6 +366,9 @@ class Admin {
 	 * }
 	 */
 	public static function info_for_service_sku( string $sku ): stdClass {
+		$transient_name  = "connector_for_dk_service_sku_{$sku}_is_in_dk";
+		$transient_value = boolval( get_transient( $transient_name ) );
+
 		if ( ! Config::get_dk_api_key() ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant SKU.
@@ -377,7 +381,11 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( Product::is_in_dk( $sku ) === true ) {
+		} elseif ( $transient_value || Product::is_in_dk( $sku ) === true ) {
+			if ( ! $transient_value ) {
+				set_transient( $transient_name, '1', self::TRANSIENT_EXPIRY );
+			}
+
 			$text = sprintf(
 				// Translators: The %s stands for the relevant SKU.
 				__(
@@ -426,6 +434,9 @@ class Admin {
 	 * }
 	 */
 	public static function info_for_sales_person( string $number ): stdClass {
+		$transient_name  = "connector_for_dk_sales_person_{$number}_is_in_dk";
+		$transient_value = boolval( get_transient( $transient_name ) );
+
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
@@ -438,7 +449,11 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( SalesPerson::is_in_dk( $number ) === true ) {
+		} elseif ( $transient_value || SalesPerson::is_in_dk( $number ) === true ) {
+			if ( ! $transient_value ) {
+				set_transient( $transient_name, '1', self::TRANSIENT_EXPIRY );
+			}
+
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
 				__(
@@ -485,6 +500,10 @@ class Admin {
 	 * }
 	 */
 	public static function info_for_default_kennitala(): stdClass {
+		$default_kennitala = Config::get_default_kennitala();
+		$transient_name    = "connector_for_dk_kennitala_{$default_kennitala}_is_in_dk";
+		$transient_value   = boolval( get_transient( $transient_name ) );
+
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the kennitala.
@@ -492,19 +511,23 @@ class Admin {
 					'Please make sure that a customer record with the kennitala ‘%s’ exsists in DK before you continue.',
 					'connector-for-dk'
 				),
-				esc_html( Config::get_default_kennitala() )
+				esc_html( $default_kennitala )
 			);
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( Customer::is_in_dk( Config::get_default_kennitala() ) === true ) {
+		} elseif ( $transient_value || Customer::is_in_dk( $default_kennitala ) === true ) {
+			if ( ! $transient_value ) {
+				set_transient( $transient_name, '1', self::TRANSIENT_EXPIRY );
+			}
+
 			$text = sprintf(
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A customer record with the kennitala ‘%s’ was found in DK.',
 					'connector-for-dk'
 				),
-				esc_html( Config::get_default_kennitala() )
+				esc_html( $default_kennitala )
 			);
 
 			$class    = 'ok';

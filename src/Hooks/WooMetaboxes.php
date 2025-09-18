@@ -265,7 +265,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_connector_for_dk_variations'
+				'connector_for_dk_variations'
 			)
 		) {
 			self::set_default_attributes_via_post( $wc_product );

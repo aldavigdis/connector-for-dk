@@ -20,7 +20,7 @@ use WC_Order;
  */
 class Admin {
 	const ASSET_VERSION = '0.4.6';
-	const PLUGIN_SLUG   = '1984-connector-for-dk-and-woocommerce';
+	const PLUGIN_SLUG   = 'connector-for-dk';
 
 	/**
 	 * Constructor for the Admin interface class
@@ -98,7 +98,7 @@ class Admin {
 		?string $_unused,
 		array $plugin_data
 	): void {
-		if ( $plugin_data['slug'] === self::PLUGIN_SLUG ) {
+		if ( $plugin_data['TextDomain'] === self::PLUGIN_SLUG ) {
 			echo wp_kses( self::plugin_list_notice(), array( 'p' ) );
 		}
 	}
@@ -108,7 +108,7 @@ class Admin {
 	 */
 	public static function plugin_list_notice(): string {
 		$text = __(
-			'Note: The Connector for DK is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+			'This plugin is developed, maintained and supported on goodwill basis by the original developer, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.',
 			'connector-for-dk'
 		);
 
@@ -129,7 +129,7 @@ class Admin {
 		?string $_unused,
 		array $plugin_data,
 	): array {
-		if ( $plugin_data['slug'] === self::PLUGIN_SLUG ) {
+		if ( $plugin_data['TextDomain'] === self::PLUGIN_SLUG ) {
 			$plugin_meta['Settings']          = self::settings_link();
 			$plugin_meta['Community Support'] = self::community_link();
 		}
@@ -140,7 +140,7 @@ class Admin {
 	 * Get the URL for the plugin settings page
 	 */
 	private static function settings_url(): string {
-		return get_admin_url( path: '?page=connector-for-dk' );
+		return get_admin_url( path: 'admin.php?page=connector-for-dk' );
 	}
 
 	/**

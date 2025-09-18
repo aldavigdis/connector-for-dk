@@ -102,6 +102,11 @@ class Order {
 		return false;
 	}
 
+	/**
+	 * Get the DK invoice number for an order
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
 	public static function get_invoice_number(
 		WC_Order $wc_order
 	): string|false {
@@ -122,6 +127,11 @@ class Order {
 		return (string) $invoice_number;
 	}
 
+	/**
+	 * Get the DK credit invoice number for an order
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
 	public static function get_credit_invoice_number(
 		WC_Order $wc_order
 	): string {
@@ -142,6 +152,14 @@ class Order {
 		return (string) $credit_invoice_number;
 	}
 
+	/**
+	 * Get the invoice creation DK error message
+	 *
+	 * We log it if DK responds with an error message as we attempt to create an
+	 * invoice. This retreives it.
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
 	public static function get_invoice_creation_error(
 		WC_Order $wc_order
 	): string {

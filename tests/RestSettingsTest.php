@@ -115,7 +115,7 @@ final class RestSettingstest extends TestCase {
 		$response = rest_do_request( $request );
 		assertEquals( 200, $response->status );
 
-		$api_key_option = Config::get_option( 'connector_for_dk_api_key' );
+		$api_key_option = Config::get_dk_api_key();
 		assertIsString( $api_key_option );
 	}
 }

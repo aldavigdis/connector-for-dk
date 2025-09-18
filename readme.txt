@@ -34,6 +34,16 @@ Always back up your accounting records, site data and disable any plugin that ma
 2. You can set and synchronise prices, sale prices and sale dates between DK and WooCommerce with the plugin, directly from the WooCommerce product editor.
 3. The plugin also supports reading stock status from DK and displaying it in your WooCommerce shop.
 
+== Changelog ==
+
+= 0.5 =
+* A rebrand and re-namespacing a new fork
+* Moving per-product DK options into a separate tab in the Product Editor
+* Fixing bug that affected invoices for product variations with two attributes
+* Improving error handling in invoice generation
+* Improving variation display on the frontend
+* Improving code for tax rate matching
+
 == Frequently Asked Questions ==
 
 = Does the plugin support self-hosted DK? =

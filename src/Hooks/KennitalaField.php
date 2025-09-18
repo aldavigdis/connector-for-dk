@@ -2,11 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
+use AldaVigdis\ConnectorForDK\Config;
 use WP_Error;
-use WC_Checkout;
 use WC_Customer;
 use WC_Order;
 use WP_Post;
@@ -53,7 +52,7 @@ class KennitalaField {
 				'woocommerce_after_checkout_billing_form',
 				array( __CLASS__, 'render_classic_checkout_field' ),
 				10,
-				1
+				0
 			);
 
 			add_action(
@@ -87,16 +86,9 @@ class KennitalaField {
 
 		add_action(
 			'woocommerce_store_api_checkout_order_processed',
-			array( __CLASS__, 'add_order_kennitala_to_the_customer_from_api' ),
+			array( __CLASS__, 'set_billing_kennitala_meta' ),
 			10,
 			1
-		);
-
-		add_action(
-			'woocommerce_checkout_order_processed',
-			array( __CLASS__, 'add_order_kennitala_to_the_customer' ),
-			10,
-			3
 		);
 
 		add_filter(
@@ -106,9 +98,16 @@ class KennitalaField {
 
 		add_filter(
 			'woocommerce_admin_billing_fields',
-			array( __CLASS__, 'add_billing_field_to_order_editor' ),
+			array( __CLASS__, 'add_billing_fields_to_order_editor' ),
 			10,
-			2
+			1
+		);
+
+		add_filter(
+			'woocommerce_admin_shipping_fields',
+			array( __CLASS__, 'remove_shipping_fields_from_order_editor' ),
+			10,
+			1
 		);
 
 		add_action(
@@ -126,7 +125,7 @@ class KennitalaField {
 		);
 
 		add_action(
-			'edit_form_top',
+			'order_edit_form_top',
 			array( __CLASS__, 'add_nonce_to_order_editor' ),
 			10,
 			2
@@ -138,8 +137,8 @@ class KennitalaField {
 	 */
 	public static function add_nonce_to_order_editor(): void {
 		wp_nonce_field(
-			'1984_dk_woo_edit',
-			'1984_dk_woo_edit_nonce_field'
+			'connector_for_dk_edit_order',
+			'connector_for_dk_edit_order_nonce_field',
 		);
 	}
 
@@ -156,11 +155,7 @@ class KennitalaField {
 		bool $protected,
 		string $meta_key
 	): bool {
-		if ( $meta_key === 'billing_kennitala' ) {
-			return true;
-		}
-
-		if ( $meta_key === 'kennitala_invoice_requested' ) {
+		if ( $meta_key === '_billing_kennitala' ) {
 			return true;
 		}
 
@@ -180,7 +175,7 @@ class KennitalaField {
 		int $post_id,
 		WP_Post|WC_Order $wc_order
 	): void {
-		if ( ! isset( $_POST['1984_dk_woo_edit_nonce_field'] ) ) {
+		if ( ! isset( $_POST['connector_for_dk_edit_order_nonce_field'] ) ) {
 			return;
 		}
 
@@ -188,10 +183,10 @@ class KennitalaField {
 			! wp_verify_nonce(
 				sanitize_text_field(
 					wp_unslash(
-						$_POST['1984_dk_woo_edit_nonce_field']
+						$_POST['connector_for_dk_edit_order_nonce_field']
 					)
 				),
-				'1984_dk_woo_edit'
+				'connector_for_dk_edit_order'
 			)
 		) {
 			return;
@@ -204,65 +199,74 @@ class KennitalaField {
 
 			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
 
-			if ( $wc_order instanceof WC_Order ) {
-				$wc_order->update_meta_data(
-					'billing_kennitala',
-					$sanitized_kennitala,
-				);
+			$wc_order->delete_meta_data( 'billing_kennitala' );
+			$wc_order->delete_meta_data( '_billing_kennitala' );
 
-				$wc_order->save_meta_data();
-			}
+			$wc_order->update_meta_data(
+				'_billing_kennitala',
+				$sanitized_kennitala
+			);
 
-			if ( $wc_order instanceof WP_Post ) {
-				update_post_meta(
-					$wc_order->ID,
-					'billing_kennitala',
-					$sanitized_kennitala
-				);
-			}
+			$wc_order->save_meta_data();
 		}
 	}
 
 	/**
-	 * Add a kennitala field to the billing address in the order editor
+	 * Add billing fields to the order editor
 	 *
-	 * This is for hooking into the `woocommerce_admin_billing_fields` filter.
+	 * This adds the kennitala text input and the "Invoice with Kennitala
+	 * Requested" checkbox to the editor.
 	 *
-	 * @param array    $fields The fields array as it arrives.
-	 * @param WC_Order $wc_order The current order object.
+	 * @see https://woocommerce.github.io/code-reference/files/woocommerce-includes-admin-meta-boxes-class-wc-meta-box-order-data.html
+	 *
+	 * @param array $fields The billing fields array to filter.
 	 */
-	public static function add_billing_field_to_order_editor(
+	public static function add_billing_fields_to_order_editor(
 		array $fields,
-		WC_Order $wc_order
 	): array {
-		$additional_fields = $wc_order->get_meta(
-			'_additional_billing_fields'
+		$additional_fields = array(
+			'kennitala' => array(
+				'label' => 'Kennitala',
+				'show'  => false,
+			),
 		);
-		if (
-			is_array( $additional_fields ) &&
-			array_key_exists(
-				'1984_woo_dk/kennitala',
-				$additional_fields
-			) &&
-			! empty( $additional_fields['1984_woo_dk/kennitala'] )
-		) {
-			return $fields;
+
+		if ( Config::get_customer_requests_kennitala_invoice() ) {
+			$additional_fields['kennitala_invoice_requested'] = array(
+				'label'   => __(
+					'Invoice with Kennitala Requested',
+					'connector-for-dk'
+				),
+				'show'    => true,
+				'type'    => 'select',
+				'show'    => false,
+				'options' => array(
+					'0' => 'No',
+					'1' => 'Yes',
+				),
+			);
 		}
 
-		$formatted_kennitala = self::format_kennitala(
-			$wc_order->get_meta( 'billing_kennitala', true )
-		);
+		return array_merge( $additional_fields, $fields );
+	}
 
-		$first_bit = array_slice( $fields, 0, 2 );
-
-		$first_bit['kennitala'] = array(
-			'label' => __( 'Kennitala', '1984-dk-woo' ),
-			'value' => $formatted_kennitala,
-		);
-
-		$filtered_fields = array_merge( $first_bit, array_slice( $fields, 2 ) );
-
-		return $filtered_fields;
+	/**
+	 * Remove our fields from the order editor's shipping UI
+	 *
+	 * WooCommerce automatically assigns meta field outside of their own and the
+	 * global namespace to the shipping section. This removes our meta fields
+	 * from that part of the UI.
+	 *
+	 * @see https://woocommerce.github.io/code-reference/files/woocommerce-includes-admin-meta-boxes-class-wc-meta-box-order-data.html
+	 *
+	 * @param array $fields The shipping fields array to filter.
+	 */
+	public static function remove_shipping_fields_from_order_editor(
+		array $fields,
+	): array {
+		unset( $fields['connector_for_dk/kennitala'] );
+		unset( $fields['connector_for_dk/kennitala_invoice_requested'] );
+		return $fields;
 	}
 
 	/**
@@ -280,7 +284,7 @@ class KennitalaField {
 			array_slice( $fields['billing']['fields'], 0, 2 ),
 			array(
 				'kennitala' => array(
-					'label'       => __( 'Kennitala', '1984-dk-woo' ),
+					'label'       => __( 'Kennitala', 'connector-for-dk' ),
 					'description' => '',
 				),
 			),
@@ -295,83 +299,64 @@ class KennitalaField {
 	}
 
 	/**
-	 * Add a the kennitala from an order to the order's customer record
+	 * Set the billing order meta
 	 *
-	 * This is used for the `woocommerce_checkout_order_processed` action hook
-	 * for assigning the kennitala from a newly created order automatically to
-	 * the releavant customer record on creation.
+	 * Takes the meta values set by the block editor fields and assigns them to
+	 * _billing_kennitala and _billing_kennitala_invoice_requested.
 	 *
-	 * @param int      $order_id The order id (unused).
-	 * @param array    $posted_data The default set of posted order data (unused).
-	 * @param WC_Order $wc_order The order object we are working with.
-	 *
-	 * @return bool True if the kennitala has been assigned to a user record,
-	 *              false if it hasn't (for any reason).
+	 * @param WC_Order $wc_order The order.
 	 */
-	public static function add_order_kennitala_to_the_customer(
-		int $order_id,
-		array $posted_data,
+	public static function set_billing_kennitala_meta(
 		WC_Order $wc_order
-	): bool {
-		$customer_id = $wc_order->get_customer_id();
+	): void {
+		$block_field_kennitala = $wc_order->get_meta(
+			'_wc_other/connector_for_dk/kennitala',
+			true,
+			'edit'
+		);
 
-		if ( $customer_id === 0 ) {
-			return false;
-		}
+		if ( $wc_order->get_customer_id() !== 0 ) {
+			$customer = new WC_Customer( $wc_order->get_customer_id() );
 
-		$order_kennitala = $wc_order->get_meta( 'billing_kennitala', true );
-
-		if ( ! empty( $order_kennitala ) ) {
-			$customer = new WC_Customer( $customer_id );
-
-			$customer->add_meta_data(
-				'kennitala',
-				$order_kennitala,
-				true
+			$customer_kennitala = self::sanitize_kennitala(
+				$customer->get_meta( 'kennitala', true, 'edit' )
 			);
-			$customer->save_meta_data();
-
-			return true;
 		}
 
-		return false;
-	}
+		$block_field_kennitala_invoice_requested = $wc_order->get_meta(
+			'_wc_other/connector_for_dk/kennitala_invoice_requested',
+			true,
+			'edit'
+		);
 
-	/**
-	 * Add a the kennitala from an order to the order's customer record when
-	 * submitted via the JSON API
-	 *
-	 * This is the JSON API transplant of the above
-	 * `add_order_kennitala_to_the_customer()` function and uses the
-	 * `woocommerce_store_api_checkout_order_processed` hook.
-	 *
-	 * @param WC_Order $wc_order The order being submitted.
-	 */
-	public static function add_order_kennitala_to_the_customer_from_api(
-		WC_Order $wc_order
-	): bool {
-		$customer_id = $wc_order->get_customer_id();
-
-		if ( $customer_id === 0 ) {
-			return false;
-		}
-
-		$order_kennitala = self::get_kennitala_from_order( $wc_order );
-
-		if ( ! empty( $order_kennitala ) ) {
-			$customer = new WC_Customer( $customer_id );
-
-			$customer->add_meta_data(
-				'kennitala',
-				$order_kennitala,
-				true
+		if ( ! empty( $block_field_kennitala ) ) {
+			$wc_order->update_meta_data(
+				'_billing_kennitala',
+				self::sanitize_kennitala( $block_field_kennitala )
 			);
-			$customer->save_meta_data();
-
-			return true;
+		} elseif ( ! empty( $customer_kennitala ) ) {
+			$wc_order->update_meta_data(
+				'_billing_kennitala',
+				self::sanitize_kennitala( $customer_kennitala )
+			);
 		}
 
-		return false;
+		if (
+			Config::get_customer_requests_kennitala_invoice() &&
+			$block_field_kennitala_invoice_requested === '1'
+		) {
+			$wc_order->update_meta_data(
+				'_billing_kennitala_invoice_requested',
+				'1'
+			);
+		} else {
+			$wc_order->update_meta_data(
+				'_billing_kennitala_invoice_requested',
+				'0'
+			);
+		}
+
+		$wc_order->save_meta_data();
 	}
 
 	/**
@@ -395,7 +380,7 @@ class KennitalaField {
 		array $raw_address,
 		WC_Order $wc_order
 	): string {
-		$kennitala = $wc_order->get_meta( 'billing_kennitala', true );
+		$kennitala = $wc_order->get_meta( '_billing_kennitala', true );
 
 		if ( empty( $kennitala ) ) {
 			return $address_data;
@@ -418,48 +403,63 @@ class KennitalaField {
 	/**
 	 * Render a kennitala field in the shortcode based checkout page
 	 *
-	 * @param WC_Checkout $checkout The checkout object we get the
-	 *                              customer ID from.
+	 * If the current user has a kennitala assigned, a paragraph is displayed,
+	 * indicating that it will be assigned automatically instead of the text
+	 * input.
 	 */
-	public static function render_classic_checkout_field(
-		WC_Checkout $checkout
-	): void {
-		$customer_id = $checkout->get_value( 'id' );
-		if ( $customer_id !== 0 ) {
-			$customer  = new WC_Customer( $customer_id );
-			$kennitala = $customer->get_meta( 'kennitala', true );
-		} else {
-			$kennitala = '';
-		}
+	public static function render_classic_checkout_field(): void {
+		$customer = new WC_Customer( get_current_user_id() );
+
+		$customer_kennitala = esc_attr(
+			$customer->get_meta( 'kennitala', true, 'edit' )
+		);
 
 		wp_nonce_field(
-			'classic_checkout_set_kennitala',
-			'classic_checkout_set_kennitala_nonce_field'
+			'connector_for_dk_classic_checkout_set_kennitala',
+			'connector_for_dk_classic_checkout_set_kennitala_nonce_field'
 		);
 
-		woocommerce_form_field(
-			'billing_kennitala',
-			array(
-				'id'                => '1984_woo_dk_checkout_kennitala',
-				'type'              => 'text',
-				'label'             => __( 'Kennitala', '1984-dk-woo' ),
-				'custom_attributes' => array(
-					'pattern' => self::KENNITALA_PATTERN,
+		if ( empty( $customer_kennitala ) ) {
+			woocommerce_form_field(
+				'billing_kennitala',
+				array(
+					'default'           => $customer_kennitala,
+					'id'                => 'connector_for_dk_checkout_kennitala',
+					'type'              => 'text',
+					'label'             => __(
+						'Kennitala',
+						'connector-for-dk'
+					),
+					'custom_attributes' => array(
+						'pattern' => self::KENNITALA_PATTERN,
+					),
+				)
+			);
+		} elseif ( $customer_kennitala !== Config::get_default_kennitala() ) {
+			echo sprintf(
+				// Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
+				esc_html__(
+					'%2$sThe kennitala %4$s‘%1$s’%5$s is will be assigned to this order.%3$s',
+					'connector-for-dk'
 				),
-			),
-			self::format_kennitala( $kennitala )
-		);
+				esc_attr( self::format_kennitala( $customer_kennitala ) ),
+				'<p class="kennitala-info">',
+				'</p>',
+				'<strong>',
+				'</strong>'
+			);
+		}
 
 		if ( Config::get_customer_requests_kennitala_invoice() ) {
 			woocommerce_form_field(
 				'kennitala_invoice_requested',
 				array(
-					'id'            => '1984_woo_dk_checkout_kennitala_invoice_requested',
+					'id'            => 'connector_for_dk_checkout_kennitala_invoice_requested',
 					'type'          => 'checkbox',
 					'checked_value' => false,
 					'label'         => __(
 						'Request an Invoice with Kennitala',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 				),
 				1
@@ -474,7 +474,7 @@ class KennitalaField {
 	 * taken care of that for us at this point.
 	 */
 	public static function check_classic_checkout_field(): void {
-		if ( ! isset( $_POST['classic_checkout_set_kennitala_nonce_field'] ) ) {
+		if ( ! isset( $_POST['connector_for_dk_classic_checkout_set_kennitala_nonce_field'] ) ) {
 			return;
 		}
 
@@ -482,10 +482,10 @@ class KennitalaField {
 			! wp_verify_nonce(
 				sanitize_text_field(
 					wp_unslash(
-						$_POST['classic_checkout_set_kennitala_nonce_field']
+						$_POST['connector_for_dk_classic_checkout_set_kennitala_nonce_field']
 					)
 				),
-				'classic_checkout_set_kennitala'
+				'connector_for_dk_classic_checkout_set_kennitala'
 			)
 		) {
 			wp_die( 'Kennitala nonce not valid!' );
@@ -526,7 +526,7 @@ class KennitalaField {
 	 * @param int $order_id The order id.
 	 */
 	public static function save_classic_checkout_field( int $order_id ): void {
-		if ( ! isset( $_POST['classic_checkout_set_kennitala_nonce_field'] ) ) {
+		if ( ! isset( $_POST['connector_for_dk_classic_checkout_set_kennitala_nonce_field'] ) ) {
 			return;
 		}
 
@@ -534,38 +534,52 @@ class KennitalaField {
 			! wp_verify_nonce(
 				sanitize_text_field(
 					wp_unslash(
-						$_POST['classic_checkout_set_kennitala_nonce_field']
+						$_POST['connector_for_dk_classic_checkout_set_kennitala_nonce_field']
 					)
 				),
-				'classic_checkout_set_kennitala'
+				'connector_for_dk_classic_checkout_set_kennitala'
 			)
 		) {
 			wp_die( 'Kennitala nonce not valid!' );
 			return;
 		}
 
-		$order_object = new WC_Order( $order_id );
+		$wc_order = new WC_Order( $order_id );
 
-		if ( isset( $_POST['billing_kennitala'] ) ) {
+		if ( isset( $_POST['billing_kennitala'] ) && ! empty( $_POST['billing_kennitala'] ) ) {
 			$kennitala = sanitize_text_field(
 				wp_unslash( $_POST['billing_kennitala'] )
 			);
 
 			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
+		} else {
+			$customer = new WC_Customer( get_current_user_id() );
 
-			$order_object->update_meta_data(
-				'billing_kennitala',
-				$sanitized_kennitala
+			$sanitized_kennitala = self::sanitize_kennitala(
+				$customer->get_meta( 'kennitala', true, 'edit' )
 			);
 		}
 
-		if ( isset( $_POST['kennitala_invoice_requested'] ) ) {
-			$order_object->update_meta_data( 'kennitala_invoice_requested', 1 );
-		} else {
-			$order_object->update_meta_data( 'kennitala_invoice_requested', 0 );
+		$wc_order->update_meta_data(
+			'_billing_kennitala',
+			$sanitized_kennitala
+		);
+
+		if ( Config::get_customer_requests_kennitala_invoice() ) {
+			if ( isset( $_POST['kennitala_invoice_requested'] ) ) {
+				$wc_order->update_meta_data(
+					'_billing_kennitala_invoice_requested',
+					'1'
+				);
+			} else {
+				$wc_order->update_meta_data(
+					'_billing_kennitala_invoice_requested',
+					'0'
+				);
+			}
 		}
 
-		$order_object->save_meta_data();
+		$wc_order->save_meta_data();
 	}
 
 	/**
@@ -581,39 +595,43 @@ class KennitalaField {
 	 * @link https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/docs/third-party-developers/extensibility/checkout-block/additional-checkout-fields.md
 	 */
 	public static function register_block_checkout_field(): void {
-		woocommerce_register_additional_checkout_field(
-			array(
-				'id'                => '1984_woo_dk/kennitala',
-				'label'             => __(
-					'Kennitala',
-					'1984-dk-woo'
-				),
-				'optionalLabel'     => __(
-					'Kennitala (Optional)',
-					'1984-dk-woo'
-				),
-				'location'          => 'order',
-				'type'              => 'text',
-				'sanitize_callback' => array( __CLASS__, 'sanitize_kennitala' ),
-				'validate_callback' => array( __CLASS__, 'validate_kennitala' ),
-				'attributes'        => array(
-					'autocomplete' => 'kennitala',
-					'pattern'      => self::KENNITALA_PATTERN,
-				),
-			)
-		);
+		$customer = new WC_Customer( get_current_user_id() );
+
+		if ( empty( $customer->get_meta( 'kennitala', true, 'edit' ) ) ) {
+			woocommerce_register_additional_checkout_field(
+				array(
+					'id'                => 'connector_for_dk/kennitala',
+					'label'             => __(
+						'Kennitala',
+						'connector-for-dk'
+					),
+					'optionalLabel'     => __(
+						'Kennitala (Optional)',
+						'connector-for-dk'
+					),
+					'location'          => 'order',
+					'type'              => 'text',
+					'sanitize_callback' => array( __CLASS__, 'sanitize_kennitala' ),
+					'validate_callback' => array( __CLASS__, 'validate_kennitala' ),
+					'attributes'        => array(
+						'autocomplete' => 'kennitala',
+						'pattern'      => self::KENNITALA_PATTERN,
+					),
+				)
+			);
+		}
 
 		if ( Config::get_customer_requests_kennitala_invoice() ) {
 			woocommerce_register_additional_checkout_field(
 				array(
-					'id'            => '1984_woo_dk/kennitala_invoice_requested',
+					'id'            => 'connector_for_dk/kennitala_invoice_requested',
 					'label'         => __(
 						'Request an Invoice with Kennitala',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					'optionalLabel' => __(
 						'Request an Invoice with Kennitala (optional)',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					'location'      => 'order',
 					'type'          => 'checkbox',
@@ -655,7 +673,7 @@ class KennitalaField {
 				'invalid_kennitala',
 				__(
 					'Invalid kennitala. A kennitala is a string of 10 numeric characters.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 			);
 		}
@@ -689,14 +707,17 @@ class KennitalaField {
 	}
 
 	/**
-	 * Get the billing kennital from an order
+	 * Get the billing kennitala from an order
 	 *
 	 * @param WC_Order $wc_order The order.
 	 */
 	public static function get_kennitala_from_order(
 		WC_Order $wc_order,
 	): string {
-		$block_kennitala = $wc_order->get_meta( '_wc_other/1984_woo_dk/kennitala', true );
+		$block_kennitala = $wc_order->get_meta(
+			'_wc_other/connector_for_dk/kennitala',
+			true
+		);
 
 		if ( ! empty( $block_kennitala ) ) {
 			return (string) $block_kennitala;

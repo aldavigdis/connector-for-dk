@@ -2,10 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo;
+namespace AldaVigdis\ConnectorForDK;
 
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use WP_Error;
 
 /**
@@ -38,11 +39,11 @@ class Currency {
 			return self::invalid_currency_code_error( $currency );
 		}
 
-		$option_name = '1984_woo_dk_currency_rate_' . mb_strtolower( $currency );
+		$option_name = 'currency_rate_' . mb_strtolower( $currency );
 
 		$float_value = (float) $rate;
 
-		return update_option( $option_name, $float_value );
+		return Config::update_option( $option_name, $float_value );
 	}
 
 	/**
@@ -62,15 +63,15 @@ class Currency {
 			return self::invalid_currency_code_error( $currency );
 		}
 
-		$option_name = '1984_woo_dk_currency_rate_' . mb_strtolower( $currency );
+		$option_name = 'currency_rate_' . mb_strtolower( $currency );
 
-		$rate = get_option( $option_name, 0 );
+		$rate = Config::get_option( $option_name, 0 );
 
 		if ( ! $rate ) {
 			return self::rate_not_set_error( $currency );
 		}
 
-		return (float) get_option( $option_name, 0 );
+		return (float) Config::get_option( $option_name, 0 );
 	}
 
 	/**
@@ -104,8 +105,8 @@ class Currency {
 			return self::invalid_currency_code_error( $to );
 		}
 
-		$from_rate = get_option(
-			'1984_woo_dk_currency_rate_' . mb_strtolower( $from ),
+		$from_rate = Config::get_option(
+			'dk_currency_rate_' . mb_strtolower( $from ),
 		);
 
 		if ( ! $from_rate ) {
@@ -123,8 +124,8 @@ class Currency {
 			return $base_currency_amount->toFloat();
 		}
 
-		$to_rate = get_option(
-			'1984_woo_dk_currency_rate_' . mb_strtolower( $to )
+		$to_rate = Config::get_option(
+			'currency_rate_' . mb_strtolower( $to )
 		);
 
 		if ( ! $to_rate ) {
@@ -154,7 +155,7 @@ class Currency {
 				// Translators: The %s stands for the currency code.
 				__(
 					'The currency code ‘%s’ is invalid.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				strtoupper( $currency_code )
 			)
@@ -175,7 +176,7 @@ class Currency {
 				// Translators: The %s stands for the currency code.
 				__(
 					'The currency rate for ‘%s’ has not been set.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				strtoupper( $currency_code )
 			)

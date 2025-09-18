@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Cron;
+namespace AldaVigdis\ConnectorForDK\Cron;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Import\SalesPayments as ImportSalesPayments;
-use NineteenEightyFour\NineteenEightyWoo\Import\Currencies as ImportCurrencies;
-use NineteenEightyFour\NineteenEightyWoo\Import\Products as ImportProducts;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
+use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
+use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 
 /**
  * The Hourly Cron class

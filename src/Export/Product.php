@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use WC_Product;
 use WP_Error;
 use WC_Product_Variation;
@@ -451,7 +451,7 @@ class Product {
 		if ( ProductHelper::name_sync_enabled( $wc_product ) ) {
 			if ( $wc_product instanceof WC_Product_Variation ) {
 				$original_name = $wc_product->get_meta(
-					'1984_dk_woo_original_name',
+					'connector_for_dk_original_name',
 					true
 				);
 

@@ -2,17 +2,18 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Hooks;
+namespace AldaVigdis\ConnectorForDK\Hooks;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Export\Product;
-use NineteenEightyFour\NineteenEightyWoo\Export\SalesPerson;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Export\Product;
+use AldaVigdis\ConnectorForDK\Export\SalesPerson;
+use AldaVigdis\ConnectorForDK\Export\Customer;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use stdClass;
 use WC_Order;
 
 /**
- * The NineteenEightyWoo Admin class
+ * The ConnectorForDK Admin class
  *
  * Handles the wp-admin related functionality for the plugin; loads views,
  * enqueues scripts and stylesheets etc.
@@ -107,8 +108,8 @@ class Admin {
 	 */
 	public static function plugin_list_notice(): string {
 		$text = __(
-			'Note: The 1984 Connector for DK and WooCommerce is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
-			'1984-dk-woo'
+			'Note: The Connector for DK is developed, maintained and supported on goodwill basis by 1984 Hosting as free software without any guarantees or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
+			'connector-for-dk'
 		);
 
 		return "<p>$text</p>";
@@ -139,7 +140,7 @@ class Admin {
 	 * Get the URL for the plugin settings page
 	 */
 	private static function settings_url(): string {
-		return get_admin_url( path: '?page=1984-dk-woo' );
+		return get_admin_url( path: '?page=connector-for-dk' );
 	}
 
 	/**
@@ -165,7 +166,7 @@ class Admin {
 	 */
 	private static function community_link(): string {
 		$url  = self::community_url();
-		$text = __( 'Community Support', '1984-dk-woo' );
+		$text = __( 'Community Support', 'connector-for-dk' );
 
 		return "<a href=\"$url\" target=\"_blank\">$text</a>";
 	}
@@ -175,8 +176,8 @@ class Admin {
 	 */
 	public static function add_dk_invoice_metabox(): void {
 		add_meta_box(
-			'nineteen-eighty-woo-dk-invoice-metabox',
-			__( 'DK Invoice', '1984-dk-woo' ),
+			'connector-for-dk-invoice-metabox',
+			__( 'DK Invoice', 'connector-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'woocommerce_page_wc-orders',
 			context: 'side',
@@ -184,8 +185,8 @@ class Admin {
 		);
 
 		add_meta_box(
-			'nineteen-eighty-woo-dk-invoice-metabox',
-			__( 'DK Invoice', '1984-dk-woo' ),
+			'connector-for-dk-invoice-metabox',
+			__( 'DK Invoice', 'connector-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'shop_order',
 			context: 'side',
@@ -213,7 +214,7 @@ class Admin {
 		return array_merge(
 			$first,
 			array(
-				'dk_invoice_id' => esc_html__( 'DK Invoice', '1984-dk-woo' ),
+				'dk_invoice_id' => esc_html__( 'DK Invoice', 'connector-for-dk' ),
 			),
 			$last
 		);
@@ -233,22 +234,14 @@ class Admin {
 			$wc_order = wc_get_order( $wc_order );
 		}
 		if ( $column_name === 'dk_invoice_id' ) {
-			$invoice_number = $wc_order->get_meta(
-				'1984_woo_dk_invoice_number',
-				true,
-				'view'
+			$invoice_number = OrderHelper::get_invoice_number( $wc_order );
+
+			$credit_invoice_number = OrderHelper::get_credit_invoice_number(
+				$wc_order
 			);
 
-			$credit_invoice_number = $wc_order->get_meta(
-				'1984_woo_dk_credit_invoice_number',
-				true,
-				'view'
-			);
-
-			$invoice_creation_error = $wc_order->get_meta(
-				'1984_dk_woo_invoice_creation_error',
-				true,
-				'view'
+			$invoice_creation_error = OrderHelper::get_invoice_creation_error(
+				$wc_order
 			);
 
 			if ( ! empty( $invoice_number ) ) {
@@ -268,7 +261,7 @@ class Admin {
 			if ( ! empty( $invoice_creation_error ) ) {
 				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
 				echo '<span class="invoice_error">';
-				esc_html_e( 'Error', '1984-dk-woo' );
+				esc_html_e( 'Error', 'connector-for-dk' );
 				echo '</span>';
 				return;
 			}
@@ -281,7 +274,7 @@ class Admin {
 	public static function load_textdomain(): void {
 		$plugin_path = dirname( dirname( plugin_basename( __FILE__ ) ) );
 		load_plugin_textdomain(
-			domain: '1984-dk-woo',
+			domain: 'connector-for-dk',
 			plugin_rel_path: $plugin_path . '/../languages'
 		);
 	}
@@ -292,10 +285,10 @@ class Admin {
 	public static function add_menu_page(): void {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Connector for DK', '1984-dk-woo' ),
-			__( 'Connector for DK', '1984-dk-woo' ),
+			__( 'Connector for DK', 'connector-for-dk' ),
+			__( 'Connector for DK', 'connector-for-dk' ),
 			'manage_options',
-			'1984-dk-woo',
+			'connector-for-dk',
 			array( __CLASS__, 'render_admin_page' )
 		);
 	}
@@ -314,19 +307,19 @@ class Admin {
 	 */
 	public static function enqueue_styles_and_scripts(): void {
 		wp_enqueue_style(
-			handle: 'nineteen-eighty-woo',
+			handle: 'connector-for-dk',
 			src: plugins_url( 'style/admin.css', dirname( __DIR__ ) ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_style(
-			handle: 'nineteen-eighty-woo-product',
+			handle: 'connector-for-dk-product',
 			src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo-admin',
+			'connector-for-dk-admin',
 			plugins_url( 'js/admin.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -334,7 +327,7 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo-products',
+			'connector-for-dk-products',
 			plugins_url( 'js/products.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -342,7 +335,7 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'nineteen-eighty-woo-order',
+			'connector-for-dk-order',
 			plugins_url( 'js/order.js', dirname( __DIR__ ) ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -350,25 +343,9 @@ class Admin {
 		);
 
 		wp_set_script_translations(
-			'nineteen-eighty-woo-products',
-			'1984-dk-woo',
+			'connector-for-dk-products',
+			'connector-for-dk',
 			dirname( plugin_dir_path( __FILE__ ), 2 ) . '/languages'
-		);
-	}
-
-	/**
-	 * The url for the 1984 logo
-	 *
-	 * @param string $asset_version The asset version to use, to invalidate cache on update.
-	 *
-	 * @return string The full URL for the SVG version of the 1984 logo.
-	 */
-	public static function logo_url(
-		string $asset_version = self::ASSET_VERSION
-	): string {
-		return plugins_url(
-			'style/1984-logo-semitrans.svg?v=' . $asset_version,
-			dirname( __DIR__ )
 		);
 	}
 
@@ -393,7 +370,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'Please make sure that a product with the Product Code ‘%s’ exsists in DK before saving.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -405,7 +382,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'The Item Code ‘%s’ was found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -417,7 +394,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'The Item Code ‘%s’ was not found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -454,7 +431,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'Please make sure that a sales person with the number ‘%s’ exsists in DK before saving.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -466,7 +443,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -478,7 +455,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was not found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -513,7 +490,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'Please make sure that a customer record with the kennitala ‘%s’ exsists in DK before you continue.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( Config::get_default_kennitala() )
 			);
@@ -525,7 +502,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A customer record with the kennitala ‘%s’ was found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( Config::get_default_kennitala() )
 			);
@@ -537,7 +514,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A custmer record with the kennitala ‘%s’ was not found in DK.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				esc_html( Config::get_default_kennitala() )
 			);

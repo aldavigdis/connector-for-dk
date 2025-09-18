@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Tests\Export;
+namespace AldaVigdis\ConnectorForDK\Tests\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Export\Product as ExportProduct;
+use AldaVigdis\ConnectorForDK\Export\Product as ExportProduct;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 use WC_Product;
@@ -27,8 +27,8 @@ final class ProductTest extends TestCase {
 			'This is the description for a test product.'
 		);
 
-		$wc_product->update_meta_data( '1984_woo_dk_price_sync', true );
-		$wc_product->update_meta_data( '1984_woo_dk_stock_sync', true );
+		$wc_product->update_meta_data( 'connector_for_dk_price_sync', true );
+		$wc_product->update_meta_data( 'connector_for_dk_stock_sync', true );
 
 		$wc_product->save();
 

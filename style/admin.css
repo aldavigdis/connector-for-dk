@@ -1,34 +1,34 @@
-body.woocommerce_page_1984-dk-woo .wrap {
+body.woocommerce_page_connector-for-dk .wrap {
 	width: calc(100%);
 	max-width: 60rem;
 	min-height: 100%;
 	margin: 0 auto;
 }
 
-#nineteen-eighty-woo-wrap {
+#connector-for-dk-wrap {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: calc(100vh - 100px);
 }
 
-#nineteen-eighty-woo-wrap .form-table {
+#connector-for-dk-wrap .form-table {
 	display: table;
 }
 
-#nineteen-eighty-woo-wrap #api-key-form-table th {
+#connector-for-dk-wrap #api-key-form-table th {
 	width: 5em;
 }
 
-#nineteen-eighty-woo-wrap table .with-padding {
+#connector-for-dk-wrap table .with-padding {
 	padding: 20px 10px 20px 10px;
 }
 
-#nineteen-eighty-woo-wrap table th[scope=col] {
+#connector-for-dk-wrap table th[scope=col] {
 	padding: 10px 10px 0px 10px;
 }
 
-#nineteen-eighty-woo-wrap table select {
+#connector-for-dk-wrap table select {
 	max-width: 12em;
 }
 
@@ -42,40 +42,40 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	margin-bottom: 0.3em;
 }
 
-#nineteen-eighty-woo-settings-form input:invalid {
+#connector-for-dk-settings-form input:invalid {
 	border-color: #900;
 }
 
-#nineteen-eighty-woo-settings-form .validity,
-#nineteen-eighty-woo-settings-form .infotext {
+#connector-for-dk-settings-form .validity,
+#connector-for-dk-settings-form .infotext {
 	display: none;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .infotext {
+#connector-for-dk-invoice-metabox .infotext {
 	font-weight: 600;
 	margin: 0.25rem 0 0 0;
 }
 
-#nineteen-eighty-woo-settings-form input:valid ~ .valid,
-#nineteen-eighty-woo-settings-form .infotext.ok,
-#nineteen-eighty-woo-dk-invoice-metabox .infotext.ok {
+#connector-for-dk-settings-form input:valid ~ .valid,
+#connector-for-dk-settings-form .infotext.ok,
+#connector-for-dk-invoice-metabox .infotext.ok {
 	display: block;
 	color: #060;
 }
 
-#nineteen-eighty-woo-settings-form input:invalid ~ .invalid,
-#nineteen-eighty-woo-settings-form .infotext.error,
-#nineteen-eighty-woo-dk-invoice-metabox .infotext.error {
+#connector-for-dk-settings-form input:invalid ~ .invalid,
+#connector-for-dk-settings-form .infotext.error,
+#connector-for-dk-invoice-metabox .infotext.error {
 	display: block;
 	color: #900;
 }
 
-#nineteen-eighty-woo-settings-form .infotext.info {
+#connector-for-dk-settings-form .infotext.info {
 	display: block;
 	color: #003eaa;
 }
 
-#nineteen-eighty-woo-wrap #api-key-form-table td {
+#connector-for-dk-wrap #api-key-form-table td {
 	max-width: calc(100vw - 10px - 8rem);
 	width: calc(60rem - 10px - 5em - 4rem);
 }
@@ -84,7 +84,7 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	width: 100%;
 }
 
-#nineteen-eighty-woo-wrap .section {
+#connector-for-dk-wrap .section {
 	width: calc(100% - 6rem);
 	background-color: #fff;
 	padding: 1rem 2rem;
@@ -94,7 +94,7 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	border-radius: 5px;
 }
 
-#nineteen-eighty-woo-wrap h1 {
+#connector-for-dk-wrap h1 {
 	margin-bottom: 0.2em;
 	margin-top: 1em;
 	margin-right: 1em;
@@ -103,10 +103,9 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	line-height: 1em;
 	color: #333;
 	text-shadow: 1px 1px 0 #fff;
-	max-width: 8.5em;
 }
 
-#nineteen-eighty-woo-wrap .submit-container {
+#connector-for-dk-wrap .submit-container {
 	width: calc(100% - 2rem);
 	display: flex;
 	align-items: center;
@@ -114,25 +113,25 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	justify-content: flex-end;
 }
 
-#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
+#connector-for-dk-wrap #connector-for-dk-settings-error {
 	flex: 1;
 	margin-right: 5em;
 }
 
-#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error p {
+#connector-for-dk-wrap #connector-for-dk-settings-error p {
 	font-size: 1.17em;
 }
 
-#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error {
+#connector-for-dk-wrap #connector-for-dk-settings-error {
 	flex: 1;
 	margin-right: 5em;
 }
 
-#nineteen-eighty-woo-wrap #nineteen-eighty-woo-settings-error p {
+#connector-for-dk-wrap #connector-for-dk-settings-error p {
 	font-size: 1.17em;
 }
 
-#nineteen-eighty-woo-wrap .loader {
+#connector-for-dk-wrap .loader {
 	margin-right: 1rem;
 }
 
@@ -161,7 +160,7 @@ body.woocommerce_page_1984-dk-woo .wrap {
 	margin-left: 5em;
 }
 
-#nineteen-eighty-woo-wrap h2 {
+#connector-for-dk-wrap h2 {
 	font-size: 1.5rem;
 }
 
@@ -200,26 +199,26 @@ table .column-dk_invoice_id .invoice_error {
 	font-weight: 600;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .input-set {
+#connector-for-dk-invoice-metabox .input-set {
 	margin: 1rem 0;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .input {
+#connector-for-dk-invoice-metabox .input {
 	display: flex;
 	flex-direction: column;
 	margin: 0.5rem 0;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .input label {
+#connector-for-dk-invoice-metabox .input label {
 	font-weight: 600;
 	margin-bottom: 0.25rem;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox input[type="text"] {
+#connector-for-dk-invoice-metabox input[type="text"] {
 	width: 100%;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .buttons {
+#connector-for-dk-invoice-metabox .buttons {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -227,11 +226,11 @@ table .column-dk_invoice_id .invoice_error {
 	margin: 0.5rem 0;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .buttons button {
+#connector-for-dk-invoice-metabox .buttons button {
 	margin-right: 0.5rem;
 }
 
-#nineteen-eighty-woo-dk-invoice-metabox .hidden {
+#connector-for-dk-invoice-metabox .hidden {
 	display: none !important;
 }
 
@@ -448,6 +447,23 @@ table .column-dk_invoice_id .invoice_error {
 	appearance: textfield;
 }
 
+#woocommerce-product-data ul.wc-tabs li.dk_connection_options a::before {
+	content: "\f113";
+	color: #900;
+}
+
+#woocommerce-product-data ul.wc-tabs li.dk_connection_options a span {
+	color: #900;
+}
+
+#dk_connection_product_tab .intro {
+	font-weight: bold;
+}
+
+#dk_connection_product_tab .intro strong, #dk_connection_product_tab .intro abbr {
+	color: #900;
+}
+
 @media screen and (max-width: 1200px) {
 	#dk_variations_tab .dk-variations .dk-variation {
 		flex-direction: column;
@@ -471,11 +487,11 @@ table .column-dk_invoice_id .invoice_error {
 }
 
 @media screen and (max-width: 782px) {
-	#nineteen-eighty-woo-wrap h1 {
+	#connector-for-dk-wrap h1 {
 		margin-left: 21px;
 		font-size: 2.5rem;
 	}
-	#nineteen-eighty-woo-wrap #api-key-form-table td {
+	#connector-for-dk-wrap #api-key-form-table td {
 		max-width: calc(100vw - 10px - 6rem);
 	}
 	#payment-gateway-id-map-table td.method-id {
@@ -490,7 +506,7 @@ table .column-dk_invoice_id .invoice_error {
 		padding-top: 0;
 	}
 
-	#nineteen-eighty-woo-wrap .form-table thead {
+	#connector-for-dk-wrap .form-table thead {
 		display: none;
 	}
 

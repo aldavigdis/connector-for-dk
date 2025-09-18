@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Import;
+namespace AldaVigdis\ConnectorForDK\Import;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Currency;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Currency;
 use WP_Error;
 
 /**

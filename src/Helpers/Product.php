@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
+namespace AldaVigdis\ConnectorForDK\Helpers;
 
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ImportProductVariations;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
+use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use WC_Product;
 use WC_Product_Variation;
 use WC_Tax;
@@ -23,8 +23,8 @@ class Product {
 	/**
 	 * Check if name sync is enabled for a product
 	 *
-	 * Checks for the `1984_woo_dk_name_sync` meta is set for the product and
-	 * uses that. If not, it uses the global setting for name sync.
+	 * Checks for the `connector_for_dk_name_sync` meta bein set for the product
+	 * and uses that. If not, it uses the global setting for name sync.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
 	 *
@@ -36,7 +36,7 @@ class Product {
 		}
 
 		$meta_value = $wc_product->get_meta(
-			'1984_woo_dk_name_sync',
+			'connector_for_dk_name_sync',
 			true,
 			'edit'
 		);
@@ -54,7 +54,7 @@ class Product {
 	/**
 	 * Check if price sync is enabled for a product
 	 *
-	 * Checks for the `1984_woo_dk_price_sync` meta is set for the product and
+	 * Checks for the `connector_for_dk_price_sync` meta is set for the product and
 	 * uses that. If not, it uses the global setting for price sync.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
@@ -73,7 +73,7 @@ class Product {
 		}
 
 		$product_dk_currency = $wc_product->get_meta(
-			'1984_woo_dk_dk_currency',
+			'connector_for_dk_currency',
 			true,
 			'edit'
 		);
@@ -86,7 +86,7 @@ class Product {
 		}
 
 		$meta_value = $wc_product->get_meta(
-			'1984_woo_dk_price_sync',
+			'connector_for_dk_price_sync',
 			true,
 			'edit'
 		);
@@ -104,7 +104,7 @@ class Product {
 	/**
 	 * Check if quantity sync is enabled for a product
 	 *
-	 * Checks for the `1984_woo_dk_stock_sync` meta is set for the product and
+	 * Checks for the `connector_for_dk_stock_sync` meta is set for the product and
 	 * uses that. If not, it uses the global setting for price sync.
 	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
@@ -126,7 +126,7 @@ class Product {
 		}
 
 		$meta_value = $wc_product->get_meta(
-			'1984_woo_dk_stock_sync',
+			'connector_for_dk_stock_sync',
 			true,
 			'edit'
 		);
@@ -244,7 +244,7 @@ class Product {
 		}
 
 		$product_origin = $wc_product->get_meta(
-			'1984_dk_woo_origin',
+			'connector_for_dk_origin',
 			true,
 			'edit'
 		);
@@ -263,7 +263,7 @@ class Product {
 			}
 
 			$parent_origin = $parent->get_meta(
-				'1984_dk_woo_origin',
+				'connector_for_dk_origin',
 				true,
 				'edit'
 			);
@@ -285,7 +285,7 @@ class Product {
 	 */
 	public static function get_currency( WC_Product $wc_product ): string {
 		$product_currency = $wc_product->get_meta(
-			'1984_woo_dk_dk_currency',
+			'connector_for_dk_currency',
 			true,
 			'edit'
 		);
@@ -335,7 +335,7 @@ class Product {
 	): bool {
 		if (
 			$wc_product_variation->get_meta(
-				'1984_dk_woo_variable_price_override',
+				'connector_for_dk_variable_price_override',
 				true,
 				'edit'
 			)
@@ -357,7 +357,7 @@ class Product {
 	): bool {
 		if (
 			$wc_product_variation->get_meta(
-				'1984_dk_woo_variable_inventory_override',
+				'connector_for_dk_variable_inventory_override',
 				true,
 				'edit'
 			)
@@ -379,7 +379,7 @@ class Product {
 	): bool {
 		if (
 			$wc_product_variation->get_meta(
-				'1984_dk_woo_variable_quantity_track_in_wc',
+				'connector_for_dk_variable_quantity_track_in_wc',
 				true,
 				'edit'
 			)
@@ -406,10 +406,10 @@ class Product {
 		$parent     = wc_get_product( $wc_product->get_parent_id() );
 
 		if ( $parent ) {
-			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $parent->get_meta( 'connector_for_dk_variant_code' );
 			$attributes   = $parent->get_attributes( 'edit' );
 		} else {
-			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $wc_product->get_meta( 'connector_for_dk_variant_code' );
 			$attributes   = $wc_product->get_attributes( 'edit' );
 		}
 
@@ -453,9 +453,9 @@ class Product {
 		$value      = $wc_product->get_attribute( $attribute_code );
 
 		if ( $parent ) {
-			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $parent->get_meta( 'connector_for_dk_variant_code' );
 		} else {
-			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $wc_product->get_meta( 'connector_for_dk_variant_code' );
 		}
 
 		if ( empty( $variant_code ) ) {
@@ -486,9 +486,9 @@ class Product {
 		$parent     = wc_get_product( $wc_product->get_parent_id() );
 
 		if ( $parent ) {
-			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $parent->get_meta( 'connector_for_dk_variant_code' );
 		} else {
-			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $wc_product->get_meta( 'connector_for_dk_variant_code' );
 		}
 
 		$values = $variations[ $variant_code ]->attributes[ $attribute_code ]->values;
@@ -521,9 +521,9 @@ class Product {
 		$value      = $wc_product->get_attribute( $attribute_code );
 
 		if ( $parent ) {
-			$variant_code = $parent->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $parent->get_meta( 'connector_for_dk_variant_code' );
 		} else {
-			$variant_code = $wc_product->get_meta( '1984_dk_woo_variant_code' );
+			$variant_code = $wc_product->get_meta( 'connector_for_dk_variant_code' );
 		}
 
 		if ( empty( $variant_code ) ) {

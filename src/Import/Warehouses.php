@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Import;
+namespace AldaVigdis\ConnectorForDK\Import;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WP_Error;
 
 /**
@@ -22,7 +22,7 @@ class Warehouses {
 	 * Those results are cached for 10 minutes.
 	 */
 	public static function get(): array {
-		$transient = get_transient( '1984_woo_dk_warehouses' );
+		$transient = get_transient( 'connector_for_dk_warehouses' );
 
 		if ( ! $transient ) {
 			$warehouses_from_dk = self::get_from_dk();
@@ -63,7 +63,7 @@ class Warehouses {
 	 */
 	public static function save( array $results ): bool {
 		return set_transient(
-			'1984_woo_dk_warehouses',
+			'connector_for_dk_warehouses',
 			$results,
 			self::TRANSIENT_EXPIRY
 		);

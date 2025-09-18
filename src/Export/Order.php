@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WC_Order_Item_Product;
 use WP_Error;
@@ -93,7 +93,7 @@ class Order {
 		int $dk_order_number
 	): int {
 		$wc_order->update_meta_data(
-			'1984_woo_dk_order_number',
+			'connector_for_dk_dk_order_number',
 			$dk_order_number
 		);
 
@@ -111,7 +111,7 @@ class Order {
 		WC_Order $wc_order
 	): int|string {
 		return $wc_order->get_meta(
-			'1984_woo_dk_order_number'
+			'connector_for_dk_dk_order_number'
 		);
 	}
 
@@ -170,7 +170,7 @@ class Order {
 				'IncludingVAT'   => true,
 			);
 
-			$origin    = $product->get_meta( '1984_dk_woo_origin', true, 'edit' );
+			$origin    = $product->get_meta( 'connector_for_dk_origin', true, 'edit' );
 			$variation = wc_get_product( $order_item_product->get_variation_id() );
 
 			if ( $origin === 'product_variation' && $variation !== false ) {
@@ -182,7 +182,7 @@ class Order {
 				$variation_line['Code'] = $variation_values[0];
 
 				if ( isset( $variation_values[1] ) ) {
-					$variation_line['Code2'] = array_values( $variation_values )[0];
+					$variation_line['Code2'] = $variation_values[1];
 				}
 
 				$variation_line['Quantity'] = $item->get_quantity();
@@ -205,7 +205,7 @@ class Order {
 
 				$order_props['Lines'][] = array(
 					'ItemCode'     => Config::get_cost_sku(),
-					'Text'         => __( 'Fee', '1984-dk-woo' ),
+					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Price'        => $fee_price_with_tax,
 					'IncludingVAT' => true,
@@ -220,14 +220,16 @@ class Order {
 				$shipping_method->get_total_tax()
 			)->toFloat();
 
-			$order_props['Lines'][] = array(
-				'ItemCode'     => Config::get_shipping_sku(),
-				'Text'         => __( 'Shipping', '1984-dk-woo' ),
-				'Text2'        => $shipping_method->get_name(),
-				'Quantity'     => 1,
-				'Price'        => $shipping_total,
-				'IncludingVAT' => true,
-			);
+			if ( $shipping_total !== 0.0 ) {
+				$order_props['Lines'][] = array(
+					'ItemCode'     => Config::get_shipping_sku(),
+					'Text'         => __( 'Shipping', 'connector-for-dk' ),
+					'Text2'        => $shipping_method->get_name(),
+					'Quantity'     => 1,
+					'Price'        => $shipping_total,
+					'IncludingVAT' => true,
+				);
+			}
 		}
 
 		return $order_props;
@@ -255,7 +257,7 @@ class Order {
 	 * If that does not work out, the default kennitala will be used for the
 	 * customer.
 	 *
-	 * @see NineteenEightyFour\NineteenEightyWoo\Config::get_default_kennitala()
+	 * @see AldaVigdis\ConnectorForDK\Config::get_default_kennitala()
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 *

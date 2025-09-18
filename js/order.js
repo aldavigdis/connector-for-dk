@@ -1,110 +1,110 @@
-class NineteenEightyWooOrder {
+class ConnectorForDKOrder {
 	static invoiceMetaBox() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox'
+			'connector-for-dk-invoice-metabox'
 		);
 	}
 
 	static invoiceNumberInput() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-number-input'
+			'connector-for-dk-invoice-metabox-invoice-number-input'
 		);
 	}
 
 	static creditInvoiceInput() {
 		return document.getElementById(
-			'1984-dk-woo-dk-invoice-metabox-credit-invoice-number-input'
+			'connector-for-dk-invoice-metabox-credit-invoice-number-input'
 		);
 	}
 
 	static invoiceNumberInvalid() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-number-invalid'
+			'connector-for-dk-invoice-metabox-invoice-number-invalid'
 		);
 	}
 
 	static creditInvoiceInvalid() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-credit-invoice-metabox-invoice-number-invalid'
+			'connector-for-dk-credit-invoice-metabox-invoice-number-invalid'
 		);
 	}
 
 	static getPdfButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-get-pdf-button'
+			'connector-for-dk-invoice-metabox-invoice-get-pdf-button'
 		);
 	}
 
 	static getCreditPdfButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-get-pdf-button'
+			'connector-for-dk-invoice-metabox-credit-invoice-get-pdf-button'
 		);
 	}
 
 
 	static createDkInvoiceButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-make-dk-invoice-button'
+			'connector-for-dk-invoice-metabox-make-dk-invoice-button'
 		);
 	}
 
 	static updateInvoiceButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-number-update-button'
+			'connector-for-dk-invoice-metabox-invoice-number-update-button'
 		);
 	}
 
 	static updateCreditInvoiceButton() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-number-update-button'
+			'connector-for-dk-invoice-metabox-credit-invoice-number-update-button'
 		);
 	}
 
 	static invoiceLoader() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-invoice-loader'
+			'connector-for-dk-invoice-metabox-invoice-loader'
 		);
 	}
 
 	static creditInvoiceLoader() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-credit-invoice-loader'
+			'connector-for-dk-invoice-metabox-credit-invoice-loader'
 		);
 	}
 
 	static invoicePdfNotFoundError() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-pdf-not-found-error'
+			'connector-for-dk-invoice-metabox-pdf-not-found-error'
 		);
 	}
 
 	static invoiceNumberAssignedMessage() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-number-assigned-message'
+			'connector-for-dk-invoice-metabox-number-assigned-message'
 		);
 	}
 
 	static invoiceAssignmentError() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-number-not-assigned-error'
+			'connector-for-dk-invoice-metabox-number-not-assigned-error'
 		);
 	}
 
 	static invoiceCreatedMessage() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-created-message'
+			'connector-for-dk-invoice-metabox-created-message'
 		);
 	}
 
 	static invoiceCreationError() {
 		return document.getElementById(
-			'nineteen-eighty-woo-dk-invoice-metabox-creation-error'
+			'connector-for-dk-invoice-metabox-creation-error'
 		);
 	}
 
 	static resetMessages() {
 		const messageNodes = document.querySelectorAll(
-			'#nineteen-eighty-woo-dk-invoice-messages p'
+			'#connector-for-dk-invoice-messages p'
 		);
 
 		messageNodes.forEach(
@@ -138,8 +138,8 @@ class NineteenEightyWooOrder {
 		this.resetMessages();
 		this.invoiceLoader().classList.remove( 'hidden' );
 
-		const invoiceID = NineteenEightyWooOrder.formData().get(
-			'1984_woo_dk_invoice_number'
+		const invoiceID = ConnectorForDKOrder.formData().get(
+			'connector_for_dk_invoice_number'
 		);
 
 		this.getInvoicePdf( invoiceID );
@@ -148,8 +148,8 @@ class NineteenEightyWooOrder {
 	static getPdfCreditInvoiceButtonClickAction() {
 		this.creditInvoiceLoader().classList.remove( 'hidden' );
 
-		const creditInvoiceID = NineteenEightyWooOrder.formData().get(
-			'1984_woo_dk_credit_invoice_number'
+		const creditInvoiceID = ConnectorForDKOrder.formData().get(
+			'connector_for_dk_credit_invoice_number'
 		);
 
 		this.getCreditInvoicePdf( creditInvoiceID );
@@ -162,7 +162,7 @@ class NineteenEightyWooOrder {
 
 	static async getInvoicePdf( invoiceID ) {
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_pdf/' + invoiceID,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + invoiceID,
 			{
 				method: 'GET',
 				headers: {
@@ -182,7 +182,7 @@ class NineteenEightyWooOrder {
 			const json = await response.json();
 
 			window.open(
-				'data:application/pdf;base64,' + json.data,
+				'data:application/pdf;base64,' + json.data.toString(),
 				'_blank'
 			)
 		} else {
@@ -192,7 +192,7 @@ class NineteenEightyWooOrder {
 
 	static async getCreditInvoicePdf( invoiceID ) {
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_pdf/' + invoiceID,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + invoiceID,
 			{
 				method: 'GET',
 				headers: {
@@ -224,7 +224,7 @@ class NineteenEightyWooOrder {
 		};
 
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_invoice_number',
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_number',
 			{
 				method: 'POST',
 				headers: {
@@ -268,7 +268,7 @@ class NineteenEightyWooOrder {
 		this.updateInvoiceButton().disabled = true;
 
 		const postID        = parseInt( this.formData().get( 'post_ID' ) );
-		const invoiceNumber = parseInt( this.formData().get( '1984_woo_dk_invoice_number' ) );
+		const invoiceNumber = parseInt( this.formData().get( 'connector_for_dk_invoice_number' ) );
 
 		this.submitInvoiceNumber( postID, invoiceNumber, 'debit' );
 	}
@@ -278,14 +278,14 @@ class NineteenEightyWooOrder {
 		this.updateCreditInvoiceButton().disabled = true;
 
 		const postID        = parseInt( this.formData().get( 'post_ID' ) );
-		const invoiceNumber = parseInt( this.formData().get( '1984_woo_dk_credit_invoice_number' ) );
+		const invoiceNumber = parseInt( this.formData().get( 'connector_for_dk_credit_invoice_number' ) );
 
 		this.submitInvoiceNumber( postID, invoiceNumber, 'credit' );
 	}
 
 	static disableUpdateInvoiceFieldIfInvalid() {
 		const invoiceNumber = this.formData().get(
-			'1984_woo_dk_invoice_number'
+			'connector_for_dk_invoice_number'
 		);
 
 		if ( /^[1-9][0-9]{0,}$/.test( invoiceNumber ) ) {
@@ -312,7 +312,7 @@ class NineteenEightyWooOrder {
 
 	static disableUpdateCreditInvoiceFieldIfInvalid() {
 		const creditInvoiceNumber = this.formData().get(
-			'1984_woo_dk_credit_invoice_number'
+			'connector_for_dk_credit_invoice_number'
 		);
 
 		if ( /^[1-9][0-9]{0,}$/.test( creditInvoiceNumber ) ) {
@@ -332,7 +332,7 @@ class NineteenEightyWooOrder {
 
 	static async requestNewDkInvoice( orderId ) {
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/order_dk_invoice/' + orderId,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_dk_invoice/' + orderId,
 			{
 				method: 'POST',
 				headers: {
@@ -378,58 +378,58 @@ class NineteenEightyWooOrder {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		if ( NineteenEightyWooOrder.invoiceMetaBox() ) {
-			NineteenEightyWooOrder.updateInvoiceButton().addEventListener(
+		if ( ConnectorForDKOrder.invoiceMetaBox() ) {
+			ConnectorForDKOrder.updateInvoiceButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.updateInvoiceButtonClickEvent( e );
+					ConnectorForDKOrder.updateInvoiceButtonClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.updateCreditInvoiceButton().addEventListener(
+			ConnectorForDKOrder.updateCreditInvoiceButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.updateCreditInvoiceButtonClickEvent( e );
+					ConnectorForDKOrder.updateCreditInvoiceButtonClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.getPdfButton().addEventListener(
+			ConnectorForDKOrder.getPdfButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.getPdfClickEvent( e );
+					ConnectorForDKOrder.getPdfClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.getCreditPdfButton().addEventListener(
+			ConnectorForDKOrder.getCreditPdfButton().addEventListener(
 				'click',
 				( e ) => {
-					NineteenEightyWooOrder.getCreditPdfClickEvent( e );
+					ConnectorForDKOrder.getCreditPdfClickEvent( e );
 				}
 			);
 
-			NineteenEightyWooOrder.invoiceNumberInput().addEventListener(
+			ConnectorForDKOrder.invoiceNumberInput().addEventListener(
 				'input',
 				( e ) => {
-					NineteenEightyWooOrder.disableUpdateInvoiceFieldIfInvalid();
+					ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
 				}
 			);
 
-			NineteenEightyWooOrder.disableUpdateInvoiceFieldIfInvalid();
+			ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
 
-			NineteenEightyWooOrder.creditInvoiceInput().addEventListener(
+			ConnectorForDKOrder.creditInvoiceInput().addEventListener(
 				'input',
 				( e ) => {
-					NineteenEightyWooOrder.disableUpdateCreditInvoiceFieldIfInvalid();
+					ConnectorForDKOrder.disableUpdateCreditInvoiceFieldIfInvalid();
 				}
 			);
 
-			NineteenEightyWooOrder.disableUpdateCreditInvoiceFieldIfInvalid();
+			ConnectorForDKOrder.disableUpdateCreditInvoiceFieldIfInvalid();
 
-			if ( NineteenEightyWooOrder.createDkInvoiceButton() ) {
-				NineteenEightyWooOrder.createDkInvoiceButton().addEventListener(
+			if ( ConnectorForDKOrder.createDkInvoiceButton() ) {
+				ConnectorForDKOrder.createDkInvoiceButton().addEventListener(
 					'click',
 					( e ) => {
-						NineteenEightyWooOrder.createDkInvoiceClickAction();
+						ConnectorForDKOrder.createDkInvoiceClickAction();
 					}
 				);
 			}

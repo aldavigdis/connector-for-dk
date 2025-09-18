@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Export\Order as ExportOrder;
-use NineteenEightyFour\NineteenEightyWoo\Export\Customer as ExportCustomer;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
+use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
 use DateTime;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 
 /**
  * The Invoice Export class
@@ -185,7 +185,7 @@ class Invoice {
 
 		$subject = sprintf(
 			// Translators: The %1$s is a placeholder for the site's title.
-			__( 'Your Invoice From %1$s', '1984-dk-woo' ),
+			__( 'Your Invoice From %1$s', 'connector-for-dk' ),
 			get_bloginfo( 'name' )
 		);
 
@@ -282,7 +282,7 @@ class Invoice {
 		string $dk_invoice_number
 	): string {
 		$wc_order->update_meta_data(
-			'1984_woo_dk_invoice_number',
+			'connector_for_dk_invoice_number',
 			$dk_invoice_number
 		);
 
@@ -300,7 +300,7 @@ class Invoice {
 		WC_Order $wc_order
 	): string {
 		return (string) $wc_order->get_meta(
-			'1984_woo_dk_invoice_number'
+			'connector_for_dk_invoice_number'
 		);
 	}
 
@@ -315,7 +315,7 @@ class Invoice {
 		string $dk_credit_invoice_number
 	): string {
 		$wc_order->update_meta_data(
-			'1984_woo_dk_credit_invoice_number',
+			'connector_for_dk_credit_invoice_number',
 			$dk_credit_invoice_number
 		);
 
@@ -335,7 +335,7 @@ class Invoice {
 		WC_Order $wc_order
 	): string {
 		return (string) $wc_order->get_meta(
-			'1984_woo_dk_credit_invoice_number'
+			'connector_for_dk_credit_invoice_number'
 		);
 	}
 }

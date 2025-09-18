@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WP_Error;
 
 /**

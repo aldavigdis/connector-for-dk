@@ -4,7 +4,7 @@ services:
     volumes:
       - ./dockpress-secrets:/secrets
       - /tmp:/var/www/html/wp-content/uploads/
-      - .:/var/www/html/wp-content/plugins/1984-dk-woo/
+      - .:/var/www/html/wp-content/plugins/connector-for-dk/
     ports:
       - 80:80
     environment:

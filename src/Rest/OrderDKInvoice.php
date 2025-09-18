@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Rest;
+namespace AldaVigdis\ConnectorForDK\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Rest\EmptyBodyEndpointTemplate;
-use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
+use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 
 /**
  * The Order DK Invoice endpoint class
@@ -19,7 +19,7 @@ use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
  * order in DK.
  */
 class OrderDKInvoice implements EmptyBodyEndpointTemplate {
-	const NAMESPACE = 'NineteenEightyWoo/v1';
+	const NAMESPACE = 'ConnectorForDK/v1';
 	const PATH      = '/order_dk_invoice/(?P<order_id>[\d]+)';
 
 	/**
@@ -64,7 +64,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in DK for this order as a line item in this order does not have a SKU.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				)
 			);
 
@@ -77,6 +77,12 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 		);
 
 		if ( ! is_string( $invoice_number ) ) {
+			$wc_order->add_order_note(
+				__(
+					'DK could not create an invoice due to an error.',
+					'1984-dk-woo'
+				)
+			);
 			return new WP_REST_Response( status: 400 );
 		}
 
@@ -85,7 +91,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				// Translators: %1$s is a placeholder for the invoice number generated in DK.
 				__(
 					'An invoice for this order has been created in DK. The invoice number is %1$s.',
-					'1984-dk-woo'
+					'connector-for-dk'
 				),
 				$invoice_number
 			)
@@ -95,26 +101,26 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			if ( ExportInvoice::email_in_dk( $wc_order ) ) {
 				$wc_order->add_order_note(
 					__(
-						'An email containing the invoice as a PDF attachment was sent to the customer.',
-						'1984-dk-woo'
+						'An email containing the invoice as a PDF attachment was sent to the customer via DK.',
+						'connector-for-dk'
 					)
 				);
 			} else {
 				$wc_order->add_order_note(
 					__(
 						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'1984-dk-woo'
+						'connector-for-dk'
 					)
 				);
 			}
 		}
 
 		$wc_order->delete_meta_data(
-			'1984_dk_woo_invoice_creation_error'
+			'connector_for_dk_invoice_creation_error'
 		);
 
 		$wc_order->delete_meta_data(
-			'1984_dk_woo_invoice_creation_error_message'
+			'connector_for_dk_invoice_creation_error_message'
 		);
 
 		$wc_order->save_meta_data();

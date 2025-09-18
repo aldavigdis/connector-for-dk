@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Helpers;
+namespace AldaVigdis\ConnectorForDK\Helpers;
 
-use NineteenEightyFour\NineteenEightyWoo\Config;
+use AldaVigdis\ConnectorForDK\Config;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
@@ -53,19 +53,13 @@ class Order {
 			return Config::get_default_kennitala();
 		}
 
-		$block_kennitala = $wc_order->get_meta(
-			'_wc_other/1984_woo_dk/kennitala',
+		$order_kennitala = $wc_order->get_meta(
+			'_billing_kennitala',
 			true
 		);
 
-		if ( ! empty( $block_kennitala ) ) {
-			return (string) $block_kennitala;
-		}
-
-		$classic_kennitala = $wc_order->get_meta( 'billing_kennitala', true );
-
-		if ( ! empty( $classic_kennitala ) ) {
-			return (string) $classic_kennitala;
+		if ( ! empty( $order_kennitala ) ) {
+			return $order_kennitala;
 		}
 
 		$customer_id = $wc_order->get_customer_id();
@@ -96,24 +90,93 @@ class Order {
 	public static function get_kennitala_invoice_requested(
 		WC_Order $wc_order
 	): bool {
-		$block_value = $wc_order->get_meta(
-			'_wc_other/1984_woo_dk/kennitala_invoice_requested',
+		$meta_value = $wc_order->get_meta(
+			'_billing_kennitala_invoice_requested',
 			true
 		);
 
-		if ( ! empty( $block_value ) ) {
-			return (bool) $block_value;
-		}
-
-		$classic_value = $wc_order->get_meta(
-			'kennitala_invoice_requested',
-			true
-		);
-
-		if ( ! empty( $classic_value ) ) {
-			return (bool) $classic_value;
+		if ( $meta_value === '1' ) {
+			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the DK invoice number for an order
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
+	public static function get_invoice_number(
+		WC_Order $wc_order
+	): string|false {
+		$invoice_number = $wc_order->get_meta(
+			'connector_for_dk_invoice_number',
+			true,
+			'edit'
+		);
+
+		if ( empty( $invoice_number ) ) {
+			$invoice_number = $wc_order->get_meta(
+				'connector_for_dk_invoice_number',
+				true,
+				'edit'
+			);
+		}
+
+		return (string) $invoice_number;
+	}
+
+	/**
+	 * Get the DK credit invoice number for an order
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
+	public static function get_credit_invoice_number(
+		WC_Order $wc_order
+	): string {
+		$credit_invoice_number = $wc_order->get_meta(
+			'connector_for_dk_credit_invoice_number',
+			true,
+			'edit'
+		);
+
+		if ( empty( $credit_invoice_number ) ) {
+			$credit_invoice_number = $wc_order->get_meta(
+				'connector_for_dk_credit_invoice_number',
+				true,
+				'edit'
+			);
+		}
+
+		return (string) $credit_invoice_number;
+	}
+
+	/**
+	 * Get the invoice creation DK error message
+	 *
+	 * We log it if DK responds with an error message as we attempt to create an
+	 * invoice. This retreives it.
+	 *
+	 * @param WC_Order $wc_order The order.
+	 */
+	public static function get_invoice_creation_error(
+		WC_Order $wc_order
+	): string {
+		$error = $wc_order->get_meta(
+			'connector_for_dk_invoice_creation_error',
+			true,
+			'view'
+		);
+
+		if ( empty( $error ) ) {
+			$error = $wc_order->get_meta(
+				'connector_for_dk_invoice_creation_error',
+				true,
+				'view'
+			);
+		}
+
+		return (string) $error;
 	}
 }

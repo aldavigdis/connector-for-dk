@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Export;
+namespace AldaVigdis\ConnectorForDK\Export;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use stdClass;
 use WC_Customer;
 use WC_Order;
@@ -168,7 +168,7 @@ class Customer {
 	public static function has_dk_customer_number(
 		WC_Customer $customer
 	): bool {
-		if ( empty( $customer->get_meta( '1984_woo_dk_customer_number' ) ) ) {
+		if ( empty( $customer->get_meta( 'connector_for_dk_customer_number' ) ) ) {
 			return false;
 		}
 

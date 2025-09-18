@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Import;
+namespace AldaVigdis\ConnectorForDK\Import;
 
-use NineteenEightyFour\NineteenEightyWoo\Service\DKApiRequest;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\BigDecimal;
-use NineteenEightyFour\NineteenEightyWoo\Brick\Math\RoundingMode;
-use NineteenEightyFour\NineteenEightyWoo\Currency;
-use NineteenEightyFour\NineteenEightyWoo\Config;
-use NineteenEightyFour\NineteenEightyWoo\Helpers\Product as ProductHelper;
-use NineteenEightyFour\NineteenEightyWoo\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use AldaVigdis\ConnectorForDK\Currency;
+use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
 use DateTime;
 use stdClass;
 use WC_DateTime;
@@ -245,11 +245,11 @@ class Products {
 				$json_object->ItemCode
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_origin',
+				'connector_for_dk_origin',
 				'product_variation'
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variant_code',
+				'connector_for_dk_variant_code',
 				$variant_code
 			);
 			$wc_product->set_attributes(
@@ -262,18 +262,18 @@ class Products {
 				$variant_code
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variations',
+				'connector_for_dk_variations',
 				$merged_variations
 			);
 			$wc_product->save();
 		} else {
 			$wc_product = wc_get_product_object( 'simple' );
-			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
+			$wc_product->update_meta_data( 'connector_for_dk_origin', 'product' );
 			$wc_product->save();
 		}
 
 		$wc_product->update_meta_data(
-			'1984_dk_woo_product_json',
+			'connector_for_dk_product_json',
 			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
 		);
 
@@ -309,12 +309,12 @@ class Products {
 			$wc_product->set_tax_class( $price->tax_class );
 
 			$wc_product->update_meta_data(
-				'1984_woo_dk_dk_currency',
+				'connector_for_dk_currency',
 				$price->currency
 			);
 
 			$wc_product->update_meta_data(
-				'1984_dk_woo_price',
+				'connector_for_dk_price',
 				$price,
 			);
 		} else {
@@ -337,7 +337,7 @@ class Products {
 		$current_date_and_time = new DateTime();
 
 		$wc_product->update_meta_data(
-			'last_downstream_sync',
+			'connector_for_dk_last_downstream_sync',
 			$current_date_and_time->format( 'U' )
 		);
 
@@ -390,7 +390,7 @@ class Products {
 		}
 
 		$wc_product->update_meta_data(
-			'1984_dk_woo_product_json',
+			'connector_for_dk_product_json',
 			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
 		);
 
@@ -399,11 +399,11 @@ class Products {
 				$json_object->ItemCode
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_origin',
+				'connector_for_dk_origin',
 				'product_variation'
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variant_code',
+				'connector_for_dk_variant_code',
 				$variant_code
 			);
 			$wc_product->set_attributes(
@@ -416,14 +416,14 @@ class Products {
 				$variant_code
 			);
 			$wc_product->update_meta_data(
-				'1984_dk_woo_variations',
+				'connector_for_dk_variations',
 				$merged_variations
 			);
 			self::update_variations( $merged_variations, $wc_product );
 		} else {
-			$wc_product->update_meta_data( '1984_dk_woo_origin', 'product' );
-			$wc_product->update_meta_data( '1984_dk_woo_variant_code', '' );
-			$wc_product->update_meta_data( '1984_dk_woo_variations', '' );
+			$wc_product->update_meta_data( 'connector_for_dk_origin', 'product' );
+			$wc_product->update_meta_data( 'connector_for_dk_variant_code', '' );
+			$wc_product->update_meta_data( 'connector_for_dk_variations', '' );
 		}
 
 		if ( $json_object->ShowItemInWebShop ) {
@@ -460,12 +460,12 @@ class Products {
 				$wc_product->set_tax_class( $price->tax_class );
 
 				$wc_product->update_meta_data(
-					'1984_woo_dk_dk_currency',
+					'connector_for_dk_currency',
 					$price->currency
 				);
 
 				$wc_product->update_meta_data(
-					'1984_dk_woo_price',
+					'connector_for_dk_price',
 					$price,
 				);
 			} else {
@@ -485,7 +485,7 @@ class Products {
 		$current_date_and_time = new DateTime();
 
 		$wc_product->update_meta_data(
-			'last_downstream_sync',
+			'connector_for_dk_last_downstream_sync',
 			$current_date_and_time->format( 'U' )
 		);
 
@@ -688,7 +688,7 @@ class Products {
 	 * @param float $percentage The tax rate to look up.
 	 *
 	 * @return string The matched tax class. Defaults to empty string, for the
-	 *                default rate.
+	 *                default rate if no match is found.
 	 */
 	public static function tax_class_from_rate( float $percentage ): string {
 		if ( is_null( WC()->countries ) ) {
@@ -699,22 +699,19 @@ class Products {
 			return 'Zero rate';
 		}
 
-		$tax_rates = array(
-			'' => array_values( WC_Tax::get_base_tax_rates( '' ) )[0],
-		);
+		$classes       = WC_Tax::get_rates_for_tax_class( '' );
+		$other_classes = WC_Tax::get_tax_classes();
 
-		foreach ( WC_Tax::get_tax_classes() as $tax_class ) {
-			$values = array_values(
-				WC_Tax::get_base_tax_rates( $tax_class )
+		foreach ( $other_classes as $oc ) {
+			$classes = array_merge(
+				$classes,
+				WC_Tax::get_rates_for_tax_class( $oc )
 			);
-			if ( ! empty( $values ) ) {
-				$tax_rates[ $tax_class ] = $values[0];
-			}
 		}
 
-		foreach ( $tax_rates as $class => $r ) {
-			if ( $percentage === $r['rate'] ) {
-				return $class;
+		foreach ( $classes as $class ) {
+			if ( floatval( $class->tax_rate ) === $percentage ) {
+				return $class->tax_rate_class;
 			}
 		}
 
@@ -848,7 +845,7 @@ class Products {
 				$variation->set_weight( $wc_product->get_weight() );
 				$variation->set_manage_stock( $wc_product->get_manage_stock() );
 
-				$price = $wc_product->get_meta( '1984_dk_woo_price' );
+				$price = $wc_product->get_meta( 'connector_for_dk_price' );
 
 				if ( is_object( $price ) ) {
 					$variation->set_regular_price( $price->price );
@@ -878,7 +875,7 @@ class Products {
 						$variation->set_backorders( $wc_product->get_backorders() );
 					}
 					if ( ProductHelper::price_sync_enabled( $variation ) ) {
-						$price = $wc_product->get_meta( '1984_dk_woo_price' );
+						$price = $wc_product->get_meta( 'connector_for_dk_price' );
 
 						if ( is_object( $price ) ) {
 							$variation->set_regular_price( $price->price );

@@ -34,7 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NineteenEightyFour\\NineteenEightyWoo\\": "src/"
+            "AldaVigdis\\ConnectorForDK\\": "src/"
         }
     },
     "require": {
@@ -44,7 +44,7 @@
     },
     "extra": {
         "imposter": {
-            "namespace": "NineteenEightyFour\\NineteenEightyWoo"
+            "namespace": "AldaVigdis\\ConnectorForDK"
         }
     },
     "scripts": {

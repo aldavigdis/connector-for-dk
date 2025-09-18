@@ -1,6 +1,6 @@
 const { __, _x, _n, _nx } = wp.i18n;
 
-class NineteenEightyWooProducts {
+class ConnectorForDKProducts {
 	static assignClickToDKPriceCheckboxes() {
 		const checkboxes = document.querySelectorAll(
 			'[data-variation-price-checkbox-for]'
@@ -151,8 +151,8 @@ class NineteenEightyWooProducts {
 						);
 						const mediaPopover               = wp.media(
 							{
-								title: __( 'Select or upload image for this variation', '1984-dk-woo' ),
-								button: { text: __( 'Use', '1984-dk-woo' ) },
+								title: __( 'Select or upload image for this variation', 'connector-for-dk' ),
+								button: { text: __( 'Use', 'connector-for-dk' ) },
 								multiple: false,
 								library: {
 									type: 'image'
@@ -222,10 +222,10 @@ class NineteenEightyWooProducts {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		NineteenEightyWooProducts.assignClickToDKPriceCheckboxes();
-		NineteenEightyWooProducts.assignClickToDKInventoryCheckboxes();
-		NineteenEightyWooProducts.assignClickToDKQuantityCheckboxes();
-		NineteenEightyWooProducts.assignClickToDKThumbnailImages();
-		NineteenEightyWooProducts.assignClickToDKThumbnailRemoveButton();
+		ConnectorForDKProducts.assignClickToDKPriceCheckboxes();
+		ConnectorForDKProducts.assignClickToDKInventoryCheckboxes();
+		ConnectorForDKProducts.assignClickToDKQuantityCheckboxes();
+		ConnectorForDKProducts.assignClickToDKThumbnailImages();
+		ConnectorForDKProducts.assignClickToDKThumbnailRemoveButton();
 	}
 );

@@ -2,21 +2,21 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Rest;
+namespace AldaVigdis\ConnectorForDK\Rest;
 
 use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use NineteenEightyFour\NineteenEightyWoo\Opis\JsonSchema\Validator;
-use NineteenEightyFour\NineteenEightyWoo\Rest\PostEndpointTemplate;
-use NineteenEightyFour\NineteenEightyWoo\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
+use AldaVigdis\ConnectorForDK\Rest\PostEndpointTemplate;
+use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
 
 /**
  * The Order Invoice Number REST API class
  */
 class OrderInvoiceNumber implements PostEndpointTemplate {
-	const NAMESPACE = 'NineteenEightyWoo/v1';
+	const NAMESPACE = 'ConnectorForDK/v1';
 	const PATH      = '/order_invoice_number/';
 	const SCHEMA    = 'rest/order_invoice_number.json';
 
@@ -86,7 +86,7 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 						// Translators: %1$s is a placeholder for the invoice number that was manually entered.
 						__(
 							'Invoice number set to %1$s.',
-							'1984-dk-woo'
+							'connector-for-dk'
 						),
 						$rest_json->invoice_number
 					)
@@ -111,7 +111,7 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 					// Translators: %1$s is a placeholder for the invoice number that was manually entered.
 					__(
 						'Credit invoice number set to %1$s.',
-						'1984-dk-woo'
+						'connector-for-dk'
 					),
 					$rest_json->invoice_number
 				)
@@ -119,11 +119,11 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 		}
 
 		$wc_order->delete_meta_data(
-			'1984_dk_woo_invoice_creation_error'
+			'connector_for_dk_invoice_creation_error'
 		);
 
 		$wc_order->delete_meta_data(
-			'1984_dk_woo_invoice_creation_error_message'
+			'connector_for_dk_invoice_creation_error_message'
 		);
 
 		$wc_order->save_meta_data();

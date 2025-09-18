@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NineteenEightyFour\NineteenEightyWoo\Tests\Export;
+namespace AldaVigdis\ConnectorForDK\Tests\Export;
 
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;

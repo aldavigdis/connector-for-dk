@@ -1,21 +1,15 @@
-class NineteenEightyWoo {
+class ConnectorForDK {
 	static settingsForm() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-form' );
+		return document.querySelector( '#connector-for-dk-settings-form' );
 	}
 	static settingsErrorIndicator() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
-	}
-	static settingsErrorIndicator() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-error' );
+		return document.querySelector( '#connector-for-dk-settings-error' );
 	}
 	static settingsLoader() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-loader' );
+		return document.querySelector( '#connector-for-dk-settings-loader' );
 	}
 	static settingsSubmit() {
-		return document.querySelector( '#nineteen-eighty-woo-settings-submit' );
-	}
-	static shippingSkuField() {
-		return document.querySelector( '#shipping_sku_field' );
+		return document.querySelector( '#connector-for-dk-settings-submit' );
 	}
 	static rowElements() {
 		return document.querySelectorAll(
@@ -26,16 +20,16 @@ class NineteenEightyWoo {
 	static onSettingsFormSubmit(event) {
 		event.preventDefault();
 
-		NineteenEightyWoo.settingsLoader().classList.remove( 'hidden' );
-		NineteenEightyWoo.settingsSubmit().disabled = true;
+		ConnectorForDK.settingsLoader().classList.remove( 'hidden' );
+		ConnectorForDK.settingsSubmit().disabled = true;
 
-		if ( false == NineteenEightyWoo.settingsForm().checkValidity() ) {
-			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
-			NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
-			NineteenEightyWoo.settingsSubmit().disabled = false;
+		if ( false == ConnectorForDK.settingsForm().checkValidity() ) {
+			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
+			ConnectorForDK.settingsLoader().classList.add( 'hidden' );
+			ConnectorForDK.settingsSubmit().disabled = false;
 			return false;
 		}
-		NineteenEightyWoo.settingsErrorIndicator().classList.add( 'hidden' );
+		ConnectorForDK.settingsErrorIndicator().classList.add( 'hidden' );
 
 		const formData = new FormData( event.target );
 
@@ -47,7 +41,7 @@ class NineteenEightyWoo {
 		let paymentsLength = paymentIds.length;
 
 		for (let i = 0; i < paymentsLength; i++) {
-			let wooId  = NineteenEightyWoo.rowElements()[i].dataset.gatewayId;
+			let wooId  = ConnectorForDK.rowElements()[i].dataset.gatewayId;
 			let dkId   = parseInt( paymentIds[i] );
 			let dkMode = paymentModes[i];
 			let dkTerm = paymentTerms[i];
@@ -94,13 +88,13 @@ class NineteenEightyWoo {
 			fetch_products: true
 		}
 
-		NineteenEightyWoo.postSettingsData( formDataObject );
+		ConnectorForDK.postSettingsData( formDataObject );
 	}
 
 	static async postSettingsData(formDataObject) {
 
 		const response = await fetch(
-			wpApiSettings.root + 'NineteenEightyWoo/v1/settings',
+			wpApiSettings.root + 'ConnectorForDK/v1/settings',
 			{
 				method: 'POST',
 				headers: {
@@ -111,16 +105,16 @@ class NineteenEightyWoo {
 			}
 		);
 
-		NineteenEightyWoo.settingsLoader().classList.add( 'hidden' );
+		ConnectorForDK.settingsLoader().classList.add( 'hidden' );
 
 		window.location.reload();
 
 		if ( response.ok ) {
-			if ( 'onlyApiKey' in NineteenEightyWoo.settingsForm().dataset ) {
+			if ( 'onlyApiKey' in ConnectorForDK.settingsForm().dataset ) {
 				window.location.reload( true );
 			}
 		} else {
-			NineteenEightyWoo.settingsErrorIndicator().classList.remove( 'hidden' );
+			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}
 }
@@ -129,17 +123,17 @@ window.addEventListener(
 	'DOMContentLoaded',
 	() => {
 		if (document.body) {
-			if ( NineteenEightyWoo.settingsForm() ) {
-				NineteenEightyWoo.settingsForm().addEventListener(
+			if ( ConnectorForDK.settingsForm() ) {
+				ConnectorForDK.settingsForm().addEventListener(
 					'submit',
-					NineteenEightyWoo.onSettingsFormSubmit
+					ConnectorForDK.onSettingsFormSubmit
 				);
 			}
 
-			if ( NineteenEightyWoo.settingsForm() ) {
-				NineteenEightyWoo.settingsForm().addEventListener(
+			if ( ConnectorForDK.settingsForm() ) {
+				ConnectorForDK.settingsForm().addEventListener(
 					'submit',
-					NineteenEightyWoo.onSettingsFormSubmit
+					ConnectorForDK.onSettingsFormSubmit
 				);
 			}
 		}

@@ -68,14 +68,14 @@ class KennitalaField {
 				10,
 				1
 			);
-
-			add_filter(
-				'woocommerce_order_get_formatted_billing_address',
-				array( __CLASS__, 'add_kennitala_to_formatted_billing_address' ),
-				10,
-				3
-			);
 		}
+
+		add_filter(
+			'woocommerce_order_get_formatted_billing_address',
+			array( __CLASS__, 'add_kennitala_to_formatted_billing_address' ),
+			10,
+			3
+		);
 
 		add_action(
 			'woocommerce_blocks_loaded',

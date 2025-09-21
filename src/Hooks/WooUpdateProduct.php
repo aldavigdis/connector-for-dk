@@ -6,6 +6,7 @@ namespace AldaVigdis\ConnectorForDK\Hooks;
 
 use AldaVigdis\ConnectorForDK\Export\Product as ExportProduct;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Config;
 
 use WP_Post;
 use WC_Product;
@@ -18,33 +19,37 @@ class WooUpdateProduct {
 	 * The class constructor
 	 */
 	public function __construct() {
-		add_action(
-			'woocommerce_update_product',
-			array( __CLASS__, 'on_product_update' ),
-			10,
-			2
-		);
+		if ( Config::get_dk_api_key() ) {
+			if ( Config::get_upstream_product_sync_enabled() ) {
+				add_action(
+					'woocommerce_update_product',
+					array( __CLASS__, 'on_product_update' ),
+					10,
+					2
+				);
 
-		add_action(
-			'woocommerce_update_product_variation',
-			array( __CLASS__, 'on_product_update' ),
-			10,
-			2
-		);
+				add_action(
+					'woocommerce_update_product_variation',
+					array( __CLASS__, 'on_product_update' ),
+					10,
+					2
+				);
+			}
 
-		add_action(
-			'before_delete_post',
-			array( __CLASS__, 'before_post_delete' ),
-			10,
-			2
-		);
+			add_action(
+				'before_delete_post',
+				array( __CLASS__, 'before_post_delete' ),
+				10,
+				2
+			);
 
-		add_action(
-			'transition_post_status',
-			array( __CLASS__, 'post_status_change' ),
-			10,
-			3
-		);
+			add_action(
+				'transition_post_status',
+				array( __CLASS__, 'post_status_change' ),
+				10,
+				3
+			);
+		}
 	}
 
 	/**

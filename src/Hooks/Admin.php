@@ -9,6 +9,8 @@ use AldaVigdis\ConnectorForDK\Export\Product;
 use AldaVigdis\ConnectorForDK\Export\SalesPerson;
 use AldaVigdis\ConnectorForDK\Export\Customer;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Import\Products;
+use WC_Payment_Gateways;
 use stdClass;
 use WC_Order;
 
@@ -19,9 +21,11 @@ use WC_Order;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION    = '0.4.6';
-	const PLUGIN_SLUG      = 'connector-for-dk';
-	const TRANSIENT_EXPIRY = 1800;
+	const ASSET_VERSION = '0.4.6';
+	const PLUGIN_SLUG   = 'connector-for-dk';
+
+	const TRANSIENT_EXPIRY = 900;
+	const CHECK_TAX_RATES  = [ 24.0, 11.0, 0.0 ];
 
 	/**
 	 * Constructor for the Admin interface class
@@ -267,6 +271,107 @@ class Admin {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Check for pre-activation issues
+	 *
+	 * Check if any tax rates and payment gateways have been enabled. If the
+	 * Iceland Post plugin is installed, it also checks if the conflicting-but-
+	 * compatible Kennitala field from that plugin is disabled.
+	 *
+	 * @return array An array containing the values 'tax_rates',
+	 *               'payment_gateways' and 'iceland_post_kennitala' depending
+	 *               on what needs to be checked.
+	 */
+	public static function pre_activation_errors(): array {
+		if ( Config::get_dk_api_key() ) {
+			return array();
+		}
+
+		$errors = array();
+
+		if ( self::check_base_location() === false ) {
+			array_push( $errors, 'base_location' );
+		}
+
+		if ( self::check_tax_rates() === false ) {
+			array_push( $errors, 'tax_rates' );
+		}
+
+		if ( self::check_payment_gateways() === false ) {
+			array_push( $errors, 'payment_gateways' );
+		}
+
+		if ( self::check_iceland_post_kennitala() === false ) {
+			array_push( $errors, 'iceland_post_kennitala' );
+		}
+
+		return $errors;
+	}
+
+	/**
+	 * Check if tax rates have been set
+	 *
+	 * Checks if the 24%, 11% and 0% tax rates have been set in WooCommerce to
+	 * facilitate product sync.
+	 */
+	public static function check_tax_rates(): bool {
+		$set_rates = array_map(
+			'floatval',
+			array_column(
+				Products::all_tax_rates(),
+				'tax_rate'
+			)
+		);
+
+		return empty( array_diff( self::CHECK_TAX_RATES, $set_rates ) );
+	}
+
+	/**
+	 * Check if a payment gateway has not been set up
+	 */
+	public static function check_payment_gateways(): bool {
+		return count( self::available_payment_gateways() ) !== 0;
+	}
+
+	/**
+	 * Check for the store base location
+	 *
+	 * This plugin only supports stores located in Iceland.
+	 */
+	public static function check_base_location(): bool {
+		$base_location = wc_get_base_location();
+
+		if ( $base_location['country'] !== 'IS' ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if the Iceland Post kennitala is enabled
+	 *
+	 * @return bool True if the Iceland Post kennitala field is not enabled.
+	 */
+	public static function check_iceland_post_kennitala(): bool {
+		$postis_settings = get_option( 'woocommerce_postis_settings' );
+
+		return ! (
+			is_array( $postis_settings ) &&
+			array_key_exists( 'billing_kennitala_enable', $postis_settings ) &&
+			$postis_settings['billing_kennitala_enable'] === 'yes'
+		);
+	}
+
+	/**
+	 * Fetch the available payment gateways
+	 */
+	public static function available_payment_gateways(): array {
+		$gateways = new WC_Payment_Gateways();
+
+		return $gateways->get_available_payment_gateways();
 	}
 
 	/**

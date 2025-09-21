@@ -628,7 +628,7 @@ class Config {
 	 * Get wether to delete inactive products on sync
 	 */
 	public static function get_delete_inactive_products(): bool {
-		return (bool) self::get_option( 'delete_inactive_products', false );
+		return (bool) self::get_option( 'delete_inactive_products', true );
 	}
 
 	/**
@@ -743,7 +743,7 @@ class Config {
 	}
 
 	/**
-	 * Get wether attribute value descriptions from DK are used as the visible
+	 * Set wether attribute value descriptions from DK are used as the visible
 	 * title for each attribute value
 	 *
 	 * @param bool $value True to use the description as the visible attribute
@@ -753,5 +753,42 @@ class Config {
 		bool $value
 	): bool {
 		return self::update_option( 'use_attribute_value_description', $value );
+	}
+
+	/**
+	 * Check if upstream product sync is enabled
+	 */
+	public static function get_upstream_product_sync_enabled(): bool {
+		return (bool) self::get_option(
+			'upstream_product_sync_enabled',
+			false
+		);
+	}
+
+	/**
+	 * Toggle upstream product sync
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_upstream_product_sync_enabled(
+		bool $value
+	): bool {
+		return self::update_option( 'upstream_product_sync_enabled', $value );
+	}
+
+	/**
+	 * Check if the cronjob is enabled
+	 */
+	public static function get_enable_cronjob(): bool {
+		return (bool) self::get_option( 'enable_cronjob', false );
+	}
+
+	/**
+	 * Toggle the cronjob
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_enable_cronjob( bool $value ): bool {
+		return self::update_option( 'enable_cronjob', $value );
 	}
 }

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Hooks;
 
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
+use AldaVigdis\ConnectorForDK\Config;
 use WC_Product;
 use WC_Product_Variable;
 use WC_Product_Variation;
@@ -37,44 +38,46 @@ class WooMetaboxes {
 	 * The constructor for the WooMetaboxes class
 	 */
 	public function __construct() {
-		add_action(
-			'woocommerce_update_product',
-			array( $this, 'save_product_meta' ),
-			10,
-			2
-		);
+		if ( Config::get_dk_api_key() ) {
+			add_action(
+				'woocommerce_update_product',
+				array( $this, 'save_product_meta' ),
+				10,
+				2
+			);
 
-		add_filter(
-			'is_protected_meta',
-			array( __CLASS__, 'protect_meta' ),
-			10,
-			2
-		);
+			add_filter(
+				'is_protected_meta',
+				array( __CLASS__, 'protect_meta' ),
+				10,
+				2
+			);
 
-		add_filter(
-			'woocommerce_product_data_tabs',
-			array( __CLASS__, 'remove_variations_from_product_editor' ),
-			98,
-			1
-		);
+			add_filter(
+				'woocommerce_product_data_tabs',
+				array( __CLASS__, 'remove_variations_from_product_editor' ),
+				98,
+				1
+			);
 
-		add_action(
-			'woocommerce_product_data_panels',
-			array( __CLASS__, 'variations_panel' )
-		);
+			add_action(
+				'woocommerce_product_data_panels',
+				array( __CLASS__, 'variations_panel' )
+			);
 
-		add_action( 'init', array( __CLASS__, 'add_image_sizes' ) );
+			add_action( 'init', array( __CLASS__, 'add_image_sizes' ) );
 
-		add_filter(
-			'woocommerce_product_data_tabs',
-			array( __CLASS__, 'add_product_data_tab' ),
-			98
-		);
+			add_filter(
+				'woocommerce_product_data_tabs',
+				array( __CLASS__, 'add_product_data_tab' ),
+				98
+			);
 
-		add_action(
-			'woocommerce_product_data_panels',
-			array( __CLASS__, 'dk_connection_panel' ),
-		);
+			add_action(
+				'woocommerce_product_data_panels',
+				array( __CLASS__, 'dk_connection_panel' ),
+			);
+		}
 	}
 
 	/**

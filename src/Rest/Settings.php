@@ -250,6 +250,13 @@ class Settings {
 			ImportProducts::save_all_from_dk();
 		}
 
+		if (
+			property_exists( $rest_json, 'enable_cronjob' ) &&
+			$rest_json->enable_cronjob
+		) {
+			Config::set_enable_cronjob( true );
+		}
+
 		return new WP_REST_Response( array( 'status' => 200 ) );
 	}
 

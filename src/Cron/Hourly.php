@@ -21,7 +21,7 @@ class Hourly {
 	 * Saves all products from the DK API.
 	 */
 	public static function run(): void {
-		if ( Config::get_dk_api_key() ) {
+		if ( Config::get_dk_api_key() && Config::get_enable_cronjob() ) {
 			ImportSalesPayments::get_methods();
 			ImportCurrencies::save_all_from_dk();
 			ImportProducts::save_all_from_dk();

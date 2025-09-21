@@ -33,62 +33,72 @@ class ConnectorForDK {
 
 		const formData = new FormData( event.target );
 
-		let paymentIds   = formData.getAll( 'payment_id' );
-		let paymentModes = formData.getAll( 'payment_mode' );
-		let paymentTerms = formData.getAll( 'payment_term' );
-
-		let paymentMethods = [];
-		let paymentsLength = paymentIds.length;
-
-		for (let i = 0; i < paymentsLength; i++) {
-			let wooId  = ConnectorForDK.rowElements()[i].dataset.gatewayId;
-			let dkId   = parseInt( paymentIds[i] );
-			let dkMode = paymentModes[i];
-			let dkTerm = paymentTerms[i];
-
-			if (isNaN( dkId )) {
-				dkId = 0;
+		if ( event.target.dataset.apiKeyOnly == 'true' ) {
+			const formDataObject = {
+				api_key: formData.get( 'api_key' ).trim(),
+				fetch_products: false
 			}
 
-			paymentMethods.push(
-				{
-					woo_id:  wooId,
-					dk_id:   dkId,
-					dk_mode: dkMode,
-					dk_term: dkTerm,
+			ConnectorForDK.postSettingsData( formDataObject );
+		} else {
+			let paymentIds   = formData.getAll( 'payment_id' );
+			let paymentModes = formData.getAll( 'payment_mode' );
+			let paymentTerms = formData.getAll( 'payment_term' );
+
+			let paymentMethods = [];
+			let paymentsLength = paymentIds.length;
+
+			for (let i = 0; i < paymentsLength; i++) {
+				let wooId  = ConnectorForDK.rowElements()[i].dataset.gatewayId;
+				let dkId   = parseInt( paymentIds[i] );
+				let dkMode = paymentModes[i];
+				let dkTerm = paymentTerms[i];
+
+				if (isNaN( dkId )) {
+					dkId = 0;
 				}
-			);
-		}
 
-		const formDataObject = {
-			api_key: formData.get( 'api_key' ).trim(),
-			product_price_sync: Boolean( formData.get( 'product_price_sync' ) ),
-			product_quantity_sync: Boolean( formData.get( 'product_quantity_sync' ) ),
-			product_name_sync: Boolean( formData.get( 'product_name_sync' ) ),
-			import_nonweb_products: Boolean( formData.get( 'import_nonweb_products' ) ),
-			delete_inactive_products: Boolean( formData.get( 'delete_inactive_products' ) ),
-			shipping_sku: formData.get( 'shipping_sku' ).trim(),
-			cost_sku: formData.get( 'cost_sku' ).trim(),
-			default_kennitala: formData.get( 'default_kennitala' ).trim(),
-			enable_kennitala: Boolean( formData.get( 'enable_kennitala' ) ),
-			default_sales_person: formData.get( 'default_sales_person' ).trim(),
-			payment_methods: paymentMethods,
-			ledger_code_standard: formData.get( 'ledger_code_standard' ).trim(),
-			ledger_code_standard_purchase: formData.get( 'ledger_code_standard_purchase' ).trim(),
-			ledger_code_reduced: formData.get( 'ledger_code_reduced' ).trim(),
-			ledger_code_reduced_purchase: formData.get( 'ledger_code_reduced_purchase' ).trim(),
-			customer_requests_kennitala_invoice: Boolean( formData.get( 'customer_requests_kennitala_invoice' ) ),
-			make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
-			make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
-			email_invoice: Boolean( formData.get( 'email_invoice' ) ),
-			domestic_customer_ledger_code: formData.get( 'domestic_customer_ledger_code' ),
-			international_customer_ledger_code: formData.get( 'international_customer_ledger_code' ),
-			use_attribute_description: Boolean( formData.get( 'use_attribute_description' ) ),
-			use_attribute_value_description: Boolean( formData.get( 'use_attribute_value_description' ) ),
-			fetch_products: true
-		}
+				paymentMethods.push(
+					{
+						woo_id:  wooId,
+						dk_id:   dkId,
+						dk_mode: dkMode,
+						dk_term: dkTerm,
+					}
+				);
+			}
 
-		ConnectorForDK.postSettingsData( formDataObject );
+			const formDataObject = {
+				api_key: formData.get( 'api_key' ).trim(),
+				product_price_sync: Boolean( formData.get( 'product_price_sync' ) ),
+				product_quantity_sync: Boolean( formData.get( 'product_quantity_sync' ) ),
+				product_name_sync: Boolean( formData.get( 'product_name_sync' ) ),
+				import_nonweb_products: Boolean( formData.get( 'import_nonweb_products' ) ),
+				delete_inactive_products: Boolean( formData.get( 'delete_inactive_products' ) ),
+				shipping_sku: formData.get( 'shipping_sku' ).trim(),
+				cost_sku: formData.get( 'cost_sku' ).trim(),
+				default_kennitala: formData.get( 'default_kennitala' ).trim(),
+				enable_kennitala: Boolean( formData.get( 'enable_kennitala' ) ),
+				default_sales_person: formData.get( 'default_sales_person' ).trim(),
+				payment_methods: paymentMethods,
+				ledger_code_standard: formData.get( 'ledger_code_standard' ).trim(),
+				ledger_code_standard_purchase: formData.get( 'ledger_code_standard_purchase' ).trim(),
+				ledger_code_reduced: formData.get( 'ledger_code_reduced' ).trim(),
+				ledger_code_reduced_purchase: formData.get( 'ledger_code_reduced_purchase' ).trim(),
+				customer_requests_kennitala_invoice: Boolean( formData.get( 'customer_requests_kennitala_invoice' ) ),
+				make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
+				make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
+				email_invoice: Boolean( formData.get( 'email_invoice' ) ),
+				domestic_customer_ledger_code: formData.get( 'domestic_customer_ledger_code' ),
+				international_customer_ledger_code: formData.get( 'international_customer_ledger_code' ),
+				use_attribute_description: Boolean( formData.get( 'use_attribute_description' ) ),
+				use_attribute_value_description: Boolean( formData.get( 'use_attribute_value_description' ) ),
+				fetch_products: true,
+				enable_cronjob: true
+			}
+
+			ConnectorForDK.postSettingsData( formDataObject );
+		}
 	}
 
 	static async postSettingsData(formDataObject) {
@@ -110,9 +120,7 @@ class ConnectorForDK {
 		window.location.reload();
 
 		if ( response.ok ) {
-			if ( 'onlyApiKey' in ConnectorForDK.settingsForm().dataset ) {
-				window.location.reload( true );
-			}
+			window.location.reload( true );
 		} else {
 			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
 		}

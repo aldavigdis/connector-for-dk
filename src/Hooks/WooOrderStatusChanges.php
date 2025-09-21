@@ -25,19 +25,21 @@ class WooOrderStatusChanges {
 	 * The class constructor, silly
 	 */
 	public function __construct() {
-		add_action(
-			'woocommerce_order_status_completed',
-			array( __CLASS__, 'maybe_send_invoice_on_payment' ),
-			10,
-			1
-		);
+		if ( Config::get_dk_api_key() ) {
+			add_action(
+				'woocommerce_order_status_completed',
+				array( __CLASS__, 'maybe_send_invoice_on_payment' ),
+				10,
+				1
+			);
 
-		add_action(
-			'woocommerce_order_status_processing',
-			array( __CLASS__, 'maybe_send_invoice_on_payment' ),
-			10,
-			1
-		);
+			add_action(
+				'woocommerce_order_status_processing',
+				array( __CLASS__, 'maybe_send_invoice_on_payment' ),
+				10,
+				1
+			);
+		}
 	}
 
 	/**

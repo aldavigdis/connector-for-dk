@@ -11,7 +11,144 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$pre_activation_errors = Admin::pre_activation_errors();
+
 ?>
+
+<?php if ( count( $pre_activation_errors ) !== 0 ) : ?>
+
+<div
+	class="wrap connector-for-dk-wrap"
+	id="connector-for-dk-wrap"
+>
+	<h1>
+		<?php
+		esc_html_e(
+			'Please take care of this first!',
+			'connector-for-dk'
+		);
+		?>
+	</h1>
+	<p class="subheading">
+		<?php
+		esc_html_e(
+			"There's a couple of things you need to do before we let you continue using the Connector for DK plugin. Please fix the following issues and check back again:",
+			'connector-for-dk'
+		);
+		?>
+	</p>
+	<section class="section">
+		<ul class="admin-check-errors">
+			<?php if ( in_array( 'base_location', $pre_activation_errors, true ) ) : ?>
+			<li>
+				<span>
+					<?php
+					esc_html_e(
+						'Set store location to Iceland',
+						'connector-for-dk'
+					);
+					?>
+				</span>
+				<ul>
+					<li>
+						<?php
+						esc_html_e(
+							'Connector for DK only supports stores with the base location set to Iceland.',
+							'connector-for-dk'
+						);
+						?>
+					</li>
+				</ul>
+			</li>
+			<?php endif ?>
+			<?php if ( in_array( 'tax_rates', $pre_activation_errors, true ) ) : ?>
+			<li>
+				<span>
+					<?php
+					esc_html_e(
+						'Set WooCommerce tax rates for 24%, 11% and 0% VAT rates',
+						'connector-for-dk'
+					);
+					?>
+				</span>
+				<ul>
+					<li>
+						<?php
+						esc_html_e(
+							'Tax rates need to be set up before we can start syncing product information and creating invoices.',
+							'connector-for-dk'
+						);
+						?>
+					</li>
+					<li>
+						<?php
+						esc_html_e(
+							'Products synced from DK will be matched with the relevant VAT rate.',
+							'connector-for-dk'
+						);
+						?>
+					</li>
+				</ul>
+			</li>
+			<?php endif ?>
+			<?php if ( in_array( 'payment_gateways', $pre_activation_errors, true ) ) : ?>
+			<li>
+				<span>
+					<?php
+					esc_html_e(
+						'Set Up WooCommerce Payment Gateways',
+						'connector-for-dk'
+					);
+					?>
+				</span>
+				<ul>
+					<li>
+						<?php
+						esc_html_e(
+							'At least one payment gateway needs to be set up in WooCommerce before receiving orders from customers and creating invoices.',
+							'connector-for-dk'
+						);
+						?>
+					</li>
+				</ul>
+			</li>
+			<?php endif ?>
+			<?php if ( in_array( 'iceland_post_kennitala', $pre_activation_errors, true ) ) : ?>
+			<li>
+				<span>
+					<?php
+					esc_html_e(
+						'Disable the Kennitala field in the Iceland Post plugin',
+						'connector-for-dk'
+					);
+					?>
+				</span>
+				<ul>
+					<li>
+						<?php
+						esc_html_e(
+							"You'll need to the Kennitala field from the Iceland Post plugin as we don't want to have two kennitala fields in the checkout form.",
+							'connector-for-dk'
+						);
+						?>
+					</li>
+					<li>
+						<?php
+						esc_html_e(
+							'Otherwise, Connector for DK is compatible with the Iceland Post plugin as it saves the kennitala in the same way.',
+							'connector-for-dk'
+						);
+						?>
+					</li>
+				</ul>
+			</li>
+			<?php endif ?>
+		</ul>
+	</section>
+</div>
+
+<?php else : ?>
+
 <div
 	class="wrap connector-for-dk-wrap"
 	id="connector-for-dk-wrap"
@@ -20,10 +157,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		id="connector-for-dk-settings-form"
 		class="type-form"
 		novalidate
+		<?php if ( ! Config::get_dk_api_key() ) : ?>
+		data-api-key-only="true"
+		<?php endif ?>
 	>
 		<h1 class="wp-heading-inline">
 			<?php esc_html_e( 'Connector for DK', 'connector-for-dk' ); ?>
 		</h1>
+		<p class="subheading">
+			<?php
+			esc_html_e(
+				"You better know what you're doing!",
+				'connector-for-dk'
+			);
+			?>
+		</p>
 		<section class="section">
 			<h2><?php esc_html_e( 'Authentication', 'connector-for-dk' ); ?></h2>
 			<p>
@@ -69,6 +217,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</tbody>
 			</table>
 		</section>
+
+		<?php if ( Config::get_dk_api_key() ) : ?>
+
+			<?php if ( ! Config::get_enable_cronjob() ) : ?>
+
+			<section class="next-step-section">
+
+				<h2>And now the next step</h2>
+				<p>
+					To start fetching products from DK, create invoices and start using Connector for DK at all, you will need to carefully review the settings below, then click ‘Save’ again to confirm. Please note that the plugin will not work properly unless you confirm those settings.
+				</p>
+
+			</section>
+
+			<?php endif ?>
 
 		<section class="section">
 			<h2><?php esc_html_e( 'Products', 'connector-for-dk' ); ?></h2>
@@ -127,6 +290,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</label>
 							<p class="description">
 								<?php esc_html_e( 'If enabled, product names are synced between DK and WooCommerce. Disable this if you would like to be able to use separate product names in your WooCommerce shop from the ones in DK or simply prevent WooCommerce from affecting product descriptions in DK.', 'connector-for-dk' ); ?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="product_price_sync_field"
+								name="product_price_sync"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_upstream_product_sync_enabled() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_price_sync_field">
+								<?php
+								esc_html_e(
+									'Sync Product Information from WooCommerce to DK',
+									'connector-for-dk'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If enabled, changes to product names, prices and sales periods are synced upstream from WooCommerce to DK. Disable this to prevent basic changes to your WooCommerce products from affecting their records in DK.',
+									'connector-for-dk'
+								);
+								?>
 							</p>
 						</td>
 					</tr>
@@ -343,7 +534,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p class="description">
 								<?php
 								esc_html_e(
-									'The default kennitala is used for guest customers that don\'t have or supply a kennitala during checkout. This should correspond with a DK customer record called “Various Customers” etc.',
+									"The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a DK customer record called ‘Various Customers’ etc.",
 									'connector-for-dk'
 								)
 								?>
@@ -368,6 +559,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 								);
 								?>
 							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'This adds a kennitala field to the WooCommerce checkout page. This supports both the ‘Classic’ version and the ‘Block Editor’ version. Do note that a new debtor redcord will be created for each new Kennitala used for an invoice.',
+									'connector-for-dk'
+								);
+								?>
+							</p>
 						</td>
 					</tr>
 					<tr>
@@ -475,7 +674,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p class="description">
 								<?php
 								esc_html_e(
-									'If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice, or the invoice will be treated like one with out a kennitala.',
+									'If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice, or the invoice will be treated like one without a kennitala.',
 									'connector-for-dk'
 								);
 								?>
@@ -488,7 +687,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p>
 				<?php
 				esc_html_e(
-					'DK treats shipping and other costs as line items on invoices. In order for them to work, you need to assign a SKU to each of the following services.',
+					'DK treats shipping and other costs as line items on invoices. In order for invoicing to work, you need to assign a product in DK to each of the following services and assign them below.',
 					'connector-for-dk'
 				);
 				?>
@@ -610,11 +809,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ( ( new WC_Payment_Gateways() )->payment_gateways as $p ) : ?>
+					<?php foreach ( Admin::available_payment_gateways() as $p ) : ?>
 						<?php
-						if ( $p->enabled === 'no' ) {
-							continue;
-						}
 						$payment_map = Config::get_payment_mapping( $p->id );
 						?>
 						<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
@@ -630,6 +826,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<select
 									id="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
 									name="payment_id"
+									required
 								>
 									<option></option>
 									<?php foreach ( SalesPayments::get_methods() as $dk_method ) : ?>
@@ -646,6 +843,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<select
 									id="payment_mode_input_<?php echo esc_attr( $p->id ); ?>"
 									name="payment_mode"
+									required
 								>
 									<option></option>
 									<?php foreach ( SalesPayments::get_payment_modes() as $payment_mode ) : ?>
@@ -668,6 +866,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<select
 									id="payment_term_input"
 									name="payment_term"
+									required
 								>
 									<option></option>
 									<?php foreach ( SalesPayments::get_payment_terms() as $payment_term ) : ?>
@@ -696,6 +895,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 			</p>
 		</section>
+
+		<?php endif ?>
 
 		<div class="submit-container">
 			<div id="connector-for-dk-settings-error" class="hidden" aria-live="polite">
@@ -737,3 +938,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 	</div>
 </div>
+
+<?php endif ?>

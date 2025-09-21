@@ -38,12 +38,14 @@ Always back up your accounting records, site data and disable any plugin that ma
 == Changelog ==
 
 = 0.5 =
-* A rebrand and re-namespacing a new fork
+* A rebrand and re-namespacing of a new fork
 * Moving per-product DK options into a separate tab in the Product Editor
 * Fixing bug that affected invoices for product variations with two attributes
 * Improving error handling in invoice generation
 * Improving variation display on the frontend
 * Improving code for tax rate matching
+* Improving the loading speed of the admin page tenfold by using transient values
+* Adding a readiness check to the admin page
 
 == Frequently Asked Questions ==
 

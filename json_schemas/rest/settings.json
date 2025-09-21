@@ -12,6 +12,7 @@
         "kennitala_block_field_enabled": { "type": "boolean" },
         "default_sales_person": { "type": "string" },
         "fetch_products": { "type": "boolean" },
+        "enable_cronjob": { "type": "boolean" },
         "payment_methods": {
             "type": "array",
             "items": {
@@ -24,5 +25,6 @@
                 "required": ["woo_id", "dk_id" ]
             }
         }
-    }
+    },
+    "required": ["api_key"]
 }

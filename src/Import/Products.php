@@ -683,6 +683,25 @@ class Products {
 	}
 
 	/**
+	 * Get all the tax rates
+	 *
+	 * Returns a combined array of WooCommerce tax rates, in the same format as
+	 * WC_Tax::get_rates_for_tax_class('').
+	 */
+	public static function all_tax_rates(): array {
+		$rates         = WC_Tax::get_rates_for_tax_class( '' );
+		$other_classes = WC_Tax::get_tax_classes();
+		foreach ( $other_classes as $oc ) {
+			$rates = array_merge(
+				$rates,
+				WC_Tax::get_rates_for_tax_class( $oc )
+			);
+		}
+
+		return $rates;
+	}
+
+	/**
 	 * Get a tax class from a VAT percentage rate
 	 *
 	 * @param float $percentage The tax rate to look up.
@@ -699,19 +718,11 @@ class Products {
 			return 'Zero rate';
 		}
 
-		$classes       = WC_Tax::get_rates_for_tax_class( '' );
-		$other_classes = WC_Tax::get_tax_classes();
+		$rates = self::all_tax_rates();
 
-		foreach ( $other_classes as $oc ) {
-			$classes = array_merge(
-				$classes,
-				WC_Tax::get_rates_for_tax_class( $oc )
-			);
-		}
-
-		foreach ( $classes as $class ) {
-			if ( floatval( $class->tax_rate ) === $percentage ) {
-				return $class->tax_rate_class;
+		foreach ( $rates as $rate ) {
+			if ( floatval( $rate->tax_rate ) === $percentage ) {
+				return $rate->tax_rate_class;
 			}
 		}
 

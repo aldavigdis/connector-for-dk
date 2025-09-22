@@ -68,6 +68,13 @@ class KennitalaField {
 				10,
 				1
 			);
+
+			add_action(
+				'woocommerce_blocks_loaded',
+				array( __CLASS__, 'register_block_checkout_field' ),
+				10,
+				0
+			);
 		}
 
 		add_filter(
@@ -75,13 +82,6 @@ class KennitalaField {
 			array( __CLASS__, 'add_kennitala_to_formatted_billing_address' ),
 			10,
 			3
-		);
-
-		add_action(
-			'woocommerce_blocks_loaded',
-			array( __CLASS__, 'register_block_checkout_field' ),
-			10,
-			0
 		);
 
 		add_action(
@@ -106,7 +106,7 @@ class KennitalaField {
 		add_filter(
 			'woocommerce_admin_shipping_fields',
 			array( __CLASS__, 'remove_shipping_fields_from_order_editor' ),
-			10,
+			200,
 			1
 		);
 
@@ -201,6 +201,7 @@ class KennitalaField {
 
 			$wc_order->delete_meta_data( 'billing_kennitala' );
 			$wc_order->delete_meta_data( '_billing_kennitala' );
+			$wc_order->delete_meta_data( '_wc_other/connector_for_dk/kennitala' );
 
 			$wc_order->update_meta_data(
 				'_billing_kennitala',
@@ -424,6 +425,7 @@ class KennitalaField {
 				'billing_kennitala',
 				array(
 					'default'           => $customer_kennitala,
+					'required'          => Config::get_kennitala_is_mandatory(),
 					'id'                => 'connector_for_dk_checkout_kennitala',
 					'type'              => 'text',
 					'label'             => __(
@@ -601,6 +603,7 @@ class KennitalaField {
 			woocommerce_register_additional_checkout_field(
 				array(
 					'id'                => 'connector_for_dk/kennitala',
+					'required'          => Config::get_kennitala_is_mandatory(),
 					'label'             => __(
 						'Kennitala',
 						'connector-for-dk'

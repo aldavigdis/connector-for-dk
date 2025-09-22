@@ -228,6 +228,7 @@ class Settings {
 				$p->dk_id,
 				$p->dk_mode,
 				$p->dk_term,
+				$p->add_line
 			);
 		}
 
@@ -243,18 +244,29 @@ class Settings {
 			);
 		}
 
+		if ( property_exists( $rest_json, 'enable_downstream_product_sync' ) ) {
+			Config::set_enable_downstream_product_sync(
+				$rest_json->enable_downstream_product_sync
+			);
+		}
+
+		if ( property_exists( $rest_json, 'enable_cronjob' ) ) {
+			Config::set_enable_cronjob( $rest_json->enable_cronjob );
+		}
+
+		if ( property_exists( $rest_json, 'create_new_products' ) ) {
+			Config::set_create_new_products( $rest_json->create_new_products );
+		}
+
+		if ( property_exists( $rest_json, 'kennitala_is_mandatory' ) ) {
+			Config::set_kennitala_is_mandatory( $rest_json->kennitala_is_mandatory );
+		}
+
 		if (
 			property_exists( $rest_json, 'fetch_products' ) &&
 			$rest_json->fetch_products
 		) {
 			ImportProducts::save_all_from_dk();
-		}
-
-		if (
-			property_exists( $rest_json, 'enable_cronjob' ) &&
-			$rest_json->enable_cronjob
-		) {
-			Config::set_enable_cronjob( true );
 		}
 
 		return new WP_REST_Response( array( 'status' => 200 ) );

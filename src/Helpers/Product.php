@@ -8,11 +8,13 @@ use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariation
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Product;
 use WC_Product_Variation;
 use WC_Tax;
 use WC_DateTime;
 use WC_Product_Variable;
+use WP_Error;
 
 /**
  * The Product Helper Class
@@ -20,6 +22,8 @@ use WC_Product_Variable;
  * Contains helper functions for interpeting WooCommerce products.
  */
 class Product {
+	const API_PATH = '/Product/';
+
 	/**
 	 * Check if name sync is enabled for a product
 	 *
@@ -298,32 +302,6 @@ class Product {
 	}
 
 	/**
-	 * Get DK ledger codes for a WooCommerce product
-	 *
-	 * @param WC_Product $wc_product The WooCommrece product.
-	 *
-	 * @return false|object{
-	 *     sales: string,
-	 *     purchase: string
-	 * }
-	 */
-	public static function get_ledger_codes( WC_Product $wc_product ): false|object {
-		switch ( $wc_product->get_tax_class() ) {
-			case 'reduced-rate':
-				return (object) array(
-					'sales'    => Config::get_ledger_code( 'reduced' ),
-					'purchase' => Config::get_ledger_code( 'reduced_purchase' ),
-				);
-			case '':
-				return (object) array(
-					'sales'    => Config::get_ledger_code( 'standard' ),
-					'purchase' => Config::get_ledger_code( 'standard_purchase' ),
-				);
-		}
-		return false;
-	}
-
-	/**
 	 * Check if a product variation has price override enabled
 	 *
 	 * @param WC_Product_Variation $wc_product_variation The variation.
@@ -589,5 +567,45 @@ class Product {
 		}
 
 		return implode( ', ', $pairs );
+	}
+
+	/**
+	 * Check if a WooCommerce product is in DK
+	 *
+	 * Checks if a product record exsists in DK with a ProductCode attribute
+	 * that equals a WooCommerce product's SKU.
+	 *
+	 * @param WC_Product|sku $wc_product The WooCommerce product or its SKU.
+	 *
+	 * @return bool|WP_Error True on success, false if connection was
+	 *                       established but the request was rejected, WC_Error
+	 *                       if there was a connection error.
+	 */
+	public static function is_in_dk( WC_Product|string $wc_product ): bool|WP_Error {
+		if ( is_string( $wc_product ) ) {
+			$sku = $wc_product;
+		} else {
+			if ( ! (bool) $wc_product->get_sku() ) {
+				return false;
+			}
+
+			$sku = $wc_product->get_sku();
+		}
+
+		$api_request = new DKApiRequest();
+
+		$result = $api_request->get_result(
+			self::API_PATH . $sku
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( $result->response_code !== 200 ) {
+			return false;
+		}
+
+		return true;
 	}
 }

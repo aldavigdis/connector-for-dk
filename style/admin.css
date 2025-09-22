@@ -28,10 +28,6 @@ body.woocommerce_page_connector-for-dk .wrap {
 	display: table;
 }
 
-#connector-for-dk-wrap #api-key-form-table th {
-	width: 5em;
-}
-
 #connector-for-dk-wrap table .with-padding {
 	padding: 20px 10px 20px 10px;
 }
@@ -52,10 +48,24 @@ body.woocommerce_page_connector-for-dk .wrap {
 	width: 10em;
 }
 
-#payment-gateway-id-map-table label {
+#payment-gateway-id-map-table tr[data-gateway-id] label {
 	display: block;
 	padding-top: 0.3em;
 	margin-bottom: 0.3em;
+}
+
+#payment-gateway-id-map-table thead th {
+	padding: 15px 0 !important;
+}
+
+#payment-gateway-id-map-table tbody td, #payment-gateway-id-map-table tbody th {
+	margin: 0;
+	padding: 0;
+}
+
+#payment-gateway-id-map-table tbody .payment-line-field td {
+	padding-top: 5px;
+	padding-bottom: 20px;
 }
 
 #connector-for-dk-settings-form input:invalid {
@@ -98,6 +108,10 @@ body.woocommerce_page_connector-for-dk .wrap {
 
 #api-key-form-table input[type=text] {
 	width: 100%;
+}
+
+#connector-for-dk-wrap .form-table .sub-checkboxes {
+	margin: 0.5em 2em;
 }
 
 #connector-for-dk-wrap .section {
@@ -191,9 +205,6 @@ body.woocommerce_page_connector-for-dk .wrap {
 #connector-for-dk-wrap .admin-check-errors ul {
 	margin-bottom: 4em;
 	margin-top: 0.5em;
-}
-
-#connector-for-dk-wrap .admin-check-errors li {
 }
 
 #connector-for-dk-wrap .admin-check-errors li span {

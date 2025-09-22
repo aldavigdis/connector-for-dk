@@ -271,10 +271,18 @@ class WooMetaboxes {
 				'connector_for_dk_variations'
 			)
 		) {
+			if ( $wc_product->get_meta( 'connector_for_dk_origin' ) !== 'product_variation' ) {
+				return;
+			}
+
 			self::set_default_attributes_via_post( $wc_product );
 
 			foreach ( $wc_product->get_children() as $variation_id ) {
 				$variation = wc_get_product( $variation_id );
+
+				if ( $variation->get_meta( 'connector_for_dk_origin' ) === 'product' ) {
+					continue;
+				}
 
 				if ( $variation === false ) {
 					continue;

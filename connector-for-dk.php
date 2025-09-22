@@ -36,7 +36,6 @@ new Hooks\KennitalaField();
 new Hooks\RegisterPostMeta();
 new Hooks\WooMetaboxes();
 new Hooks\WooOrderStatusChanges();
-new Hooks\WooUpdateProduct();
 
 register_activation_hook(
 	__FILE__,

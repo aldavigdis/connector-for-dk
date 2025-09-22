@@ -5,10 +5,10 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Hooks;
 
 use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Export\Product;
 use AldaVigdis\ConnectorForDK\Export\SalesPerson;
 use AldaVigdis\ConnectorForDK\Export\Customer;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\Products;
 use WC_Payment_Gateways;
 use stdClass;
@@ -486,7 +486,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( $transient_value || Product::is_in_dk( $sku ) === true ) {
+		} elseif ( $transient_value || ProductHelper::is_in_dk( $sku ) === true ) {
 			if ( ! $transient_value ) {
 				set_transient( $transient_name, '1', self::TRANSIENT_EXPIRY );
 			}

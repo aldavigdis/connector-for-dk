@@ -153,7 +153,6 @@ class Order {
 			$order_item_product = new WC_Order_Item_Product( $item->get_id() );
 			$product_id         = $order_item_product->get_product_id();
 			$product            = wc_get_product( $product_id );
-			$sku                = $product->get_sku();
 
 			$item_discount = BigDecimal::of(
 				$wc_order->get_item_subtotal( $item, 1 )
@@ -162,7 +161,6 @@ class Order {
 			);
 
 			$order_line_item = array(
-				'ItemCode'       => $sku,
 				'Text'           => $item->get_name(),
 				'Quantity'       => $item->get_quantity(),
 				'Price'          => $wc_order->get_item_subtotal( $item, 1 ),
@@ -174,6 +172,8 @@ class Order {
 			$variation = wc_get_product( $order_item_product->get_variation_id() );
 
 			if ( $origin === 'product_variation' && $variation !== false ) {
+				$order_line_item['ItemCode'] = $product->get_sku();
+
 				$variation_attributes = $variation->get_attributes();
 				$variation_values     = array_values( $variation_attributes );
 
@@ -188,6 +188,14 @@ class Order {
 				$variation_line['Quantity'] = $item->get_quantity();
 
 				$order_line_item['Variations'] = array( (object) $variation_line );
+			}
+
+			if ( $origin !== 'product_variation' && $variation !== false ) {
+				$order_line_item['ItemCode'] = $variation->get_sku();
+			}
+
+			if ( $variation === false ) {
+				$order_line_item['ItemCode'] = $product->get_sku();
 			}
 
 			$order_props['Lines'][] = $order_line_item;

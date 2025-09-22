@@ -177,7 +177,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			<p>
 				<?php
 				esc_html_e(
-					'For creating an API key, we recommend creating a separate user with full priveleges, not connected to an actual employee in dkPlus and then generating an API key for that user under ‘Tokens’ in that user’s Settings page.',
+					'For creating an API key, we recommend creating a separate user with sufficient access priveleges, not connected to an actual employee in dkPlus and then generating an API key for that user under ‘Tokens’ in that user’s Settings page.',
 					'connector-for-dk'
 				);
 				?>
@@ -187,7 +187,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<tr>
 						<th scope="row">
 							<label for="connector-for-dk-key-input">
-								<?php esc_html_e( 'API Key', 'connector-for-dk' ); ?>
+								<?php esc_html_e( 'dkPlus API Key', 'connector-for-dk' ); ?>
 							</label>
 						</th>
 						<td>
@@ -235,8 +235,23 @@ $pre_activation_errors = Admin::pre_activation_errors();
 
 		<section class="section">
 			<h2><?php esc_html_e( 'Products', 'connector-for-dk' ); ?></h2>
-			<h3><?php esc_html_e( 'Product Sync Defaults', 'connector-for-dk' ); ?></h3>
-			<p><?php esc_html_e( 'This is where you set the default options for syncing your WooCommerce products. For example, if you do not want to overwrite the prices or names of your current WooCommerce products by default, or only fetch products labelled as ‘for online store’ you can do it here.', 'connector-for-dk' ); ?></p>
+			<h3><?php esc_html_e( 'Product Sync', 'connector-for-dk' ); ?></h3>
+			<p>
+				<?php
+				esc_html_e(
+					"Product sync and invoice generation are based on matching a product's DK Product Code with its SKU in WooCommerce.",
+					'connector-for-dk'
+				);
+				?>
+			</p>
+			<p>
+				<?php
+				esc_html_e(
+					'Here below, you can enable and fine-tune your product sync settings. For example, if you do not want to overwrite the prices or names of your current WooCommerce products by default, or only fetch products labelled as ‘for online store’ you can do it here.',
+					'connector-for-dk'
+				);
+				?>
+			</p>
 			<table id="dk-product-defaults-table" class="form-table">
 				<tbody>
 					<tr>
@@ -244,117 +259,105 @@ $pre_activation_errors = Admin::pre_activation_errors();
 						</th>
 						<td>
 							<input
-								id="product_price_sync_field"
-								name="product_price_sync"
+								id="enable_downstream_product_sync_field"
+								name="enable_downstream_product_sync"
 								type="checkbox"
-								<?php echo esc_attr( Config::get_product_price_sync() ? 'checked' : '' ); ?>
+								data-master-checkbox="downstream-product-sync"
+								<?php echo esc_attr( Config::get_enable_downstream_product_sync() ? 'checked' : '' ); ?>
 							/>
-							<label for="product_price_sync_field">
-								<?php esc_html_e( 'Sync Product Prices', 'connector-for-dk' ); ?>
-							</label>
-							<p class="description">
-								<?php esc_html_e( 'If enabled, product prices and sales periods are synced by default between DK and WooCommerce. This can be overriden on a per-product basis. Prices based on foreign currency conversion are only synced ‘downstream’ from DK and into WooCommerce.', 'connector-for-dk' ); ?>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="product_quantity_sync_field"
-								name="product_quantity_sync"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_product_quantity_sync() ? 'checked' : '' ); ?>
-							/>
-							<label for="product_quantity_sync_field">
-								<?php esc_html_e( 'Sync Stock Status and Quantity from DK', 'connector-for-dk' ); ?>
-							</label>
-							<p class="description">
-								<?php esc_html_e( 'If enabled, product stock status and quantity is synced between DK and WooCommerce by default. This can be overridden on a per-product basis. Note that stock status and quantity sync only works ‘downstream’ from DK and into WooCommerce, but not ‘upstream’ due to limitations in DK.', 'connector-for-dk' ); ?>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="product_name_sync_field"
-								name="product_name_sync"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_product_name_sync() ? 'checked' : '' ); ?>
-							/>
-							<label for="product_name_sync_field">
-								<?php esc_html_e( 'Sync Product Names with DK', 'connector-for-dk' ); ?>
-							</label>
-							<p class="description">
-								<?php esc_html_e( 'If enabled, product names are synced between DK and WooCommerce. Disable this if you would like to be able to use separate product names in your WooCommerce shop from the ones in DK or simply prevent WooCommerce from affecting product descriptions in DK.', 'connector-for-dk' ); ?>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="product_price_sync_field"
-								name="product_price_sync"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_upstream_product_sync_enabled() ? 'checked' : '' ); ?>
-							/>
-							<label for="product_price_sync_field">
-								<?php
-								esc_html_e(
-									'Sync Product Information from WooCommerce to DK',
-									'connector-for-dk'
-								);
-								?>
+							<label for="enable_downstream_product_sync_field">
+								<?php esc_html_e( 'Fetch Product Data from DK', 'connector-for-dk' ); ?>
 							</label>
 							<p class="description">
 								<?php
 								esc_html_e(
-									'If enabled, changes to product names, prices and sales periods are synced upstream from WooCommerce to DK. Disable this to prevent basic changes to your WooCommerce products from affecting their records in DK.',
+									'Enable this to fetch and update product information from DK on an hourly basis.',
 									'connector-for-dk'
-								);
+								)
 								?>
 							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="import_nonweb_products_field"
-								name="import_nonweb_products"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_import_nonweb_products() ? 'checked' : '' ); ?>
-							/>
-							<label for="import_nonweb_products_field">
-								<?php esc_html_e( 'Import New Non-Web Products from DK as Drafts', 'connector-for-dk' ); ?>
-							</label>
-							<p class="description">
-								<?php esc_html_e( 'If enabled, products that are not labelled for online sales are imported into WooCommerce as drafts. Changing their status to ‘Published’ labels them for online sale in DK. This is not recommended if you have a lot of products in DK.', 'connector-for-dk' ); ?>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-						</th>
-						<td>
-							<input
-								id="delete_inactive_products_field"
-								name="delete_inactive_products"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_delete_inactive_products() ? 'checked' : '' ); ?>
-							/>
-							<label for="delete_inactive_products_field">
-								<?php esc_html_e( 'Delete Inactive Products from WooCommerce', 'connector-for-dk' ); ?>
-							</label>
-							<p class="description">
-								<?php esc_html_e( 'If enabled, products that have been made inactive in DK are automatically deleted from WooCommerce.', 'connector-for-dk' ); ?>
-							</p>
+							<fieldset
+								class="sub-checkboxes <?php echo esc_attr( Config::get_enable_downstream_product_sync() ? '' : 'hidden' ); ?>"
+								data-sub-checkboxes="downstream-product-sync"
+							>
+								<div>
+									<input
+										id="product_price_sync_field"
+										name="product_price_sync"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_product_price_sync() ? 'checked' : '' ); ?>
+									/>
+									<label for="product_price_sync_field">
+										<?php esc_html_e( 'Update Product Prices', 'connector-for-dk' ); ?>
+									</label>
+								</div>
+								<div>
+									<input
+										id="product_quantity_sync_field"
+										name="product_quantity_sync"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_product_quantity_sync() ? 'checked' : '' ); ?>
+									/>
+									<label for="product_quantity_sync_field">
+										<?php esc_html_e( 'Update Stock Status', 'connector-for-dk' ); ?>
+									</label>
+								</div>
+								<div>
+									<input
+										id="product_name_sync_field"
+										name="product_name_sync"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_product_name_sync() ? 'checked' : '' ); ?>
+									/>
+									<label for="product_name_sync_field">
+										<?php esc_html_e( 'Update Product Names', 'connector-for-dk' ); ?>
+									</label>
+								</div>
+								<div>
+									<input
+										id="product_description_sync_field"
+										name="product_description_sync"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_product_description_sync() ? 'checked' : '' ); ?>
+									/>
+									<label for="product_description_sync_field">
+										<?php esc_html_e( 'Update Product Description', 'connector-for-dk' ); ?>
+									</label>
+								</div>
+								<div>
+									<input
+										id="create_new_products_field"
+										name="create_new_products"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_create_new_products() ? 'checked' : '' ); ?>
+									/>
+									<label for="create_new_products_field">
+										<?php esc_html_e( "Create new products in WooCommerce if they don't exist", 'connector-for-dk' ); ?>
+									</label>
+								</div>
+								<div>
+									<input
+										id="delete_inactive_products_field"
+										name="delete_inactive_products"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_delete_inactive_products() ? 'checked' : '' ); ?>
+									/>
+									<label for="delete_inactive_products_field">
+										<?php esc_html_e( 'Delete products from WooCommerce if labelled as inactive or deleted in DK', 'connector-for-dk' ); ?>
+									</label>
+								</div>
+								<div>
+									<input
+										id="import_nonweb_products_field"
+										name="import_nonweb_products"
+										type="checkbox"
+										<?php echo esc_attr( Config::get_import_nonweb_products() ? 'checked' : '' ); ?>
+									/>
+									<label for="import_nonweb_products_field">
+										<?php esc_html_e( 'Import products not labelled as ‘for online store’ as drafts', 'connector-for-dk' ); ?>
+									</label>
+								</div>
+							</fieldset>
 						</td>
 					</tr>
 				</tbody>
@@ -363,7 +366,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			<p>
 				<?php
 				esc_html_e(
-					'While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK.',
+					'While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK. You can disable these if you want to use your own filters for displaying variations.',
 					'connector-for-dk'
 				);
 				?>
@@ -418,82 +421,6 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					</tr>
 				</tbody>
 			</table>
-			<h3><?php esc_html_e( 'Ledger Codes', 'connector-for-dk' ); ?></h3>
-			<p>
-				<?php
-				esc_html_e(
-					'When a product is created and published in WooCommerce, a corrsponding product record is created in DK. Setting the values below correctly makes sure that this happens without discrepancies or errors.',
-					'connector-for-dk'
-				);
-				?>
-			</p>
-			<table id="dk-ledger-codes-table" class="form-table dk-ledger-codes-table">
-				<thead>
-					<tr>
-						<th></th>
-						<th id="dk-ledger-codes-table-th-sale" scope="col"><?php esc_html_e( 'Sale', 'connector-for-dk' ); ?></th>
-						<th id="dk-ledger-codes-table-th-purchase" scope="col"><?php esc_html_e( 'Purchase', 'connector-for-dk' ); ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-							<?php esc_html_e( 'Products with Standard tax rate', 'connector-for-dk' ); ?>
-						</th>
-						<td>
-							<label id="ledger_code_standard_field_label" for="ledger_code_standard_field">
-								<?php esc_html_e( 'Sale Booking Category', 'connector-for-dk' ); ?>
-							</label>
-							<input
-								aria-labelledby="dk-ledger-codes-table-th-sale"
-								id="ledger_code_standard_field"
-								name="ledger_code_standard"
-								type="text"
-								value="<?php echo esc_attr( Config::get_ledger_code( 'standard' ) ); ?>"
-							/>
-						</td>
-						<td>
-							<label id="ledger_code_standard_purchase_label" for="ledger_code_standard_purchase_field">
-								<?php esc_html_e( 'Purchase Booking Category', 'connector-for-dk' ); ?>
-							</label>
-							<input
-								aria-labelledby="dk-ledger-codes-table-th-sale-purchase"
-								id="ledger_code_standard_purchase_field"
-								name="ledger_code_standard_purchase"
-								type="text"
-								value="<?php echo esc_attr( Config::get_ledger_code( 'standard_purchase' ) ); ?>"
-							/>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-							<?php esc_html_e( 'Products With Reduced Tax Rate', 'connector-for-dk' ); ?>
-						</th>
-						<td>
-							<label for="ledger_code_reduced_field">
-								<?php esc_html_e( 'Sale Booking Category', 'connector-for-dk' ); ?>
-							</label>
-							<input
-								id="ledger_code_reduced_field"
-								name="ledger_code_reduced"
-								type="text"
-								value="<?php echo esc_attr( Config::get_ledger_code( 'reduced' ) ); ?>"
-							/>
-						</td>
-						<td>
-							<label for="ledger_code_reduced_purchase_field">
-								<?php esc_html_e( 'Purchase Booking Category', 'connector-for-dk' ); ?>
-							</label>
-							<input
-								id="ledger_code_reduced_purchase_field"
-								name="ledger_code_reduced_purchase"
-								type="text"
-								value="<?php echo esc_attr( Config::get_ledger_code( 'reduced_purchase' ) ); ?>"
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</section>
 
 		<section class="section">
@@ -508,39 +435,6 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			</p>
 			<table id="dk-invoices-table" class="form-table">
 				<tbody>
-					<tr>
-						<th scope="row" class="column-title column-primary">
-							<label for="default_kennitala_field">
-								<?php
-								esc_html_e(
-									'Default Customer Kennitala',
-									'connector-for-dk'
-								);
-								?>
-							</label>
-						</th>
-						<td>
-							<input
-								id="default_kennitala_field"
-								name="default_kennitala"
-								type="text"
-								value="<?php echo esc_attr( KennitalaField::format_kennitala( Config::get_default_kennitala() ) ); ?>"
-							/>
-							<?php $info_for_default_kennitala = Admin::info_for_default_kennitala(); ?>
-							<p class="infotext <?php echo esc_attr( $info_for_default_kennitala->css_class ); ?>">
-								<span class="dashicons <?php echo esc_attr( $info_for_default_kennitala->dashicon ); ?>"></span>
-								<?php echo esc_html( $info_for_default_kennitala->text ); ?>
-							</p>
-							<p class="description">
-								<?php
-								esc_html_e(
-									"The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a DK customer record called ‘Various Customers’ etc.",
-									'connector-for-dk'
-								)
-								?>
-							</p>
-						</td>
-					</tr>
 					<tr>
 						<th scope="row" class="column-title column-primary">
 						</th>
@@ -681,6 +575,34 @@ $pre_activation_errors = Admin::pre_activation_errors();
 							</p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="kennitala_is_mandatory_field"
+								name="kennitala_is_mandatory"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_kennitala_is_mandatory() ? 'checked' : '' ); ?>
+							/>
+							<label for="kennitala_is_mandatory_field">
+								<?php
+								esc_html_e(
+									'Make Kennitala Field Mandatory',
+									'connector-for-dk'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If this is enabled, the Kennitala field is mandatory for finishing the checkout process.',
+									'connector-for-dk'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<h3><?php esc_html_e( 'Service SKUs', 'connector-for-dk' ); ?></h3>
@@ -760,6 +682,43 @@ $pre_activation_errors = Admin::pre_activation_errors();
 
 		<section class="section">
 			<h2><?php esc_html_e( 'Customers', 'connector-for-dk' ); ?></h2>
+			<table>
+				<tbody class="form-table">
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<label for="default_kennitala_field">
+								<?php
+								esc_html_e(
+									'Default Customer Kennitala',
+									'connector-for-dk'
+								);
+								?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="default_kennitala_field"
+								name="default_kennitala"
+								type="text"
+								value="<?php echo esc_attr( KennitalaField::format_kennitala( Config::get_default_kennitala() ) ); ?>"
+							/>
+							<?php $info_for_default_kennitala = Admin::info_for_default_kennitala(); ?>
+							<p class="infotext <?php echo esc_attr( $info_for_default_kennitala->css_class ); ?>">
+								<span class="dashicons <?php echo esc_attr( $info_for_default_kennitala->dashicon ); ?>"></span>
+								<?php echo esc_html( $info_for_default_kennitala->text ); ?>
+							</p>
+							<p class="description">
+								<?php
+								esc_html_e(
+									"The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a DK customer record called ‘Various Customers’ etc.",
+									'connector-for-dk'
+								)
+								?>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			<table id="customers-table" class="form-table dk-ledger-codes-table">
 				<tbody>
 					<tr>
@@ -814,7 +773,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 						$payment_map = Config::get_payment_mapping( $p->id );
 						?>
 						<tr data-gateway-id="<?php echo esc_attr( $p->id ); ?>">
-							<th scope="row" class="column-title column-primary">
+							<th rowspan="2" scope="row" class="column-title column-primary">
 								<label
 									for="payment_id_input_<?php echo esc_attr( $p->id ); ?>"
 									class="payment-gateway-title"
@@ -880,20 +839,29 @@ $pre_activation_errors = Admin::pre_activation_errors();
 								</select>
 							</td>
 						</tr>
+						<tr class="payment-line-field">
+							<td colspan="3">
+								<input
+									id="add_payment_line_field_<?php echo esc_attr( $p->id ); ?>"
+									name="add_payment_line"
+									type="checkbox"
+									<?php echo esc_attr( $payment_map->add_line ? 'checked' : '' ); ?>
+								/>
+								<label
+									for="add_payment_line_field_<?php echo esc_attr( $p->id ); ?>"
+								>
+									<?php
+									esc_html_e(
+										'Add payment line to invoices',
+										'connector-for-dk'
+									);
+									?>
+								</label>
+							</td>
+						</tr>
 					<?php endforeach ?>
 				</tbody>
 			</table>
-
-			<p>
-				<?php
-				echo sprintf(
-					// Translators: %1$s stands for the opening and %2$s <a> tag in a hyperlink to the WooCommerce Payment Settings page.
-					esc_html( __( 'The payment gateways themselves are handled by your WooCommerce Settings, under %1$sthe Payments Section%2$s.', 'connector-for-dk' ) ),
-					'<a href="' . esc_url( admin_url( '?page=wc-settings&tab=checkout ' ) ) . '">',
-					'</a>'
-				);
-				?>
-			</p>
 		</section>
 
 		<?php endif ?>
@@ -931,7 +899,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 		<p>
 			<?php
 			esc_html_e(
-				'The Connector for DK WordPress plugin is developed, maintained and supported on goodwill basis by Alda Vigdis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 ehf.',
+				'The Connector for DK WordPress plugin is developed, maintained on goodwill basis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 ehf.',
 				'connector-for-dk'
 			);
 			?>

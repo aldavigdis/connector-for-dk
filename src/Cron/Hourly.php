@@ -24,7 +24,9 @@ class Hourly {
 		if ( Config::get_dk_api_key() && Config::get_enable_cronjob() ) {
 			ImportSalesPayments::get_methods();
 			ImportCurrencies::save_all_from_dk();
-			ImportProducts::save_all_from_dk();
+			if ( Config::get_enable_downstream_product_sync() ) {
+				ImportProducts::save_all_from_dk();
+			}
 		}
 	}
 }

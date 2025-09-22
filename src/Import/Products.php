@@ -175,7 +175,7 @@ class Products {
 	): WC_Product|false {
 		$product_id = wc_get_product_id_by_sku( $json_object->ItemCode );
 
-		if ( $product_id === 0 ) {
+		if ( $product_id === 0 && Config::get_create_new_products() ) {
 			$wc_product = self::json_to_new_product( $json_object );
 		} else {
 			$wc_product = self::update_product_from_json(
@@ -441,6 +441,13 @@ class Products {
 			Config::get_product_name_sync()
 		) {
 			$wc_product->set_name( $json_object->Description );
+		}
+
+		if (
+			property_exists( $json_object, 'ExtraDesc1' ) &&
+			Config::get_product_description_sync()
+		) {
+			$wc_product->set_description( $json_object->ExtraDesc1 );
 		}
 
 		if ( empty( $json_object->NetWeight ) ) {

@@ -46,6 +46,11 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Improving code for tax rate matching
 * Improving the loading speed of the admin page tenfold by using transient values
 * Adding a readiness check to the admin page
+* Making product sync optional
+* Removing any upstream push for products
+* Rearranging and adding new options to the admin page
+* Products-as-variations should now be possible
+* The kennitala field can now be made mandatory
 
 == Frequently Asked Questions ==
 

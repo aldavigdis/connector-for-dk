@@ -131,7 +131,7 @@ class SalesPayments {
 	 *
 	 * @return array<string>
 	 */
-	public static function get_payment_modes_from_dk(): array {
+	public static function get_payment_modes_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
 		$result  = $request->get_result(
 			'/general/table/ARPMODE.DAT/records?legacy=true&fields=CODE,DESCRIPTION'

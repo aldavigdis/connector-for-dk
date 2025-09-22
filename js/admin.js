@@ -13,7 +13,12 @@ class ConnectorForDK {
 	}
 	static rowElements() {
 		return document.querySelectorAll(
-			'#payment-gateway-id-map-table tbody tr'
+			'#payment-gateway-id-map-table tbody tr[data-gateway-id]'
+		);
+	}
+	static paymentAddLineCheckboxes() {
+		return document.querySelectorAll(
+			'#payment-gateway-id-map-table tbody tr.payment-line-field input'
 		);
 	}
 
@@ -49,10 +54,11 @@ class ConnectorForDK {
 			let paymentsLength = paymentIds.length;
 
 			for (let i = 0; i < paymentsLength; i++) {
-				let wooId  = ConnectorForDK.rowElements()[i].dataset.gatewayId;
-				let dkId   = parseInt( paymentIds[i] );
-				let dkMode = paymentModes[i];
-				let dkTerm = paymentTerms[i];
+				let wooId   = ConnectorForDK.rowElements()[i].dataset.gatewayId;
+				let dkId    = parseInt( paymentIds[i] );
+				let dkMode  = paymentModes[i];
+				let dkTerm  = paymentTerms[i];
+				let addLine = ConnectorForDK.paymentAddLineCheckboxes()[i].checked;
 
 				if (isNaN( dkId )) {
 					dkId = 0;
@@ -60,10 +66,11 @@ class ConnectorForDK {
 
 				paymentMethods.push(
 					{
-						woo_id:  wooId,
-						dk_id:   dkId,
-						dk_mode: dkMode,
-						dk_term: dkTerm,
+						woo_id:   wooId,
+						dk_id:    dkId,
+						dk_mode:  dkMode,
+						dk_term:  dkTerm,
+						add_line: addLine,
 					}
 				);
 			}
@@ -81,21 +88,22 @@ class ConnectorForDK {
 				enable_kennitala: Boolean( formData.get( 'enable_kennitala' ) ),
 				default_sales_person: formData.get( 'default_sales_person' ).trim(),
 				payment_methods: paymentMethods,
-				ledger_code_standard: formData.get( 'ledger_code_standard' ).trim(),
-				ledger_code_standard_purchase: formData.get( 'ledger_code_standard_purchase' ).trim(),
-				ledger_code_reduced: formData.get( 'ledger_code_reduced' ).trim(),
-				ledger_code_reduced_purchase: formData.get( 'ledger_code_reduced_purchase' ).trim(),
 				customer_requests_kennitala_invoice: Boolean( formData.get( 'customer_requests_kennitala_invoice' ) ),
 				make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
 				make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
+				kennitala_is_mandatory: Boolean( formData.get( 'kennitala_is_mandatory' ) ),
 				email_invoice: Boolean( formData.get( 'email_invoice' ) ),
 				domestic_customer_ledger_code: formData.get( 'domestic_customer_ledger_code' ),
 				international_customer_ledger_code: formData.get( 'international_customer_ledger_code' ),
 				use_attribute_description: Boolean( formData.get( 'use_attribute_description' ) ),
 				use_attribute_value_description: Boolean( formData.get( 'use_attribute_value_description' ) ),
-				fetch_products: true,
-				enable_cronjob: true
+				fetch_products: Boolean( formData.get( 'enable_downstream_product_sync' ) ),
+				enable_downstream_product_sync: Boolean( formData.get( 'enable_downstream_product_sync' ) ),
+				create_new_products: Boolean( formData.get( 'create_new_products' ) ),
+				enable_cronjob: true,
 			}
+
+			console.log( formDataObject );
 
 			ConnectorForDK.postSettingsData( formDataObject );
 		}
@@ -125,6 +133,31 @@ class ConnectorForDK {
 			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}
+
+	static assignClickToMasterCheckboxes() {
+		const checkboxes = document.querySelectorAll(
+			'[data-master-checkbox]'
+		);
+
+		checkboxes.forEach(
+			(node) => {
+				node.addEventListener(
+					'click',
+					( e ) => {
+						const group                = e.target.dataset.masterCheckbox;
+						const subCheckboxContainer = document.querySelector(
+							'[data-sub-checkboxes=' + group + ']'
+						);
+					if ( e.target.checked ) {
+						subCheckboxContainer.classList.remove( 'hidden' );
+					} else {
+						subCheckboxContainer.classList.add( 'hidden' );
+					}
+					}
+				)
+			}
+		)
+	}
 }
 
 window.addEventListener(
@@ -136,13 +169,8 @@ window.addEventListener(
 					'submit',
 					ConnectorForDK.onSettingsFormSubmit
 				);
-			}
 
-			if ( ConnectorForDK.settingsForm() ) {
-				ConnectorForDK.settingsForm().addEventListener(
-					'submit',
-					ConnectorForDK.onSettingsFormSubmit
-				);
+				ConnectorForDK.assignClickToMasterCheckboxes();
 			}
 		}
 	}

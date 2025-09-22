@@ -13,6 +13,7 @@
         "default_sales_person": { "type": "string" },
         "fetch_products": { "type": "boolean" },
         "enable_cronjob": { "type": "boolean" },
+        "create_new_products": { "type": "boolean" },
         "payment_methods": {
             "type": "array",
             "items": {

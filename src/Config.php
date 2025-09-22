@@ -65,7 +65,7 @@ class Config {
 		delete_option( self::OLD_PREFIX . $option );
 
 		if ( is_bool( $value ) ) {
-			return update_option( self::PREFIX . $option, intval( $value ) );
+			return update_option( self::PREFIX . $option, strval( intval( $value ) ) );
 		}
 
 		return update_option( self::PREFIX . $option, $value );
@@ -114,6 +114,7 @@ class Config {
 	 * @param int    $dk_id The payment method ID in DK.
 	 * @param string $dk_mode The payment mode from DK.
 	 * @param string $dk_term The payment term code from DK.
+	 * @param bool   $add_line Wether a payment line should be added to invoices.
 	 *
 	 * @return bool True if the mapping is saved in the wp_options table, false if not.
 	 */
@@ -122,6 +123,7 @@ class Config {
 		int $dk_id,
 		string $dk_mode,
 		string $dk_term = '',
+		bool $add_line = true
 	): bool {
 		$dk_payment_method = ImportSalesPayments::find_by_id( $dk_id );
 
@@ -132,11 +134,12 @@ class Config {
 		return self::update_option(
 			'payment_method_' . $woo_id,
 			(object) array(
-				'woo_id'  => $woo_id,
-				'dk_id'   => $dk_payment_method->dk_id,
-				'dk_name' => $dk_payment_method->dk_name,
-				'dk_mode' => $dk_mode,
-				'dk_term' => $dk_term,
+				'woo_id'   => $woo_id,
+				'dk_id'    => $dk_payment_method->dk_id,
+				'dk_name'  => $dk_payment_method->dk_name,
+				'dk_mode'  => $dk_mode,
+				'dk_term'  => $dk_term,
+				'add_line' => $add_line,
 			)
 		);
 	}
@@ -157,11 +160,12 @@ class Config {
 	): stdClass {
 		if ( $empty_object ) {
 			$default = (object) array(
-				'woo_id'  => '',
-				'dk_id'   => '',
-				'dk_name' => '',
-				'dk_mode' => '',
-				'dk_term' => '',
+				'woo_id'   => '',
+				'dk_id'    => '',
+				'dk_name'  => '',
+				'dk_mode'  => '',
+				'dk_term'  => '',
+				'add_line' => true,
 			);
 		} else {
 			$default = false;
@@ -481,7 +485,7 @@ class Config {
 	 * @return bool True if enabled, false if disabled.
 	 */
 	public static function get_product_name_sync(): bool {
-		return (bool) self::get_option( 'product_name_sync', false );
+		return (bool) self::get_option( 'product_name_sync', true );
 	}
 
 	/**
@@ -581,7 +585,7 @@ class Config {
 		bool $value
 	): bool {
 		return (bool) self::update_option(
-			'ake_invoice_if_kennitala_is_missing',
+			'make_invoice_if_kennitala_is_missing',
 			$value
 		);
 	}
@@ -756,27 +760,6 @@ class Config {
 	}
 
 	/**
-	 * Check if upstream product sync is enabled
-	 */
-	public static function get_upstream_product_sync_enabled(): bool {
-		return (bool) self::get_option(
-			'upstream_product_sync_enabled',
-			false
-		);
-	}
-
-	/**
-	 * Toggle upstream product sync
-	 *
-	 * @param bool $value True to enable, false to disable.
-	 */
-	public static function set_upstream_product_sync_enabled(
-		bool $value
-	): bool {
-		return self::update_option( 'upstream_product_sync_enabled', $value );
-	}
-
-	/**
 	 * Check if the cronjob is enabled
 	 */
 	public static function get_enable_cronjob(): bool {
@@ -790,5 +773,77 @@ class Config {
 	 */
 	public static function set_enable_cronjob( bool $value ): bool {
 		return self::update_option( 'enable_cronjob', $value );
+	}
+
+	/**
+	 * Check if downstream product sync is enabled
+	 */
+	public static function get_enable_downstream_product_sync(): bool {
+		return (bool) self::get_option(
+			'enable_downstream_product_sync',
+			false
+		);
+	}
+
+	/**
+	 * Toggle downstream data sync
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_enable_downstream_product_sync(
+		bool $value
+	): bool {
+		return self::update_option( 'enable_downstream_product_sync', $value );
+	}
+
+	/**
+	 * Check if new products are to be created on downstream sync
+	 *
+	 * Checks if we should create new products based on the "in online store"
+	 * label in DK.
+	 */
+	public static function get_create_new_products(): bool {
+		return (bool) self::get_option( 'create_new_products', true );
+	}
+
+	/**
+	 * Toggle if new products are to be created on downstream sync
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_create_new_products( bool $value ): bool {
+		return self::update_option( 'create_new_products', $value );
+	}
+
+	/**
+	 * Check if kennitala field is mandatory
+	 */
+	public static function get_kennitala_is_mandatory(): bool {
+		return (bool) self::get_option( 'kennitala_is_mandatory', false );
+	}
+
+	/**
+	 * Toggle if kennitala field is mandatory
+	 *
+	 * @param bool $value True to makes the kennitala field mandatory, false for optional.
+	 */
+	public static function set_kennitala_is_mandatory( bool $value ): bool {
+		return self::update_option( 'kennitala_is_mandatory', $value );
+	}
+
+	/**
+	 * Check if product descriptions should be updated on downstream sync
+	 */
+	public static function get_product_description_sync(): bool {
+		return (bool) self::get_option( 'product_description_sync', true );
+	}
+
+	/**
+	 * Toggle if product descriptions should be updated on downstream sync
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_product_description_sync( bool $value ): bool {
+		return self::update_option( 'product_description_sync', $value );
 	}
 }

@@ -247,7 +247,7 @@ class Invoice {
 			$wc_order->get_payment_method()
 		);
 
-		if ( $wc_order->is_paid() ) {
+		if ( $wc_order->is_paid() && $payment_mapping->add_line ) {
 			$total = BigDecimal::of(
 				$wc_order->get_total()
 			)->minus(

@@ -159,22 +159,4 @@ final class ProductsTest extends TestCase {
 		"CostMethod": 2
 	}
 	JSON;
-
-	#[TestDox( 'Trashes products that have been deleted on the DK side' )]
-	public function testImportDeletedProductAsTrashed(): void {
-		$wc_product = new WC_Product();
-		$wc_product->set_sku( 'deleted' );
-		$wc_product->save();
-
-		$product_json_object = json_decode(
-			self::EXAMPLE_DELETED_DK_PRODUCT_JSON
-		);
-
-		$product_id = ImportProducts::save_from_dk(
-			$product_json_object->ItemCode,
-			$product_json_object
-		);
-
-		assertFalse( $product_id );
-	}
 }

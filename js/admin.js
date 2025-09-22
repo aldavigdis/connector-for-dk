@@ -46,9 +46,9 @@ class ConnectorForDK {
 
 			ConnectorForDK.postSettingsData( formDataObject );
 		} else {
-			let paymentIds     = formData.getAll( 'payment_id' );
-			let paymentModes   = formData.getAll( 'payment_mode' );
-			let paymentTerms   = formData.getAll( 'payment_term' );
+			let paymentIds   = formData.getAll( 'payment_id' );
+			let paymentModes = formData.getAll( 'payment_mode' );
+			let paymentTerms = formData.getAll( 'payment_term' );
 
 			let paymentMethods = [];
 			let paymentsLength = paymentIds.length;
@@ -144,16 +144,15 @@ class ConnectorForDK {
 				node.addEventListener(
 					'click',
 					( e ) => {
-						const group         = e.target.dataset.masterCheckbox;
+						const group                = e.target.dataset.masterCheckbox;
 						const subCheckboxContainer = document.querySelector(
 							'[data-sub-checkboxes=' + group + ']'
 						);
-
-						if ( e.target.checked ) {
-							subCheckboxContainer.classList.remove('hidden');
-						} else {
-							subCheckboxContainer.classList.add('hidden');
-						}
+					if ( e.target.checked ) {
+						subCheckboxContainer.classList.remove( 'hidden' );
+					} else {
+						subCheckboxContainer.classList.add( 'hidden' );
+					}
 					}
 				)
 			}

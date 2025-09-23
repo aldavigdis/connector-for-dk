@@ -6,6 +6,7 @@ namespace AldaVigdis\ConnectorForDK\Hooks;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Export\Customer as Customer;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WP_Error;
@@ -53,7 +54,8 @@ class WooOrderStatusChanges {
 	public static function maybe_send_invoice_on_payment(
 		int $order_id
 	): void {
-		$wc_order = new WC_Order( $order_id );
+		$wc_order  = new WC_Order( $order_id );
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
 
 		if ( ! empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
 			return;
@@ -108,6 +110,20 @@ class WooOrderStatusChanges {
 				)
 			);
 
+			return;
+		}
+
+		if (
+			Config::get_default_kennitala() !== $kennitala &&
+			! Config::get_create_invoice_for_customers_not_in_dk() &&
+			! Customer::is_in_dk( $kennitala )
+		) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice was not created in DK as you have chosen not to automatically create invoices for customers not registered as debtors in DK.',
+					'connector-for-dk'
+				)
+			);
 			return;
 		}
 

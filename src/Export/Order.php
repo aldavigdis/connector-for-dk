@@ -126,8 +126,27 @@ class Order {
 		$order_props     = array();
 		$recipient_array = array();
 		$customer_array  = array( 'Number' => $kennitala );
+		$store_location  = wc_get_base_location();
 
-		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
+		if (
+			$kennitala !== Config::get_default_kennitala() &&
+			Config::get_create_invoice_for_customers_not_in_dk() &&
+			! Customer::is_in_dk( $kennitala )
+		) {
+			$customer_array['Name']     = $wc_order->get_formatted_billing_full_name();
+			$customer_array['Address1'] = $wc_order->get_billing_address_1();
+			$customer_array['Address2'] = $wc_order->get_billing_address_2();
+			$customer_array['City']     = $wc_order->get_billing_city();
+			$customer_array['ZipCode']  = $wc_order->get_billing_postcode();
+			$customer_array['Phone']    = $wc_order->get_billing_phone();
+
+			if (
+				$wc_order->get_shipping_country() !==
+				$store_location['country']
+			) {
+				$customer_array['Country'] = $wc_order->get_billing_country();
+			}
+		}
 
 		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
 		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
@@ -136,11 +155,14 @@ class Order {
 		$recipient_array['ZipCode']  = $wc_order->get_shipping_postcode();
 		$recipient_array['Phone']    = $wc_order->get_shipping_phone();
 
-		$store_location = wc_get_base_location();
-
-		if ( $wc_order->get_shipping_country() !== $store_location['country'] ) {
+		if (
+			$wc_order->get_shipping_country() !==
+			$store_location['country']
+		) {
 			$recipient_array['Country'] = $wc_order->get_shipping_country();
 		}
+
+		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
 
 		$order_props['Customer'] = $customer_array;
 		$order_props['Receiver'] = $recipient_array;
@@ -251,35 +273,5 @@ class Order {
 	public static function id_to_dk_order_body( int $order_id ): array {
 		$order_object = new WC_Order( $order_id );
 		return self::to_dk_order_body( $order_object );
-	}
-
-	/**
-	 * Assume the DK customer number for an order
-	 *
-	 * Starts by checking if a billing kennitala has been set for the order and
-	 * uses that as the main kennitala.
-	 *
-	 * If it can't find a billing kennitala, it will check if the customer for
-	 * the order has a kennitala and uses that as the customer number in DK.
-	 *
-	 * If that does not work out, the default kennitala will be used for the
-	 * customer.
-	 *
-	 * @see AldaVigdis\ConnectorForDK\Config::get_default_kennitala()
-	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
-	 *
-	 * @return string The kennitala or customer number used.
-	 */
-	public static function assume_dk_customer_number(
-		WC_Order $wc_order
-	): string {
-		$billing_kennitala = OrderHelper::get_kennitala( $wc_order );
-
-		if ( ! empty( $billing_kennitala ) ) {
-			return $billing_kennitala;
-		}
-
-		return Config::get_default_kennitala();
 	}
 }

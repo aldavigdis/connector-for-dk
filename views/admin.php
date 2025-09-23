@@ -524,6 +524,34 @@ $pre_activation_errors = Admin::pre_activation_errors();
 						</th>
 						<td>
 							<input
+								id="get_create_invoice_for_customers_not_in_dk_field"
+								name="get_create_invoice_for_customers_not_in_dk"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_create_invoice_for_customers_not_in_dk() ? 'checked' : '' ); ?>
+							/>
+							<label for="get_create_invoice_for_customers_not_in_dk_field">
+								<?php
+								esc_html_e(
+									'Create Invoices for Customers not Registered in DK',
+									'connector-for-dk'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'If this is enabled, a new ‘debtor’ record witll be created in DK for every new customer who places and order and supplies a Kennitala that is not in DK already.',
+									'connector-for-dk'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
 								id="email_invoice_field"
 								name="email_invoice"
 								type="checkbox"

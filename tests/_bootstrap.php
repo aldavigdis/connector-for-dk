@@ -13,3 +13,4 @@ WC_Install::install();
 
 Currency::set_rate( 'EUR', 155.55 );
 update_option( 'woocommerce_currency', 'ISK' );
+update_option( 'woocommerce_default_country', 'IS' );

@@ -846,4 +846,28 @@ class Config {
 	public static function set_product_description_sync( bool $value ): bool {
 		return self::update_option( 'product_description_sync', $value );
 	}
+
+	/**
+	 * Get wether to automatically create invoices for customers not in DK
+	 */
+	public static function get_create_invoice_for_customers_not_in_dk(): bool {
+		return (bool) self::get_option(
+			'create_invoice_for_customers_not_in_dk',
+			true
+		);
+	}
+
+	/**
+	 * Toggle wether to automatically create invoices for customers not in DK
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_create_invoice_for_customers_not_in_dk(
+		bool $value
+	): bool {
+		return self::update_option(
+			'create_invoice_for_customers_not_in_dk',
+			$value
+		);
+	}
 }

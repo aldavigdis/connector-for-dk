@@ -22,6 +22,8 @@ use WP_Error;
 class Customer {
 	const API_PATH = '/Customer/';
 
+	const TRANSIENT_EXPIRY = 1800;
+
 	/**
 	 * Create a customer record in DK respresenting a WooCommerce customer record
 	 *
@@ -140,6 +142,17 @@ class Customer {
 			$dk_customer_number = self::assume_dk_customer_number( $customer );
 		}
 
+		$transient_key = "customer_{$dk_customer_number}_is_in_dk";
+
+		if ( get_transient( $transient_key ) === '1' ) {
+			return true;
+		}
+
+		// This is used for testing only.
+		if ( get_transient( $transient_key ) === '0' ) {
+			return false;
+		}
+
 		$result = $api_request->get_result(
 			'/Customer/' . $dk_customer_number
 		);
@@ -151,6 +164,8 @@ class Customer {
 		if ( $result->response_code !== 200 ) {
 			return false;
 		}
+
+		set_transient( $transient_key, '1', self::TRANSIENT_EXPIRY );
 
 		return true;
 	}

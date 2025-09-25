@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Helpers;
 
 use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
@@ -65,16 +66,12 @@ class Order {
 		$customer_id = $wc_order->get_customer_id();
 
 		if ( $customer_id !== 0 ) {
-			$customer           = new WC_Customer( $customer_id );
-			$customer_kennitala = $customer->get_meta(
-				'kennitala',
-				true,
-				'edit'
-			);
+			$customer = new WC_Customer( $wc_order->get_customer_id() );
+			return CustomerHelper::get_kennitala( $customer );
+		}
 
-			if ( ! empty( $customer_kennitala ) ) {
-				return $customer_kennitala;
-			}
+		if ( self::is_international( $wc_order ) ) {
+			return Config::get_default_international_kennitala();
 		}
 
 		return Config::get_default_kennitala();
@@ -178,5 +175,53 @@ class Order {
 		}
 
 		return (string) $error;
+	}
+
+	/**
+	 * Check if the kennitala for an order is one of the default ones
+	 *
+	 * @param WC_Order $order The WooCommerce order to check.
+	 */
+	public static function kennitala_is_default( WC_Order $order ): bool {
+		$kennitala = self::get_kennitala( $order );
+
+		return (
+			$kennitala === Config::get_default_kennitala() ||
+			$kennitala === Config::get_default_international_kennitala()
+		);
+	}
+
+	/**
+	 * Check if an order is domestic
+	 *
+	 * Checks if an order is coming from the same country as the WooCommerce
+	 * shop. This is required for international orders as they don't bear VAT
+	 * and may use different types of customer numbers and ledger codes.
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 */
+	public static function is_domestic( WC_Order $wc_order ): bool {
+		$store_location  = wc_get_base_location();
+		$billing_country = $wc_order->get_billing_country();
+
+		if (
+			( $store_location['country'] === $billing_country ) ||
+			( $billing_country === '' )
+		) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if order is international
+	 *
+	 * This is a reverse wrapper for `is_domestic`.
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order to check.
+	 */
+	public static function is_international( WC_Order $wc_order ): bool {
+		return ! self::is_domestic( $wc_order );
 	}
 }

@@ -598,16 +598,27 @@ class Admin {
 	 * generates an object containing the information as properties for
 	 * displaying below the relevant text input in the admin form.
 	 *
+	 * @param string $type 'domestic' or 'international', defaults on domestic.
+	 *
 	 * @return stdClass{
 	 *     'text': string,
 	 *     'class': string,
 	 *     'dashicon': string
 	 * }
 	 */
-	public static function info_for_default_kennitala(): stdClass {
-		$default_kennitala = Config::get_default_kennitala();
-		$transient_name    = "connector_for_dk_kennitala_{$default_kennitala}_is_in_dk";
-		$transient_value   = boolval( get_transient( $transient_name ) );
+	public static function info_for_default_kennitala(
+		string $type = 'domestic'
+	): stdClass {
+		if ( $type === 'domestic' ) {
+			$default_kennitala = Config::get_default_kennitala();
+		}
+
+		if ( $type === 'international' ) {
+			$default_kennitala = Config::get_default_international_kennitala();
+		}
+
+		$transient_name  = "connector_for_dk_kennitala_{$default_kennitala}_is_in_dk";
+		$transient_value = boolval( get_transient( $transient_name ) );
 
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
@@ -644,7 +655,7 @@ class Admin {
 					'A custmer record with the kennitala ‘%s’ was not found in DK.',
 					'connector-for-dk'
 				),
-				esc_html( Config::get_default_kennitala() )
+				esc_html( $default_kennitala )
 			);
 
 			$class    = 'error';

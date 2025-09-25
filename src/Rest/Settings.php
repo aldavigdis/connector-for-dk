@@ -262,6 +262,36 @@ class Settings {
 			Config::set_kennitala_is_mandatory( $rest_json->kennitala_is_mandatory );
 		}
 
+		if ( property_exists( $rest_json, 'product_description_sync' ) ) {
+			Config::set_product_description_sync(
+				$rest_json->product_description_sync
+			);
+		}
+
+		if ( property_exists( $rest_json, 'international_kennitala_prefix' ) ) {
+			Config::set_international_kennitala_prefix(
+				$rest_json->international_kennitala_prefix
+			);
+		}
+
+		if ( property_exists( $rest_json, 'default_international_kennitala' ) ) {
+			Config::set_default_international_kennitala(
+				$rest_json->default_international_kennitala
+			);
+		}
+
+		if ( property_exists( $rest_json, 'make_invoice_if_order_is_international' ) ) {
+			Config::set_make_invoice_if_order_is_international(
+				$rest_json->make_invoice_if_order_is_international
+			);
+		}
+
+		if ( property_exists( $rest_json, 'create_invoice_for_customers_not_in_dk' ) ) {
+			Config::set_create_invoice_for_customers_not_in_dk(
+				$rest_json->create_invoice_for_customers_not_in_dk
+			);
+		}
+
 		if (
 			property_exists( $rest_json, 'fetch_products' ) &&
 			$rest_json->fetch_products

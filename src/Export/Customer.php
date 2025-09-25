@@ -54,28 +54,20 @@ class Customer {
 	}
 
 	/**
-	 * Create a customer record in DK representing a WooCommerce order record
+	 * Create a customer in DK based on an order
 	 *
-	 * This facilitates "guests", as instead of using a WC_Customer object
-	 * directly, this takes the customer information for the order itself.
+	 * This is what we actually use to create a new customer in DK, on their
+	 * first WooCommerce order, if a customer record does not exsist in DK.
 	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
-	 *
-	 * @return bool|WP_Error True on success, false if connection was
-	 *                       established but the request was rejected, WC_Error
-	 *                       if there was a connection error.
+	 * @param WC_Order $order The WooCommerce order.
 	 */
-	public static function create_in_dk_from_order(
-		WC_Order $wc_order
-	): bool|WP_Error {
+	public static function create_in_dk_from_order( WC_Order $order ): bool|WP_Error {
 		$api_request  = new DKApiRequest();
-		$request_body = wp_json_encode(
-			self::to_dk_customer_body_from_order( $wc_order )
-		);
+		$request_body = self::to_dk_customer_body_from_order( $order );
 
 		$result = $api_request->request_result(
 			self::API_PATH,
-			$request_body,
+			wp_json_encode( $request_body ),
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -258,6 +250,9 @@ class Customer {
 	/**
 	 * Generate a customer request body for DK from order information
 	 *
+	 * This is what we actually use for initiating a DK customer on initial
+	 * purchase.
+	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 *
 	 * @return stdClass An object representing the customer information for the order.
@@ -269,44 +264,9 @@ class Customer {
 			$wc_order->get_payment_method()
 		);
 
-		$store_location = wc_get_base_location();
-		if ( $wc_order->get_billing_country() === $store_location['country'] ) {
-			$ledger_code = Config::get_domestic_customer_ledger_code();
-		} else {
-			$ledger_code = Config::get_international_customer_ledger_code();
-		}
-
-		$kennitala_date_integer = intval(
-			substr( OrderHelper::get_kennitala( $wc_order ), 0, 2 )
-		);
-
-		if (
-			( OrderHelper::get_kennitala( $wc_order ) !== Config::get_default_kennitala() ) &&
-			( $kennitala_date_integer > 40 ) && ( $kennitala_date_integer < 72 )
-		) {
-			$customer_kennitala_is_company = true;
-		} else {
-			$customer_kennitala_is_company = false;
-		}
-
-		if (
-			$customer_kennitala_is_company &&
-			! empty( $wc_order->get_billing_company() )
-		) {
-			$customer_name = $wc_order->get_billing_company();
-			$contacts      = array(
-				(object) array(
-					'Name' => $wc_order->get_formatted_billing_full_name(),
-				),
-			);
-		} else {
-			$customer_name = $wc_order->get_formatted_billing_full_name();
-			$contacts      = array();
-		}
-
-		return (object) array(
+		$customer_array = array(
 			'Number'      => OrderHelper::get_kennitala( $wc_order ),
-			'Name'        => $customer_name,
+			'Name'        => $wc_order->get_formatted_billing_full_name(),
 			'Address1'    => $wc_order->get_billing_address_1(),
 			'Address2'    => $wc_order->get_billing_address_2(),
 			'Country'     => $wc_order->get_billing_country(),
@@ -317,8 +277,15 @@ class Customer {
 			'SalesPerson' => Config::get_default_sales_person_number(),
 			'PaymentMode' => $payment_mapping->dk_mode,
 			'PaymentTerm' => $payment_mapping->dk_term,
-			'LedgerCode'  => $ledger_code,
-			'Contacts'    => $contacts,
+			'LedgerCode'  => Config::get_domestic_customer_ledger_code(),
+			'NoVat'       => false,
 		);
+
+		if ( $wc_order->get_total_tax( 'edit' ) === '0' ) {
+			$customer_array['LedgerCode'] = Config::get_international_customer_ledger_code();
+			$customer_array['NoVat']      = true;
+		}
+
+		return (object) $customer_array;
 	}
 }

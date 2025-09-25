@@ -135,6 +135,14 @@ body.woocommerce_page_connector-for-dk .wrap {
 	text-shadow: 1px 1px 0 #fff;
 }
 
+#connector-for-dk-wrap .section hr {
+	margin: 3em 0;
+	color: #c3c4c7;
+	background-color: #c3c4c7;
+	border: none;
+	height: 1px;
+}
+
 #connector-for-dk-wrap .submit-container {
 	width: calc(100% - 2rem);
 	display: flex;

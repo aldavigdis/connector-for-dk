@@ -381,13 +381,20 @@ class KennitalaField {
 		array $raw_address,
 		WC_Order $wc_order
 	): string {
+		if (
+			$wc_order->get_billing_country() !==
+			wc_get_base_location()['country']
+		) {
+			return $address_data;
+		}
+
 		$kennitala = $wc_order->get_meta( '_billing_kennitala', true );
 
 		if ( empty( $kennitala ) ) {
 			return $address_data;
 		}
 
-		$formatted_kennitala = self::format_kennitala( $kennitala );
+		$formatted_kennitala = self::sanitize_kennitala( $kennitala, true );
 
 		$formatted_array = explode( '<br/>', $address_data );
 
@@ -558,7 +565,8 @@ class KennitalaField {
 			$customer = new WC_Customer( get_current_user_id() );
 
 			$sanitized_kennitala = self::sanitize_kennitala(
-				$customer->get_meta( 'kennitala', true, 'edit' )
+				$customer->get_meta( 'kennitala', true, 'edit' ),
+				true
 			);
 		}
 
@@ -650,10 +658,18 @@ class KennitalaField {
 	 * numbers from the provided string and returns only the numbers from it.
 	 *
 	 * @param string $kennitala The unsanitized kennitala.
+	 * @param bool   $allow_alpha True to allow alphabetical characters.
 	 *
 	 * @return string The sanitized kennitala.
 	 */
-	public static function sanitize_kennitala( string $kennitala ): string {
+	public static function sanitize_kennitala(
+		string $kennitala,
+		bool $allow_alpha = false
+	): string {
+		if ( $allow_alpha ) {
+			return preg_replace( '/[^0-9A-Z]/', '', strtoupper( $kennitala ) );
+		}
+
 		return preg_replace( '/[^0-9]/', '', $kennitala );
 	}
 

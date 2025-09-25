@@ -40,18 +40,21 @@ class Invoice {
 		WC_Order $wc_order,
 		bool $force = false
 	): string|false|WP_Error {
-		if (
-			! ExportCustomer::is_in_dk(
-				OrderHelper::get_kennitala( $wc_order )
-			)
-		) {
-			Customer::create_in_dk_from_order( $wc_order );
-		}
-
 		if ( ! $force ) {
 			$invoice_number = self::get_dk_invoice_number( $wc_order );
 
 			if ( ! empty( $invoice_number ) ) {
+				return false;
+			}
+		}
+
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
+		if (
+			! OrderHelper::kennitala_is_default( $wc_order ) &&
+			! ExportCustomer::is_in_dk( $kennitala )
+		) {
+			if ( ! ExportCustomer::create_in_dk_from_order( $wc_order ) ) {
 				return false;
 			}
 		}

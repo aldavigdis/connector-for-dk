@@ -128,25 +128,10 @@ class Order {
 		$customer_array  = array( 'Number' => $kennitala );
 		$store_location  = wc_get_base_location();
 
-		if (
-			$kennitala !== Config::get_default_kennitala() &&
-			Config::get_create_invoice_for_customers_not_in_dk() &&
-			! Customer::is_in_dk( $kennitala )
-		) {
-			$customer_array['Name']     = $wc_order->get_formatted_billing_full_name();
-			$customer_array['Address1'] = $wc_order->get_billing_address_1();
-			$customer_array['Address2'] = $wc_order->get_billing_address_2();
-			$customer_array['City']     = $wc_order->get_billing_city();
-			$customer_array['ZipCode']  = $wc_order->get_billing_postcode();
-			$customer_array['Phone']    = $wc_order->get_billing_phone();
-
-			if (
-				$wc_order->get_shipping_country() !==
-				$store_location['country']
-			) {
-				$customer_array['Country'] = $wc_order->get_billing_country();
-			}
-		}
+		$export = (
+			$wc_order->get_shipping_country() !==
+			$store_location['country']
+		);
 
 		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
 		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
@@ -155,10 +140,7 @@ class Order {
 		$recipient_array['ZipCode']  = $wc_order->get_shipping_postcode();
 		$recipient_array['Phone']    = $wc_order->get_shipping_phone();
 
-		if (
-			$wc_order->get_shipping_country() !==
-			$store_location['country']
-		) {
+		if ( $export ) {
 			$recipient_array['Country'] = $wc_order->get_shipping_country();
 		}
 
@@ -189,6 +171,12 @@ class Order {
 				'DiscountAmount' => $item_discount->toFloat(),
 				'IncludingVAT'   => true,
 			);
+
+			if ( $export ) {
+				$order_line_item['IncludingVAT'] = false;
+			} else {
+				$order_line_item['IncludingVAT'] = true;
+			}
 
 			$origin    = $product->get_meta( 'connector_for_dk_origin', true, 'edit' );
 			$variation = wc_get_product( $order_item_product->get_variation_id() );

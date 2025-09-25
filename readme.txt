@@ -51,6 +51,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Rearranging and adding new options to the admin page
 * Products-as-variations should now be possible
 * The kennitala field can now be made mandatory
+* Improved support for international orders and customers
 
 == Frequently Asked Questions ==
 

@@ -524,15 +524,15 @@ $pre_activation_errors = Admin::pre_activation_errors();
 						</th>
 						<td>
 							<input
-								id="get_create_invoice_for_customers_not_in_dk_field"
-								name="get_create_invoice_for_customers_not_in_dk"
+								id="create_invoice_for_customers_not_in_dk_field"
+								name="create_invoice_for_customers_not_in_dk"
 								type="checkbox"
 								<?php echo esc_attr( Config::get_create_invoice_for_customers_not_in_dk() ? 'checked' : '' ); ?>
 							/>
-							<label for="get_create_invoice_for_customers_not_in_dk_field">
+							<label for="create_invoice_for_customers_not_in_dk_field">
 								<?php
 								esc_html_e(
-									'Create Invoices for Customers not Registered in DK',
+									'Create Invoices Automatically for Customers not Registered in DK',
 									'connector-for-dk'
 								);
 								?>
@@ -540,7 +540,35 @@ $pre_activation_errors = Admin::pre_activation_errors();
 							<p class="description">
 								<?php
 								esc_html_e(
-									'If this is enabled, a new ‘debtor’ record witll be created in DK for every new customer who places and order and supplies a Kennitala that is not in DK already.',
+									'If this is enabled, a new ‘debtor’ record witll be created in DK for every new customer who places an order and supplies a Kennitala that is not in DK already.',
+									'connector-for-dk'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+						</th>
+						<td>
+							<input
+								id="make_invoice_if_order_is_international_field"
+								name="make_invoice_if_order_is_international"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_make_invoice_if_order_is_international() ? 'checked' : '' ); ?>
+							/>
+							<label for="make_invoice_if_order_is_international_field">
+								<?php
+								esc_html_e(
+									'Create Invoices Automatically for International Orders',
+									'connector-for-dk'
+								);
+								?>
+							</label>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'Invoices for international orders will result in or get associated with a customer record in DK using a customer number based on their WooCommerce user ID. (See ‘International Customers’ below for further details.)',
 									'connector-for-dk'
 								);
 								?>
@@ -728,7 +756,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 								id="default_kennitala_field"
 								name="default_kennitala"
 								type="text"
-								value="<?php echo esc_attr( KennitalaField::format_kennitala( Config::get_default_kennitala() ) ); ?>"
+								value="<?php echo esc_attr( KennitalaField::sanitize_kennitala( Config::get_default_kennitala() ) ); ?>"
 							/>
 							<?php $info_for_default_kennitala = Admin::info_for_default_kennitala(); ?>
 							<p class="infotext <?php echo esc_attr( $info_for_default_kennitala->css_class ); ?>">
@@ -745,10 +773,6 @@ $pre_activation_errors = Admin::pre_activation_errors();
 							</p>
 						</td>
 					</tr>
-				</tbody>
-			</table>
-			<table id="customers-table" class="form-table dk-ledger-codes-table">
-				<tbody>
 					<tr>
 						<th scope="row" class="column-title column-primary">
 							<label for="domestic_customer_ledger_code_field">
@@ -762,6 +786,114 @@ $pre_activation_errors = Admin::pre_activation_errors();
 								type="text"
 								value="<?php echo esc_attr( Config::get_domestic_customer_ledger_code() ); ?>"
 							/>
+							<p class="description">
+								<?php
+								esc_html_e(
+									'The ledger code is used for new customer records when they are created in DK.',
+									'connector-for-dk'
+								);
+								?>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<hr />
+
+			<h3>
+				<?php esc_html_e( 'International Customers', 'connector-for-dk' ); ?>
+			</h3>
+
+			<p>
+				<?php
+				esc_html_e(
+					"DK needs a way to identify international customers that don't have a kennitala but need their own customer records. Connector for DK handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
+					'connector-for-dk'
+				);
+				?>
+			</p>
+
+			<p>
+				<?php
+				esc_html_e(
+					'International customer numbers are generated based on a combination of a prefix and the WooCommerce customer ID. We recommend using an alphabetical prefix in order to prevent conflicts. You may use both numbers and uppercase characters from the English alphabet.',
+					'connector-for-dk'
+				);
+				?>
+			</p>
+
+			<table>
+				<tbody class="form-table">
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<label for="default_international_kennitala_field">
+								<?php
+								esc_html_e(
+									'Default Customer Number for International Customers',
+									'connector-for-dk'
+								);
+								?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="default_international_kennitala_field"
+								name="default_international_kennitala"
+								type="text"
+								value="<?php echo esc_attr( KennitalaField::sanitize_kennitala( Config::get_default_international_kennitala(), true ) ); ?>"
+							/>
+							<?php $info_for_default_kennitala = Admin::info_for_default_kennitala( 'international' ); ?>
+							<p class="infotext <?php echo esc_attr( $info_for_default_kennitala->css_class ); ?>">
+								<span class="dashicons <?php echo esc_attr( $info_for_default_kennitala->dashicon ); ?>"></span>
+								<?php echo esc_html( $info_for_default_kennitala->text ); ?>
+							</p>
+							<p class="description">
+								<?php
+								esc_html_e(
+									"Similarly to the default Kennitala for domestic customers, this one is used for international guest customers that can't, don't have or won't supply a kennitala during checkout.",
+									'connector-for-dk'
+								)
+								?>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="column-title column-primary">
+							<label for="international_kennitala_prefix_field">
+								<?php esc_html_e( 'International Customer Number Prefix', 'connector-for-dk' ); ?>
+							</label>
+						</th>
+						<td>
+							<input
+								id="international_kennitala_prefix_field"
+								name="international_kennitala_prefix"
+								type="text"
+								minlength="1"
+								maxlength="6"
+								value="<?php echo esc_attr( Config::get_international_kennitala_prefix() ); ?>"
+							/>
+							<p class="description">
+								<?php
+								echo sprintf(
+									// Translators: %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
+									esc_html__(
+										'This is used as the beginning of the 10-digit Customer Number. For example, with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as DK customer number ‘%3$s’.',
+										'connector-for-dk'
+									),
+									esc_attr( Config::get_international_kennitala_prefix() ),
+									'888',
+									esc_attr(
+										Config::get_international_kennitala_prefix() .
+										str_pad(
+											strval( 888 ),
+											10 - strlen( strval( Config::get_international_kennitala_prefix() ) ),
+											'0',
+											STR_PAD_LEFT
+										)
+									)
+								);
+								?>
 						</td>
 					</tr>
 					<tr>
@@ -777,6 +909,14 @@ $pre_activation_errors = Admin::pre_activation_errors();
 								type="text"
 								value="<?php echo esc_attr( Config::get_international_customer_ledger_code() ); ?>"
 							/>
+							<p class="description">
+								<?php
+									esc_html_e(
+										'This ledger code is used for international customer records when they are created in DK.',
+										'connector-for-dk'
+									);
+								?>
+							</p>
 						</td>
 					</tr>
 				</tbody>
@@ -927,7 +1067,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 		<p>
 			<?php
 			esc_html_e(
-				'The Connector for DK WordPress plugin is developed, maintained on goodwill basis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 ehf.',
+				'The Connector for DK WordPress plugin is developed and maintained on goodwill basis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 ehf.',
 				'connector-for-dk'
 			);
 			?>

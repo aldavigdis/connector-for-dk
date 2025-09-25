@@ -23,7 +23,10 @@ class Config {
 	const DEFAULT_COUPON_SKU   = 'coupon';
 	const DEFAULT_COST_SKU     = 'cost';
 	const DEFAULT_SALES_PERSON = 'websales';
-	const DEFAULT_KENNITALA    = '0000000000';
+
+	const DEFAULT_KENNITALA                      = '0000000000';
+	const DEFAULT_INTERNATIONAL_KENNITALA        = 'E000000000';
+	const DEFAULT_INTERNATIONAL_KENNITALA_PREFIX = 'E';
 
 	const DEFAULT_LEDGER_CODE_STANDARD_SALE     = 's002';
 	const DEFAULT_LEDGER_CODE_STANDARD_PURCHASE = 'i001';
@@ -31,7 +34,7 @@ class Config {
 	const DEFAULT_LEDGER_CODE_REDUCED_PURCHASE  = '';
 
 	const DEFAULT_LEDGER_CODE_DOMESTIC_CUSTOMERS      = '0001';
-	const DEFAULT_LEDGER_CODE_INTERNATIONAL_CUSTOMERS = '0002';
+	const DEFAULT_LEDGER_CODE_INTERNATIONAL_CUSTOMERS = '0001';
 
 	/**
 	 * Get a configuration option
@@ -43,12 +46,6 @@ class Config {
 		string $option,
 		string|int|float|array|stdClass|bool $default = false
 	): string|int|float|array|stdClass|bool {
-		$old_option = get_option( self::OLD_PREFIX . $option );
-
-		if ( $old_option ) {
-			return $old_option;
-		}
-
 		return get_option( self::PREFIX . $option, $default );
 	}
 
@@ -306,6 +303,80 @@ class Config {
 		return self::update_option(
 			'default_kennitala',
 			KennitalaField::sanitize_kennitala( $kennitala )
+		);
+	}
+
+	/**
+	 * Get the default international kennitala
+	 */
+	public static function get_default_international_kennitala(): string {
+		return (string) self::get_option(
+			'default_international_kennitala',
+			self::DEFAULT_INTERNATIONAL_KENNITALA
+		);
+	}
+
+	/**
+	 * Set the default international kennitala
+	 *
+	 * @param string $kennitala The kennitala-like string.
+	 */
+	public static function set_default_international_kennitala( string $kennitala ): bool {
+		return self::update_option(
+			'default_international_kennitala',
+			KennitalaField::sanitize_kennitala( $kennitala, true )
+		);
+	}
+
+	/**
+	 * Get the international customer number prefix
+	 *
+	 * The prefix is used as the initial few characters for the kennitala-like
+	 * customer number, so if the prefix is 888, the resulting customer number
+	 * would be 8880000001.
+	 */
+	public static function get_international_kennitala_prefix(): string {
+		return (string) self::get_option(
+			'international_kennitala_prefix',
+			self::DEFAULT_INTERNATIONAL_KENNITALA_PREFIX
+		);
+	}
+
+	/**
+	 * Set the international customer number prefix
+	 *
+	 * @param string $prefix The prefix.
+	 */
+	public static function set_international_kennitala_prefix(
+		string $prefix
+	): bool {
+		return self::update_option(
+			'international_kennitala_prefix',
+			$prefix
+		);
+	}
+
+	/**
+	 * Get wether to automatically makes invoices for international orders
+	 */
+	public static function get_make_invoice_if_order_is_international(): bool {
+		return (bool) self::get_option(
+			'make_invoice_if_order_is_international',
+			true
+		);
+	}
+
+	/**
+	 * Set wether to automatically makes invoices for international orders
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_make_invoice_if_order_is_international(
+		bool $value
+	): bool {
+		return self::update_option(
+			'make_invoice_if_order_is_international',
+			$value
 		);
 	}
 

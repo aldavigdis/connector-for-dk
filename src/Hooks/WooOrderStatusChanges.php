@@ -6,7 +6,7 @@ namespace AldaVigdis\ConnectorForDK\Hooks;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
-use AldaVigdis\ConnectorForDK\Export\Customer as Customer;
+use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WP_Error;
@@ -54,8 +54,10 @@ class WooOrderStatusChanges {
 	public static function maybe_send_invoice_on_payment(
 		int $order_id
 	): void {
-		$wc_order  = new WC_Order( $order_id );
-		$kennitala = OrderHelper::get_kennitala( $wc_order );
+		$wc_order        = new WC_Order( $order_id );
+		$kennitala       = OrderHelper::get_kennitala( $wc_order );
+		$store_location  = wc_get_base_location();
+		$billing_country = $wc_order->get_billing_country();
 
 		if ( ! empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
 			return;
@@ -72,10 +74,8 @@ class WooOrderStatusChanges {
 			return;
 		}
 
-		$kennitala = OrderHelper::get_kennitala( $wc_order );
-
 		if (
-			( Config::get_default_kennitala() !== $kennitala ) &&
+			( OrderHelper::kennitala_is_default( $wc_order ) ) &&
 			( ! Config::get_make_invoice_if_kennitala_is_set() )
 		) {
 			$wc_order->add_order_note(
@@ -89,7 +89,7 @@ class WooOrderStatusChanges {
 		}
 
 		if (
-			( Config::get_default_kennitala() === $kennitala ) &&
+			( OrderHelper::kennitala_is_default( $wc_order ) ) &&
 			( ! Config::get_make_invoice_if_kennitala_is_missing() )
 		) {
 			$wc_order->add_order_note(
@@ -114,13 +114,26 @@ class WooOrderStatusChanges {
 		}
 
 		if (
-			Config::get_default_kennitala() !== $kennitala &&
+			! OrderHelper::kennitala_is_default( $wc_order ) &&
 			! Config::get_create_invoice_for_customers_not_in_dk() &&
-			! Customer::is_in_dk( $kennitala )
+			! ExportCustomer::is_in_dk( $kennitala )
 		) {
 			$wc_order->add_order_note(
 				__(
 					'An invoice was not created in DK as you have chosen not to automatically create invoices for customers not registered as debtors in DK.',
+					'connector-for-dk'
+				)
+			);
+			return;
+		}
+
+		if (
+			! Config::get_make_invoice_if_order_is_international() &&
+			( $billing_country !== $store_location['country'] )
+		) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice was not created in DK as you have chosen not to automatically create invoices for international orders.',
 					'connector-for-dk'
 				)
 			);

@@ -449,7 +449,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_connector_for_dk_variations'
+				'connector_for_dk_variations'
 			) ||
 			! isset( $_POST['dk_variable_defaults'] )
 		) {
@@ -494,7 +494,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_connector_for_dk_variations'
+				'connector_for_dk_variations'
 			)
 		) {
 			return;
@@ -561,7 +561,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_connector_for_dk_variations'
+				'connector_for_dk_variations'
 			)
 		) {
 			return;
@@ -604,7 +604,7 @@ class WooMetaboxes {
 				sanitize_text_field(
 					wp_unslash( $_POST['connector_for_dk_variations_nonce'] )
 				),
-				'set_connector_for_dk_variations'
+				'connector_for_dk_variations'
 			)
 		) {
 			return;

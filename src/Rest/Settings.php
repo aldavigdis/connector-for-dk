@@ -8,6 +8,7 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Currency;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
+use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
 use WP_Error;
@@ -292,10 +293,23 @@ class Settings {
 			);
 		}
 
+		if ( property_exists( $rest_json, 'enable_dk_customer_prices' ) ) {
+			Config::set_enable_dk_customer_prices(
+				$rest_json->enable_dk_customer_prices
+			);
+		}
+
+		if ( property_exists( $rest_json, 'display_dk_customer_prices_as_discount' ) ) {
+			Config::set_display_dk_customer_prices_as_discount(
+				$rest_json->display_dk_customer_prices_as_discount
+			);
+		}
+
 		if (
 			property_exists( $rest_json, 'fetch_products' ) &&
 			$rest_json->fetch_products
 		) {
+			ImportCustomers::save_all_from_dk();
 			ImportProducts::save_all_from_dk();
 		}
 

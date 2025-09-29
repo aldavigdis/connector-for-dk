@@ -113,6 +113,12 @@ SOFTWARE.
 		-->
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"></exclude>
 
+		<!--
+		Sometimes it's better to query the database directly.
+		-->
+		<exclude name="WordPress.DB.DirectDatabaseQuery.DirectQuery"></exclude>
+		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching"></exclude>
+
 		<exclude-pattern>./tests/**</exclude-pattern>
 	</rule>
 

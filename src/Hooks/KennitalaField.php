@@ -227,7 +227,7 @@ class KennitalaField {
 	): array {
 		$additional_fields = array(
 			'kennitala' => array(
-				'label' => 'Kennitala',
+				'label' => __( 'Kennitala', 'connector-for-dk' ),
 				'show'  => false,
 			),
 		);

@@ -22,7 +22,7 @@ use WP_Error;
  */
 class ProductVariations {
 	const TRANSIENTS       = array( 'connector_for_dk_variations' );
-	const TRANSIENT_EXPIRY = 1800;
+	const TRANSIENT_EXPIRY = 7200;
 
 	const PRODUCTS_TABLE  = 'INITEMS.DAT';
 	const PRODUCTS_FIELDS = array( 'itemcode', 'variation' );

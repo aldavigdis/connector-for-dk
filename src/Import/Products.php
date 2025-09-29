@@ -34,10 +34,11 @@ class Products {
 	 */
 	const INCLUDE_PROPERTIES = 'ItemCode,Description,PropositionPrice,' .
 		'UnitPrice1,UnitPrice1WithTax,Inactive,NetWeight,UnitVolume,' .
-		'TotalQuantityInWarehouse,UnitPrice1,TaxPercent,' .
-		'AllowNegativeInventiry,ExtraDesc1,ExtraDesc2,ShowItemInWebShop,' .
-		'Inactive,Deleted,PropositionDateTo,PropositionDateFrom,CurrencyCode,' .
-		'CurrencyPrices,IsVariation,Warehouses';
+		'TotalQuantityInWarehouse,UnitPrice2,UnitPrice3,UnitPrice2WithTax,' .
+		'UnitPrice3WithTax,TaxPercent,AllowNegativeInventiry,ExtraDesc1,' .
+		'ExtraDesc2,ShowItemInWebShop,Inactive,Deleted,PropositionDateTo,' .
+		'PropositionDateFrom,CurrencyCode,CurrencyPrices,IsVariation,' .
+		'Warehouses';
 
 	/**
 	 * Save all products from DK
@@ -302,11 +303,34 @@ class Products {
 		$price = self::get_product_price_from_json( $json_object );
 
 		if ( $price instanceof stdClass ) {
+			if ( $json_object->IsVariation ) {
+				$wc_product->set_price( $price->price );
+			}
+
 			$wc_product->set_regular_price( $price->price );
 			$wc_product->set_sale_price( $price->sale_price );
 			$wc_product->set_date_on_sale_from( $price->date_on_sale_from );
 			$wc_product->set_date_on_sale_to( $price->date_on_sale_to );
 			$wc_product->set_tax_class( $price->tax_class );
+
+			if ( Config::get_enable_dk_customer_prices() ) {
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_1',
+					$price->price
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_2',
+					$price->price_2
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_3',
+					$price->price_3
+				);
+			} else {
+				$wc_product->delete_meta_data( 'connector_for_dk_price_1' );
+				$wc_product->delete_meta_data( 'connector_for_dk_price_2' );
+				$wc_product->delete_meta_data( 'connector_for_dk_price_3' );
+			}
 
 			$wc_product->update_meta_data(
 				'connector_for_dk_currency',
@@ -460,11 +484,34 @@ class Products {
 			$price = self::get_product_price_from_json( $json_object );
 
 			if ( $price instanceof stdClass ) {
+				if ( $json_object->IsVariation ) {
+					$wc_product->set_price( $price->price );
+				}
+
 				$wc_product->set_regular_price( $price->price );
 				$wc_product->set_sale_price( $price->sale_price );
 				$wc_product->set_date_on_sale_from( $price->date_on_sale_from );
 				$wc_product->set_date_on_sale_to( $price->date_on_sale_to );
 				$wc_product->set_tax_class( $price->tax_class );
+
+				if ( Config::get_enable_dk_customer_prices() ) {
+					$wc_product->update_meta_data(
+						'connector_for_dk_price_1',
+						$price->price
+					);
+					$wc_product->update_meta_data(
+						'connector_for_dk_price_2',
+						$price->price_2
+					);
+					$wc_product->update_meta_data(
+						'connector_for_dk_price_3',
+						$price->price_3
+					);
+				} else {
+					$wc_product->delete_meta_data( 'connector_for_dk_price_1' );
+					$wc_product->delete_meta_data( 'connector_for_dk_price_2' );
+					$wc_product->delete_meta_data( 'connector_for_dk_price_3' );
+				}
 
 				$wc_product->update_meta_data(
 					'connector_for_dk_currency',
@@ -524,10 +571,60 @@ class Products {
 			$json_object->TaxPercent
 		);
 
+		$decimals = (int) get_option( 'woocommerce_price_num_decimals', '0' );
+
 		if ( $store_currency === $dk_currency ) {
-			$price_before_tax      = $json_object->UnitPrice1;
-			$price_with_tax        = $json_object->UnitPrice1WithTax;
-			$sale_price_before_tax = $json_object->PropositionPrice;
+			$price_before_tax = round(
+				$json_object->UnitPrice1,
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
+			$price_with_tax = round(
+				$json_object->UnitPrice1WithTax,
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
+			$sale_price_before_tax = round(
+				$json_object->PropositionPrice,
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
+			if (
+				property_exists( $json_object, 'UnitPrice2' ) &&
+				property_exists( $json_object, 'UnitPrice3' )
+			) {
+				$price_2_before_tax = round(
+					$json_object->UnitPrice2,
+					$decimals,
+					PHP_ROUND_HALF_UP
+				);
+
+				$price_2_with_tax = round(
+					$json_object->UnitPrice2WithTax,
+					$decimals,
+					PHP_ROUND_HALF_UP
+				);
+
+				$price_3_before_tax = round(
+					$json_object->UnitPrice3,
+					$decimals,
+					PHP_ROUND_HALF_UP
+				);
+
+				$price_3_with_tax = round(
+					$json_object->UnitPrice3WithTax,
+					$decimals,
+					PHP_ROUND_HALF_UP
+				);
+			} else {
+				$price_2_before_tax = 0;
+				$price_2_with_tax   = 0;
+				$price_3_before_tax = 0;
+				$price_3_with_tax   = 0;
+			}
 		} else {
 			$price_before_tax = self::get_currency_price_from_json(
 				$json_object
@@ -552,6 +649,11 @@ class Products {
 		if ( wc_prices_include_tax() ) {
 			$price = $price_with_tax;
 
+			if ( isset( $price_2_with_tax, $price_3_with_tax ) ) {
+				$price_2 = $price_2_with_tax;
+				$price_3 = $price_3_with_tax;
+			}
+
 			if ( $sale_price_before_tax > 0 ) {
 				$sale_price = self::calculate_price_after_tax(
 					$sale_price_before_tax,
@@ -562,6 +664,11 @@ class Products {
 			}
 		} else {
 			$price = $price_before_tax;
+
+			if ( isset( $price_2_before_tax, $price_3_before_tax ) ) {
+				$price_2 = $price_2_before_tax;
+				$price_3 = $price_3_before_tax;
+			}
 
 			if ( $sale_price_before_tax > 0 ) {
 				$sale_price = $sale_price_before_tax;
@@ -586,7 +693,7 @@ class Products {
 			$date_on_sale_to = '';
 		}
 
-		return (object) array(
+		$price_array = array(
 			'price'             => $price,
 			'sale_price'        => $sale_price,
 			'date_on_sale_from' => $date_on_sale_from,
@@ -594,6 +701,13 @@ class Products {
 			'currency'          => $dk_currency,
 			'tax_class'         => $tax_class,
 		);
+
+		if ( isset( $price_2, $price_3 ) ) {
+			$price_array['price_2'] = $price_2;
+			$price_array['price_3'] = $price_3;
+		}
+
+		return (object) $price_array;
 	}
 
 	/**
@@ -620,11 +734,17 @@ class Products {
 			roundingMode: RoundingMode::HALF_UP
 		);
 
-		return BigDecimal::of(
-			$price_before_tax
-		)->multipliedBy(
-			$tax_fraction->plus( 1 )
-		)->toFloat();
+		$decimals = (int) get_option( 'woocommerce_price_num_decimals', '0' );
+
+		return round(
+			BigDecimal::of(
+				$price_before_tax
+			)->multipliedBy(
+				$tax_fraction->plus( 1 )
+			)->toFloat(),
+			$decimals,
+			PHP_ROUND_HALF_UP
+		);
 	}
 
 	/**

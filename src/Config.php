@@ -941,4 +941,62 @@ class Config {
 			$value
 		);
 	}
+
+	/**
+	 * Get wether customer price groups and discounts are enabled
+	 *
+	 * DK can assign a discount percentage to a customer record. Furthermore,
+	 * DK can have 3 prices per product and customers can belong to different
+	 * price groups ranging from 1-3.
+	 *
+	 * Enabing this feature replaces the price display for customers who are
+	 * logged in and have a discount percentage. Adding items to cart will
+	 * display the original price and the customer's price together, depending
+	 * on the theme in use.
+	 */
+	public static function get_enable_dk_customer_prices(): bool {
+		return (bool) self::get_option(
+			'enable_dk_customer_prices',
+			true
+		);
+	}
+
+	/**
+	 * Set wether customer price groups and discounts are enabled
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_enable_dk_customer_prices( bool $value ): bool {
+		return self::update_option(
+			'enable_dk_customer_prices',
+			$value
+		);
+	}
+
+	/**
+	 * Get wether to display DK customer prices as discounts
+	 *
+	 * This will display a <del> HTML snippet with the regular price next to
+	 * each product on the storefront, along with the customer's price.
+	 */
+	public static function get_display_dk_customer_prices_as_discount(): bool {
+		return (bool) self::get_option(
+			'display_dk_customer_prices_as_discount',
+			true
+		);
+	}
+
+	/**
+	 * Set wether to display DK customer prices as discounts
+	 *
+	 * @param bool $value True to enable, false to disable.
+	 */
+	public static function set_display_dk_customer_prices_as_discount(
+		bool $value
+	): bool {
+		return self::update_option(
+			'display_dk_customer_prices_as_discount',
+			$value
+		);
+	}
 }

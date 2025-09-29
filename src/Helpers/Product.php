@@ -9,6 +9,7 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use WC_Customer;
 use WC_Product;
 use WC_Product_Variation;
 use WC_Tax;
@@ -607,5 +608,135 @@ class Product {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get customer's price for a product, with discount
+	 *
+	 * @param WC_Product  $product The product.
+	 * @param WC_Customer $customer The customer.
+	 */
+	public static function get_customer_price(
+		WC_Product $product,
+		WC_Customer $customer
+	): string {
+		$discount_meta = floatval(
+			$customer->get_meta( 'connector_for_dk_discount' )
+		);
+
+		$group_price = self::get_group_price( $product, $customer );
+
+		if ( empty( $group_price ) ) {
+			$group_price = '0';
+		}
+
+		$multiplier = BigDecimal::of( $discount_meta )->dividedBy(
+			100,
+			12,
+			RoundingMode::HALF_UP
+		);
+
+		$price_d          = BigDecimal::of( $group_price );
+		$discount         = $price_d->multipliedBy( $multiplier );
+		$discounted_price = $price_d->minus( $discount )->toFloat();
+
+		return (string) $discounted_price;
+	}
+
+	/**
+	 * Get a customer's group price of a product, before discount
+	 *
+	 * @param WC_Product  $product The product.
+	 * @param WC_Customer $customer The customer.
+	 */
+	public static function get_group_price(
+		WC_Product $product,
+		WC_Customer $customer
+	): string {
+		$group = (string) $customer->get_meta(
+			'connector_for_dk_price_group',
+			true,
+			'edit'
+		);
+
+		if ( $group === '0' ) {
+			$group = '1';
+		}
+
+		$price_key = "connector_for_dk_price_{$group}";
+
+		if ( $product instanceof WC_Product_Variation ) {
+			if ( self::variation_price_override( $product ) ) {
+				return $product->get_regular_price();
+			}
+
+			$product = wc_get_product( $product->get_parent_id() );
+		}
+
+		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {
+			$group_price = $product->get_meta( $price_key, true, 'edit' );
+
+			if ( ! empty( $group_price ) || $group_price !== '0' ) {
+				return $group_price;
+			}
+		}
+
+		if ( ! empty( $product->get_regular_price( 'edit' ) ) ) {
+			return $product->get_regular_price( 'edit' );
+		}
+
+		return $product->get_price( 'edit' );
+	}
+
+	/**
+	 * Get the price range of a variable product
+	 *
+	 * @param WC_Product_Variable $product The product.
+	 * @param WC_Customer         $customer The customer.
+	 * @param bool                $apply_discount Wether to apply discounts.
+	 * @param string              $kind 'regular_price', 'sale_price' or 'price'.
+	 *
+	 * @return array{min: string, max: string} An array containing the price range as strings.
+	 */
+	public static function get_customer_variable_price_range(
+		WC_Product_Variable $product,
+		WC_Customer $customer,
+		bool $apply_discount = true,
+		string $kind = 'regular_price'
+	): array {
+		$discount_meta = floatval(
+			$customer->get_meta( 'connector_for_dk_discount' )
+		);
+
+		$prices = $product->get_variation_prices( false );
+
+		$min_price = (float) current( $prices[ $kind ] );
+		$max_price = (float) end( $prices[ $kind ] );
+
+		if ( $apply_discount === false ) {
+			return array(
+				'min' => (string) $min_price,
+				'max' => (string) $max_price,
+			);
+		}
+
+		$multiplier = BigDecimal::of(
+			$discount_meta
+		)->dividedBy(
+			100,
+			12,
+			RoundingMode::HALF_UP
+		);
+
+		$min_discount = $multiplier->multipliedBy( $min_price );
+		$max_discount = $multiplier->multipliedBy( $max_price );
+
+		$min = BigDecimal::of( $min_price )->minus( $min_discount )->toFloat();
+		$max = BigDecimal::of( $max_price )->minus( $max_discount )->toFloat();
+
+		return array(
+			'min' => (string) $min,
+			'max' => (string) $max,
+		);
 	}
 }

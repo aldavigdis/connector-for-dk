@@ -7,6 +7,7 @@ namespace AldaVigdis\ConnectorForDK\Cron;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
 use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
+use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 
 /**
@@ -24,6 +25,11 @@ class Hourly {
 		if ( Config::get_dk_api_key() && Config::get_enable_cronjob() ) {
 			ImportSalesPayments::get_methods();
 			ImportCurrencies::save_all_from_dk();
+
+			if ( Config::get_enable_dk_customer_prices() ) {
+				ImportCustomers::save_all_from_dk();
+			}
+
 			if ( Config::get_enable_downstream_product_sync() ) {
 				ImportProducts::save_all_from_dk();
 			}

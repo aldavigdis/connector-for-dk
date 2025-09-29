@@ -39,19 +39,21 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 = 0.5 =
 * A rebrand and re-namespacing of a new fork
-* Moving per-product DK options into a separate tab in the Product Editor
-* Fixing bug that affected invoices for product variations with two attributes
-* Improving error handling in invoice generation
-* Improving variation display on the frontend
-* Improving code for tax rate matching
-* Improving the loading speed of the admin page tenfold by using transient values
-* Adding a readiness check to the admin page
-* Making product sync optional
-* Removing any upstream push for products
-* Rearranging and adding new options to the admin page
+* Moved per-product DK options into a separate tab in the Product Editor
+* Fixed a bug that affected invoices for product variations with two attributes
+* Improved error handling in invoice generation
+* Improved variation display on the frontend
+* Improved code for tax rate matching
+* Improved the loading speed of the admin page tenfold by using transient values
+* Added a readiness check to the admin page
+* Made product sync optional
+* Removed any upstream push for products
+* Rearranged and adding new options to the admin page
 * Products-as-variations should now be possible
 * The kennitala field can now be made mandatory
 * Improved support for international orders and customers
+* Added support for per-customer price groups and discounts
+* Improved the prescision of imported product sales prices, rounding them down
 
 == Frequently Asked Questions ==
 

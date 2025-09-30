@@ -6,7 +6,7 @@
  * Description: Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
  * Version: 0.5.0-beta1
  * Requires at least: 6.1.5
- * Requires PHP: 8.0
+ * Requires PHP: 8.2
  * Author: Alda Vigdis
  * Author URI: https://aldavigdis.is
  * License: GPL-3.0-or-later

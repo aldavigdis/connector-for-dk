@@ -1,5 +1,5 @@
 === Connector for DK ===
-Stable tag: 0.4.6
+Stable tag: 0.5.0-beta1
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.7.3

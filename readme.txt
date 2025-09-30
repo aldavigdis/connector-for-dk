@@ -54,6 +54,9 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Improved support for international orders and customers
 * Added support for per-customer price groups and discounts
 * Improved the prescision of imported product sales prices, rounding them down
+* Introducing support for item discounts on invoices and in the Order Editor
+* Products no longer need to be available in order for invoices to be generated
+* Invoice generation is now limited to orders made with the plugin installed
 
 == Frequently Asked Questions ==
 

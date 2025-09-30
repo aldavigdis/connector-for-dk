@@ -34,6 +34,10 @@ class Order {
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_order_body( $wc_order );
 
+		if ( $request_body ) {
+			return false;
+		}
+
 		$result = $api_request->request_result(
 			'/Sales/Order/',
 			wp_json_encode( $request_body ),
@@ -120,70 +124,121 @@ class Order {
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
-	public static function to_dk_order_body( WC_Order $wc_order ): array {
+	public static function to_dk_order_body( WC_Order $wc_order ): array|false {
+		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
+			return false;
+		}
+
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 
-		$order_props     = array();
-		$recipient_array = array();
-		$customer_array  = array( 'Number' => $kennitala );
-		$store_location  = wc_get_base_location();
+		$order_props    = array();
+		$customer_array = array( 'Number' => $kennitala );
+		$store_location = wc_get_base_location();
 
 		$export = (
 			$wc_order->get_shipping_country() !==
 			$store_location['country']
 		);
 
-		$recipient_array['Name']     = $wc_order->get_formatted_billing_full_name();
-		$recipient_array['Address1'] = $wc_order->get_shipping_address_1();
-		$recipient_array['Address2'] = $wc_order->get_shipping_address_2();
-		$recipient_array['City']     = $wc_order->get_shipping_city();
-		$recipient_array['ZipCode']  = $wc_order->get_shipping_postcode();
-		$recipient_array['Phone']    = $wc_order->get_shipping_phone();
+		$recipient_array = array(
+			'Name'     => $wc_order->get_formatted_billing_full_name(),
+			'Address1' => $wc_order->get_shipping_address_1(),
+			'Address2' => $wc_order->get_shipping_address_2(),
+			'City'     => $wc_order->get_shipping_city(),
+			'ZipCode'  => $wc_order->get_shipping_postcode(),
+			'Phone'    => $wc_order->get_shipping_phone(),
+		);
 
 		if ( $export ) {
 			$recipient_array['Country'] = $wc_order->get_shipping_country();
 		}
 
-		$order_props['Reference'] = 'WC-' . $wc_order->get_id();
-
-		$order_props['Customer'] = $customer_array;
-		$order_props['Receiver'] = $recipient_array;
-
-		$order_props['Currency'] = $wc_order->get_currency();
-
-		$order_props['Lines'] = array();
+		$order_props = array(
+			'Reference' => 'WC-' . $wc_order->get_id(),
+			'Customer'  => $customer_array,
+			'Receiver'  => $recipient_array,
+			'Currency'  => $wc_order->get_currency(),
+			'Lines'     => array(),
+		);
 
 		foreach ( $wc_order->get_items() as $key => $item ) {
-			$order_item_product = new WC_Order_Item_Product( $item->get_id() );
-			$product_id         = $order_item_product->get_product_id();
-			$product            = wc_get_product( $product_id );
-
-			$item_discount = BigDecimal::of(
-				$wc_order->get_item_subtotal( $item, 1 )
-			)->minus(
-				$wc_order->get_item_total( $item, 1 )
-			);
-
-			$order_line_item = array(
-				'Text'           => $item->get_name(),
-				'Quantity'       => $item->get_quantity(),
-				'Price'          => $wc_order->get_item_subtotal( $item, 1 ),
-				'DiscountAmount' => $item_discount->toFloat(),
-				'IncludingVAT'   => true,
-			);
-
-			if ( $export ) {
-				$order_line_item['IncludingVAT'] = false;
-			} else {
-				$order_line_item['IncludingVAT'] = true;
+			if ( ! $item instanceof WC_Order_Item_Product ) {
+				continue;
 			}
 
-			$origin    = $product->get_meta( 'connector_for_dk_origin', true, 'edit' );
-			$variation = wc_get_product( $order_item_product->get_variation_id() );
+			$group_price = (float) $item->get_meta(
+				'connector_for_dk_group_price',
+				true,
+				'edit'
+			);
+
+			$sku = $item->get_meta(
+				'connector_for_dk_sku'
+			);
+
+			$discount = BigDecimal::of(
+				$group_price
+			)->minus(
+				$wc_order->get_item_subtotal( $item, false )
+			)->toFloat();
+
+			$tax_multiplier = (float) $item->get_meta(
+				'connector_for_dk_vat_multiplier'
+			);
+
+			$group_price_with_vat = BigDecimal::of(
+				$group_price
+			)->multipliedBy(
+				$tax_multiplier
+			)->toFloat();
+
+			$discount_with_vat = BigDecimal::of(
+				$group_price_with_vat
+			)->minus(
+				$wc_order->get_item_subtotal( $item, true )
+			)->toFloat();
+
+			if ( $export ) {
+				$total_discount = BigDecimal::of(
+					$discount
+				)->multipliedBy(
+					$item->get_quantity()
+				);
+
+				$order_line_item = array(
+					'ItemCode'       => $sku,
+					'Text'           => $item->get_name(),
+					'Quantity'       => $item->get_quantity(),
+					'Price'          => $group_price,
+					'DiscountAmount' => $total_discount,
+					'IncludingVAT'   => false,
+				);
+			} else {
+				$total_discount = BigDecimal::of(
+					$discount_with_vat
+				)->multipliedBy(
+					$item->get_quantity()
+				)->toFloat();
+
+				$order_line_item = array(
+					'ItemCode'       => $sku,
+					'Text'           => $item->get_name(),
+					'Quantity'       => $item->get_quantity(),
+					'Price'          => $group_price_with_vat,
+					'DiscountAmount' => $total_discount,
+					'IncludingVAT'   => true,
+				);
+			}
+
+			$origin = $item->get_meta(
+				'connector_for_dk_origin',
+				true,
+				'edit'
+			);
+
+			$variation = wc_get_product( $item->get_variation_id() );
 
 			if ( $origin === 'product_variation' && $variation !== false ) {
-				$order_line_item['ItemCode'] = $product->get_sku();
-
 				$variation_attributes = $variation->get_attributes();
 				$variation_values     = array_values( $variation_attributes );
 
@@ -202,10 +257,6 @@ class Order {
 
 			if ( $origin !== 'product_variation' && $variation !== false ) {
 				$order_line_item['ItemCode'] = $variation->get_sku();
-			}
-
-			if ( $variation === false ) {
-				$order_line_item['ItemCode'] = $product->get_sku();
 			}
 
 			$order_props['Lines'][] = $order_line_item;

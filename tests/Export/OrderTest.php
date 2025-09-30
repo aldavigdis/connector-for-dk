@@ -6,7 +6,9 @@ namespace AldaVigdis\ConnectorForDK\Tests\Export;
 
 use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
 use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Hooks\OrderMeta;
 
+use WC\SmoothGenerator\Generator\Order as OrderGenerator;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -34,28 +36,9 @@ final class OrderTest extends TestCase {
 		return $kennitala;
 	}
 
-	private function fake_address(): array {
-		return array(
-			'first_name' => 'Lorem',
-			'last_name'  => 'Ipsumson',
-			'address_1'  => 'Bankastræti 0',
-			'address_2'  => 'Kjallara',
-			'postcode'   => '101',
-			'city'       => 'Reykjavík',
-			'country'    => 'IS',
-			'phone'      => '555-5555',
-			'email'      => 'loremipsumson@example.com'
-		);
-	}
-
 	private function fake_order(): WC_Order {
-		$order = new WC_Order();
-
-		$order->set_billing_address( $this->fake_address() );
-		$order->set_shipping_address( $this->fake_address() );
-
-		$order->save();
-		$order->save_meta_data();
+		$order = OrderGenerator::generate( true );
+		OrderMeta::add_meta_to_order_items( null, $order );
 
 		return $order;
 	}

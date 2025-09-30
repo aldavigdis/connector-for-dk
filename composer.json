@@ -1,6 +1,6 @@
 {
-    "name": "1984/1984-connector-for-dk-and-woocommerce",
-    "version": "0.4.6",
+    "name": "aldavigdis/connector-for-dk",
+    "version": "0.5.0-beta1",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
@@ -84,6 +84,6 @@
         ],
         "lint": "./vendor/bin/phpcs -s ./src/ ./js/ ./style/ ./views/",
         "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/ ./views/",
-        "zip:release": "rm -rf vendor/ && composer install --no-dev && cd .. && zip -r 1984-connector-for-dk-and-woocommerce.zip 1984-connector-for-dk-and-woocommerce -i 1984-connector-for-dk-and-woocommerce/languages/\\*.php -i 1984-connector-for-dk-and-woocommerce/languages/\\*.mo -i 1984-connector-for-dk-and-woocommerce/languages/\\*.po -i 1984-connector-for-dk-and-woocommerce/languages/\\*.pot -i 1984-connector-for-dk-and-woocommerce/languages/\\*.json -i 1984-connector-for-dk-and-woocommerce/src/\\* -i 1984-connector-for-dk-and-woocommerce/vendor/\\* -i 1984-connector-for-dk-and-woocommerce/views/\\* -i 1984-connector-for-dk-and-woocommerce/js/\\* -i 1984-connector-for-dk-and-woocommerce/style/\\* -i 1984-connector-for-dk-and-woocommerce/*.php -i 1984-connector-for-dk-and-woocommerce/*.txt -i 1984-connector-for-dk-and-woocommerce/assets/\\* -i 1984-connector-for-dk-and-woocommerce/composer.* -i 1984-connector-for-dk-and-woocommerce/*.xml -i 1984-connector-for-dk-and-woocommerce/readme.txt -i 1984-connector-for-dk-and-woocommerce/json_schemas/*.json"
+        "zip:release": "rm -rf vendor/ && composer install --no-dev && cd .. && zip -r connector-for-dk.zip connector-for-dk -i connector-for-dk/languages/\\*.php -i connector-for-dk/languages/\\*.mo -i connector-for-dk/languages/\\*.po -i connector-for-dk/languages/\\*.pot -i connector-for-dk/languages/\\*.json -i connector-for-dk/src/\\* -i connector-for-dk/vendor/\\* -i connector-for-dk/views/\\* -i connector-for-dk/js/\\* -i connector-for-dk/style/\\* -i connector-for-dk/*.php -i connector-for-dk/*.txt -i connector-for-dk/assets/\\* -i connector-for-dk/composer.* -i connector-for-dk/*.xml -i connector-for-dk/readme.txt -i connector-for-dk/json_schemas/*.json"
     }
 }

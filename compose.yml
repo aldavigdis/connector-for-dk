@@ -8,10 +8,8 @@ services:
     ports:
       - 80:80
     environment:
-      - WP_THEME_INSTALL=blocksy
-      - WP_THEME_ACTIVATE=blocksy
       - REMOVE_CRAP_PLUGINS=true
-      - WP_PLUGIN_INSTALL=woocommerce blocksy-companion
+      - WP_PLUGIN_INSTALL=woocommerce
       - WP_PLUGIN_ACTIVATE=--all
   mariadb:
     image: mariadb

@@ -109,4 +109,25 @@ class Customer {
 			STR_PAD_LEFT
 		);
 	}
+
+	/**
+	 * Get the DK price group for a customer
+	 *
+	 * @param WC_Customer $customer The customer.
+	 */
+	public static function get_dk_price_group(
+		WC_Customer $customer
+	): string {
+		$group = (string) $customer->get_meta(
+			'connector_for_dk_price_group',
+			true,
+			'edit'
+		);
+
+		if ( $group === '0' ) {
+			$group = '1';
+		}
+
+		return $group;
+	}
 }

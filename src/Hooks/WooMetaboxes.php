@@ -32,6 +32,8 @@ class WooMetaboxes {
 		'connector_for_dk_credit_invoice_number',
 		'connector_for_dk_invoice_number',
 		'connector_for_dk_last_downstream_sync',
+		'connector_for_dk_price_group',
+		'connector_for_dk_version',
 	);
 
 	/**

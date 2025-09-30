@@ -525,6 +525,15 @@ table .column-dk_invoice_id .invoice_error {
 	color: #900;
 }
 
+table.woocommerce_order_items td.empty {
+	color: #767676;
+	font-style: italic;
+}
+
+table.woocommerce_order_items .group_price {
+	text-align: right !important;
+}
+
 @media screen and (max-width: 1200px) {
 	#dk_variations_tab .dk-variations .dk-variation {
 		flex-direction: column;

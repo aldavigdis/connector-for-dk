@@ -62,6 +62,10 @@ class Invoice {
 		$api_request  = new DKApiRequest();
 		$request_body = self::to_dk_invoice_body( $wc_order );
 
+		if ( ! $request_body ) {
+			return false;
+		}
+
 		$result = $api_request->request_result(
 			self::API_PATH,
 			wp_json_encode( $request_body ),
@@ -236,12 +240,16 @@ class Invoice {
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 *
-	 * @return array An associative array representing the JSON request body.
+	 * @return array|false An associative array representing the JSON request body. False on failure.
 	 */
 	public static function to_dk_invoice_body(
 		WC_Order $wc_order,
-	): array {
+	): array|false {
 		$invoice_body = ExportOrder::to_dk_order_body( $wc_order );
+
+		if ( ! $invoice_body ) {
+			return false;
+		}
 
 		$invoice_body['SalesPerson'] = Config::get_default_sales_person_number();
 		$invoice_body['Text2']       = $wc_order->get_customer_note( 'view' );

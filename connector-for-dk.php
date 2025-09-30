@@ -28,6 +28,7 @@ require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 new Hooks\Admin();
 new Hooks\CustomerDiscounts();
 new Hooks\Frontend();
+new Hooks\OrderMeta();
 new Cron\Schedule();
 new Rest\Settings();
 new Rest\OrderDKInvoice();

@@ -143,7 +143,8 @@ class OrderMeta {
 		?int $order_id,
 		WC_Order $order
 	): void {
-		$customer = new WC_Customer( $order->get_customer_id() );
+		$customer_id = $order->get_customer_id();
+		$customer    = new WC_Customer( $order->get_customer_id() );
 
 		foreach ( $order->get_items() as $item ) {
 			if ( ! $item instanceof WC_Order_Item_Product ) {

@@ -534,6 +534,10 @@ table.woocommerce_order_items .group_price {
 	text-align: right !important;
 }
 
+.wrap.woocommerce tr:has(#woocommerce_enable_coupons) {
+	display: none;
+}
+
 @media screen and (max-width: 1200px) {
 	#dk_variations_tab .dk-variations .dk-variation {
 		flex-direction: column;

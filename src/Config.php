@@ -39,6 +39,8 @@ class Config {
 	/**
 	 * Get a configuration option
 	 *
+	 * Checks for the relevant WP option or constant and returns it.
+	 *
 	 * @param string                               $option the option to fetch.
 	 * @param string|int|float|array|stdClass|bool $default The default value.
 	 */
@@ -46,6 +48,13 @@ class Config {
 		string $option,
 		string|int|float|array|stdClass|bool $default = false
 	): string|int|float|array|stdClass|bool {
+		$option_name   = self::PREFIX . $option;
+		$constant_name = strtoupper( $option_name );
+
+		if ( defined( $constant_name ) ) {
+			return constant( $constant_name );
+		}
+
 		return get_option( self::PREFIX . $option, $default );
 	}
 

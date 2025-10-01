@@ -53,7 +53,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 * The kennitala field can now be made mandatory
 * Improved support for international orders and customers
 * Added support for per-customer price groups and discounts
-* Improved the prescision of imported product sales prices, rounding them down
+* Improved the precision of imported product sales prices, rounding them down
 * Introducing support for item discounts on invoices and in the Order Editor
 * Products no longer need to be available in order for invoices to be generated
 * Invoice generation is now limited to orders made with the plugin installed
@@ -66,15 +66,11 @@ As the plugin uses the dkPlus API and dkPlus does not support self-hosted DK set
 
 = Is data synchronisation fully bi-directional? =
 
-Product information is generally synced bidirectionally. Some functionality, such as variant products and stock quantity only works downstream (from DK to WooCommerce), while invoicing works upstream (from WooCommerce to DK), with some information being retained in WooCommerce.
-
-= Can my DK product records be affected by the plugin? =
-
-In short, yes. As long as price and name sync are enabled and the API key is assigned to a user with sufficient privileges, price and name changes in WooCommerce are reflected in DK. This can be disabled by disabling those sync options.
+Besides new customer records and invoices, data is synced downstream. We have disabled upstream product sync, so changes to products in WooCommerce won't affect their information in DK.
 
 = Can my DK customer records be affected by the plugin? =
 
-Customers providing a kennitala will be registered as debtors in your DK setup if they are not registered already. Kennitala entry is not checked for validity and your customers may possibly enter typos and make other mistakes. The plugin will not overwrite existing customer records however.
+Customers providing a kennitala can optionally be registered as debtors/customers in your DK setup if they are not registered already. Kennitala entry is not checked for validity and your customers may possibly enter typos and make other mistakes. The plugin will not overwrite existing customer records however.
 
 If the kennitala field is disabled or a kennitala is not provided on checkout, invoices will be assigned to a ‘default kennitala’, symbolising an anonymous cash payment.
 
@@ -88,9 +84,9 @@ As the WooCommerce product form is still under development and does not offer th
 
 However, if you do not need that granularity anyway and can make do with global settings, then it will work as long as you enter a SKU that corresponds with the product's Item Code in DK.
 
-= Does the plugin support the new block based WooCommerce Checkout form? =
+= Does the plugin support the new block based WooCommerce Checkout form and Cart Page? =
 
-Yes. There are still issues with the kennitala field
+Yes. We aim to support both the "Classic" and Block Editor based versions.
 
 == Policies, Privacy and Legal ==
 

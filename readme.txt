@@ -30,10 +30,13 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Screenshots ==
 
-1. The admin interface for the plugin is located under the WooCommerce section in the sidebar and generally stays out of sight otherwise.
-2. You can set and synchronise stock status, prices, sale prices and sale dates between DK and WooCommerce on a per-product basis with the plugin, directly from the WooCommerce product editor.
-3. The Product Variation Editor has been adapted to support and facilitate DK product variations.
-4. The Order edtor has been adapted to DK, with support for entering the customer's kennitala, if the customer requests to have it on their invoice and the manual creation of invoices.
+1. Products can be fetched from DK on an hourly basis. The kind of information fetched and updated from DK can also be fine-tuned. Pulling product information from DK can also be disabled completely if you have entered your products manually into WooCommerce, with a SKU matching the corresponding DK Item Code.
+2. WooCommerce payment gateways can be matched to their respective counterparts in DK. Booking a payment automatically is also optional for each payment method.
+3. Invoices can be automatically generated on checkout. The plugin offers a plethora of optional conditions for automatic invoice generation taking place.
+4. If not automatically generated on checkout, invoices can be created with a single click from the Order Editor. If an invoice has been made manually in DK, it can still be assigned to the order and the same goes with credit invoices.
+5. A placeholder kennitala for both domestic and international customers can be set and the plugin has a method to assign customer numbers to international customers.
+6. The Product Variation Editor has been re-worked from scratch and adapted to support and facilitate DK product variations. Pricing and availability can be set on a per-variant basis.
+7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
 
@@ -53,7 +56,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 * The kennitala field can now be made mandatory
 * Improved support for international orders and customers
 * Added support for per-customer price groups and discounts
-* Improved the prescision of imported product sales prices, rounding them down
+* Improved the precision of imported product sales prices, rounding them down
 * Introducing support for item discounts on invoices and in the Order Editor
 * Products no longer need to be available in order for invoices to be generated
 * Invoice generation is now limited to orders made with the plugin installed
@@ -61,37 +64,47 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Frequently Asked Questions ==
 
-= Does the plugin support self-hosted DK? =
+= Does the plugin support per-customer discounts and price groups? =
 
-As the plugin uses the dkPlus API and dkPlus does not support self-hosted DK setups as far as we know, they are currently unsupported. (But do let us know if you find out that's not the case and we will be happy to work with you!)
+Yes, the plugin fetches per-customer discounts from DK. However, this is only supported for registered users that have had the Kennitala field set to correspond with their Kennitala or Customer Number in DK.
+
+Group pricing is currently not supported for variable products. If an item is on sale, the sale price take prominence over the customer discount and group price regardless of which is lower than the other.
+
+= Is the plugin easy to use? =
+
+Once the plugin has been set up, it integrates with WooCommerce and tries its best to stay out of sight. Setting it up however may require hand-holding from your accountant or finance manager.
+
+= Does the plugin support WooCommerce coupons? =
+
+WooCommerce coupons are turned off completely by the plugin as they are currently not supported and require substantial work in order to be integrated with how DK handles discounts. If you need coupon support or any new feature that is not supported, feel free to reach out to the author if you'd like sponsor the feature.
 
 = Is data synchronisation fully bi-directional? =
 
-Product information is generally synced bidirectionally. Some functionality, such as variant products and stock quantity only works downstream (from DK to WooCommerce), while invoicing works upstream (from WooCommerce to DK), with some information being retained in WooCommerce.
+The general rule is not to write or replace information in DK unless it's nessecary. Besides new customer records and invoices, data is synced downstream (from DK to WooCommerce) only.
 
-= Can my DK product records be affected by the plugin? =
+= Does the plugin handle assigning Kennitala to orders and customers? =
 
-In short, yes. As long as price and name sync are enabled and the API key is assigned to a user with sufficient privileges, price and name changes in WooCommerce are reflected in DK. This can be disabled by disabling those sync options.
+The plugin adds a kennitala field to the checkout page as well as as a field under each registered customer's billing information. This field is compatible with the Iceland Post plugin.
+
+Kennitala entry is not checked for validity (including dates of birth and check digits) due to how DK handles them on their end and your customers may possibly enter typos and make other mistakes.
+
+If the Kennitala field is disabled or a kennitala is not provided on checkout, invoices will be assigned to a ‘default kennitala’, symbolising an anonymous payment.
 
 = Can my DK customer records be affected by the plugin? =
 
-Customers providing a kennitala will be registered as debtors in your DK setup if they are not registered already. Kennitala entry is not checked for validity and your customers may possibly enter typos and make other mistakes. The plugin will not overwrite existing customer records however.
+Customers providing a kennitala can optionally be registered as debtors/customers in your DK setup if they are not registered already. However, at this point customer records are not automatically updated based on information from WooCommerce. The plugin will however not overwrite or edit existing customer records in DK.
 
-If the kennitala field is disabled or a kennitala is not provided on checkout, invoices will be assigned to a ‘default kennitala’, symbolising an anonymous cash payment.
+= Does the plugin support self-hosted DK? =
+
+As the plugin uses the dkPlus API and dkPlus does not support self-hosted DK setups as far as we know, they are currently unsupported. (But do let us know if you find out that's not the case and we will be happy to work with you!)
 
 = Do I need to set up email delivery for invoices? =
 
 The plugin does not depend on WordPress or your web server being able to send emails. As we are leveraging DK’s own email functionality, you need to enter the correct settings into DK and set the appropriate DNS settings such as your domain's SPF record in order for invoice delivery to work.
 
-= Does the plugin support the new block based WooCommerce Product form? =
+= Does the plugin support the new block based WooCommerce Checkout form and Cart Page? =
 
-As the WooCommerce product form is still under development and does not offer the possibility to add custom form fields to specify if you do not want to sync prices, number of items stock etc. for certain Products, that sort of granularity is not supported.
-
-However, if you do not need that granularity anyway and can make do with global settings, then it will work as long as you enter a SKU that corresponds with the product's Item Code in DK.
-
-= Does the plugin support the new block based WooCommerce Checkout form? =
-
-Yes. There are still issues with the kennitala field
+Yes. The aim is to support both the "Classic" shortcode based Checkout and Cart forms as well as their Block Editor based counterparts. There is a lot of work that goes into having to do things twice over, but we do intend to support and test for both versions.
 
 == Policies, Privacy and Legal ==
 

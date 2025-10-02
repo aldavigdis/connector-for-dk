@@ -1,5 +1,7 @@
 # Connector for DK
 
+<img alt="" src="/assets/icon.svg" width="128" height="128" />
+
 Sync your WooCommerce store with DK, including product prices, inventory status and generate invoices for customers on checkout.
 
 This codebase originates as a fork of [1984 Connector for DK and WooCommerce](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce). This should be considered to be a continuation of the that project by the same developer, but without the direct affiliation and support of 1984 Hosting.
@@ -34,7 +36,7 @@ In the most simple terms this WordPress plugin syncs information between a WooCo
 * The WooCommerce store is the source of truth for product prices and availability towards the customer
 * The DK setup is the source of truth for accounting transactions
 
-This means that any price calculations and display, including customer-specific discounts (to be implemented) are to be done within WordPress or WooCommerce and should not require querying the dkPlus API each time a product price is calculated or displayed.
+This means that any price calculations and display, including customer-specific discounts done within WordPress or WooCommerce, facilitated by this plugin and should not require querying the dkPlus API each time a product price is calculated or displayed.
 
 While this does mean that prices only get updated on an hourly basis using wp-cron, it ensures that the product price displayed to the customer (shelf price) is the same as the ones that end up on the customer's invoice.
 

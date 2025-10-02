@@ -145,6 +145,12 @@ class CustomerDiscounts {
 		WC_Product $product,
 		WC_Customer $customer
 	): string {
+		$args = array(
+			'ex_tax_label' => (
+				get_option( 'woocommerce_tax_display_shop' ) === 'excl'
+			),
+		);
+
 		$customer_price = ProductHelper::get_customer_price(
 			$product,
 			$customer
@@ -158,8 +164,8 @@ class CustomerDiscounts {
 
 		if ( $product->is_on_sale() ) {
 			return wc_format_sale_price(
-				$regular_price,
-				$product->get_sale_price( 'edit' ),
+				wc_price( $regular_price, $args ),
+				wc_price( $product->get_sale_price( 'edit' ), $args ),
 			);
 		}
 
@@ -192,12 +198,6 @@ class CustomerDiscounts {
 		if ( floatval( $regular_price > floatval( $customer_price ) ) ) {
 			return self::format( $regular_price, $customer_price );
 		}
-
-		$args = array(
-			'ex_tax_label' => (
-				get_option( 'woocommerce_tax_display_shop' ) === 'excl'
-			),
-		);
 
 		return wc_price( $customer_price, $args );
 	}

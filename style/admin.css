@@ -538,7 +538,7 @@ table.woocommerce_order_items .group_price {
 	display: none;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
 	#dk_variations_tab .dk-variations .dk-variation {
 		flex-direction: column;
 	}
@@ -549,14 +549,6 @@ table.woocommerce_order_items .group_price {
 
 	#dk_variations_tab .dk-variations .dk-variation .dk-variation-image {
 		margin-bottom: 1em;
-	}
-
-	#dk_variations_tab .dk-variations .dk-variation .dk-variation-image .add-thumbnail-button {
-		width: fit-content;
-	}
-
-	#dk_variations_tab .dk-variations .dk-variation .dk-variation-image img {
-		width: auto;
 	}
 }
 

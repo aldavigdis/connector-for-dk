@@ -113,7 +113,7 @@ class Admin {
 	 */
 	public static function plugin_list_notice(): string {
 		$text = __(
-			'This plugin is developed, maintained and supported on goodwill basis by the original developer, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.',
+			'This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.',
 			'connector-for-dk'
 		);
 
@@ -652,7 +652,7 @@ class Admin {
 			$text = sprintf(
 				// Translators: The %s stands for the kennitala.
 				__(
-					'A custmer record with the kennitala ‘%s’ was not found in DK.',
+					'A customer record with the kennitala ‘%s’ was not found in DK.',
 					'connector-for-dk'
 				),
 				esc_html( $default_kennitala )

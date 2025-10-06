@@ -146,7 +146,7 @@ class WooMetaboxes {
 		$tabs['attribute']['class'] = array( 'hide_if_variable' );
 
 		$tabs['connector_for_dk_variations'] = array(
-			'label'    => 'DK Variations',
+			'label'    => __( 'DK Variations', 'connector-for-dk' ),
 			'target'   => 'dk_variations_tab',
 			'priority' => 60,
 			'class'    => array( 'show_if_variable' ),

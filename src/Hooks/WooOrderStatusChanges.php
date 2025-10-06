@@ -80,7 +80,7 @@ class WooOrderStatusChanges {
 		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice was not created as the customer entered a kennitala. The invoice needs to be created manually.',
+					'An invoice was not created as the customer entered a kennitala.',
 					'connector-for-dk'
 				)
 			);
@@ -94,7 +94,7 @@ class WooOrderStatusChanges {
 		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice was not created as the customer did not enter a kennitala. The invoice needs to be created manually.',
+					'An invoice was not created as the customer did not enter a kennitala.',
 					'connector-for-dk'
 				)
 			);
@@ -186,7 +186,7 @@ class WooOrderStatusChanges {
 			);
 			$wc_order->add_order_note(
 				__(
-					'Unable to create an invoice in DK: ',
+					'Unable to create invoice in DK: ',
 					'connector-for-dk'
 				) . $invoice_number->get_error_code()
 			);

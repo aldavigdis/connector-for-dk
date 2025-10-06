@@ -127,7 +127,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							"You'll need to the Kennitala field from the Iceland Post plugin as we don't want to have two kennitala fields in the checkout form.",
+							"You'll need to disable the Kennitala field from the Iceland Post plugin as we don't want to have two kennitala fields in the checkout form.",
 							'connector-for-dk'
 						);
 						?>
@@ -817,7 +817,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 							<p class="description">
 								<?php
 								esc_html_e(
-									"If this is enabled, information on customer discounts and price groups are fetched from DK on an hourly basis based on each customer's Kennitala. Discounts are not visible as such on generated invoices and customer prices are only available to logged-in and registered users with the Kennitala attribute set to one that equals the relevant Kennitala or Customer Number in DK.",
+									"If this is enabled, information on customer discounts and price groups are fetched from DK on an hourly basis based on each customer's Kennitala. Customer prices are only available to logged-in and registered users with the Kennitala attribute set to one that equals the relevant Kennitala or Customer Number in DK.",
 									'connector-for-dk'
 								);
 								?>
@@ -1123,7 +1123,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 		<p>
 			<?php
 			esc_html_e(
-				'The Connector for DK WordPress plugin is developed and maintained on goodwill basis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf. or 1984 ehf.',
+				'The Connector for DK WordPress plugin is developed and maintained on goodwill basis as free software without any guarantees, warranties or obligations and is not affiliated with or supported by DK hugbúnaður ehf.',
 				'connector-for-dk'
 			);
 			?>

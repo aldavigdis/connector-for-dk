@@ -76,7 +76,7 @@ class DKApiRequest {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
-				__( 'The DK API key is missing.', 'connector-for-dk' )
+				__( 'The dkPlus API key is missing.', 'connector-for-dk' )
 			);
 		}
 
@@ -148,7 +148,7 @@ class DKApiRequest {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
-				__( 'The DK API key is missing.', 'connector-for-dk' )
+				__( 'The dkPlus API key is missing.', 'connector-for-dk' )
 			);
 		}
 

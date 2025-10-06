@@ -4,7 +4,7 @@
 
 Sync your WooCommerce store with DK, including product prices, inventory status and generate invoices for customers on checkout.
 
-This codebase originates as a fork of [1984 Connector for DK and WooCommerce](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce). This should be considered to be a continuation of the that project by the same developer, but without the direct affiliation and support of 1984 Hosting.
+This codebase originates as [an earlier work](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce), which I consider to be defunct. This should be considered to be a continuation of the that project by the same developer.
 
 > [!CAUTION]
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact the author directly via aldavigdis@aldavigdis.is or the WordPress Security Team instead.**
@@ -44,7 +44,7 @@ While this does mean that prices only get updated on an hourly basis using wp-cr
 
 #### The DK API documentation
 
-The DK API documentation is well known for being inaccurate and it seems to be written by two different programmers. They also don't seem to like each other very much.
+The DK API documentation is well known for being inaccurate and it seems to be written by two separate developers in different places.
 
 One version of it can be found at https://apidoc.dkplus.is/ and is generated using Postman.
 
@@ -77,6 +77,7 @@ Our coding style rules apply to PHP, CSS and JS files. Please make sure that you
 We also use PHP Intelephense to enable autocompletion and syntax highlighting for WordPress and WooCommerce specific functions. Please facilitate it by using and defining object classes specific to your use case.
 
 * We are PHP 8.2 compliant, use strict mode, type hinting, strong typing and PSR-4 autoloading via Imposter
+* We use `BigDecimal` from [brick/math](https://github.com/brick/math) for any financial calculations, even basic arithmetic
 * Due to the nature of WordPress' hooks, while the code is written in an object oriented style, classes are written using static functions to a large extent
 * Functions, objects, variables etc. are named using Ruby conventions (i.e. snake case and no shorthand names)
 * Please keep runtime code within the `src` directory and install external dependencies using Composer
@@ -108,7 +109,7 @@ This plugin is provided to you as free software under the GPLv3 license. Runtime
 
 Connector for DK
 
-Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Connector for DK and WooCommerce from 1984 Hosting
+Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Connector for DK and WooCommerce
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

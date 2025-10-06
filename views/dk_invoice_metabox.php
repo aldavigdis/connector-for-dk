@@ -65,7 +65,7 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 		<button
 			id="connector-for-dk-invoice-metabox-make-dk-invoice-button"
 			class="button button-small button-primary"
-			title="<?php esc_html_e( 'Generate a new invoice for this order in DK and assign it to this order', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Generate a new invoice for this order in DK', 'connector-for-dk' ); ?>"
 			<?php echo empty( $invoice_number ) ? '' : 'disabled'; ?>
 		>
 			<?php esc_html_e( 'Create in DK', 'connector-for-dk' ); ?>

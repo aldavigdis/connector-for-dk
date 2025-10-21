@@ -1,6 +1,7 @@
 services:
   dockpress:
     image: dockpress
+    restart: always
     volumes:
       - ./dockpress-secrets:/secrets
       - /tmp:/var/www/html/wp-content/uploads/
@@ -23,5 +24,6 @@ services:
       - MARIADB_ROOT_PASSWORD=password
   memcached:
     image: memcached
+    restart: always
     ports:
       - 11211:11211

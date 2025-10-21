@@ -17,15 +17,15 @@ class ConnectorForDKClassicKennitalaField {
 		let valid = this.classicKennitalaField().checkValidity();
 
 		if ( valid ) {
-			row.classList.remove('woocommerce-invalid');
-			row.classList.add('woocommerce-validated');
-			field.removeAttribute('aria-invalid');
+			row.classList.remove( 'woocommerce-invalid' );
+			row.classList.add( 'woocommerce-validated' );
+			field.removeAttribute( 'aria-invalid' );
 			return;
 		}
 
-		row.classList.add('woocommerce-invalid');
-		row.classList.remove('woocommerce-validated');
-		field.setAttribute('aria-invalid', 'true');
+		row.classList.add( 'woocommerce-invalid' );
+		row.classList.remove( 'woocommerce-validated' );
+		field.setAttribute( 'aria-invalid', 'true' );
 	}
 
 	static addEventListener() {

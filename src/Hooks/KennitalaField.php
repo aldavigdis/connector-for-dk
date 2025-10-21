@@ -472,7 +472,7 @@ class KennitalaField {
 			echo sprintf(
 				// Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
 				esc_html__(
-					'%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s',
+					'%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s',
 					'connector-for-dk'
 				),
 				esc_attr( self::format_kennitala( $customer_kennitala ) ),

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 15:39+0000\n"
+"POT-Creation-Date: 2025-10-21 01:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 
 #. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/Hooks/KennitalaField.php:450
+#: src/Hooks/KennitalaField.php:469
 #, php-format
-msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
+msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr ""
 
 #: src/Hooks/OrderMeta.php:117
@@ -487,7 +487,11 @@ msgstr ""
 msgid "International Customers"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:693
+#: src/Hooks/KennitalaField.php:521
+msgid "Invalid kennitala nonce"
+msgstr ""
+
+#: src/Hooks/KennitalaField.php:722
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
@@ -517,7 +521,7 @@ msgstr ""
 msgid "Invoice number was not assigned."
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:237
+#: src/Hooks/KennitalaField.php:254
 msgid "Invoice with Kennitala Requested"
 msgstr ""
 
@@ -545,13 +549,17 @@ msgid ""
 "as a PDF attachment."
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:230 src/Hooks/KennitalaField.php:288
-#: src/Hooks/KennitalaField.php:438 src/Hooks/KennitalaField.php:615
+#: src/Hooks/KennitalaField.php:247 src/Hooks/KennitalaField.php:305
+#: src/Hooks/KennitalaField.php:455 src/Hooks/KennitalaField.php:643
 msgid "Kennitala"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:619
+#: src/Hooks/KennitalaField.php:647
 msgid "Kennitala (Optional)"
+msgstr ""
+
+#: src/Hooks/KennitalaField.php:549
+msgid "Kennitala is a required field"
 msgstr ""
 
 #: views/admin.php:779
@@ -694,11 +702,11 @@ msgstr ""
 msgid "Replace Image"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:469 src/Hooks/KennitalaField.php:639
+#: src/Hooks/KennitalaField.php:488 src/Hooks/KennitalaField.php:667
 msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: src/Hooks/KennitalaField.php:643
+#: src/Hooks/KennitalaField.php:671
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 

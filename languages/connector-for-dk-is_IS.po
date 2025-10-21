@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-10-06 15:51+0000\n"
+"PO-Revision-Date: 2025-10-21 01:15+0000\n"
 "Last-Translator: Alda Vigdís\n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -26,12 +26,11 @@ msgstr ""
 "inn og reyndu aftur."
 
 #. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/Hooks/KennitalaField.php:450
+#: src/Hooks/KennitalaField.php:469
 #, php-format
-#| msgid ""
-#| "%2$sThe kennitala %4$s‘%1$s’%5$s is will be assigned to this order.%3$s"
-msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
-msgstr "%2$sKennitalan%4$s‘%1$s’%5$s verður skráð á þessa pöntun.%3$s"
+#| msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
+msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
+msgstr "%2$sKennitalan%4$s %1$s%5$s verður skráð á þessa pöntun.%3$s"
 
 #: src/Hooks/OrderMeta.php:117
 msgid "(Missing)"
@@ -552,7 +551,11 @@ msgstr ""
 msgid "International Customers"
 msgstr "Erlendir viðskiptavinir"
 
-#: src/Hooks/KennitalaField.php:693
+#: src/Hooks/KennitalaField.php:521
+msgid "Invalid kennitala nonce"
+msgstr "Ógildur prufustrengur fyrir kennitölu"
+
+#: src/Hooks/KennitalaField.php:722
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru 10 tölustafir að lengd."
 
@@ -582,7 +585,7 @@ msgstr "Númer reiknings skráð sem %1$s."
 msgid "Invoice number was not assigned."
 msgstr "Reikningsnúmer var ekki skráð."
 
-#: src/Hooks/KennitalaField.php:237
+#: src/Hooks/KennitalaField.php:254
 msgid "Invoice with Kennitala Requested"
 msgstr "Beðið um reikning með kennitölu"
 
@@ -619,14 +622,18 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
 "PDF-viðhengi"
 
-#: src/Hooks/KennitalaField.php:230 src/Hooks/KennitalaField.php:288
-#: src/Hooks/KennitalaField.php:438 src/Hooks/KennitalaField.php:615
+#: src/Hooks/KennitalaField.php:247 src/Hooks/KennitalaField.php:305
+#: src/Hooks/KennitalaField.php:455 src/Hooks/KennitalaField.php:643
 msgid "Kennitala"
 msgstr "Kennitala"
 
-#: src/Hooks/KennitalaField.php:619
+#: src/Hooks/KennitalaField.php:647
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (valfrjálst)"
+
+#: src/Hooks/KennitalaField.php:549
+msgid "Kennitala is a required field"
+msgstr "Kennitölu þarf að fylla út"
 
 #: views/admin.php:779
 msgid "Ledger Code for Domestic Customers"
@@ -778,11 +785,11 @@ msgstr "Fjarlægja mynd"
 msgid "Replace Image"
 msgstr "Skipta út mynd"
 
-#: src/Hooks/KennitalaField.php:469 src/Hooks/KennitalaField.php:639
+#: src/Hooks/KennitalaField.php:488 src/Hooks/KennitalaField.php:667
 msgid "Request an Invoice with Kennitala"
 msgstr "Biðja um reikning með kennitölu"
 
-#: src/Hooks/KennitalaField.php:643
+#: src/Hooks/KennitalaField.php:671
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
@@ -868,8 +875,8 @@ msgid ""
 "goodwill basis as free software without any guarantees, warranties or "
 "obligations and is not affiliated with or supported by DK hugbúnaður ehf."
 msgstr ""
-"Viðbótinni Tengill fyrir DK er þróuð og haldið við eftir bestu getu, sem "
-"frjáls hugbúnaður en engin ábyrgð eða loforð eru gefin um virkni eða "
+"Viðbótin Tengill fyrir DK er þróuð og henni er  haldið við eftir bestu getu, "
+"sem frjáls hugbúnaður en engin ábyrgð eða loforð eru gefin um virkni eða "
 "villuleysi og hún er ekki á ábyrgð DK hugbúnaðar ehf."
 
 #. The %s stands for the currency code.

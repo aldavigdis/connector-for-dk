@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Hooks;
 
 use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Hooks\Admin;
 use WP_Error;
 use WC_Customer;
 use WC_Order;
@@ -41,7 +42,9 @@ use WP_Post;
  * @link https://github.com/woocommerce/woocommerce/discussions/42995?sort=new#discussioncomment-8959477
  */
 class KennitalaField {
-	const KENNITALA_PATTERN = '^(([0-9]{10})|([0-9]{6}(-|\s)[0-9]{4}))$';
+	const KENNITALA_PATTERN                 = '^([0-9]{6}(-|\s)?[0-9]{4})$';
+	const SANITIZED_KENNITALA_PATTERN       = '[^0-9]';
+	const SANITIZED_KENNITALA_PATTERN_ALPHA = '[^0-9A-Z]';
 
 	/**
 	 * The class constructor, obviously
@@ -56,10 +59,10 @@ class KennitalaField {
 			);
 
 			add_action(
-				'woocommerce_checkout_process',
+				'woocommerce_after_checkout_validation',
 				array( __CLASS__, 'check_classic_checkout_field' ),
 				10,
-				0
+				2
 			);
 
 			add_action(
@@ -72,6 +75,13 @@ class KennitalaField {
 			add_action(
 				'woocommerce_blocks_loaded',
 				array( __CLASS__, 'register_block_checkout_field' ),
+				10,
+				0
+			);
+
+			add_action(
+				'wp_enqueue_scripts',
+				array( __CLASS__, 'enqueue_classic_checkout_js' ),
 				10,
 				0
 			);
@@ -129,6 +139,18 @@ class KennitalaField {
 			array( __CLASS__, 'add_nonce_to_order_editor' ),
 			10,
 			2
+		);
+	}
+
+	/**
+	 * Enqueue JS needed for the classic kennitala field
+	 */
+	public static function enqueue_classic_checkout_js(): void {
+		wp_enqueue_script(
+			'connector_for_dk_classic_kennitala',
+			plugins_url( 'js/classic_kennitala.js', dirname( __DIR__ ) ),
+			array(),
+			Admin::ASSET_VERSION
 		);
 	}
 
@@ -440,7 +462,9 @@ class KennitalaField {
 						'connector-for-dk'
 					),
 					'custom_attributes' => array(
-						'pattern' => self::KENNITALA_PATTERN,
+						'pattern'   => self::KENNITALA_PATTERN,
+						'minlength' => '10',
+						'maxlength' => '10',
 					),
 				)
 			);
@@ -479,10 +503,13 @@ class KennitalaField {
 	/**
 	 * Validate the kennitala input from the shortcode-based checkout page
 	 *
-	 * A nonce verification is not required here as WooCommerce has already
-	 * taken care of that for us at this point.
+	 * @param array    $data The data array (unused).
+	 * @param WP_Error $errors The errors object.
 	 */
-	public static function check_classic_checkout_field(): void {
+	public static function check_classic_checkout_field(
+		array $data,
+		WP_Error $errors
+	): void {
 		if ( ! isset( $_POST['connector_for_dk_classic_checkout_set_kennitala_nonce_field'] ) ) {
 			return;
 		}
@@ -497,28 +524,37 @@ class KennitalaField {
 				'connector_for_dk_classic_checkout_set_kennitala'
 			)
 		) {
-			wp_die( 'Kennitala nonce not valid!' );
-			return;
+			$errors->add(
+				'invalid_kennitala_nonce',
+				__( 'Invalid kennitala nonce', 'connector-for-dk' )
+			);
 		}
 
-		if ( isset( $_POST['kennitala'] ) ) {
-
+		if ( isset( $_POST['billing_kennitala'] ) ) {
 			$kennitala = sanitize_text_field(
-				wp_unslash( $_POST['kennitala'] )
+				wp_unslash( $_POST['billing_kennitala'] )
 			);
 
 			$sanitized_kennitala = self::sanitize_kennitala( $kennitala );
 
-			if ( $sanitized_kennitala !== '' ) {
-				return;
+			if ( ! empty( $sanitized_kennitala ) ) {
+				$validation = self::validate_kennitala( $sanitized_kennitala );
+
+				if ( $validation instanceof WP_Error ) {
+					$errors->add(
+						$validation->get_error_code(),
+						$validation->get_error_message()
+					);
+				}
 			}
 
-			$validation = self::validate_kennitala( $sanitized_kennitala );
-
-			if ( $validation instanceof WP_Error ) {
-				wc_add_notice(
-					$validation->get_error_message(),
-					'error'
+			if (
+				Config::get_kennitala_is_mandatory() &&
+				empty( $sanitized_kennitala )
+			) {
+				$errors->add(
+					'kennitala_not_set',
+					__( 'Kennitala is a required field', 'connector-for-dk' )
 				);
 			}
 		}
@@ -667,10 +703,18 @@ class KennitalaField {
 		bool $allow_alpha = false
 	): string {
 		if ( $allow_alpha ) {
-			return preg_replace( '/[^0-9A-Z]/', '', strtoupper( $kennitala ) );
+			return preg_replace(
+				'/' . self::SANITIZED_KENNITALA_PATTERN_ALPHA . '/',
+				'',
+				strtoupper( $kennitala )
+			);
 		}
 
-		return preg_replace( '/[^0-9]/', '', $kennitala );
+		return preg_replace(
+			'/' . self::SANITIZED_KENNITALA_PATTERN . '/',
+			'',
+			$kennitala
+		);
 	}
 
 	/**
@@ -681,12 +725,15 @@ class KennitalaField {
 	 * @return ?WP_Error A WP_Error object is generated if the kennitala
 	 *                   is invalid, containing a code and a further explainer.
 	 */
-	public static function validate_kennitala( string $kennitala ): null|WP_Error {
+	public static function validate_kennitala(
+		string $kennitala
+	): null|WP_Error {
 		if (
 			preg_match_all(
 				'/' . self::KENNITALA_PATTERN . '/',
 				$kennitala
-			) === 0
+			) === 0 ||
+			strlen( $kennitala ) !== 10
 		) {
 			return new WP_Error(
 				'invalid_kennitala',

@@ -21,7 +21,7 @@ use WC_Order;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.5.0-beta2';
+	const ASSET_VERSION = '0.5.0-beta3';
 	const PLUGIN_SLUG   = 'connector-for-dk';
 
 	const TRANSIENT_EXPIRY = 900;

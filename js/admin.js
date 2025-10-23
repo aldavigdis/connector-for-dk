@@ -75,40 +75,36 @@ class ConnectorForDK {
 				);
 			}
 
-			const formDataObject = {
-				api_key: formData.get( 'api_key' ).trim(),
-				product_price_sync: Boolean( formData.get( 'product_price_sync' ) ),
-				product_quantity_sync: Boolean( formData.get( 'product_quantity_sync' ) ),
-				product_name_sync: Boolean( formData.get( 'product_name_sync' ) ),
-				product_description_sync: Boolean( formData.get( 'product_description_sync' ) ),
-				import_nonweb_products: Boolean( formData.get( 'import_nonweb_products' ) ),
-				delete_inactive_products: Boolean( formData.get( 'delete_inactive_products' ) ),
-				shipping_sku: formData.get( 'shipping_sku' ).trim(),
-				cost_sku: formData.get( 'cost_sku' ).trim(),
-				default_kennitala: formData.get( 'default_kennitala' ).trim(),
-				enable_kennitala: Boolean( formData.get( 'enable_kennitala' ) ),
-				default_sales_person: formData.get( 'default_sales_person' ).trim(),
+			let formDataObject = {
 				payment_methods: paymentMethods,
-				customer_requests_kennitala_invoice: Boolean( formData.get( 'customer_requests_kennitala_invoice' ) ),
-				make_invoice_if_kennitala_is_set: Boolean( formData.get( 'make_invoice_if_kennitala_is_set' ) ),
-				make_invoice_if_kennitala_is_missing: Boolean( formData.get( 'make_invoice_if_kennitala_is_missing' ) ),
-				kennitala_is_mandatory: Boolean( formData.get( 'kennitala_is_mandatory' ) ),
-				email_invoice: Boolean( formData.get( 'email_invoice' ) ),
-				domestic_customer_ledger_code: formData.get( 'domestic_customer_ledger_code' ).trim(),
-				international_customer_ledger_code: formData.get( 'international_customer_ledger_code' ).trim(),
-				use_attribute_description: Boolean( formData.get( 'use_attribute_description' ) ),
-				use_attribute_value_description: Boolean( formData.get( 'use_attribute_value_description' ) ),
-				fetch_products: Boolean( formData.get( 'enable_downstream_product_sync' ) ),
-				enable_downstream_product_sync: Boolean( formData.get( 'enable_downstream_product_sync' ) ),
-				create_new_products: Boolean( formData.get( 'create_new_products' ) ),
-				international_kennitala_prefix: formData.get( 'international_kennitala_prefix' ).trim(),
-				default_international_kennitala: formData.get( 'default_international_kennitala' ).trim(),
-				make_invoice_if_order_is_international: Boolean( formData.get( 'make_invoice_if_order_is_international' ) ),
-				create_invoice_for_customers_not_in_dk: Boolean( formData.get( 'create_invoice_for_customers_not_in_dk' ) ),
-				enable_dk_customer_prices: Boolean( formData.get( 'enable_dk_customer_prices' ) ),
-				display_dk_customer_prices_as_discount: Boolean( formData.get( 'display_dk_customer_prices_as_discount' ) ),
-				enable_cronjob: true,
-			}
+				enable_cronjob: true
+			};
+
+			let inputs = document.querySelectorAll(
+				'#connector-for-dk-settings-form input'
+			);
+
+			inputs.forEach(
+				(node) => {
+					let inputType        = node.getAttribute( 'type' );
+					let inputName        = node.getAttribute( 'name' );
+					let inputValue       = node.value;
+					let disallowedInputs = [ 'add_payment_line', 'payment_id',
+											 'payment_mode', 'payment_term' ];
+					if ( ! disallowedInputs.includes( inputName ) ) {
+						if ( inputType === 'text' ) {
+							formDataObject[ inputName ] = inputValue.trim();
+						}
+						if ( inputType === 'checkbox' ) {
+							formDataObject[ inputName ] = Boolean(
+								formData.get( inputName )
+							);
+						}
+					}
+				}
+			);
+
+			console.log( formDataObject );
 
 			ConnectorForDK.postSettingsData( formDataObject );
 		}

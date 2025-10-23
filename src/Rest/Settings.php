@@ -63,6 +63,8 @@ class Settings {
 		$rest_body = $request->get_body();
 		$rest_json = json_decode( $rest_body );
 
+		do_action( 'connector_for_dk_settings_before_validation', $rest_json );
+
 		$validator  = new Validator();
 		$validation = $validator->validate( $rest_json, self::json_schema() );
 
@@ -74,12 +76,20 @@ class Settings {
 			);
 		}
 
+		do_action( 'connector_for_dk_before_set_dk_api_key', $rest_json );
+
 		if ( property_exists( $rest_json, 'api_key' ) ) {
 			Config::set_dk_api_key( $rest_json->api_key );
 		}
 
+		do_action(
+			'connector_for_dk_settings_after_set_dk_api_key',
+			$rest_json
+		);
+
 		$authentication_request = new DKApiRequest();
-		$company_result         = $authentication_request->get_result( '/company/' );
+
+		$company_result = $authentication_request->get_result( '/company/' );
 
 		if ( $company_result instanceof WP_Error ) {
 			return new WP_Error(
@@ -97,130 +107,55 @@ class Settings {
 			);
 		}
 
+		do_action(
+			'connector_for_dk_settings_after_authentication',
+			$rest_json
+		);
+
 		if ( $company_result->data->General->CurrencyEnabled ) {
-			Config::set_dk_currency( $company_result->data->General->DefaultCurrency );
+			Config::set_dk_currency(
+				$company_result->data->General->DefaultCurrency
+			);
 		} else {
 			Config::set_dk_currency( Currency::BASE_CURRENCY );
 		}
 
+		do_action(
+			'connector_for_dk_settings_after_set_dk_currency',
+			$rest_json
+		);
+
 		ImportCurrencies::save_all_from_dk();
 
-		if ( property_exists( $rest_json, 'product_price_sync' ) ) {
-			Config::set_product_price_sync( $rest_json->product_price_sync );
-		}
+		do_action(
+			'connector_for_dk_settings_after_currencies_import',
+			$rest_json
+		);
 
-		if ( property_exists( $rest_json, 'product_quantity_sync' ) ) {
-			Config::set_product_quantity_sync( $rest_json->product_quantity_sync );
-		}
+		ImportCustomers::save_all_from_dk();
 
-		if ( property_exists( $rest_json, 'product_name_sync' ) ) {
-			Config::set_product_name_sync( $rest_json->product_name_sync );
-		}
+		do_action(
+			'connector_for_dk_settings_after_customers_import',
+			$rest_json
+		);
 
-		if ( property_exists( $rest_json, 'import_nonweb_products' ) ) {
-			Config::set_import_nonweb_products(
-				$rest_json->import_nonweb_products
+		foreach ( $rest_json as $key => $value ) {
+			$skip = array( 'api_key', 'payment_methods', 'fetch_products' );
+			if ( in_array( $key, $skip, true ) ) {
+				continue;
+			}
+
+			do_action(
+				'connector_for_dk_settings_before_set_' . $key,
+				$rest_json
 			);
-		}
 
-		if ( property_exists( $rest_json, 'delete_inactive_products' ) ) {
-			Config::set_delete_inactive_products(
-				$rest_json->delete_inactive_products
-			);
-		}
-
-		if ( property_exists( $rest_json, 'ledger_code_standard' ) ) {
-			Config::set_ledger_code(
-				'standard',
-				$rest_json->ledger_code_standard
-			);
-		}
-
-		if ( property_exists( $rest_json, 'ledger_code_standard_purchase' ) ) {
-			Config::set_ledger_code(
-				'standard_purchase',
-				$rest_json->ledger_code_standard_purchase
-			);
-		}
-
-		if ( property_exists( $rest_json, 'ledger_code_reduced' ) ) {
-			Config::set_ledger_code(
-				'reduced',
-				$rest_json->ledger_code_reduced
-			);
-		}
-
-		if ( property_exists( $rest_json, 'ledger_code_reduced_purchase' ) ) {
-			Config::set_ledger_code(
-				'reduced_purchase',
-				$rest_json->ledger_code_reduced_purchase
-			);
-		}
-
-		if ( property_exists( $rest_json, 'shipping_sku' ) ) {
-			Config::set_shipping_sku( $rest_json->shipping_sku );
-		}
-
-		if ( property_exists( $rest_json, 'cost_sku' ) ) {
-			Config::set_cost_sku( $rest_json->cost_sku );
-		}
-
-		if ( property_exists( $rest_json, 'default_sales_person' ) ) {
-			Config::set_default_sales_person_number(
-				$rest_json->default_sales_person
-			);
-		}
-
-		if ( property_exists( $rest_json, 'default_kennitala' ) ) {
-			Config::set_default_kennitala( $rest_json->default_kennitala );
-		}
-
-		if ( property_exists( $rest_json, 'enable_kennitala' ) ) {
-			Config::set_kennitala_classic_field_enabled(
-				$rest_json->enable_kennitala
-			);
-		}
-
-		if ( property_exists( $rest_json, 'customer_requests_kennitala_invoice' ) ) {
-			Config::set_customer_requests_kennitala_invoice(
-				$rest_json->customer_requests_kennitala_invoice
-			);
-		}
-
-		if ( property_exists( $rest_json, 'make_invoice_if_kennitala_is_set' ) ) {
-			Config::set_make_invoice_if_kennitala_is_set(
-				$rest_json->make_invoice_if_kennitala_is_set
-			);
-		}
-
-		if ( property_exists( $rest_json, 'make_invoice_if_kennitala_is_missing' ) ) {
-			Config::set_make_invoice_if_kennitala_is_missing(
-				$rest_json->make_invoice_if_kennitala_is_missing
-			);
-		}
-
-		if ( property_exists( $rest_json, 'email_invoice' ) ) {
-			Config::set_email_invoice(
-				$rest_json->email_invoice
-			);
-		}
-
-		if ( property_exists( $rest_json, 'domestic_customer_ledger_code' ) ) {
-			Config::set_domestic_customer_ledger_code(
-				$rest_json->domestic_customer_ledger_code
-			);
-		}
-
-		if ( property_exists( $rest_json, 'international_customer_ledger_code' ) ) {
-			Config::set_international_customer_ledger_code(
-				$rest_json->international_customer_ledger_code
-			);
-		}
-
-		if ( property_exists( $rest_json, 'enable_kennitala_in_block' ) ) {
-			Config::set_kennitala_block_field_enabled(
-				$rest_json->enable_kennitala_in_block
-			);
+			if ( Config::update_option( $key, $value ) ) {
+				do_action(
+					'connector_for_dk_settings_after_set_' . $key,
+					$rest_json
+				);
+			}
 		}
 
 		foreach ( $rest_json->payment_methods as $p ) {
@@ -233,84 +168,21 @@ class Settings {
 			);
 		}
 
-		if ( property_exists( $rest_json, 'use_attribute_description' ) ) {
-			Config::set_use_attribute_description(
-				$rest_json->use_attribute_description
-			);
-		}
-
-		if ( property_exists( $rest_json, 'use_attribute_value_description' ) ) {
-			Config::set_use_attribute_value_description(
-				$rest_json->use_attribute_value_description
-			);
-		}
-
-		if ( property_exists( $rest_json, 'enable_downstream_product_sync' ) ) {
-			Config::set_enable_downstream_product_sync(
-				$rest_json->enable_downstream_product_sync
-			);
-		}
-
-		if ( property_exists( $rest_json, 'enable_cronjob' ) ) {
-			Config::set_enable_cronjob( $rest_json->enable_cronjob );
-		}
-
-		if ( property_exists( $rest_json, 'create_new_products' ) ) {
-			Config::set_create_new_products( $rest_json->create_new_products );
-		}
-
-		if ( property_exists( $rest_json, 'kennitala_is_mandatory' ) ) {
-			Config::set_kennitala_is_mandatory( $rest_json->kennitala_is_mandatory );
-		}
-
-		if ( property_exists( $rest_json, 'product_description_sync' ) ) {
-			Config::set_product_description_sync(
-				$rest_json->product_description_sync
-			);
-		}
-
-		if ( property_exists( $rest_json, 'international_kennitala_prefix' ) ) {
-			Config::set_international_kennitala_prefix(
-				$rest_json->international_kennitala_prefix
-			);
-		}
-
-		if ( property_exists( $rest_json, 'default_international_kennitala' ) ) {
-			Config::set_default_international_kennitala(
-				$rest_json->default_international_kennitala
-			);
-		}
-
-		if ( property_exists( $rest_json, 'make_invoice_if_order_is_international' ) ) {
-			Config::set_make_invoice_if_order_is_international(
-				$rest_json->make_invoice_if_order_is_international
-			);
-		}
-
-		if ( property_exists( $rest_json, 'create_invoice_for_customers_not_in_dk' ) ) {
-			Config::set_create_invoice_for_customers_not_in_dk(
-				$rest_json->create_invoice_for_customers_not_in_dk
-			);
-		}
-
-		if ( property_exists( $rest_json, 'enable_dk_customer_prices' ) ) {
-			Config::set_enable_dk_customer_prices(
-				$rest_json->enable_dk_customer_prices
-			);
-		}
-
-		if ( property_exists( $rest_json, 'display_dk_customer_prices_as_discount' ) ) {
-			Config::set_display_dk_customer_prices_as_discount(
-				$rest_json->display_dk_customer_prices_as_discount
-			);
-		}
+		do_action(
+			'connector_for_dk_settings_after_set_payment_methods',
+			$rest_json
+		);
 
 		if (
-			property_exists( $rest_json, 'fetch_products' ) &&
+			property_exists( $rest_json, 'enable_downstream_product_sync' ) &&
 			$rest_json->fetch_products
 		) {
-			ImportCustomers::save_all_from_dk();
 			ImportProducts::save_all_from_dk();
+
+			do_action(
+				'connector_for_dk_settings_after_import_product',
+				$rest_json
+			);
 		}
 
 		return new WP_REST_Response( array( 'status' => 200 ) );

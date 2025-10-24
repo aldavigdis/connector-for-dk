@@ -27,6 +27,14 @@ class Admin {
 	const TRANSIENT_EXPIRY = 900;
 	const CHECK_TAX_RATES  = [ 24.0, 11.0, 0.0 ];
 
+	const ADMIN_SECTIONS = array(
+		'authentication',
+		'gateways',
+		'products',
+		'invoices',
+		'customers',
+	);
+
 	/**
 	 * Constructor for the Admin interface class
 	 *
@@ -87,6 +95,55 @@ class Admin {
 			10,
 			2
 		);
+	}
+
+	/**
+	 * Get the admin section partials to display
+	 *
+	 * Returns an array of full paths to the section partials to render int the
+	 * admin/settings view.
+	 *
+	 * This can be filtered using the `connector_for_dk_section_partials`
+	 * filter.
+	 */
+	public static function section_partials(): array {
+		$partials = array();
+
+		if ( empty( Config::get_dk_api_key() ) ) {
+			$partials[] = 'authentication';
+		} else {
+			$partials = self::ADMIN_SECTIONS;
+		}
+
+		foreach ( $partials as $s ) {
+			$partials[] = self::format_section_partial_path( $s );
+		}
+
+		return apply_filters( 'connector_for_dk_section_partials', $partials );
+	}
+
+	/**
+	 * Format the path to an admin page section partial
+	 *
+	 * Formats the full path to a partial used in the admin/settings view.
+	 *
+	 * @param string $partial The name of the partial file (sans .php).
+	 */
+	private static function format_section_partial_path(
+		string $partial
+	): string {
+		return dirname( __DIR__, 2 ) . '/views/admin_sections/' . $partial . '.php';
+	}
+
+	/**
+	 * Render all the admin/settings page partials
+	 */
+	public static function render_section_partials(): void {
+		foreach ( self::section_partials() as $p ) {
+			if ( file_exists( $p ) ) {
+				require $p;
+			}
+		}
 	}
 
 	/**
@@ -376,13 +433,31 @@ class Admin {
 	 * Add the admin page to the wp-admin sidebar
 	 */
 	public static function add_menu_page(): void {
-		add_submenu_page(
-			'woocommerce',
+		add_menu_page(
 			__( 'Connector for DK', 'connector-for-dk' ),
 			__( 'Connector for DK', 'connector-for-dk' ),
 			'manage_options',
 			'connector-for-dk',
+			array( __CLASS__, 'render_admin_page' ),
+			'dashicons-admin-links'
+		);
+
+		add_submenu_page(
+			'connector-for-dk',
+			__( 'Settings', 'connector-for-dk' ),
+			__( 'Settings', 'connector-for-dk' ),
+			'manage_options',
+			'connector-for-dk',
 			array( __CLASS__, 'render_admin_page' )
+		);
+
+		add_submenu_page(
+			'connector-for-dk',
+			__( 'About Connector for DK', 'connector-for-dk' ),
+			__( 'About', 'connector-for-dk' ),
+			'manage_options',
+			'about-connector-for-dk',
+			array( __CLASS__, 'render_about_page' )
 		);
 	}
 
@@ -393,6 +468,13 @@ class Admin {
 	 */
 	public static function render_admin_page(): void {
 		require dirname( __DIR__, 2 ) . '/views/admin.php';
+	}
+
+	/**
+	 * Render the about page
+	 */
+	public static function render_about_page(): void {
+		require dirname( __DIR__, 2 ) . '/views/about.php';
 	}
 
 	/**
@@ -579,7 +661,7 @@ class Admin {
 	}
 
 	/**
-	 * Generate text and attributes for the default kennitala infor text
+	 * Generate text and attributes for the default kennitala information text
 	 *
 	 * Checks if a customer record exsist using the default kennitala and
 	 * generates an object containing the information as properties for

@@ -1,4 +1,4 @@
-body.woocommerce_page_connector-for-dk .wrap {
+body.toplevel_page_connector-for-dk .wrap, body.connector-for-dk_page_about-connector-for-dk .wrap {
 	width: calc(100%);
 	max-width: 60rem;
 	min-height: 100%;
@@ -177,25 +177,32 @@ body.woocommerce_page_connector-for-dk .wrap {
 	font-weight: normal;
 }
 
-#ninteen-eighty-four-logo-container {
+#about-container {
 	display: flex;
-	margin-top: 5em;
+	margin-top: 2em;
+	margin-right: 2rem;
 	max-width: calc(100% - 2rem);
 	width: calc(100%);
 	justify-content: space-between;
 	align-items: flex-start;
+	align-content: flex-start;
+	flex-direction: row;
 }
 
-#ninteen-eighty-four-logo-container p {
+#about-container p {
 	margin: 0;
-	font-size: 12px;
+	margin-top: 2px;
+	margin-bottom: calc( 0.5em - 2px );
 }
 
-#ninteen-eighty-four-logo-container img {
-	flex: 1 1 auto;
-	height: 2.5em;
-	width: auto;
-	margin-left: 5em;
+#about-container img {
+	height: 128px;
+	width: 128px;
+	margin-top: 0.25em;
+	margin-right: 2em;
+	border: 1px solid #0071bc;
+	box-shadow: 0 0 0 1px #fff;
+	border-radius: 3px;
 }
 
 #connector-for-dk-wrap h2 {

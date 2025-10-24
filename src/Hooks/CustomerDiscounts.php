@@ -82,6 +82,21 @@ class CustomerDiscounts {
 				1
 			);
 		}
+
+		add_action(
+			'connector_for_dk_end_of_customers_section',
+			array( __CLASS__, 'render_in_admin' ),
+			10,
+			0
+		);
+	}
+
+	/**
+	 * Render form fields in the admin page
+	 */
+	public static function render_in_admin(): void {
+		$view_path = '/views/admin_sections/customers_discounts.php';
+		require dirname( __DIR__, 2 ) . $view_path;
 	}
 
 	/**

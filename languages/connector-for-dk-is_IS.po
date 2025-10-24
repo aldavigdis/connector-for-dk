@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-10-24 08:15+0000\n"
+"PO-Revision-Date: 2025-10-24 09:41+0000\n"
 "Last-Translator: Alda Vigdís\n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.8.3; php-8.4.12\n"
 "X-Domain: connector-for-dk"
 
-#. The sprintf tags represent opening and closing hyperlinks.
+#. Translators: The sprintf tags represent opening and closing hyperlinks.
 #: views/about.php:42
 #, php-format
 #| msgid ""
@@ -40,7 +40,7 @@ msgstr ""
 "hana%2$s ef þú ert með einhverjar spurningar. Hún tekur einnig við framlögum "
 "í gegn um %3$sGithub Sponsors%2$s."
 
-#. The %1$s and %2$s indicate an opening and closing <strong> tag.
+#. Translators: The %1$s and %2$s indicate an opening and closing <strong> tag.
 #: views/admin_sections/submit.php:17
 #, php-format
 msgid ""
@@ -50,7 +50,7 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn og reyndu aftur."
 
-#. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
+#. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
 #: src/Hooks/KennitalaField.php:474
 #, php-format
 #| msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
@@ -77,13 +77,13 @@ msgstr "20 daga greiðslufrestur"
 msgid "30 Day Payment Deadline (D30)"
 msgstr "30 daga greiðslufrestur"
 
-#. The %s stands for the kennitala.
+#. Translators: The %s stands for the kennitala.
 #: src/Hooks/Admin.php:711
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
 
-#. The %s stands for the kennitala.
+#. Translators: The %s stands for the kennitala.
 #: src/Hooks/Admin.php:723
 #, php-format
 #| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
@@ -94,13 +94,13 @@ msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í DK."
 msgid "A or B Giro Request (ABG)"
 msgstr "A eða B gíróseðlar (ABG)"
 
-#. The %s stands for the relevant sales person number.
+#. Translators: The %s stands for the relevant sales person number.
 #: src/Hooks/Admin.php:633
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
-#. The %s stands for the relevant sales person number.
+#. Translators: The %s stands for the relevant sales person number.
 #: src/Hooks/Admin.php:645
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
@@ -110,7 +110,7 @@ msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
 msgid "About"
 msgstr "Upplýsingar"
 
-#: views/about.php:12 src/Hooks/Admin.php:456
+#: src/Hooks/Admin.php:456 views/about.php:12
 msgid "About Connector for DK"
 msgstr "Upplýsingar um Tengil fyrir DK"
 
@@ -119,6 +119,7 @@ msgid "Add payment line to invoices"
 msgstr "Færa greiðslulínu á reikninga"
 
 #. Author of the plugin
+#: connector-for-dk.php
 msgid "Alda Vigdis"
 msgstr "Alda Vigdís"
 
@@ -130,7 +131,7 @@ msgstr "Leyfa neikvæða lagerstöðu"
 msgid "Allow backorders, but notify customer"
 msgstr "Leyfa neikvæða lagerstöðu, en láta viðskiptavin vita"
 
-#: src/Rest/OrderDKInvoice.php:103 src/Hooks/WooOrderStatusChanges.php:160
+#: src/Hooks/WooOrderStatusChanges.php:160 src/Rest/OrderDKInvoice.php:103
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer "
 "via DK."
@@ -142,7 +143,7 @@ msgstr ""
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr "Ekki var hægt að búa til reikning í DK út af óþekktri villu."
 
-#: src/Rest/OrderDKInvoice.php:65 src/Hooks/WooOrderStatusChanges.php:107
+#: src/Hooks/WooOrderStatusChanges.php:107 src/Rest/OrderDKInvoice.php:65
 msgid ""
 "An invoice could not be created in DK for this order as a line item in this "
 "order does not have a SKU."
@@ -150,8 +151,8 @@ msgstr ""
 "Ekki var hægt að gera reikning í DK fyrir þessa pöntun því það SKU er ekki "
 "skráð á vöru."
 
-#. %1$s is a placeholder for the invoice number generated in DK.
-#: src/Rest/OrderDKInvoice.php:92 src/Hooks/WooOrderStatusChanges.php:149
+#. Translators: %1$s is a placeholder for the invoice number generated in DK.
+#: src/Hooks/WooOrderStatusChanges.php:149 src/Rest/OrderDKInvoice.php:92
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -228,9 +229,9 @@ msgstr "Tékkagreiðsla (TGR)"
 msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
-#. Name of the plugin
-#: views/admin.php:35 views/about.php:17 src/Hooks/Admin.php:437
-#: src/Hooks/Admin.php:438
+#. Plugin Name of the plugin
+#: connector-for-dk.php src/Hooks/Admin.php:437 src/Hooks/Admin.php:438
+#: views/about.php:17 views/admin.php:35
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
@@ -273,7 +274,7 @@ msgstr "Búa til nýjar vörur í WooCommerce ef þær eru ekki til"
 msgid "Credit Invoice Number"
 msgstr "Númer kreditreiknings"
 
-#. %1$s is a placeholder for the invoice number that was manually entered.
+#. Translators: %1$s is a placeholder for the invoice number that was manually entered.
 #: src/Rest/OrderInvoiceNumber.php:112
 #, php-format
 msgid "Credit invoice number set to %1$s."
@@ -462,17 +463,19 @@ msgstr "Sækja reikninginn sem PDF-skrá."
 msgid "Giro Transfer (GM)"
 msgstr "Gírómillifærsla (GM)"
 
-#. The %s is the numeric "price group" the customer is in.
+#. Translators: The %s is the numeric "price group" the customer is in.
 #: src/Hooks/OrderMeta.php:84
 #, php-format
 msgid "Group Price %s"
 msgstr "Hópverð %s"
 
 #. Author URI of the plugin
+#: connector-for-dk.php
 msgid "https://aldavigdis.is"
 msgstr "https://aldavigdis.is"
 
-#. URI of the plugin
+#. Plugin URI of the plugin
+#: connector-for-dk.php
 msgid "https://github.com/aldavigdis/connector-for-dk/"
 msgstr "https://github.com/aldavigdis/connector-for-dk/"
 
@@ -626,7 +629,7 @@ msgstr "Reikningsnúmer"
 msgid "Invoice number has been assigned."
 msgstr "Reikningsnúmer var skráð."
 
-#. %1$s is a placeholder for the invoice number that was manually entered.
+#. Translators: %1$s is a placeholder for the invoice number that was manually entered.
 #: src/Rest/OrderInvoiceNumber.php:87
 #, php-format
 msgid "Invoice number set to %1$s."
@@ -669,7 +672,7 @@ msgstr ""
 "eftir því hvort viðskiptavinur gefur upp kennitölu en einnig er hægt að "
 "kveikja á reit fyrir kennitölu,"
 
-#: src/Rest/OrderDKInvoice.php:110 src/Hooks/WooOrderStatusChanges.php:167
+#: src/Hooks/WooOrderStatusChanges.php:167 src/Rest/OrderDKInvoice.php:110
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -754,7 +757,7 @@ msgstr "Greiðslumáti í DK"
 msgid "Payment Terms in DK"
 msgstr "Greiðsluskilmálar í DK"
 
-#. The %s stands for the kennitala.
+#. Translators: The %s stands for the kennitala.
 #: src/Hooks/Admin.php:695
 #, php-format
 msgid ""
@@ -764,7 +767,7 @@ msgstr ""
 "Vinsamlegast gakktu úr skugga um að skuldunautur með kennitöluna ‚%s‘ sé til "
 "í DK áður en þú heldur áfram."
 
-#. The %s stands for the relevant SKU.
+#. Translators: The %s stands for the relevant SKU.
 #: src/Hooks/Admin.php:549
 #, php-format
 msgid ""
@@ -774,7 +777,7 @@ msgstr ""
 "Vinsamlegast athugaðu hvort vara með vörunúmerinu ‚%s‘ sé til í DK áður en "
 "þú vistar."
 
-#. The %s stands for the relevant sales person number.
+#. Translators: The %s stands for the relevant sales person number.
 #: src/Hooks/Admin.php:617
 #, php-format
 msgid ""
@@ -798,7 +801,7 @@ msgstr "Kláraðu þetta fyrst!"
 msgid "Postal COD (POST)"
 msgstr "Póstkrafa (POST)"
 
-#. The %s is the currency symbol for WooCommerce.
+#. Translators: The %s is the currency symbol for WooCommerce.
 #: views/dk_product_variations.php:151
 #, php-format
 msgid "Price (%s)"
@@ -852,7 +855,7 @@ msgstr "Biðja um reikning með kennitölu"
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
-#. The %s is the currency symbol for WooCommerce.
+#. Translators: The %s is the currency symbol for WooCommerce.
 #: views/dk_product_variations.php:173
 #, php-format
 msgid "Sale Price (%s)"
@@ -861,6 +864,10 @@ msgstr "Útsöluverð (%s)"
 #: views/admin_sections/submit.php:33
 msgid "Save"
 msgstr "Vista"
+
+#: js/products.js:154
+msgid "Select or upload image for this variation"
+msgstr "Veldu eða sendu inn mynd fyrir þetta vöruafbrigði"
 
 #: views/about.php:49
 msgid "Send Alda an email"
@@ -913,6 +920,7 @@ msgstr ""
 "kennitölu við afgreiðslu."
 
 #. Description of the plugin
+#: connector-for-dk.php
 msgid ""
 "Sync your WooCommerce store with DK, including prices, inventory status and "
 "generate invoices for customers on checkout."
@@ -936,13 +944,13 @@ msgstr ""
 "Þú færð þennan lykil frá DK til að nota með API-viðmótinu fyrir dkPlus. Ekki "
 "deila þessum lykli með neinum."
 
-#. The %s stands for the currency code.
+#. Translators: The %s stands for the currency code.
 #: src/Currency.php:156
 #, php-format
 msgid "The currency code ‘%s’ is invalid."
 msgstr "Gjaldeyriskóðinn ‚%s‘ er ógildur. "
 
-#. The %s stands for the currency code.
+#. Translators: The %s stands for the currency code.
 #: src/Currency.php:177
 #, php-format
 msgid "The currency rate for ‘%s’ has not been set."
@@ -963,13 +971,13 @@ msgstr ""
 msgid "The dkPlus API key is missing."
 msgstr "API-lykil fyrir DK vantar"
 
-#. The %s stands for the relevant SKU.
+#. Translators: The %s stands for the relevant SKU.
 #: src/Hooks/Admin.php:565
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
-#. The %s stands for the relevant SKU.
+#. Translators: The %s stands for the relevant SKU.
 #: src/Hooks/Admin.php:577
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
@@ -982,7 +990,7 @@ msgstr ""
 "Bókunarflokkurinn er notaður fyrir nýja viðskiptavini þegar þeir eru búnir "
 "til í DK."
 
-#. %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
+#. Translators: %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
 #: views/about.php:26
 #, php-format
 msgid ""
@@ -1022,7 +1030,7 @@ msgstr ""
 msgid "This is a required field"
 msgstr "Þennan reit þarf að fylla út"
 
-#. %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
+#. Translators: %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
 #: views/admin_sections/customers_international.php:93
 #, php-format
 msgid ""
@@ -1094,12 +1102,17 @@ msgid ""
 "Update the invoice number reference without generating a new invoice in DK"
 msgstr "Uppfæra tilvísun í númer reiknings án þess að búa nýjan til í DK"
 
+#: js/products.js:155
+msgid "Use"
+msgstr "Nota"
+
 #: views/admin_sections/authentication.php:42
 msgid "Valid"
 msgstr "Gilt"
 
-#. The %d is the variation ID.
+#. Translators: The %d is the variation ID.
 #: views/dk_product_variations.php:82
+#, php-format
 msgid "Variation #%d"
 msgstr "Vöruafbrigði #%d"
 
@@ -1157,7 +1170,7 @@ msgstr ""
 "Þú þarft að slökkva á kennitölureitnum úr viðbótinni frá Íslandspósti þar "
 "sem við viljum ekki hafa tvo kennitölureiti í afgreiðsluforminu."
 
-#. The %1$s is a placeholder for the site's title.
+#. Translators: The %1$s is a placeholder for the site's title.
 #: src/Export/Invoice.php:195
 #, php-format
 msgid "Your Invoice From %1$s"

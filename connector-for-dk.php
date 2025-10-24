@@ -29,6 +29,7 @@ new Hooks\Admin();
 new Hooks\Coupons();
 new Hooks\CustomerDiscounts();
 new Hooks\Frontend();
+new Hooks\I18n();
 new Hooks\OrderMeta();
 new Cron\Schedule();
 new Rest\Settings();

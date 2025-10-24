@@ -36,8 +36,6 @@ class Admin {
 	 * Initiates any wp-admin related actions, .
 	 */
 	public function __construct() {
-		add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
-
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu_page' ) );
 
 		add_action(
@@ -372,17 +370,6 @@ class Admin {
 		$gateways = new WC_Payment_Gateways();
 
 		return $gateways->get_available_payment_gateways();
-	}
-
-	/**
-	 * Load the plugin text domain
-	 */
-	public static function load_textdomain(): void {
-		$plugin_path = dirname( dirname( plugin_basename( __FILE__ ) ) );
-		load_plugin_textdomain(
-			domain: 'connector-for-dk',
-			plugin_rel_path: $plugin_path . '/../languages'
-		);
 	}
 
 	/**

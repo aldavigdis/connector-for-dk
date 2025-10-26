@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Hooks\Admin;
+use AldaVigdis\ConnectorForDK\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

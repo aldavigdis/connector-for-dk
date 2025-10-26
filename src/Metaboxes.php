@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 use AldaVigdis\ConnectorForDK\Config;
@@ -16,7 +16,7 @@ use WC_Product_Variation;
  * The WooMetaboxes class adds fields to the WooCommerce editor metaboxes that
  * handle properties facilitating price and inventory sync with DK.
  */
-class WooMetaboxes {
+class Metaboxes {
 	const PROTECTED_META = array(
 		'connector_for_dk_price_sync',
 		'connector_for_dk_stock_sync',
@@ -104,7 +104,7 @@ class WooMetaboxes {
 	 * Render the "DK Sync" panel content
 	 */
 	public static function dk_connection_panel(): void {
-		require dirname( __DIR__, 2 ) . '/views/dk_connection_product_panel.php';
+		require dirname( __DIR__ ) . '/views/dk_connection_product_panel.php';
 	}
 
 	/**
@@ -159,7 +159,7 @@ class WooMetaboxes {
 	 * Render the DK variations panel
 	 */
 	public static function variations_panel(): void {
-		require dirname( __DIR__, 2 ) . '/views/dk_product_variations.php';
+		require dirname( __DIR__ ) . '/views/dk_product_variations.php';
 	}
 
 	/**

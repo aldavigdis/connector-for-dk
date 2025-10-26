@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
-use AldaVigdis\ConnectorForDK\Hooks\KennitalaField;
+use AldaVigdis\ConnectorForDK\KennitalaField;
 use stdClass;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 /**
  * The i18n class
@@ -48,7 +48,7 @@ class I18n {
 			return $mo_file;
 		}
 
-		$plugin_path = dirname( plugin_basename( __FILE__ ), 3 );
+		$plugin_path = dirname( plugin_basename( __FILE__ ), 2 );
 		$locale      = determine_locale();
 		$mo_file     = "languages/$text_domain-$locale.mo";
 

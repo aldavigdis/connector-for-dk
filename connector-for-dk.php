@@ -25,22 +25,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-new Hooks\Admin();
-new Hooks\Coupons();
-new Hooks\CustomerDiscounts();
-new Hooks\Frontend();
-new Hooks\I18n();
-new Hooks\InternationalCustomers();
-new Hooks\OrderMeta();
+new Admin();
+new CustomerDiscounts();
+new ProductAttributeFilters();
+new I18n();
+new InternationalCustomers();
+new OrderMeta();
 new Cron\Schedule();
 new Rest\Settings();
 new Rest\OrderDKInvoice();
 new Rest\OrderInvoiceNumber();
 new Rest\OrderInvoicePdf();
-new Hooks\KennitalaField();
-new Hooks\RegisterPostMeta();
-new Hooks\WooMetaboxes();
-new Hooks\WooOrderStatusChanges();
+new KennitalaField();
+new Metaboxes();
+new OrderStatus();
 
 register_activation_hook(
 	__FILE__,

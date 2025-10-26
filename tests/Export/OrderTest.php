@@ -6,7 +6,7 @@ namespace AldaVigdis\ConnectorForDK\Tests\Export;
 
 use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
 use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Hooks\OrderMeta;
+use AldaVigdis\ConnectorForDK\OrderMeta;
 
 use WC\SmoothGenerator\Generator\Order as OrderGenerator;
 use PHPUnit\Framework\Attributes\Group;

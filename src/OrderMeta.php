@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;

@@ -196,4 +196,10 @@ SOFTWARE.
 	code resides.
 	-->
 	<exclude-pattern>./vendor/*</exclude-pattern>
+
+	<!--
+	Exclude the languages directory, as it may include generated PHP files that
+	are not intended to be human readable or edited by mortals.
+	-->
+	<exclude-pattern>./languages/*</exclude-pattern>
 </ruleset>

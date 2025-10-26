@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 /**
  * The international customers class
@@ -34,7 +34,7 @@ class InternationalCustomers {
 	 */
 	public static function add_generate_invoices_checkbox(): void {
 		$view_path = '/views/admin_sections/invoices_intl_checkbox.php';
-		require dirname( __DIR__, 2 ) . $view_path;
+		require dirname( __DIR__ ) . $view_path;
 	}
 
 	/**
@@ -42,6 +42,6 @@ class InternationalCustomers {
 	 */
 	public static function add_international_customers_to_admin(): void {
 		$view_path = '/views/admin_sections/customers_international.php';
-		require dirname( __DIR__, 2 ) . $view_path;
+		require dirname( __DIR__ ) . $view_path;
 	}
 }

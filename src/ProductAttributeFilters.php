@@ -2,17 +2,17 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Import\ProductVariations as ProductVariations;
 
 /**
- * The frontend class
+ * The Product Attribute Filters class
  *
  * Handles things that happen on the public-facing portion of the store.
  */
-class Frontend {
+class ProductAttributeFilters {
 	/**
 	 * The contstructor
 	 */
@@ -56,7 +56,9 @@ class Frontend {
 	 *
 	 * @param string $name The value/name code as set in WC and DK.
 	 */
-	public static function filter_variation_attribute_value( string $name ): string {
+	public static function filter_variation_attribute_value(
+		string $name
+	): string {
 		return ProductVariations::get_attribute_name( $name );
 	}
 }

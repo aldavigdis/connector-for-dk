@@ -91,7 +91,7 @@ class Metaboxes {
 	 */
 	public static function add_product_data_tab( array $tabs ): array {
 		$tabs['dk_connection'] = array(
-			'label'    => __( 'DK Sync', '1984-dk-woo' ),
+			'label'    => __( 'DK Sync', 'connector-for-dk' ),
 			'target'   => 'dk_connection_product_tab',
 			'class'    => array( 'hide_if_grouped' ),
 			'priority' => 100,

@@ -54,10 +54,8 @@ class OrderStatus {
 	public static function maybe_send_invoice_on_payment(
 		int $order_id
 	): void {
-		$wc_order        = new WC_Order( $order_id );
-		$kennitala       = OrderHelper::get_kennitala( $wc_order );
-		$store_location  = wc_get_base_location();
-		$billing_country = $wc_order->get_billing_country();
+		$wc_order  = new WC_Order( $order_id );
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
 
 		if ( ! empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
 			return;
@@ -128,8 +126,21 @@ class OrderStatus {
 		}
 
 		if (
+			! apply_filters( 'connector_for_dk_international_orders_available', false ) &&
+			OrderHelper::is_international( $wc_order )
+		) {
+			$wc_order->add_order_note(
+				__(
+					'Invoicing for international orders is not available in this version of Connector for DK.',
+					'connector-for-dk'
+				)
+			);
+			return;
+		}
+
+		if (
 			! Config::get_make_invoice_if_order_is_international() &&
-			( $billing_country !== $store_location['country'] )
+			OrderHelper::is_international( $wc_order )
 		) {
 			$wc_order->add_order_note(
 				__(

@@ -176,12 +176,6 @@ class Order {
 				'connector_for_dk_sku'
 			);
 
-			$discount = BigDecimal::of(
-				$group_price
-			)->minus(
-				$wc_order->get_item_subtotal( $item, false )
-			)->toFloat();
-
 			$tax_multiplier = (float) $item->get_meta(
 				'connector_for_dk_vat_multiplier'
 			);
@@ -198,37 +192,20 @@ class Order {
 				$wc_order->get_item_subtotal( $item, true )
 			)->toFloat();
 
-			if ( $export ) {
-				$total_discount = BigDecimal::of(
-					$discount
-				)->multipliedBy(
-					$item->get_quantity()
-				);
+			$total_discount = BigDecimal::of(
+				$discount_with_vat
+			)->multipliedBy(
+				$item->get_quantity()
+			)->toFloat();
 
-				$order_line_item = array(
-					'ItemCode'       => $sku,
-					'Text'           => $item->get_name(),
-					'Quantity'       => $item->get_quantity(),
-					'Price'          => $group_price,
-					'DiscountAmount' => $total_discount,
-					'IncludingVAT'   => false,
-				);
-			} else {
-				$total_discount = BigDecimal::of(
-					$discount_with_vat
-				)->multipliedBy(
-					$item->get_quantity()
-				)->toFloat();
-
-				$order_line_item = array(
-					'ItemCode'       => $sku,
-					'Text'           => $item->get_name(),
-					'Quantity'       => $item->get_quantity(),
-					'Price'          => $group_price_with_vat,
-					'DiscountAmount' => $total_discount,
-					'IncludingVAT'   => true,
-				);
-			}
+			$order_line_item = array(
+				'ItemCode'       => $sku,
+				'Text'           => $item->get_name(),
+				'Quantity'       => $item->get_quantity(),
+				'Price'          => $group_price_with_vat,
+				'DiscountAmount' => $total_discount,
+				'IncludingVAT'   => true,
+			);
 
 			$origin = $item->get_meta(
 				'connector_for_dk_origin',
@@ -259,27 +236,36 @@ class Order {
 				$order_line_item['ItemCode'] = $variation->get_sku();
 			}
 
-			$order_props['Lines'][] = $order_line_item;
+			$order_props['Lines'][] = apply_filters(
+				'connector_for_dk_order_export_line_item',
+				$order_line_item,
+				$item,
+				$wc_order
+			);
 		}
 
-		if ( count( $wc_order->get_fees() ) > 0 ) {
-			foreach ( $wc_order->get_fees() as $fee ) {
-				$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
+		foreach ( $wc_order->get_fees() as $fee ) {
+			$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
-				$fee_price_with_tax = BigDecimal::of(
-					$fee->get_total()
-				)->plus(
-					$fee->get_total_tax()
-				)->toFloat();
+			$fee_price_with_tax = BigDecimal::of(
+				$fee->get_total()
+			)->plus(
+				$fee->get_total_tax()
+			)->toFloat();
 
-				$order_props['Lines'][] = array(
+			$order_props['Lines'][] = apply_filters(
+				'connector_for_dk_export_order_fee',
+				array(
 					'ItemCode'     => Config::get_cost_sku(),
 					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
+					'Quantity'     => 1,
 					'Price'        => $fee_price_with_tax,
 					'IncludingVAT' => true,
-				);
-			}
+				),
+				$fee,
+				$wc_order
+			);
 		}
 
 		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
@@ -290,18 +276,27 @@ class Order {
 			)->toFloat();
 
 			if ( $shipping_total !== 0.0 ) {
-				$order_props['Lines'][] = array(
-					'ItemCode'     => Config::get_shipping_sku(),
-					'Text'         => __( 'Shipping', 'connector-for-dk' ),
-					'Text2'        => $shipping_method->get_name(),
-					'Quantity'     => 1,
-					'Price'        => $shipping_total,
-					'IncludingVAT' => true,
+				$order_props['Lines'][] = apply_filters(
+					'connector_for_dk_export_order_shipping',
+					array(
+						'ItemCode'     => Config::get_shipping_sku(),
+						'Text'         => __( 'Shipping', 'connector-for-dk' ),
+						'Text2'        => $shipping_method->get_name(),
+						'Quantity'     => 1,
+						'Price'        => $shipping_total,
+						'IncludingVAT' => true,
+					),
+					$shipping_method,
+					$wc_order
 				);
 			}
 		}
 
-		return $order_props;
+		return apply_filters(
+			'connector_for_dk_export_order_body',
+			$order_props,
+			$wc_order
+		);
 	}
 
 	/**

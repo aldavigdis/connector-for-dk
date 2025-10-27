@@ -266,10 +266,15 @@ class Invoice {
 			);
 
 			$invoice_body['Payments'] = array(
-				array(
-					'ID'     => $payment_mapping->dk_id,
-					'Name'   => $payment_mapping->dk_name,
-					'Amount' => $total->toFloat(),
+				apply_filters(
+					'connector_for_dk_invoice_payment_line',
+					array(
+						'ID'     => $payment_mapping->dk_id,
+						'Name'   => $payment_mapping->dk_name,
+						'Amount' => $total->toFloat(),
+					),
+					$payment_mapping,
+					$wc_order
 				),
 			);
 		}

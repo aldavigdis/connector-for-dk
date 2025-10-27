@@ -55,7 +55,10 @@ class Config {
 			return constant( $constant_name );
 		}
 
-		return get_option( self::PREFIX . $option, $default );
+		return apply_filters(
+			"connector_for_dk_get_option_$option_name",
+			get_option( self::PREFIX . $option, $default )
+		);
 	}
 
 	/**

@@ -201,12 +201,27 @@ class Order {
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 */
 	public static function is_domestic( WC_Order $wc_order ): bool {
-		$store_location  = wc_get_base_location();
-		$billing_country = $wc_order->get_billing_country();
+		$store_location   = wc_get_base_location();
+		$billing_country  = $wc_order->get_shipping_country();
+		$shipping_country = $wc_order->get_shipping_country();
+		$tax_based_on     = get_option( 'woocommerce_tax_based_on', 'shipping' );
 
 		if (
-			( $store_location['country'] === $billing_country ) ||
-			( $billing_country === '' )
+			$tax_based_on === 'shipping' &&
+			(
+				$store_location['country'] === $shipping_country ||
+				$shipping_country === ''
+			)
+		) {
+			return true;
+		}
+
+		if (
+			$tax_based_on === 'billing' &&
+			(
+				$store_location['country'] === $billing_country ||
+				$billing_country === ''
+			)
 		) {
 			return true;
 		}

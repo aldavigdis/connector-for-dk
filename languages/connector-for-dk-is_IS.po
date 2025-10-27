@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-10-27 01:12+0000\n"
+"PO-Revision-Date: 2025-10-27 04:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -437,7 +437,7 @@ msgstr ""
 
 #: views/admin_sections/invoices.php:38
 msgid "Enable Kennitala Field in the Checkout Form"
-msgstr "Kveika á kennitölureit í afgreiðsluformi"
+msgstr "Kveikja á kennitölureit í afgreiðsluformi"
 
 #: views/admin_sections/products.php:50
 msgid ""

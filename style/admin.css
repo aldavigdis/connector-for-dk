@@ -387,7 +387,8 @@ table .column-dk_invoice_id .invoice_error {
 	cursor: pointer;
 	padding: 0;
 	border: 1px solid #ccc;
-	border-radius: 5px;
+	background-color: transparent;
+	border-radius: 0;
 	line-height: 1em;
 	overflow: hidden;
 }
@@ -545,9 +546,30 @@ table.woocommerce_order_items .group_price {
 	display: none;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1400px) {
+	#dk_variations_tab .dk-variations .dk-variation .dk-variation-checkboxes {
+		flex-direction: column;
+		margin-bottom: 1em;
+	}
+
+	#dk_variations_tab .dk-variations .dk-variation .dk-variation-checkbox {
+		margin-bottom: 0;
+	}
+
+	#dk_variations_tab .dk-variation-prices, #dk_variations_tab .dk-variation-inventory {
+		margin-top: 1em;
+	}
+
+	#dk_variations_tab .dk-variation-options {
+		margin-bottom: 1em;
+	}
+
+}
+
+@media screen and (max-width: 1204px) {
 	#dk_variations_tab .dk-variations .dk-variation {
 		flex-direction: column;
+		align-items: flex-start;
 	}
 
 	#dk_variations_tab .dk-variation-fields {

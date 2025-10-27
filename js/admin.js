@@ -46,9 +46,10 @@ class ConnectorForDK {
 
 			ConnectorForDK.postSettingsData( formDataObject );
 		} else {
-			let paymentIds   = formData.getAll( 'payment_id' );
-			let paymentModes = formData.getAll( 'payment_mode' );
-			let paymentTerms = formData.getAll( 'payment_term' );
+			let paymentIds        = formData.getAll( 'payment_id' );
+			let paymentModes      = formData.getAll( 'payment_mode' );
+			let paymentTerms      = formData.getAll( 'payment_term' );
+			let addLineCheckboxes = ConnectorForDK.paymentAddLineCheckboxes();
 
 			let paymentMethods = [];
 			let paymentsLength = paymentIds.length;
@@ -58,7 +59,7 @@ class ConnectorForDK {
 				let dkId    = parseInt( paymentIds[i] );
 				let dkMode  = paymentModes[i];
 				let dkTerm  = paymentTerms[i];
-				let addLine = ConnectorForDK.paymentAddLineCheckboxes()[i].checked;
+				let addLine = addLineCheckboxes[i].checked;
 
 				if (isNaN( dkId )) {
 					dkId = 0;
@@ -104,14 +105,11 @@ class ConnectorForDK {
 				}
 			);
 
-			console.log( formDataObject );
-
 			ConnectorForDK.postSettingsData( formDataObject );
 		}
 	}
 
 	static async postSettingsData(formDataObject) {
-
 		const response = await fetch(
 			wpApiSettings.root + 'ConnectorForDK/v1/settings',
 			{
@@ -126,10 +124,9 @@ class ConnectorForDK {
 
 		ConnectorForDK.settingsLoader().classList.add( 'hidden' );
 
-		window.location.reload();
-
 		if ( response.ok ) {
-			window.location.reload( true );
+			ConnectorForDK.settingsSubmit().disabled = false;
+			window.scrollTo( 0, 0 );
 		} else {
 			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
@@ -146,14 +143,13 @@ class ConnectorForDK {
 					'click',
 					( e ) => {
 						const group                = e.target.dataset.masterCheckbox;
-						const subCheckboxContainer = document.querySelector(
-							'[data-sub-checkboxes=' + group + ']'
-						);
-					if ( e.target.checked ) {
-						subCheckboxContainer.classList.remove( 'hidden' );
-					} else {
-						subCheckboxContainer.classList.add( 'hidden' );
-					}
+						const groupSelector        = '[data-sub-checkboxes=' + group + ']'
+						const subCheckboxContainer = document.querySelector( groupSelector );
+						if ( e.target.checked ) {
+							subCheckboxContainer.classList.remove( 'hidden' );
+						} else {
+							subCheckboxContainer.classList.add( 'hidden' );
+						}
 					}
 				)
 			}

@@ -175,7 +175,7 @@ class Settings {
 
 		if (
 			property_exists( $rest_json, 'enable_downstream_product_sync' ) &&
-			$rest_json->fetch_products
+			$rest_json->enable_downstream_product_sync
 		) {
 			ImportProducts::save_all_from_dk();
 

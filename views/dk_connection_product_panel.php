@@ -117,7 +117,7 @@ $product_currency = ProductHelper::get_currency( $wc_product );
 				echo sprintf(
 					esc_html(
 						__(
-							'If this feature is enabled, changes to the product’s prices and tax rate in DK will be reflected in WooCommerce and any changes to its prices and tax rate in WooCommerce will be reflected in DK. This includes sale prices and dates.',
+							'If this feature is enabled, changes to the product’s prices and tax rate in DK will be reflected in WooCommerce. This includes sale prices and dates.',
 							'connector-for-dk'
 						)
 					),
@@ -157,7 +157,7 @@ $product_currency = ProductHelper::get_currency( $wc_product );
 			echo sprintf(
 				esc_html(
 					__(
-						'If this feature is enabled, the product name gets set to the DK ‘product description’ on sync and changes to the product name in WooCommerce get reflected in DK as well. Disabling this means that you can set a different name from the one you use in DK for the product in WooCommerce.',
+						'If this feature is enabled, the product name gets set to the DK ‘product description’ on sync. Disabling this means that you can set a different name from the one you use in DK for the product in WooCommerce.',
 						'connector-for-dk'
 					)
 				),

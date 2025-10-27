@@ -61,7 +61,7 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 		>
 			<?php esc_html_e( 'Get PDF', 'connector-for-dk' ); ?>
 		</button>
-		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) ) : ?>
+		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) && apply_filters( 'connector_for_dk_international_orders_available', false ) ) : ?>
 		<button
 			id="connector-for-dk-invoice-metabox-make-dk-invoice-button"
 			class="button button-small button-primary"
@@ -168,4 +168,20 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 			height="16"
 		/>
 	</div>
+
+	<?php if ( ! apply_filters( 'connector_for_dk_international_orders_available', false ) && OrderHelper::is_international( $wc_order ) ) : ?>
+	<p>
+		<?php
+		echo sprintf(
+			// Translators: %1$s an %2$s stand for opening and closing <strong> tags.
+			esc_html__(
+				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Connector for DK. You can manually create an invoice in DK and reference it here.',
+				'connector-for-dk'
+			),
+			'<strong>',
+			'</strong>'
+		);
+		?>
+	</p>
+	<?php endif ?>
 </div>

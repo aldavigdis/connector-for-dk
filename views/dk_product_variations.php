@@ -220,9 +220,6 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 								</label>
 							</div>
 						</div>
-					</div>
-
-					<div class="dk-variation-options">
 						<div class="dk-variation-checkbox">
 							<label>
 								<input

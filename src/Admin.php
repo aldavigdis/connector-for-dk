@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Export\SalesPerson;
@@ -132,7 +132,7 @@ class Admin {
 	private static function format_section_partial_path(
 		string $partial
 	): string {
-		return dirname( __DIR__, 2 ) . '/views/admin_sections/' . $partial . '.php';
+		return dirname( __DIR__ ) . '/views/admin_sections/' . $partial . '.php';
 	}
 
 	/**
@@ -258,7 +258,7 @@ class Admin {
 	 * Render the order invoice metabox
 	 */
 	public static function render_dk_invoice_metabox(): void {
-		require dirname( __DIR__, 2 ) . '/views/dk_invoice_metabox.php';
+		require dirname( __DIR__ ) . '/views/dk_invoice_metabox.php';
 	}
 
 	/**
@@ -467,14 +467,14 @@ class Admin {
 	 * This includes our admin page
 	 */
 	public static function render_admin_page(): void {
-		require dirname( __DIR__, 2 ) . '/views/admin.php';
+		require dirname( __DIR__ ) . '/views/admin.php';
 	}
 
 	/**
 	 * Render the about page
 	 */
 	public static function render_about_page(): void {
-		require dirname( __DIR__, 2 ) . '/views/about.php';
+		require dirname( __DIR__ ) . '/views/about.php';
 	}
 
 	/**
@@ -483,19 +483,19 @@ class Admin {
 	public static function enqueue_styles_and_scripts(): void {
 		wp_enqueue_style(
 			handle: 'connector-for-dk',
-			src: plugins_url( 'style/admin.css', dirname( __DIR__ ) ),
+			src: plugins_url( 'style/admin.css', __DIR__ ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_style(
 			handle: 'connector-for-dk-product',
-			src: plugins_url( 'style/products.css', dirname( __DIR__ ) ),
+			src: plugins_url( 'style/products.css', __DIR__ ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_script(
 			'connector-for-dk-admin',
-			plugins_url( 'js/admin.js', dirname( __DIR__ ) ),
+			plugins_url( 'js/admin.js', __DIR__ ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
 			false,
@@ -503,7 +503,7 @@ class Admin {
 
 		wp_enqueue_script(
 			'connector-for-dk-products',
-			plugins_url( 'js/products.js', dirname( __DIR__ ) ),
+			plugins_url( 'js/products.js', __DIR__ ),
 			array( 'wp-api', 'wp-i18n' ),
 			self::ASSET_VERSION,
 			false,
@@ -511,7 +511,7 @@ class Admin {
 
 		wp_enqueue_script(
 			'connector-for-dk-order',
-			plugins_url( 'js/order.js', dirname( __DIR__ ) ),
+			plugins_url( 'js/order.js', __DIR__ ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
 			false,
@@ -520,7 +520,7 @@ class Admin {
 		wp_set_script_translations(
 			'connector-for-dk-products',
 			'connector-for-dk',
-			dirname( plugin_dir_path( __FILE__ ), 2 ) . '/languages'
+			dirname( plugin_dir_path( __FILE__ ) ) . '/languages'
 		);
 	}
 

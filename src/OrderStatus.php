@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
@@ -21,7 +21,7 @@ use WP_Error;
  * Note that any email functionality herein is via the DK API and does not use
  * WordPress' mailing functionality at all.
  */
-class WooOrderStatusChanges {
+class OrderStatus {
 	/**
 	 * The class constructor, silly
 	 */

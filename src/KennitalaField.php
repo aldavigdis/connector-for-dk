@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Hooks\Admin;
+use AldaVigdis\ConnectorForDK\Admin;
 use WP_Error;
 use WC_Customer;
 use WC_Order;
@@ -148,7 +148,7 @@ class KennitalaField {
 	public static function enqueue_classic_checkout_js(): void {
 		wp_enqueue_script(
 			'connector_for_dk_classic_kennitala',
-			plugins_url( 'js/classic_kennitala.js', dirname( __DIR__ ) ),
+			plugins_url( 'js/classic_kennitala.js', __DIR__ ),
 			array(),
 			Admin::ASSET_VERSION
 		);

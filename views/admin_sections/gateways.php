@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Hooks\Admin;
+use AldaVigdis\ConnectorForDK\Admin;
 use AldaVigdis\ConnectorForDK\Import\SalesPayments;
 
 if ( ! defined( 'ABSPATH' ) ) {

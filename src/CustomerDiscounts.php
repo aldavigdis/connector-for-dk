@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Hooks;
+namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
@@ -96,7 +96,7 @@ class CustomerDiscounts {
 	 */
 	public static function render_in_admin(): void {
 		$view_path = '/views/admin_sections/customers_discounts.php';
-		require dirname( __DIR__, 2 ) . $view_path;
+		require dirname( __DIR__, 1 ) . $view_path;
 	}
 
 	/**

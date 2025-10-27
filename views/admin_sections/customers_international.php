@@ -3,8 +3,8 @@
 declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Hooks\Admin;
-use AldaVigdis\ConnectorForDK\Hooks\KennitalaField;
+use AldaVigdis\ConnectorForDK\Admin;
+use AldaVigdis\ConnectorForDK\KennitalaField;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

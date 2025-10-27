@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-10-27 04:17+0000\n"
+"PO-Revision-Date: 2025-10-27 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -50,8 +50,17 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn og reyndu aftur."
 
+#. Translators: %1$s an %2$s stand for opening and closing <strong> tags.
+#: views/dk_invoice_metabox.php:177
+#, php-format
+msgid ""
+"%1$sNote:%2$s Invoicing for international orders is not available in this "
+"version of Connector for DK. You can manually create an invoice in DK and "
+"reference it here."
+msgstr ""
+
 #. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:474
+#: src/KennitalaField.php:486
 #, php-format
 #| msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
@@ -131,7 +140,7 @@ msgstr "Leyfa neikvæða lagerstöðu"
 msgid "Allow backorders, but notify customer"
 msgstr "Leyfa neikvæða lagerstöðu, en láta viðskiptavin vita"
 
-#: src/OrderStatus.php:160 src/Rest/OrderDKInvoice.php:103
+#: src/OrderStatus.php:171 src/Rest/OrderDKInvoice.php:114
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer "
 "via DK."
@@ -139,11 +148,18 @@ msgstr ""
 "Tölvupóstur sem innihélt reikninginn á PDF-formi var sendur til "
 "viðskiptavinarins í gegn um DK."
 
-#: src/OrderStatus.php:196
+#: src/OrderStatus.php:207
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr "Ekki var hægt að búa til reikning í DK út af óþekktri villu."
 
-#: src/OrderStatus.php:107 src/Rest/OrderDKInvoice.php:65
+#: src/Rest/OrderDKInvoice.php:76
+msgid ""
+"An invoice could not be created in DK for this order as a line item in this "
+"order does not have a SKU or there is another issue preventing it from being "
+"created."
+msgstr ""
+
+#: src/OrderStatus.php:105
 msgid ""
 "An invoice could not be created in DK for this order as a line item in this "
 "order does not have a SKU."
@@ -152,7 +168,7 @@ msgstr ""
 "skráð á vöru."
 
 #. Translators: %1$s is a placeholder for the invoice number generated in DK.
-#: src/OrderStatus.php:149 src/Rest/OrderDKInvoice.php:92
+#: src/OrderStatus.php:160 src/Rest/OrderDKInvoice.php:103
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -160,16 +176,16 @@ msgstr ""
 "Reikningur hefur verið búinn til fyrir þessa pöntun í DK. Númer reikningsins "
 "er %1$s."
 
-#: src/OrderStatus.php:96
+#: src/OrderStatus.php:94
 msgid "An invoice was not created as the customer did not enter a kennitala."
 msgstr ""
 "Reikningur var ekki búinn til því viðskiptavinurinn sló ekki inn kennitölu."
 
-#: src/OrderStatus.php:82
+#: src/OrderStatus.php:80
 msgid "An invoice was not created as the customer entered a kennitala."
 msgstr "Reikningur var ekki búinn til því viðskiptavinurinn sló inn kennitölu."
 
-#: src/OrderStatus.php:122
+#: src/OrderStatus.php:120
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for customers not registered as debtors in DK."
@@ -177,7 +193,7 @@ msgstr ""
 "Reikningur var ekki búinn til því þú hefur ákveðið að búa reikninga ekki til "
 "sjálfkrafa fyrir viðskiptavini sem ekki eru skráðir sem skuldunautar í DK."
 
-#: src/OrderStatus.php:135
+#: src/OrderStatus.php:146
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for international orders."
@@ -255,7 +271,7 @@ msgid ""
 msgstr ""
 "Tengill fyrir DK styður eingöngu verslanir sem staðsettar eru á Íslandi."
 
-#: views/admin_sections/invoices.php:265
+#: views/admin_sections/invoices.php:181
 msgid "Cost SKU"
 msgstr "Vörunúmer vegna kostnaðar"
 
@@ -263,7 +279,7 @@ msgstr "Vörunúmer vegna kostnaðar"
 msgid "Create in DK"
 msgstr "Búa til í DK"
 
-#: views/admin_sections/invoices.php:122
+#: views/admin_sections/invoices.php:94
 msgid "Create Invoices Automatically for Customers not Registered in DK"
 msgstr ""
 "Búa sjálfkrafa til reikninga fyrir viðskiptavini sem ekki eru skráðir í DK"
@@ -272,11 +288,11 @@ msgstr ""
 msgid "Create Invoices Automatically for International Orders"
 msgstr "Búa sjálfkrafa til reikninga fyrir erlendar pantanir"
 
-#: views/admin_sections/invoices.php:66
+#: views/admin_sections/invoices.php:38
 msgid "Create Invoices Automatically for Orders With a Kennitala"
 msgstr "Búa sjálfkrafa til reikninga fyrir pantanir með kennitölu"
 
-#: views/admin_sections/invoices.php:94
+#: views/admin_sections/invoices.php:66
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr "Búa til reikninga sjálfkrafa fyrir pantanir án kennitölu"
 
@@ -314,7 +330,7 @@ msgstr "Afslættir fyrir viðskiptavini"
 msgid "Customers"
 msgstr "Viðskiptavinir"
 
-#: views/admin_sections/invoices.php:179
+#: views/admin_sections/kennitala.php:70
 msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr "Viðskiptavinir þurfa að biðja um að fá kennitölu á reikninga"
 
@@ -330,7 +346,7 @@ msgstr "Sjálfgefin kennitala viðskiptavina"
 msgid "Default Customer Number for International Customers"
 msgstr "Sjálfgefið númer fyrir erlenda skuldunauta"
 
-#: views/admin_sections/invoices.php:285
+#: views/admin_sections/invoices.php:201
 msgid "Default Sales Person Number"
 msgstr "Númer sjálfgefins sölumanns"
 
@@ -360,7 +376,7 @@ msgstr "Sýna lýsingu nafns eiginleika vöruafbrigða úr DK"
 msgid "Display the Attribute Value Description from DK"
 msgstr "Sýna lýsingu eiginleika vöruafbrigða úr DK"
 
-#: src/Rest/OrderDKInvoice.php:81
+#: src/Rest/OrderDKInvoice.php:92
 msgid "DK could not create an invoice due to an error."
 msgstr "DK gat ekki búið til reikning vegna villu."
 
@@ -391,7 +407,7 @@ msgstr ""
 msgid "DK Sync"
 msgstr "Samstilling við DK"
 
-#: views/admin_sections/invoices.php:234
+#: views/admin_sections/invoices.php:150
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "invoicing to work, you need to assign a product in DK to each of the "
@@ -435,7 +451,7 @@ msgstr ""
 "fjölda á lager og fáanleika í WooCommerce ekki fram í DK og verða "
 "yfirskrifaðar næst þegar upplýsingar eru sóttar."
 
-#: views/admin_sections/invoices.php:38
+#: views/admin_sections/kennitala.php:42
 msgid "Enable Kennitala Field in the Checkout Form"
 msgstr "Kveikja á kennitölureit í afgreiðsluformi"
 
@@ -455,7 +471,7 @@ msgstr "Kveikt"
 msgid "Error"
 msgstr "Villa"
 
-#: src/Export/Order.php:277
+#: src/Export/Order.php:260
 msgid "Fee"
 msgstr "Gjald"
 
@@ -511,7 +527,7 @@ msgstr "https://aldavigdis.is"
 msgid "https://github.com/aldavigdis/connector-for-dk/"
 msgstr "https://github.com/aldavigdis/connector-for-dk/"
 
-#: views/admin_sections/invoices.php:159
+#: views/admin_sections/invoices.php:131
 msgid ""
 "If enabled, an email containing the invoice will be sent to the customer "
 "automatically after checkout. This uses the DK email functionality, so make "
@@ -560,7 +576,7 @@ msgstr ""
 "samtllingu. Ef slökkt er á þessu geturðu sett inn annað nafn en það sem þú "
 "notar í DK í WooCommerce."
 
-#: views/admin_sections/invoices.php:187
+#: views/admin_sections/kennitala.php:78
 msgid ""
 "If this is enabled, a checkbox is added to the checkout form, that the "
 "customer needs to tick in order to have a kennitala assigned to their "
@@ -570,7 +586,19 @@ msgstr ""
 "viðskiptavinur þarf að merkja við til að fá kennitölu á reikning, annars er "
 "farið með pöntunina eins og hún sé án kennitölu."
 
-#: views/admin_sections/invoices.php:130
+#: views/admin_sections/kennitala.php:21
+msgid ""
+"If this is enabled, a Kennitala field is added to the checkout form. The "
+"Kennitala may be made mandatory as well. Please note that a checksum is not "
+"calculated and that no lookup is run against the Population Registry or the "
+"Company Registry."
+msgstr ""
+"Ef það er kveikt á þessu er reit fyrir kennitölu bætt inn í afgreiðsluformið."
+" Einnig er hægt að gera kennitölu að skyldu. Athugið að kennitalan er ekki "
+"vartöluprófuð og það er ekki leitað eftir henni í Þjóðskrá eða "
+"Fyrirtækjaskrá."
+
+#: views/admin_sections/invoices.php:102
 msgid ""
 "If this is enabled, a new ‘debtor’ record witll be created in DK for every "
 "new customer who places an order and supplies a Kennitala that is not in DK "
@@ -602,7 +630,7 @@ msgstr ""
 "innskráða notendur sem skráðir eru í WooCommerce, með kennitölu stillta á "
 "kennitölu þess skuldunatar í DK sem gögnin eru sótt fyrir."
 
-#: views/admin_sections/invoices.php:102
+#: views/admin_sections/invoices.php:74
 msgid ""
 "If this is enabled, orders without a kennitala will be assigned the ‘Default "
 "Customer Kennitala’."
@@ -610,13 +638,13 @@ msgstr ""
 "Ef kveikt er á þessu, þá verður ‚sjálfgefin kennitala‘ skráð á pantanir án "
 "kennitölu."
 
-#: views/admin_sections/invoices.php:215
+#: views/admin_sections/kennitala.php:106
 msgid ""
 "If this is enabled, the Kennitala field is mandatory for finishing the "
 "checkout process."
 msgstr ""
-"Ef kvekt er á þessu, þá en kennitölureitur skylda til að klára "
-"afgreiðsluferlið í vefverslun."
+"Ef kvekt er á þessu, þá er skylda að fylla út kennitölureitinn til að klára "
+"afgreiðsluferli í vefverslun."
 
 #: views/admin_sections/products.php:134
 msgid "Import products not labelled as ‘for online store’ as drafts"
@@ -659,11 +687,11 @@ msgstr ""
 msgid "International Customers"
 msgstr "Erlendir viðskiptavinir"
 
-#: src/KennitalaField.php:529
+#: src/KennitalaField.php:541
 msgid "Invalid kennitala nonce"
 msgstr "Ógildur prufustrengur fyrir kennitölu"
 
-#: src/KennitalaField.php:740
+#: src/KennitalaField.php:752
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru 10 tölustafir að lengd."
 
@@ -693,7 +721,7 @@ msgstr "Númer reiknings skráð sem %1$s."
 msgid "Invoice number was not assigned."
 msgstr "Reikningsnúmer var ekki skráð."
 
-#: src/KennitalaField.php:259
+#: src/KennitalaField.php:271
 msgid "Invoice with Kennitala Requested"
 msgstr "Beðið um reikning með kennitölu"
 
@@ -726,7 +754,13 @@ msgstr ""
 "eftir því hvort viðskiptavinur gefur upp kennitölu en einnig er hægt að "
 "kveikja á reit fyrir kennitölu,"
 
-#: src/OrderStatus.php:167 src/Rest/OrderDKInvoice.php:110
+#: src/OrderStatus.php:133
+msgid ""
+"Invoicing for international orders is not available in this version of "
+"Connector for DK."
+msgstr ""
+
+#: src/OrderStatus.php:178 src/Rest/OrderDKInvoice.php:121
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -734,16 +768,20 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
 "PDF-viðhengi"
 
-#: src/KennitalaField.php:252 src/KennitalaField.php:310
-#: src/KennitalaField.php:460 src/KennitalaField.php:651
+#: src/KennitalaField.php:264 src/KennitalaField.php:322
+#: src/KennitalaField.php:472 src/KennitalaField.php:663
 msgid "Kennitala"
 msgstr "Kennitala"
 
-#: src/KennitalaField.php:655
+#: src/KennitalaField.php:667
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (valfrjálst)"
 
-#: src/KennitalaField.php:557
+#: views/admin_sections/kennitala.php:16
+msgid "Kennitala Field"
+msgstr "Reitur fyrir kennitölu"
+
+#: src/KennitalaField.php:569
 msgid "Kennitala is a required field"
 msgstr "Kennitölu þarf að fylla út"
 
@@ -759,7 +797,7 @@ msgstr "Bókunarflokkur fyrir erlenda viðskiptavini"
 msgid "List Price"
 msgstr "Listaverð"
 
-#: views/admin_sections/invoices.php:207
+#: views/admin_sections/kennitala.php:98
 msgid "Make Kennitala Field Mandatory"
 msgstr "Gera kennitölureit að skyldu"
 
@@ -921,11 +959,11 @@ msgstr "Fjarlægja mynd"
 msgid "Replace Image"
 msgstr "Skipta út mynd"
 
-#: src/KennitalaField.php:493 src/KennitalaField.php:675
+#: src/KennitalaField.php:505 src/KennitalaField.php:687
 msgid "Request an Invoice with Kennitala"
 msgstr "Biðja um reikning með kennitölu"
 
-#: src/KennitalaField.php:679
+#: src/KennitalaField.php:691
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
@@ -947,11 +985,11 @@ msgstr "Veldu eða sendu inn mynd fyrir þetta vöruafbrigði"
 msgid "Send Alda an email"
 msgstr "Senda tölvupóst til Öldu"
 
-#: views/admin_sections/invoices.php:151
+#: views/admin_sections/invoices.php:123
 msgid "Send Invoices Automatically via Email"
 msgstr "Senda reikninga sjálfkrafa í tölvupósti"
 
-#: views/admin_sections/invoices.php:231
+#: views/admin_sections/invoices.php:147
 msgid "Service SKUs"
 msgstr "Vörunúmer fyrir þjónustu"
 
@@ -975,11 +1013,11 @@ msgstr "Settu inn skattþrep fyrir 24%, 11% and 0% VSK."
 msgid "Settings"
 msgstr "Stillingar"
 
-#: src/Export/Order.php:295
+#: src/Export/Order.php:283
 msgid "Shipping"
 msgstr "Sendingar"
 
-#: views/admin_sections/invoices.php:245
+#: views/admin_sections/invoices.php:161
 msgid "Shipping SKU"
 msgstr "Vörunúmer fyrir sendingar"
 
@@ -1104,7 +1142,7 @@ msgstr ""
 "Það eru nokkrir hlutir sem þú þarft að gera áður en við hleypum þér inn í "
 "viðbótina Tengil fyrir DK."
 
-#: views/admin_sections/invoices.php:46
+#: views/admin_sections/kennitala.php:50
 msgid ""
 "This adds a kennitala field to the WooCommerce checkout page. This supports "
 "both the ‘Classic’ version and the ‘Block Editor’ version. Do note that a "
@@ -1162,7 +1200,7 @@ msgstr ""
 msgid "Unable to create invoice in DK."
 msgstr "Gat ekki gert reikning í DK."
 
-#: src/OrderStatus.php:188
+#: src/OrderStatus.php:199
 #| msgid "Unable to create an invoice in DK: "
 msgid "Unable to create invoice in DK: "
 msgstr "Gat ekki gert reikning í DK:"
@@ -1238,7 +1276,7 @@ msgstr "Skoða Github-síðuna fyrir viðbótina"
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr "Skoða umsagnir fyrir þessa viðbót á WordPress.org"
 
-#: views/admin_sections/invoices.php:74
+#: views/admin_sections/invoices.php:46
 msgid ""
 "When a customer requests to have a kennitala assigned to an invoice, a "
 "customer record is created in DK if it does not already exist, using the "

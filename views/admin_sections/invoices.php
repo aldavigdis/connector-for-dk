@@ -28,34 +28,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</th>
 				<td>
 					<input
-						id="enable_kennitala_field"
-						name="kennitala_classic_field_enabled"
-						type="checkbox"
-						<?php echo esc_attr( Config::get_kennitala_classic_field_enabled() ? 'checked' : '' ); ?>
-					/>
-					<label for="enable_kennitala_field">
-						<?php
-						esc_html_e(
-							'Enable Kennitala Field in the Checkout Form',
-							'connector-for-dk'
-						);
-						?>
-					</label>
-					<p class="description">
-						<?php
-						esc_html_e(
-							'This adds a kennitala field to the WooCommerce checkout page. This supports both the ‘Classic’ version and the ‘Block Editor’ version. Do note that a new debtor redcord will be created for each new Kennitala used for an invoice.',
-							'connector-for-dk'
-						);
-						?>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row" class="column-title column-primary">
-				</th>
-				<td>
-					<input
 						id="make_invoice_if_kennitala_is_set_field"
 						name="make_invoice_if_kennitala_is_set"
 						type="checkbox"
@@ -158,62 +130,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the DK email functionality, so make sure that email delivery is configured correctly in DK.',
-							'connector-for-dk'
-						);
-						?>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row" class="column-title column-primary">
-				</th>
-				<td>
-					<input
-						id="customer_requests_kennitala_invoice_field"
-						name="customer_requests_kennitala_invoice"
-						type="checkbox"
-						<?php echo esc_attr( Config::get_customer_requests_kennitala_invoice() ? 'checked' : '' ); ?>
-					/>
-					<label for="customer_requests_kennitala_invoice_field">
-						<?php
-						esc_html_e(
-							'Customers Need to Request to have a Kennitala on Invoices',
-							'connector-for-dk'
-						);
-						?>
-					</label>
-					<p class="description">
-						<?php
-						esc_html_e(
-							'If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice, or the invoice will be treated like one without a kennitala.',
-							'connector-for-dk'
-						);
-						?>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row" class="column-title column-primary">
-				</th>
-				<td>
-					<input
-						id="kennitala_is_mandatory_field"
-						name="kennitala_is_mandatory"
-						type="checkbox"
-						<?php echo esc_attr( Config::get_kennitala_is_mandatory() ? 'checked' : '' ); ?>
-					/>
-					<label for="kennitala_is_mandatory_field">
-						<?php
-						esc_html_e(
-							'Make Kennitala Field Mandatory',
-							'connector-for-dk'
-						);
-						?>
-					</label>
-					<p class="description">
-						<?php
-						esc_html_e(
-							'If this is enabled, the Kennitala field is mandatory for finishing the checkout process.',
 							'connector-for-dk'
 						);
 						?>

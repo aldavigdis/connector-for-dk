@@ -140,6 +140,21 @@ class KennitalaField {
 			10,
 			2
 		);
+
+		add_action(
+			'connector_for_dk_end_of_invoices_section',
+			array( __CLASS__, 'add_partial_to_admin' ),
+			10,
+			0
+		);
+	}
+
+	/**
+	 * Render the kennitala admin partial
+	 */
+	public static function add_partial_to_admin(): void {
+		$view_path = '/views/admin_sections/kennitala.php';
+		require dirname( __DIR__ ) . $view_path;
 	}
 
 	/**

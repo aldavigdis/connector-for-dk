@@ -60,6 +60,33 @@ DK will cut off some string values that exceed its limits without warning. This 
 * Product variation SKUs are supposed to be empty
 * Product descriptions: The DK API is unable to accept longer textual values than 40.
 
+### Language and Internationalisation
+
+We use UK/GB spelling whenever possible. The plugin is mainy run using the `is_IS` locale and it is important that the wording used for both locales corresponds with both the grown-up version of DK and dkPlus.
+
+POT and JSON files are generated using `cd wp-content/plugins/connector-for-dk && wp i18n make-pot . languages/connector-for-dk.pot --allow-root` from the Bash shell and then they get translated using the Loco Translate plugin.
+
+### Command Line Tools
+
+The following command line tools are available for development and release purposes:
+
+#### Shells
+
+* **`composer shell:bash`**: Open up a bash shell in the Dockpress development environment
+* **`composer shell:wp`**: Opens up a WordPress psysh shell in the DockPress development environment
+
+### Linting and Testing
+
+* **`composer test`**: Run all the PHPUnit test
+* **`composer lint`**: Lint the PHP and JavaScript code, without fixing
+* **`composer lint:fix`**: Fix any linting errors in the code
+
+#### Build and release
+
+* **`composer release:zip` or `./bin/release-zip.sh`**: Create a zip file that is ready to be uploaded to a distribution repository or release management system
+* **`composer checksums:generate` or `./bin/checksums-generate`**: Generate a file containing the checksums of all the files in the repository. (Please delete the `./vendor` directory and run `composer install --no-dev` first.)
+* **`composer checksums:validate` or `./bin/checksums-validate`**: Validate the files in the repository against `checksums.txt`. (Note that `checksums.txt` itself will be listed as a stray file as it is not listed.)
+
 ## Contributing
 
 The main code repository for the plugin is at https://github.com/aldavigdis/connector-for-dk-and-woocommerce/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.

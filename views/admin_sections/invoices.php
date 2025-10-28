@@ -140,6 +140,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tbody>
 	</table>
 
+	<table id="dk-invoices-textfields-table" class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+					<label for="default_sales_person_field">
+						<?php esc_html_e( 'Default Sales Person Number', 'connector-for-dk' ); ?>
+					</label>
+				</th>
+				<td>
+					<input
+						id="default_sales_person_field"
+						name="default_sales_person"
+						type="text"
+						value="<?php echo esc_attr( Config::get_default_sales_person_number() ); ?>"
+					/>
+					<?php $info_for_sales_person = Admin::info_for_sales_person( Config::get_default_sales_person_number() ); ?>
+					<p class="infotext <?php echo esc_attr( $info_for_sales_person->css_class ); ?>">
+						<span class="dashicons <?php echo esc_attr( $info_for_sales_person->dashicon ); ?>"></span>
+						<?php echo esc_html( $info_for_sales_person->text ); ?>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
 	<?php do_action( 'connector_for_dk_after_invoices_checkboxes' ); ?>
 
 	<hr />
@@ -192,26 +217,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="infotext <?php echo esc_attr( $info_for_cost_sku->css_class ); ?>">
 						<span class="dashicons <?php echo esc_attr( $info_for_cost_sku->dashicon ); ?>"></span>
 						<?php echo esc_html( $info_for_cost_sku->text ); ?>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row" class="column-title column-primary">
-					<label for="default_sales_person_field">
-						<?php esc_html_e( 'Default Sales Person Number', 'connector-for-dk' ); ?>
-					</label>
-				</th>
-				<td>
-					<input
-						id="default_sales_person_field"
-						name="default_sales_person"
-						type="text"
-						value="<?php echo esc_attr( Config::get_default_sales_person_number() ); ?>"
-					/>
-					<?php $info_for_sales_person = Admin::info_for_sales_person( Config::get_default_sales_person_number() ); ?>
-					<p class="infotext <?php echo esc_attr( $info_for_sales_person->css_class ); ?>">
-						<span class="dashicons <?php echo esc_attr( $info_for_sales_person->dashicon ); ?>"></span>
-						<?php echo esc_html( $info_for_sales_person->text ); ?>
 					</p>
 				</td>
 			</tr>

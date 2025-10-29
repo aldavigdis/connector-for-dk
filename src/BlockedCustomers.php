@@ -138,8 +138,10 @@ class BlockedCustomers {
 		$customer_id = get_current_user_id();
 		$customer    = new WC_Customer( $customer_id );
 
-		if ( empty( $customer->get_meta( 'kennitala' ) ) ) {
-			return;
+		if ( $customer->get_meta( 'connector_for_dk_blocked' ) === '1' ) {
+			throw new Exception(
+				esc_html( Config::get_blocked_customers_message() )
+			);
 		}
 
 		$nonce = 'connector_for_dk_classic_checkout_set_kennitala_nonce_field';

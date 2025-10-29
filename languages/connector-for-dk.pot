@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-27T12:48:22+00:00\n"
+"POT-Creation-Date: 2025-10-29T02:03:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: connector-for-dk\n"
@@ -129,6 +129,10 @@ msgstr ""
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
+#: src/Config.php:1026
+msgid "We are unable to check out your order. Please contact us for more information."
+msgstr ""
+
 #. Translators: The %s stands for the currency code.
 #: src/Currency.php:156
 #, php-format
@@ -141,11 +145,11 @@ msgstr ""
 msgid "The currency rate for ‘%s’ has not been set."
 msgstr ""
 
-#: src/CustomerDiscounts.php:302
+#: src/CustomerDiscounts.php:342
 msgid "Regular Price:"
 msgstr ""
 
-#: src/CustomerDiscounts.php:306
+#: src/CustomerDiscounts.php:346
 msgid "Your Price:"
 msgstr ""
 
@@ -224,45 +228,45 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/KennitalaField.php:264
-#: src/KennitalaField.php:322
-#: src/KennitalaField.php:472
-#: src/KennitalaField.php:663
+#: src/KennitalaField.php:267
+#: src/KennitalaField.php:325
+#: src/KennitalaField.php:475
+#: src/KennitalaField.php:666
 msgid "Kennitala"
 msgstr ""
 
-#: src/KennitalaField.php:271
+#: src/KennitalaField.php:274
 msgid "Invoice with Kennitala Requested"
 msgstr ""
 
 #. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:486
+#: src/KennitalaField.php:489
 #, php-format
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr ""
 
-#: src/KennitalaField.php:505
-#: src/KennitalaField.php:687
+#: src/KennitalaField.php:508
+#: src/KennitalaField.php:690
 msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: src/KennitalaField.php:541
+#: src/KennitalaField.php:544
 msgid "Invalid kennitala nonce"
 msgstr ""
 
-#: src/KennitalaField.php:569
+#: src/KennitalaField.php:572
 msgid "Kennitala is a required field"
 msgstr ""
 
-#: src/KennitalaField.php:667
+#: src/KennitalaField.php:670
 msgid "Kennitala (Optional)"
 msgstr ""
 
-#: src/KennitalaField.php:691
+#: src/KennitalaField.php:694
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
-#: src/KennitalaField.php:752
+#: src/KennitalaField.php:755
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
@@ -418,6 +422,30 @@ msgstr ""
 msgid "The API key is provided by DK for use with the dkPlus API. Do not share this key with anyone."
 msgstr ""
 
+#: views/admin_sections/blocked_customers.php:16
+msgid "Blocked Customers"
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:21
+msgid "DK facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below."
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:42
+msgid "Block customers in WooCommerce, if they are labelled as blocked in DK"
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:50
+msgid "Blocking customers is based on matching their Kennitala between WooCommerce and DK."
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:66
+msgid "Message for Blocked Customers"
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:73
+msgid "This message is displayed when a blocked customer attempts to check out an order."
+msgstr ""
+
 #: views/admin_sections/customers.php:16
 msgid "Customers"
 msgstr ""
@@ -564,24 +592,24 @@ msgstr ""
 msgid "If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the DK email functionality, so make sure that email delivery is configured correctly in DK."
 msgstr ""
 
-#: views/admin_sections/invoices.php:147
+#: views/admin_sections/invoices.php:148
+msgid "Default Sales Person Number"
+msgstr ""
+
+#: views/admin_sections/invoices.php:172
 msgid "Service SKUs"
 msgstr ""
 
-#: views/admin_sections/invoices.php:150
+#: views/admin_sections/invoices.php:175
 msgid "DK treats shipping and other costs as line items on invoices. In order for invoicing to work, you need to assign a product in DK to each of the following services and assign them below."
 msgstr ""
 
-#: views/admin_sections/invoices.php:161
+#: views/admin_sections/invoices.php:186
 msgid "Shipping SKU"
 msgstr ""
 
-#: views/admin_sections/invoices.php:181
+#: views/admin_sections/invoices.php:206
 msgid "Cost SKU"
-msgstr ""
-
-#: views/admin_sections/invoices.php:201
-msgid "Default Sales Person Number"
 msgstr ""
 
 #: views/admin_sections/invoices_intl_checkbox.php:25

@@ -7,6 +7,7 @@ namespace AldaVigdis\ConnectorForDK\Import;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Customer;
 use WP_Error;
+use stdClass;
 
 /**
  * The customers importer class
@@ -17,7 +18,34 @@ use WP_Error;
 class Customers {
 	const API_PATH = '/Customer/';
 
-	const INCLUDE_PROPERTIES = 'Number,Discount,PriceGroup,Blocked';
+	const INCLUDE_PROPERTIES = array( 'Number' );
+
+	/**
+	 * Get a single customer record from DK
+	 *
+	 * @param string $kennitala The customer's kennitala.
+	 */
+	public static function get_from_dk(
+		string $kennitala
+	): stdClass|WP_Error|false {
+		$api_request = new DKApiRequest();
+
+		$query_string = '?include=' . implode( ',', self::include_properties() );
+
+		$result = $api_request->get_result(
+			self::API_PATH . rawurldecode( $kennitala ) . $query_string,
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if ( $result->response_code !== 200 ) {
+			return false;
+		}
+
+		return (object) $result->data;
+	}
 
 	/**
 	 * Save all customers from DK
@@ -39,19 +67,10 @@ class Customers {
 
 				$wc_customer = new WC_Customer( intval( $local_customer->ID ) );
 
-				$wc_customer->update_meta_data(
-					'connector_for_dk_discount',
-					strval( $dk_customer->Discount )
-				);
-
-				$wc_customer->update_meta_data(
-					'connector_for_dk_price_group',
-					strval( $dk_customer->PriceGroup )
-				);
-
-				$wc_customer->update_meta_data(
-					'connector_for_dk_blocked',
-					strval( intval( $dk_customer->Blocked ) )
+				do_action(
+					'connector_for_dk_after_update_meta_data',
+					$wc_customer,
+					$dk_customer
 				);
 
 				$wc_customer->save_meta_data();
@@ -68,7 +87,7 @@ class Customers {
 	public static function get_all_from_dk(): false|WP_Error|array {
 		$api_request = new DKApiRequest();
 
-		$query_string = '?include=' . self::INCLUDE_PROPERTIES;
+		$query_string = '?include=' . implode( ',', self::include_properties() );
 
 		$result = $api_request->get_result(
 			self::API_PATH . $query_string,
@@ -102,6 +121,18 @@ class Customers {
 			ON m.meta_key = 'kennitala'
 			AND u.`ID` = m.`user_id`
 			AND m.`meta_value` != ''"
+		);
+	}
+
+	/**
+	 * Parse and filter the included properties
+	 *
+	 * Parses the INCLUDE_PROPERTIES constant into a string, used by the DK API.
+	 */
+	public static function include_properties(): array {
+		return apply_filters(
+			'connector_for_dk_import_customer_include_properties',
+			self::INCLUDE_PROPERTIES
 		);
 	}
 }

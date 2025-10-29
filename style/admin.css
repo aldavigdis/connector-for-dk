@@ -68,6 +68,11 @@ body.toplevel_page_connector-for-dk .wrap, body.connector-for-dk_page_about-conn
 	padding-bottom: 20px;
 }
 
+#connector-for-dk-settings-form textarea {
+	width: 100%;
+	height: 6em;
+}
+
 #connector-for-dk-settings-form input:invalid {
 	border-color: #900;
 }

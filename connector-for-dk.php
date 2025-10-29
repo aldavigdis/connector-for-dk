@@ -26,19 +26,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 new Admin();
+new BlockedCustomers();
 new CustomerDiscounts();
 new ProductAttributeFilters();
 new I18n();
 new InternationalCustomers();
 new OrderMeta();
+new KennitalaField();
+new Metaboxes();
+new OrderStatus();
 new Cron\Schedule();
 new Rest\Settings();
 new Rest\OrderDKInvoice();
 new Rest\OrderInvoiceNumber();
 new Rest\OrderInvoicePdf();
-new KennitalaField();
-new Metaboxes();
-new OrderStatus();
 
 register_activation_hook(
 	__FILE__,

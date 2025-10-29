@@ -1011,4 +1011,29 @@ class Config {
 			$value
 		);
 	}
+
+	/**
+	 * Get wether blocking customers is enabled
+	 */
+	public static function get_enable_blocked_customers(): bool {
+		return (bool) self::get_option(
+			'enable_blocked_customers',
+			true
+		);
+	}
+
+	/**
+	 * Get the message that is shown to customers if their account is blocked.
+	 */
+	public static function get_blocked_customers_message(): string {
+		return (string) (
+			self::get_option(
+				'blocked_customers_message',
+				__(
+					'We are unable to check out your order. Please contact us for more information.',
+					'connector-for-dk'
+				)
+			)
+		);
+	}
 }

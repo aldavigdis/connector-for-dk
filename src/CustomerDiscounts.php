@@ -7,6 +7,7 @@ namespace AldaVigdis\ConnectorForDK;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 
+use stdClass;
 use WC_Customer;
 use WC_Product;
 use WC_Product_Variable;
@@ -89,6 +90,65 @@ class CustomerDiscounts {
 			10,
 			0
 		);
+
+		add_action(
+			'connector_for_dk_after_update_meta_data',
+			array( __CLASS__, 'import_user_discount_and_price_group' ),
+			10,
+			2
+		);
+
+		add_filter(
+			'connector_for_dk_import_customer_include_properties',
+			array( __CLASS__, 'add_discount_info_to_include_properties' ),
+			10,
+			1
+		);
+	}
+
+	/**
+	 * Add the required properties to the included customer properties
+	 *
+	 * This adds `Discount` and `PriceGroup` as the properties that are fetched
+	 * when customer data is synced.
+	 *
+	 * This hooks into the `connector_for_dk_import_customer_include_properties`
+	 * filter.
+	 *
+	 * @param array $properties The properties before filtering.
+	 */
+	public static function add_discount_info_to_include_properties(
+		array $properties
+	): array {
+		$additional_keys = array( 'Discount', 'PriceGroup' );
+
+		return array_merge( $properties, $additional_keys );
+	}
+
+	/**
+	 * Fetch and save the a user's discount and price group based on DK data
+	 *
+	 * This hooks into `connector_for_dk_after_update_meta_data` during customer
+	 * sync.
+	 *
+	 * @param WC_Customer $wc_customer The WooCommerce customer.
+	 * @param stdClass    $dk_customer An object representing the customer record in DK.
+	 */
+	public static function import_user_discount_and_price_group(
+		WC_Customer $wc_customer,
+		stdClass $dk_customer
+	): void {
+		$wc_customer->update_meta_data(
+			'connector_for_dk_discount',
+			strval( $dk_customer->Discount )
+		);
+
+		$wc_customer->update_meta_data(
+			'connector_for_dk_price_group',
+			strval( $dk_customer->PriceGroup )
+		);
+
+		$wc_customer->save_meta_data();
 	}
 
 	/**
@@ -96,7 +156,7 @@ class CustomerDiscounts {
 	 */
 	public static function render_in_admin(): void {
 		$view_path = '/views/admin_sections/customers_discounts.php';
-		require dirname( __DIR__, 1 ) . $view_path;
+		require dirname( __DIR__ ) . $view_path;
 	}
 
 	/**

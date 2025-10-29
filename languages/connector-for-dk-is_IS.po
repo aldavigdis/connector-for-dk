@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-10-27 12:54+0000\n"
+"PO-Revision-Date: 2025-10-29 02:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -60,7 +60,7 @@ msgid ""
 msgstr ""
 
 #. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:486
+#: src/KennitalaField.php:489
 #, php-format
 #| msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
@@ -239,6 +239,23 @@ msgstr "Innheimtuþjónusta banka (IB)"
 msgid "Bank Transfer (BM)"
 msgstr "Bankamillifærsla (BM)"
 
+#: views/admin_sections/blocked_customers.php:42
+msgid "Block customers in WooCommerce, if they are labelled as blocked in DK"
+msgstr ""
+"Loka fyrir viðskiptavini í WooCommerce ef þeir eru merktir sem lokaðir í DK"
+
+#: views/admin_sections/blocked_customers.php:16
+msgid "Blocked Customers"
+msgstr "Lokað fyrir viðskipti"
+
+#: views/admin_sections/blocked_customers.php:50
+msgid ""
+"Blocking customers is based on matching their Kennitala between WooCommerce "
+"and DK."
+msgstr ""
+"Lokun á viðskiptum byggir á því að stemma á milli skráðra kennitalna í "
+"WooCommerce og DK."
+
 #: src/Import/SalesPayments.php:167
 msgid "C Giro Request (CG)"
 msgstr "C gíróseðlar (CG)"
@@ -271,7 +288,7 @@ msgid ""
 msgstr ""
 "Tengill fyrir DK styður eingöngu verslanir sem staðsettar eru á Íslandi."
 
-#: views/admin_sections/invoices.php:181
+#: views/admin_sections/invoices.php:206
 msgid "Cost SKU"
 msgstr "Vörunúmer vegna kostnaðar"
 
@@ -346,7 +363,7 @@ msgstr "Sjálfgefin kennitala viðskiptavina"
 msgid "Default Customer Number for International Customers"
 msgstr "Sjálfgefið númer fyrir erlenda skuldunauta"
 
-#: views/admin_sections/invoices.php:201
+#: views/admin_sections/invoices.php:148
 msgid "Default Sales Person Number"
 msgstr "Númer sjálfgefins sölumanns"
 
@@ -380,6 +397,14 @@ msgstr "Sýna lýsingu eiginleika vöruafbrigða úr DK"
 msgid "DK could not create an invoice due to an error."
 msgstr "DK gat ekki búið til reikning vegna villu."
 
+#: views/admin_sections/blocked_customers.php:21
+msgid ""
+"DK facilitates blocking customer accounts. You can enable this feature in "
+"your WooCommerce store below."
+msgstr ""
+"Í DK er hægt að loka fyrir viðskipti við ákveðna viðskiptavini. Það er hægt "
+"að opna fyrir þetta í WooCommerce-versluninni þinni hér fyrir neðan."
+
 #: src/Admin.php:240 src/Admin.php:249 src/Admin.php:277
 msgid "DK Invoice"
 msgstr "Reikningur í DK"
@@ -407,7 +432,7 @@ msgstr ""
 msgid "DK Sync"
 msgstr "Samstilling við DK"
 
-#: views/admin_sections/invoices.php:150
+#: views/admin_sections/invoices.php:175
 msgid ""
 "DK treats shipping and other costs as line items on invoices. In order for "
 "invoicing to work, you need to assign a product in DK to each of the "
@@ -687,11 +712,11 @@ msgstr ""
 msgid "International Customers"
 msgstr "Erlendir viðskiptavinir"
 
-#: src/KennitalaField.php:541
+#: src/KennitalaField.php:544
 msgid "Invalid kennitala nonce"
 msgstr "Ógildur prufustrengur fyrir kennitölu"
 
-#: src/KennitalaField.php:752
+#: src/KennitalaField.php:755
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru 10 tölustafir að lengd."
 
@@ -721,7 +746,7 @@ msgstr "Númer reiknings skráð sem %1$s."
 msgid "Invoice number was not assigned."
 msgstr "Reikningsnúmer var ekki skráð."
 
-#: src/KennitalaField.php:271
+#: src/KennitalaField.php:274
 msgid "Invoice with Kennitala Requested"
 msgstr "Beðið um reikning með kennitölu"
 
@@ -768,12 +793,12 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
 "PDF-viðhengi"
 
-#: src/KennitalaField.php:264 src/KennitalaField.php:322
-#: src/KennitalaField.php:472 src/KennitalaField.php:663
+#: src/KennitalaField.php:267 src/KennitalaField.php:325
+#: src/KennitalaField.php:475 src/KennitalaField.php:666
 msgid "Kennitala"
 msgstr "Kennitala"
 
-#: src/KennitalaField.php:667
+#: src/KennitalaField.php:670
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (valfrjálst)"
 
@@ -781,7 +806,7 @@ msgstr "Kennitala (valfrjálst)"
 msgid "Kennitala Field"
 msgstr "Reitur fyrir kennitölu"
 
-#: src/KennitalaField.php:569
+#: src/KennitalaField.php:572
 msgid "Kennitala is a required field"
 msgstr "Kennitölu þarf að fylla út"
 
@@ -804,6 +829,11 @@ msgstr "Gera kennitölureit að skyldu"
 #: views/dk_product_variations.php:376
 msgid "Menu Order"
 msgstr "Röð í valmynd"
+
+#: views/admin_sections/blocked_customers.php:66
+#| msgid "Message for Blocked Users"
+msgid "Message for Blocked Customers"
+msgstr "Skilaboð fyrir viðskiptavini sem er lokað fyrir"
 
 #: views/admin_sections/gateways.php:22
 msgid "Method ID in DK"
@@ -947,7 +977,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/CustomerDiscounts.php:302
+#: src/CustomerDiscounts.php:342
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -959,11 +989,11 @@ msgstr "Fjarlægja mynd"
 msgid "Replace Image"
 msgstr "Skipta út mynd"
 
-#: src/KennitalaField.php:505 src/KennitalaField.php:687
+#: src/KennitalaField.php:508 src/KennitalaField.php:690
 msgid "Request an Invoice with Kennitala"
 msgstr "Biðja um reikning með kennitölu"
 
-#: src/KennitalaField.php:691
+#: src/KennitalaField.php:694
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
@@ -989,7 +1019,7 @@ msgstr "Senda tölvupóst til Öldu"
 msgid "Send Invoices Automatically via Email"
 msgstr "Senda reikninga sjálfkrafa í tölvupósti"
 
-#: views/admin_sections/invoices.php:147
+#: views/admin_sections/invoices.php:172
 msgid "Service SKUs"
 msgstr "Vörunúmer fyrir þjónustu"
 
@@ -1017,7 +1047,7 @@ msgstr "Stillingar"
 msgid "Shipping"
 msgstr "Sendingar"
 
-#: views/admin_sections/invoices.php:161
+#: views/admin_sections/invoices.php:186
 msgid "Shipping SKU"
 msgstr "Vörunúmer fyrir sendingar"
 
@@ -1178,6 +1208,17 @@ msgstr ""
 "Bókunarflokkurinn er notaður fyrir erlenda viðskiptavini þegar þeir eru "
 "búnir til í DK."
 
+#: views/admin_sections/blocked_customers.php:73
+#, fuzzy
+#| msgid ""
+#| "This message is displayed when a blocked user attempts to check out an "
+#| "order."
+msgid ""
+"This message is displayed when a blocked customer attempts to check out an "
+"order."
+msgstr ""
+"Þessi skilaboð eru sýnd þegar lokaður viðskiptavinur reynir að klára pöntun."
+
 #: src/Admin.php:170
 msgid ""
 "This plugin is developed, maintained and supported on goodwill basis, "
@@ -1276,6 +1317,14 @@ msgstr "Skoða Github-síðuna fyrir viðbótina"
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr "Skoða umsagnir fyrir þessa viðbót á WordPress.org"
 
+#: src/Config.php:1026
+msgid ""
+"We are unable to check out your order. Please contact us for more "
+"information."
+msgstr ""
+"Við gátum ekki klárað að afgreiða pöntunina þína. Hafðu samband við okkur "
+"fyrir frekari upplýsingar."
+
 #: views/admin_sections/invoices.php:46
 msgid ""
 "When a customer requests to have a kennitala assigned to an invoice, a "
@@ -1321,6 +1370,6 @@ msgstr ""
 msgid "Your Invoice From %1$s"
 msgstr "Reikningurinn þinn frá %1$s"
 
-#: src/CustomerDiscounts.php:306
+#: src/CustomerDiscounts.php:346
 msgid "Your Price:"
 msgstr "Þitt verð:"

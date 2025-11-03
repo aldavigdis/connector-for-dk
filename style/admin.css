@@ -1,4 +1,4 @@
-body.toplevel_page_connector-for-dk .wrap, body.connector-for-dk_page_about-connector-for-dk .wrap {
+.wrap#connector-for-dk-wrap {
 	width: calc(100%);
 	max-width: 60rem;
 	min-height: 100%;
@@ -551,6 +551,119 @@ table.woocommerce_order_items .group_price {
 	display: none;
 }
 
+#connector-for-dk-activation-form textarea {
+	width: 100%;
+	padding: 1em;
+	font-family: monospace;
+	font-size: 1em;
+}
+
+#connector-for-dk-activation-form .submit-container {
+	width: 100%;
+	margin: 0.5em 0;
+}
+
+#connector-for-dk-activation-form .price-comparison-table-container {
+	overflow: scroll;
+}
+
+.price-comparison-table { border-spacing: 0; border: 1px solid #CCC; border-radius: 5px; min-width: 600px; }
+.price-comparison-table thead th { padding-top: 1em; }
+.price-comparison-table tbody tr * { padding-bottom: 0.5em; }
+.price-comparison-table tbody th { text-align: left; max-width: 40em; padding-right: 2em; padding-left: 2em; }
+.price-comparison-table tbody td { text-align: center; vertical-align: middle; padding: 0.5em 1em; }
+.price-comparison-table tbody tr:last-child th { padding-bottom: 1em; }
+.price-comparison-table tbody tr:last-child td { padding-bottom: 1em; }
+.price-comparison-table tbody th span { font-weight: normal; }
+
+.price-comparison-table .free, .price-comparison-table .pro { background-color: #f0f0f0; }
+
+.price-comparison-table tbody .pill {
+	display: inline-block;
+	padding: 0.33em 0.5em;
+	border-radius: 3px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.price-comparison-table tbody .pill-yes {
+	background-color: #090;
+	border: 1px solid #060;
+}
+
+.price-comparison-table tbody .pill-no {
+	background-color: #a00;
+	border: 1px solid #600;
+}
+
+.price-comparison-table tbody .pill-tba {
+	background-color: rgb(245, 154, 36);
+	border: 1px solid rgb(245, 100, 20);
+}
+
+.editions-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.editions-container .edition-section {
+	align-self: auto;
+	margin-right: 2em;
+	width: calc( 33% - 2em );
+}
+
+.license-info-table th {
+	padding: 0.2em 10px 0.2em 0;
+	vertical-align: middle;
+}
+
+.license-info-table td {
+	padding: 0.2em 0;
+	vertical-align: middle;
+}
+
+.license-info-table .pill, .wp-submenu .expired {
+	display: inline-block;
+	padding: 0.33em 0.5em;
+	border-radius: 3px;
+	border: 1px solid transparent;
+}
+
+.license-info-table .valid {
+	color: #fff;
+	font-weight: bold;
+	background-color: #090;
+	border: 1px solid #060;
+}
+
+.license-info-table .error, .wp-submenu .expired {
+	color: #fff;
+	font-weight: bold;
+	background-color: #a00;
+	border: 1px solid #600;
+}
+
+.license-info-table .warn {
+	color: #fff;
+	font-weight: bold;
+	background-color: rgb(245, 154, 36);
+	border: 1px solid rgb(245, 100, 20);
+}
+
+#connector_for_dk_license_id_row .pill {
+	font-family: monospace;
+}
+
+#connector-for-dk-activation-form .validation-error {
+	margin-right: 2em;
+}
+
+a.activate-license.expired {
+	color: #600;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 @media screen and (max-width: 1400px) {
 	#dk_variations_tab .dk-variations .dk-variation .dk-variation-checkboxes {
 		flex-direction: column;
@@ -619,6 +732,15 @@ table.woocommerce_order_items .group_price {
 	}
 
 	.dk-ledger-codes-table td, .dk-ledger-codes-table th[scope=col] {
+		width: auto;
+	}
+
+	.editions-container {
+		flex-direction: column;
+	}
+
+	.editions-container .edition-section {
+		margin-right: 0;
 		width: auto;
 	}
 }

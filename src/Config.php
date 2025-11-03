@@ -1036,4 +1036,23 @@ class Config {
 			)
 		);
 	}
+
+	/**
+	 * Get the current license key
+	 */
+	public static function get_encrypted_license_key(): string {
+		return (string) self::get_option( 'encrypted_license_key', '' );
+	}
+
+	/**
+	 * Set the current encrypted license key
+	 *
+	 * Any attribute related to the license key is based on this value and
+	 * requires decoding on the fly.
+	 *
+	 * @param string $value The new encrypted license key.
+	 */
+	public static function set_encrypted_license_key( string $value ): bool {
+		return self::update_option( 'encrypted_license_key', $value );
+	}
 }

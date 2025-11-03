@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-10-29 02:10+0000\n"
+"PO-Revision-Date: 2025-11-04 11:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -50,6 +50,13 @@ msgstr ""
 "%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
 "inn og reyndu aftur."
 
+#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:65
+#, php-format
+msgid "%1$sError:%2$s The code you entered could not be validated."
+msgstr ""
+"%1$sVilla:%2$s Ekki var hægt að fullgilda leyfiskóðann sem þú slóst inn."
+
 #. Translators: %1$s an %2$s stand for opening and closing <strong> tags.
 #: views/dk_invoice_metabox.php:177
 #, php-format
@@ -58,6 +65,9 @@ msgid ""
 "version of Connector for DK. You can manually create an invoice in DK and "
 "reference it here."
 msgstr ""
+"%1$sAthugið:%2$s Reikningagerð fyrir erlendar pantanir er ekki til fyrir "
+"þessa útgáfu af Tengli fyrir DK. Þú getur gert reikning handvirkt og vísað í "
+"hann hér."
 
 #. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
 #: src/KennitalaField.php:489
@@ -115,13 +125,30 @@ msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
 
-#: src/Admin.php:457
+#: src/Activation.php:98 src/Admin.php:457
 msgid "About"
 msgstr "Upplýsingar"
 
-#: src/Admin.php:456 views/about.php:12
+#: src/Activation.php:97 src/Admin.php:456 views/about.php:12
 msgid "About Connector for DK"
 msgstr "Upplýsingar um Tengil fyrir DK"
+
+#: src/Activation.php:65 src/Activation.php:69 src/Activation.php:107
+#: views/activation.php:75
+msgid "Activate"
+msgstr "Virkja"
+
+#: views/activation.php:37
+msgid "Activate Connector for DK"
+msgstr "Virkja Tengil fyrir DK"
+
+#: src/Activation.php:155
+msgid "Activate License"
+msgstr "Virkja leyfi"
+
+#: views/activation.php:40 views/activation.php:52
+msgid "Activation Code"
+msgstr "Leyfiskóði"
 
 #: views/admin_sections/gateways.php:120
 msgid "Add payment line to invoices"
@@ -158,6 +185,9 @@ msgid ""
 "order does not have a SKU or there is another issue preventing it from being "
 "created."
 msgstr ""
+"Ekki var hægt að búa til reikning í DK fyrir þessa pöntun því vara er ekki "
+"með SKU eða það er annað vandamál sem veldur því að ekki var hægt að búa "
+"hana til."
 
 #: src/OrderStatus.php:105
 msgid ""
@@ -276,17 +306,29 @@ msgstr "Tékkagreiðsla (TGR)"
 msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
+#: src/License.php:100
+msgid "Connector Basic for DK"
+msgstr "Tengill Basic fyrir DK"
+
 #. Plugin Name of the plugin
-#: connector-for-dk.php src/Admin.php:437 src/Admin.php:438 views/about.php:17
-#: views/admin.php:35
+#: connector-for-dk.php src/Activation.php:87 src/Activation.php:88
+#: src/Admin.php:437 src/Admin.php:438 views/about.php:17 views/admin.php:35
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
+
+#: views/activation.php:94
+msgid "Connector For DK Edition"
+msgstr "Útgáfa af Tengli fyrir DK"
 
 #: views/admin_with_errors.php:52
 msgid ""
 "Connector for DK only supports stores with the base location set to Iceland."
 msgstr ""
 "Tengill fyrir DK styður eingöngu verslanir sem staðsettar eru á Íslandi."
+
+#: src/License.php:102
+msgid "Connector Pro for DK"
+msgstr "Tengill Pro fyrir DK"
 
 #: views/admin_sections/invoices.php:206
 msgid "Cost SKU"
@@ -461,6 +503,20 @@ msgstr "API-lykill fyrir dkPlus"
 #: views/dk_product_variations.php:284
 msgid "Do not allow backorders"
 msgstr "Ekki leyfa neikvæða lagerstöðu"
+
+#: views/activation.php:142
+msgid "Domain"
+msgstr "Lén"
+
+#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:181
+#, php-format
+msgid ""
+"Don't have a Connector Basic or Pro license? — You can buy and renew "
+"licenses at %1$stengillpro.is%2$s."
+msgstr ""
+"Ertu ekki með Tengil Basic eða Pro? — Þú getur keypt og endurnýjað leyfi á "
+"%1$stengillpro.is%2$s."
 
 #: views/dk_product_variations.php:355
 msgid "Downloadable"
@@ -818,6 +874,18 @@ msgstr "Bókunarflokkur fyrir innlenda viðskiptavini"
 msgid "Ledger Code for International Customers"
 msgstr "Bókunarflokkur fyrir erlenda viðskiptavini"
 
+#: views/activation.php:130
+msgid "License Expires At"
+msgstr "Leyfi rennur út þann:"
+
+#: views/activation.php:106
+msgid "License ID"
+msgstr "Raðnúmer leyfis"
+
+#: views/activation.php:118
+msgid "License Valid From"
+msgstr "Leyfi gildir frá"
+
 #: src/OrderMeta.php:88
 msgid "List Price"
 msgstr "Listaverð"
@@ -977,7 +1045,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/CustomerDiscounts.php:342
+#: src/CustomerDiscounts.php:362
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -1209,7 +1277,6 @@ msgstr ""
 "búnir til í DK."
 
 #: views/admin_sections/blocked_customers.php:73
-#, fuzzy
 #| msgid ""
 #| "This message is displayed when a blocked user attempts to check out an "
 #| "order."
@@ -1217,7 +1284,8 @@ msgid ""
 "This message is displayed when a blocked customer attempts to check out an "
 "order."
 msgstr ""
-"Þessi skilaboð eru sýnd þegar lokaður viðskiptavinur reynir að klára pöntun."
+"Þessi skilaboð eru sýnd þegar viðskiptavinur sem er lokað fyrir reynir að "
+"klára pöntun."
 
 #: src/Admin.php:170
 msgid ""
@@ -1237,6 +1305,20 @@ msgstr ""
 "með því að viðbótin sé prófuð í lokuðu prufuumhverfi áður en hún fer í fulla "
 "notkun."
 
+#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:163
+#, php-format
+msgid ""
+"This WordPress installation was identified as running in a %1$sdevelopment, "
+"testing or staging environment%2$s, so you can use a valid license assigned "
+"to any domain. Just remember that domain restrictions apply in production "
+"environments."
+msgstr ""
+"Þessi WordPress-uppsetning virðist vera %1$sþróunar-, prufu eða "
+"raunprófunarumhverfi (e. staging)%2$s, þannig að þú getur notað gilt leyfi "
+"sem er skráð á hvaða lén sem er. Hafðu það samt í huga að hvert leyfi er "
+"takmarkað við ákveðið lén í raunumhverfi (e. production)"
+
 #: views/dk_invoice_metabox.php:95
 msgid "Unable to create invoice in DK."
 msgstr "Gat ekki gert reikning í DK."
@@ -1245,6 +1327,10 @@ msgstr "Gat ekki gert reikning í DK."
 #| msgid "Unable to create an invoice in DK: "
 msgid "Unable to create invoice in DK: "
 msgstr "Gat ekki gert reikning í DK:"
+
+#: src/License.php:104
+msgid "Unknown/Other"
+msgstr "Óþekkt/Annað"
 
 #: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:153
 msgid "Update"
@@ -1317,7 +1403,7 @@ msgstr "Skoða Github-síðuna fyrir viðbótina"
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr "Skoða umsagnir fyrir þessa viðbót á WordPress.org"
 
-#: src/Config.php:1026
+#: src/Config.php:1032
 msgid ""
 "We are unable to check out your order. Please contact us for more "
 "information."
@@ -1334,6 +1420,16 @@ msgstr ""
 "Þegar viðskiptavinur biður um að skrá kennitölu á reikning er nýr "
 "skuldunautur stofnaður í DK ef hann er ekki þegar til, með þeim "
 "reikningsupplýsingum sem koma með pöntuninni."
+
+#: views/activation.php:44
+msgid ""
+"When you purchased your Connector Pro License, you received an activation "
+"code, which is a 320-character sequence of letters, numbers and symbols. "
+"Paste it into the field below to activate your license."
+msgstr ""
+"Þegar þú keyptir notkunarleyfi fyrir Tengil Pro, þá fékkstu leyfiskóða, sem "
+"er 320 stafa runa af stöfum, tölum og táknum. Límdu hann í reitinn hér fyrir "
+"neðan til að virkja leyfið."
 
 #: views/admin_sections/products.php:148
 msgid ""
@@ -1370,6 +1466,10 @@ msgstr ""
 msgid "Your Invoice From %1$s"
 msgstr "Reikningurinn þinn frá %1$s"
 
-#: src/CustomerDiscounts.php:346
+#: views/activation.php:83
+msgid "Your License"
+msgstr "Þitt leyfi"
+
+#: src/CustomerDiscounts.php:366
 msgid "Your Price:"
 msgstr "Þitt verð:"

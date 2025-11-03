@@ -126,7 +126,7 @@ class ConnectorForDK {
 
 		if ( response.ok ) {
 			ConnectorForDK.settingsSubmit().disabled = false;
-			window.scrollTo( 0, 0 );
+			window.location.reload();
 		} else {
 			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
 		}

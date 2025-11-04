@@ -23,23 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define( 'CONNECTOR_FOR_DK_EDITION', 'connector_for_dk_pro' );
+
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-new Admin();
-new BlockedCustomers();
-new CustomerDiscounts();
-new ProductAttributeFilters();
-new I18n();
-new InternationalCustomers();
-new OrderMeta();
-new KennitalaField();
-new Metaboxes();
-new OrderStatus();
-new Cron\Schedule();
-new Rest\Settings();
-new Rest\OrderDKInvoice();
-new Rest\OrderInvoiceNumber();
-new Rest\OrderInvoicePdf();
+new Loader();
 
 register_activation_hook(
 	__FILE__,

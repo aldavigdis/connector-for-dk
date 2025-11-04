@@ -9,13 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-29T02:03:02+00:00\n"
+"POT-Creation-Date: 2025-11-04T10:55:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: connector-for-dk\n"
 
 #. Plugin Name of the plugin
 #: connector-for-dk.php
+#: src/Activation.php:87
+#: src/Activation.php:88
 #: src/Admin.php:437
 #: src/Admin.php:438
 #: views/about.php:17
@@ -43,6 +45,28 @@ msgstr ""
 msgid "https://aldavigdis.is"
 msgstr ""
 
+#: src/Activation.php:65
+#: src/Activation.php:69
+#: src/Activation.php:107
+#: views/activation.php:75
+msgid "Activate"
+msgstr ""
+
+#: src/Activation.php:97
+#: src/Admin.php:456
+#: views/about.php:12
+msgid "About Connector for DK"
+msgstr ""
+
+#: src/Activation.php:98
+#: src/Admin.php:457
+msgid "About"
+msgstr ""
+
+#: src/Activation.php:155
+msgid "Activate License"
+msgstr ""
+
 #: src/Admin.php:170
 msgid "This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use."
 msgstr ""
@@ -64,15 +88,6 @@ msgstr ""
 #: src/Admin.php:447
 #: src/Admin.php:448
 msgid "Settings"
-msgstr ""
-
-#: src/Admin.php:456
-#: views/about.php:12
-msgid "About Connector for DK"
-msgstr ""
-
-#: src/Admin.php:457
-msgid "About"
 msgstr ""
 
 #. Translators: The %s stands for the relevant SKU.
@@ -129,7 +144,7 @@ msgstr ""
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
-#: src/Config.php:1026
+#: src/Config.php:1032
 msgid "We are unable to check out your order. Please contact us for more information."
 msgstr ""
 
@@ -145,11 +160,11 @@ msgstr ""
 msgid "The currency rate for ‘%s’ has not been set."
 msgstr ""
 
-#: src/CustomerDiscounts.php:342
+#: src/CustomerDiscounts.php:362
 msgid "Regular Price:"
 msgstr ""
 
-#: src/CustomerDiscounts.php:346
+#: src/CustomerDiscounts.php:366
 msgid "Your Price:"
 msgstr ""
 
@@ -268,6 +283,18 @@ msgstr ""
 
 #: src/KennitalaField.php:755
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
+msgstr ""
+
+#: src/License.php:100
+msgid "Connector Basic for DK"
+msgstr ""
+
+#: src/License.php:102
+msgid "Connector Pro for DK"
+msgstr ""
+
+#: src/License.php:104
+msgid "Unknown/Other"
 msgstr ""
 
 #: src/Metaboxes.php:94
@@ -396,6 +423,61 @@ msgstr ""
 
 #: views/about.php:49
 msgid "Send Alda an email"
+msgstr ""
+
+#: views/activation.php:37
+msgid "Activate Connector for DK"
+msgstr ""
+
+#: views/activation.php:40
+#: views/activation.php:52
+msgid "Activation Code"
+msgstr ""
+
+#: views/activation.php:44
+msgid "When you purchased your Connector Pro License, you received an activation code, which is a 320-character sequence of letters, numbers and symbols. Paste it into the field below to activate your license."
+msgstr ""
+
+#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:65
+#, php-format
+msgid "%1$sError:%2$s The code you entered could not be validated."
+msgstr ""
+
+#: views/activation.php:83
+msgid "Your License"
+msgstr ""
+
+#: views/activation.php:94
+msgid "Connector For DK Edition"
+msgstr ""
+
+#: views/activation.php:106
+msgid "License ID"
+msgstr ""
+
+#: views/activation.php:118
+msgid "License Valid From"
+msgstr ""
+
+#: views/activation.php:130
+msgid "License Expires At"
+msgstr ""
+
+#: views/activation.php:142
+msgid "Domain"
+msgstr ""
+
+#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:163
+#, php-format
+msgid "This WordPress installation was identified as running in a %1$sdevelopment, testing or staging environment%2$s, so you can use a valid license assigned to any domain. Just remember that domain restrictions apply in production environments."
+msgstr ""
+
+#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:181
+#, php-format
+msgid "Don't have a Connector Basic or Pro license? — You can buy and renew licenses at %1$stengillpro.is%2$s."
 msgstr ""
 
 #: views/admin_sections/authentication.php:14

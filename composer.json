@@ -52,7 +52,8 @@
     "require": {
         "opis/json-schema": "^2.0@dev",
         "typisttech/imposter-plugin": "^0.6.0@dev",
-        "brick/math": "^0.12"
+        "brick/math": "^0.12",
+        "tuupola/base85": "^2.1"
     },
     "extra": {
         "imposter": {

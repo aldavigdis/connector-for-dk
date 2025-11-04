@@ -40,7 +40,7 @@ interface PostEndpointTemplate {
 	public static function permission_check(): bool;
 
 	/**
-	 * Validate the WP REST API request
+	 * Validate the WP REST API request body
 	 *
 	 * @param WP_REST_Request $request The WP REST request object to validate.
 	 *

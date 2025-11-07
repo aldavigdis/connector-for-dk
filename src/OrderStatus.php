@@ -7,6 +7,7 @@ namespace AldaVigdis\ConnectorForDK;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
 use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
+use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WP_Error;
@@ -54,8 +55,15 @@ class OrderStatus {
 	public static function maybe_send_invoice_on_payment(
 		int $order_id
 	): void {
-		$wc_order  = new WC_Order( $order_id );
-		$kennitala = OrderHelper::get_kennitala( $wc_order );
+		$wc_order     = new WC_Order( $order_id );
+		$kennitala    = OrderHelper::get_kennitala( $wc_order );
+		$dk_customer  = ImportCustomers::get_from_dk( $kennitala );
+		$tax_location = $wc_order->get_taxable_location();
+
+		$default_kennitala = array(
+			Config::get_default_kennitala(),
+			Config::get_default_international_kennitala(),
+		);
 
 		if ( ! empty( ExportInvoice::get_dk_invoice_number( $wc_order ) ) ) {
 			return;
@@ -78,7 +86,7 @@ class OrderStatus {
 		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice was not created as the customer entered a kennitala.',
+					'An invoice was not autmatically generated as the customer entered a kennitala.',
 					'connector-for-dk'
 				)
 			);
@@ -87,12 +95,37 @@ class OrderStatus {
 		}
 
 		if (
+			is_object( $dk_customer ) &&
+			! in_array( $dk_customer->Number, $default_kennitala, true )
+		) {
+			if ( $dk_customer->Blocked ) {
+				$wc_order->add_order_note(
+					__(
+						"An invoice could not be automatically generated as the customer's account is blocked in DK.",
+						'connector-for-dk'
+					)
+				);
+
+				return;
+			}
+
+			if ( $dk_customer->CountryCode !== $tax_location['country'] ) {
+				__(
+					"An invoice could not be automatically generated as the country indicated in the order's address does not match with the relevant DK customer record.",
+					'connector-for-dk'
+				);
+
+				return;
+			}
+		}
+
+		if (
 			( OrderHelper::kennitala_is_default( $wc_order ) ) &&
 			( ! Config::get_make_invoice_if_kennitala_is_missing() )
 		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice was not created as the customer did not enter a kennitala.',
+					'An invoice was not automatically generated as the customer did not enter a kennitala.',
 					'connector-for-dk'
 				)
 			);
@@ -103,7 +136,7 @@ class OrderStatus {
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be created in DK for this order as a line item in this order does not have a SKU.',
+					'An invoice could not be automatically generated as a line item in this order does not have a SKU.',
 					'connector-for-dk'
 				)
 			);

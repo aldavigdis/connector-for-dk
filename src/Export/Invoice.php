@@ -40,6 +40,8 @@ class Invoice {
 		WC_Order $wc_order,
 		bool $force = false
 	): string|false|WP_Error {
+		$kennitala = OrderHelper::get_kennitala( $wc_order );
+
 		if ( ! $force ) {
 			$invoice_number = self::get_dk_invoice_number( $wc_order );
 
@@ -47,8 +49,6 @@ class Invoice {
 				return false;
 			}
 		}
-
-		$kennitala = OrderHelper::get_kennitala( $wc_order );
 
 		if (
 			! OrderHelper::kennitala_is_default( $wc_order ) &&

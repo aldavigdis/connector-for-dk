@@ -7,9 +7,10 @@ namespace AldaVigdis\ConnectorForDK\Rest;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
+use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 
 /**
@@ -58,7 +59,16 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response|WP_Error {
-		$wc_order = wc_get_order( $request['order_id'] );
+		$wc_order      = wc_get_order( $request['order_id'] );
+		$kennitala     = OrderHelper::get_kennitala( $wc_order );
+		$dk_customer   = ImportCustomers::get_from_dk( $kennitala );
+		$tax_location  = $wc_order->get_taxable_location();
+		$base_location = wc_get_base_location();
+
+		$default_kennitala = array(
+			Config::get_default_kennitala(),
+			Config::get_default_international_kennitala(),
+		);
 
 		if (
 			OrderHelper::is_international( $wc_order ) &&
@@ -83,6 +93,33 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			);
 
 			return new WP_REST_Response( status: 400 );
+		}
+
+		if (
+			is_object( $dk_customer ) &&
+			! in_array( OrderHelper::get_kennitala(), $default_kennitala, true )
+		) {
+			if ( $dk_customer->Blocked ) {
+				$wc_order->add_order_note(
+					__(
+						'An invoice could not be created in for this order as the DK customer record is labelled as blocked.',
+						'connector-for-dk'
+					)
+				);
+
+				return new WP_REST_Response( status: 400 );
+			}
+
+			if ( $dk_customer->CountryCode !== $tax_location['country'] && $tax_location['country'] !== $base_location['country'] ) {
+				$wc_order->add_order_note(
+					__(
+						"An invoice could not be created in for this order as the country indicated in the order's address does not match with the relevant DK customer record.",
+						'connector-for-dk'
+					)
+				);
+
+				return new WP_REST_Response( status: 400 );
+			}
 		}
 
 		$invoice_number = ExportInvoice::create_in_dk(

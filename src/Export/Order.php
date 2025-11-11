@@ -185,16 +185,30 @@ class Order {
 				$tax_multiplier
 			)->toFloat();
 
-			$discount_with_vat = BigDecimal::of(
-				$group_price_with_vat
+			$discount = apply_filters(
+				'connector_for_dk_line_item_discount',
+				BigDecimal::of(
+					$item->get_subtotal()
+				)->minus(
+					$item->get_total()
+				)->multipliedBy(
+					$tax_multiplier
+				)->toFloat(),
+				$item
+			);
+
+			$customer_discount = BigDecimal::of(
+				$item->get_subtotal()
+			)->plus(
+				$item->get_subtotal_tax()
 			)->minus(
-				$wc_order->get_item_subtotal( $item, true )
-			)->toFloat();
+				$group_price_with_vat
+			)->negated()->toFloat();
 
 			$total_discount = BigDecimal::of(
-				$discount_with_vat
-			)->multipliedBy(
-				$item->get_quantity()
+				$customer_discount
+			)->plus(
+				$discount
 			)->toFloat();
 
 			$order_line_item = array(
@@ -268,13 +282,13 @@ class Order {
 		}
 
 		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
-			$shipping_total = BigDecimal::of(
-				$shipping_method->get_total()
-			)->plus(
-				$shipping_method->get_total_tax()
-			)->toFloat();
+			if ( $shipping_method->get_total() !== 0.0 ) {
+				$shipping_total = BigDecimal::of(
+					$shipping_method->get_total()
+				)->plus(
+					$shipping_method->get_total_tax()
+				)->toFloat();
 
-			if ( $shipping_total !== 0.0 ) {
 				$order_props['Lines'][] = apply_filters(
 					'connector_for_dk_export_order_shipping',
 					array(
@@ -282,7 +296,7 @@ class Order {
 						'Text'         => __( 'Shipping', 'connector-for-dk' ),
 						'Text2'        => $shipping_method->get_name(),
 						'Quantity'     => 1,
-						'Price'        => $shipping_total,
+						'Price'        => (float) $shipping_total,
 						'IncludingVAT' => true,
 					),
 					$shipping_method,

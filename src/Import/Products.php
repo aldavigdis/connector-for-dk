@@ -319,17 +319,32 @@ class Products {
 					$price->price
 				);
 				$wc_product->update_meta_data(
+					'connector_for_dk_price_1_before_tax',
+					$price->price_1_before_tax
+				);
+				$wc_product->update_meta_data(
 					'connector_for_dk_price_2',
 					$price->price_2
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_2_before_tax',
+					$price->price_2_before_tax
 				);
 				$wc_product->update_meta_data(
 					'connector_for_dk_price_3',
 					$price->price_3
 				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_3_before_tax',
+					$price->price_3_before_tax
+				);
 			} else {
 				$wc_product->delete_meta_data( 'connector_for_dk_price_1' );
+				$wc_product->delete_meta_data( 'connector_for_dk_price_1_before_tax' );
 				$wc_product->delete_meta_data( 'connector_for_dk_price_2' );
+				$wc_product->delete_meta_data( 'connector_for_dk_price_2_before_tax' );
 				$wc_product->delete_meta_data( 'connector_for_dk_price_3' );
+				$wc_product->delete_meta_data( 'connector_for_dk_price_3_before_tax' );
 			}
 
 			$wc_product->update_meta_data(
@@ -500,17 +515,32 @@ class Products {
 						$price->price
 					);
 					$wc_product->update_meta_data(
+						'connector_for_dk_price_1_before_tax',
+						$price->price_1_before_tax
+					);
+					$wc_product->update_meta_data(
 						'connector_for_dk_price_2',
 						$price->price_2
+					);
+					$wc_product->update_meta_data(
+						'connector_for_dk_price_2_before_tax',
+						$price->price_2_before_tax
 					);
 					$wc_product->update_meta_data(
 						'connector_for_dk_price_3',
 						$price->price_3
 					);
+					$wc_product->update_meta_data(
+						'connector_for_dk_price_3_before_tax',
+						$price->price_3_before_tax
+					);
 				} else {
 					$wc_product->delete_meta_data( 'connector_for_dk_price_1' );
+					$wc_product->delete_meta_data( 'connector_for_dk_price_1_before_tax' );
 					$wc_product->delete_meta_data( 'connector_for_dk_price_2' );
+					$wc_product->delete_meta_data( 'connector_for_dk_price_2_before_tax' );
 					$wc_product->delete_meta_data( 'connector_for_dk_price_3' );
+					$wc_product->delete_meta_data( 'connector_for_dk_price_3_before_tax' );
 				}
 
 				$wc_product->update_meta_data(
@@ -625,25 +655,6 @@ class Products {
 				$price_3_before_tax = 0;
 				$price_3_with_tax   = 0;
 			}
-		} else {
-			$price_before_tax = self::get_currency_price_from_json(
-				$json_object
-			);
-
-			if ( $price_before_tax instanceof WP_Error ) {
-				return false;
-			}
-
-			$price_with_tax = self::calculate_price_after_tax(
-				$price_before_tax,
-				$json_object->TaxPercent
-			);
-
-			$sale_price_before_tax = Currency::convert(
-				$json_object->PropositionPrice,
-				$dk_currency,
-				$store_currency
-			);
 		}
 
 		if ( wc_prices_include_tax() ) {
@@ -694,17 +705,21 @@ class Products {
 		}
 
 		$price_array = array(
-			'price'             => $price,
-			'sale_price'        => $sale_price,
-			'date_on_sale_from' => $date_on_sale_from,
-			'date_on_sale_to'   => $date_on_sale_to,
-			'currency'          => $dk_currency,
-			'tax_class'         => $tax_class,
+			'price'                 => $price,
+			'price_before_tax'      => $price_2_before_tax,
+			'sale_price'            => $sale_price,
+			'sale_price_before_tax' => $sale_price_before_tax,
+			'date_on_sale_from'     => $date_on_sale_from,
+			'date_on_sale_to'       => $date_on_sale_to,
+			'currency'              => $dk_currency,
+			'tax_class'             => $tax_class,
 		);
 
 		if ( isset( $price_2, $price_3 ) ) {
-			$price_array['price_2'] = $price_2;
-			$price_array['price_3'] = $price_3;
+			$price_array['price_2']            = $price_2;
+			$price_array['price_2_before_tax'] = $price_2_before_tax;
+			$price_array['price_3']            = $price_3;
+			$price_array['price_3_before_tax'] = $price_3_before_tax;
 		}
 
 		return (object) $price_array;

@@ -7,6 +7,7 @@ namespace AldaVigdis\ConnectorForDK;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
@@ -89,7 +90,12 @@ class OrderMeta {
 		}
 
 		echo '<th class="group_price sortable" data-sort="float">';
-		echo esc_html( $price_group_label );
+		echo esc_html(
+			apply_filters(
+				'connector_for_dk_order_meta_group_price_label',
+				$price_group_label
+			)
+		);
 		echo '</th>';
 	}
 
@@ -119,7 +125,11 @@ class OrderMeta {
 			return;
 		}
 
-		$group_price_meta = $item->get_meta( 'connector_for_dk_group_price' );
+		$group_price_meta = apply_filters(
+			'connector_for_dk_group_price_meta_display_value',
+			(float) $item->get_meta( 'connector_for_dk_group_price' ),
+			$item
+		);
 
 		echo '<td class="group_price" width="1%">';
 		echo esc_html(
@@ -182,12 +192,10 @@ class OrderMeta {
 				RoundingMode::HALF_UP
 			)->toFloat();
 
-			if ( wc_prices_include_tax() ) {
-				$decimals = (int) get_option(
-					'woocommerce_price_num_decimals',
-					'0'
-				);
-
+			if (
+				wc_prices_include_tax() &&
+				OrderHelper::is_domestic( $order )
+			) {
 				$group_price_after_vat = BigDecimal::of(
 					$group_price
 				)->dividedBy(
@@ -198,11 +206,7 @@ class OrderMeta {
 
 				$item->update_meta_data(
 					'connector_for_dk_group_price',
-					(string) round(
-						$group_price_after_vat,
-						$decimals,
-						PHP_ROUND_HALF_UP
-					)
+					$group_price_after_vat
 				);
 			} else {
 				$item->update_meta_data(

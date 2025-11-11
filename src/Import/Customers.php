@@ -18,19 +18,33 @@ use stdClass;
 class Customers {
 	const API_PATH = '/Customer/';
 
-	const INCLUDE_PROPERTIES = array( 'Number' );
+	const TRANSIENT_EXPIRY = 900;
+
+	const INCLUDE_PROPERTIES = array( 'Number', 'CountryCode' );
 
 	/**
 	 * Get a single customer record from DK
 	 *
 	 * @param string $kennitala The customer's kennitala.
+	 * @param bool   $cached Wether to check and use the transient cache before attempting to use the DK API.
 	 */
 	public static function get_from_dk(
-		string $kennitala
+		string $kennitala,
+		bool $cached = true
 	): stdClass|WP_Error|false {
-		$api_request = new DKApiRequest();
+		if ( $cached ) {
+			$customer_transient = get_transient(
+				"connector_for_dk_customer_$kennitala"
+			);
 
-		$query_string = '?include=' . implode( ',', self::include_properties() );
+			if ( is_object( $customer_transient ) ) {
+				return $customer_transient;
+			}
+		}
+
+		$api_request        = new DKApiRequest();
+		$include_properties = implode( ',', self::include_properties() );
+		$query_string       = '?include=' . $include_properties;
 
 		$result = $api_request->get_result(
 			self::API_PATH . rawurldecode( $kennitala ) . $query_string,
@@ -43,6 +57,12 @@ class Customers {
 		if ( $result->response_code !== 200 ) {
 			return false;
 		}
+
+		set_transient(
+			"connector_for_dk_customer_$kennitala",
+			$result->data,
+			self::TRANSIENT_EXPIRY
+		);
 
 		return (object) $result->data;
 	}

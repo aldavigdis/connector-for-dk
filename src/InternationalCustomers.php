@@ -4,10 +4,11 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
-use WC_Order;
-use WC_Order_Item_Product;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use WC_Order;
+use WC_Order_Item_Product;
 use WC_Order_Item_Fee;
 use WC_Order_Item_Shipping;
 
@@ -58,7 +59,7 @@ class InternationalCustomers {
 
 		add_filter(
 			'connector_for_dk_international_orders_available',
-			'__return_false',
+			'__return_true',
 			10,
 			0
 		);
@@ -86,21 +87,25 @@ class InternationalCustomers {
 			return $line_item;
 		}
 
-		$group_price = (float) $item->get_meta(
-			'connector_for_dk_group_price',
-			true,
-			'edit'
-		);
-
-		$discount = BigDecimal::of(
-			$group_price
-		)->minus(
-			$order->get_item_subtotal( $item, false )
-		)->multipliedBy(
-			$item->get_quantity()
+		$price = BigDecimal::of(
+			$item->get_subtotal()
+		)->dividedBy(
+			$item->get_quantity(),
+			12,
+			RoundingMode::HALF_UP
 		)->toFloat();
 
-		$line_item['Price']          = $group_price;
+		$discount = apply_filters(
+			'connector_for_dk_line_item_discount',
+			BigDecimal::of(
+				$item->get_subtotal()
+			)->minus(
+				$item->get_total()
+			)->toFloat(),
+			$item
+		);
+
+		$line_item['Price']          = $price;
 		$line_item['DiscountAmount'] = $discount;
 		$line_item['IncludingVAT']   = false;
 

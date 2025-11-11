@@ -61,15 +61,15 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 		>
 			<?php esc_html_e( 'Get PDF', 'connector-for-dk' ); ?>
 		</button>
-		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) && apply_filters( 'connector_for_dk_international_orders_available', false ) ) : ?>
-		<button
-			id="connector-for-dk-invoice-metabox-make-dk-invoice-button"
-			class="button button-small button-primary"
-			title="<?php esc_html_e( 'Generate a new invoice for this order in DK', 'connector-for-dk' ); ?>"
-			<?php echo empty( $invoice_number ) ? '' : 'disabled'; ?>
-		>
-			<?php esc_html_e( 'Create in DK', 'connector-for-dk' ); ?>
-		</button>
+		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) ) : ?>
+			<button
+				id="connector-for-dk-invoice-metabox-make-dk-invoice-button"
+				class="button button-small button-primary"
+				title="<?php esc_html_e( 'Generate a new invoice for this order in DK', 'connector-for-dk' ); ?>"
+				<?php echo empty( $invoice_number ) ? '' : 'disabled'; ?>
+			>
+				<?php esc_html_e( 'Create in DK', 'connector-for-dk' ); ?>
+			</button>
 		<?php endif ?>
 		<img
 			id="connector-for-dk-invoice-metabox-invoice-loader"

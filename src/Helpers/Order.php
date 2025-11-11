@@ -8,7 +8,6 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use WC_Customer;
 use WC_Order;
-use WC_Order_Item_Product;
 
 /**
  * The Order Helper class
@@ -17,7 +16,8 @@ class Order {
 	/**
 	 * Check if an order can be invoiced in DK
 	 *
-	 * Checks if any of the order items does not have a SKU and returns false.
+	 * Checks if the order was created when Connector for DK was not installed
+	 * and if so, returns `false`
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 *
@@ -28,13 +28,6 @@ class Order {
 			return false;
 		}
 
-		foreach ( $wc_order->get_items() as $order_item ) {
-			if ( $order_item instanceof WC_Order_Item_Product ) {
-				if ( empty( $order_item->get_product()->get_sku() ) ) {
-					return false;
-				}
-			}
-		}
 		return true;
 	}
 

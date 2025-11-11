@@ -10,6 +10,7 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use WC_Order_Item_Product;
+use WC_Product;
 use WP_Error;
 
 /**
@@ -125,10 +126,6 @@ class Order {
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
 	public static function to_dk_order_body( WC_Order $wc_order ): array|false {
-		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
-			return false;
-		}
-
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 
 		$order_props    = array();
@@ -172,9 +169,11 @@ class Order {
 				'edit'
 			);
 
-			$sku = $item->get_meta(
-				'connector_for_dk_sku'
-			);
+			$sku = self::assume_item_sku( $item );
+
+			if ( $sku === false ) {
+				return false;
+			}
 
 			$tax_multiplier = (float) $item->get_meta(
 				'connector_for_dk_vat_multiplier'
@@ -307,5 +306,56 @@ class Order {
 	public static function id_to_dk_order_body( int $order_id ): array {
 		$order_object = new WC_Order( $order_id );
 		return self::to_dk_order_body( $order_object );
+	}
+
+	/**
+	 * Assume the SKU for an order item
+	 *
+	 * This uses the "default product code" configuration settings to figure out
+	 * the intended VAT-specific SKU for order items with an empty SKU.
+	 *
+	 * @param WC_Order_Item_Product $item The item.
+	 */
+	private static function assume_item_sku(
+		WC_Order_Item_Product $item
+	): string {
+		$product = $item->get_product();
+
+		if (
+			$product instanceof WC_Product &&
+			! empty( $product->get_sku() )
+		) {
+			return $product->get_sku();
+		}
+
+		$rate = self::assume_item_tax_rate( $item );
+
+		switch ( $rate ) {
+			case 0.0:
+				return Config::get_sku_for_0_vat();
+			case 0.11:
+				return Config::get_sku_for_11_vat();
+			default:
+				return Config::get_sku_for_24_vat();
+		}
+	}
+
+	/**
+	 * Assume the tax rate for an order item
+	 *
+	 * @param WC_Order_Item_Product $item The order item.
+	 */
+	private static function assume_item_tax_rate(
+		WC_Order_Item_Product $item
+	): float {
+		$tax_multiplier = $item->get_meta(
+			'connector_for_dk_vat_multiplier'
+		);
+
+		if ( empty( $tax_multiplier ) ) {
+			return 0.24;
+		}
+
+		return BigDecimal::of( 1 )->minus( $tax_multiplier )->toFloat();
 	}
 }

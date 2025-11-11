@@ -61,7 +61,7 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 		>
 			<?php esc_html_e( 'Get PDF', 'connector-for-dk' ); ?>
 		</button>
-		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) && apply_filters( 'connector_for_dk_international_orders_available', false ) ) : ?>
+		<?php if ( OrderHelper::can_be_invoiced( $wc_order ) && ( OrderHelper::is_domestic( $wc_order ) || ( OrderHelper::is_international( $wc_order ) && apply_filters( 'connector_for_dk_international_orders_available', false ) ) ) ) : ?>
 		<button
 			id="connector-for-dk-invoice-metabox-make-dk-invoice-button"
 			class="button button-small button-primary"

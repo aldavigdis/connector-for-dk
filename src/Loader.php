@@ -16,10 +16,10 @@ class Loader {
 	 */
 	public function __construct() {
 		if ( CONNECTOR_FOR_DK_EDITION === 'connector_for_dk_pro' ) {
-			new Activation();
 			new Admin();
 			new BlockedCustomers();
 			new CustomerDiscounts();
+			new DefaultSKUs();
 			new ProductAttributeFilters();
 			new I18n();
 			new InternationalCustomers();

@@ -98,7 +98,7 @@ class Activation {
 				__( 'About', 'connector-for-dk' ),
 				'manage_options',
 				'about-connector-for-dk',
-				array( 'Admin', 'render_about_page' )
+				array( 'AldaVigdis\ConnectorForDK\Admin', 'render_about_page' )
 			);
 		}
 

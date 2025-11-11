@@ -139,6 +139,11 @@ class Settings {
 			$rest_json
 		);
 
+		do_action(
+			'connector_for_dk_settings_before_settings',
+			$rest_json
+		);
+
 		foreach ( $rest_json as $key => $value ) {
 			$skip = array( 'api_key', 'payment_methods', 'fetch_products' );
 			if ( in_array( $key, $skip, true ) ) {
@@ -157,6 +162,11 @@ class Settings {
 				);
 			}
 		}
+
+		do_action(
+			'connector_for_dk_settings_after_settings',
+			$rest_json
+		);
 
 		foreach ( $rest_json->payment_methods as $p ) {
 			Config::set_payment_mapping(

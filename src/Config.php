@@ -24,6 +24,12 @@ class Config {
 	const DEFAULT_COST_SKU     = 'cost';
 	const DEFAULT_SALES_PERSON = 'websales';
 
+	const DEFAULT_VAT_SKUS = array(
+		'24' => 'vsk24',
+		'11' => 'vsk11',
+		'0'  => 'vsk0',
+	);
+
 	const DEFAULT_KENNITALA                      = '0000000000';
 	const DEFAULT_INTERNATIONAL_KENNITALA        = 'E000000000';
 	const DEFAULT_INTERNATIONAL_KENNITALA_PREFIX = 'E';
@@ -1054,5 +1060,35 @@ class Config {
 	 */
 	public static function set_encrypted_license_key( string $value ): bool {
 		return self::update_option( 'encrypted_license_key', $value );
+	}
+
+	/**
+	 * Get the default SKU for products with 24% VAT
+	 */
+	public static function get_sku_for_24_vat(): string {
+		return (string) self::get_option(
+			'sku_for_24_vat',
+			self::DEFAULT_VAT_SKUS['24']
+		);
+	}
+
+	/**
+	 * Get the default SKU for products with 11% VAT
+	 */
+	public static function get_sku_for_11_vat(): string {
+		return (string) self::get_option(
+			'sku_for_11_vat',
+			self::DEFAULT_VAT_SKUS['11']
+		);
+	}
+
+	/**
+	 * Get the default SKU for products with 0% VAT
+	 */
+	public static function get_sku_for_0_vat(): string {
+		return (string) self::get_option(
+			'sku_for_0_vat',
+			self::DEFAULT_VAT_SKUS['0']
+		);
 	}
 }

@@ -70,7 +70,10 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			Config::get_default_international_kennitala(),
 		);
 
-		if ( ! apply_filters( 'connector_for_dk_international_orders_available', false ) ) {
+		if (
+			OrderHelper::is_international( $wc_order ) &&
+			! apply_filters( 'connector_for_dk_international_orders_available', false )
+		) {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created as invoicing for international orders is not available in this version of Connector for DK',
@@ -84,7 +87,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be created in DK for this order as an item does not have a SKU or there is another issue preventing it from being created.',
+					'An invoice could not be created in DK for this order as it was created before Connector for DK was activated.',
 					'connector-for-dk'
 				)
 			);

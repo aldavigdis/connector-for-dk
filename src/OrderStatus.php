@@ -136,7 +136,7 @@ class OrderStatus {
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be automatically generated as a line item in this order does not have a SKU.',
+					'An invoice could not be created in DK for this order as it was created before Connector for DK was activated.',
 					'connector-for-dk'
 				)
 			);

@@ -676,7 +676,11 @@ class Product {
 		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {
 			$group_price = $product->get_meta( $price_key, true, 'edit' );
 
-			if ( ! empty( $group_price ) || $group_price !== '0' ) {
+			if ( $group_price === '0' ) {
+				return $product->get_regular_price( 'edit' );
+			}
+
+			if ( ! empty( $group_price ) ) {
 				return $group_price;
 			}
 		}

@@ -516,7 +516,7 @@ class Products {
 					);
 					$wc_product->update_meta_data(
 						'connector_for_dk_price_1_before_tax',
-						$price->price_1_before_tax
+						$price->price_before_tax
 					);
 					$wc_product->update_meta_data(
 						'connector_for_dk_price_2',

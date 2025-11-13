@@ -185,11 +185,11 @@ class OrderMeta {
 			);
 
 			$tax_multiplier = BigDecimal::of(
-				$subtotal_with_tax
-			)->dividedBy(
-				$subtotal_before_tax,
-				12,
-				RoundingMode::HALF_UP
+				ProductHelper::tax_rate(
+					$item->get_product()
+				)
+			)->plus(
+				1
 			)->toFloat();
 
 			if (
@@ -217,7 +217,7 @@ class OrderMeta {
 
 			$item->update_meta_data(
 				'connector_for_dk_vat_multiplier',
-				(string) round( $tax_multiplier, 2, PHP_ROUND_HALF_UP )
+				(string) $tax_multiplier
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {

@@ -193,11 +193,31 @@ class InvoicePDF {
 			self::UPLOADS_DIR_NAME
 		);
 
+		$index_path = path_join(
+			$directory_path,
+			'index.php'
+		);
+
+		$index_contents  = "<?php http_response_code( 403 ); ?>\n";
+		$index_contents .= "<html>\n";
+		$index_contents .= "\t<body>\n";
+		$index_contents .= "\t\t<h1>403 Forbidden</h1>\n";
+		$index_contents .= "\t\t<p>Perhaps you shouldn't be here, eh?</p>\n";
+		$index_contents .= "\t</body>";
+		$index_contents .= "</html>\n";
+
 		if (
 			! $wp_filesystem->is_dir( $directory_path ) &&
 			$wp_filesystem->is_writable( dirname( $directory_path ) )
 		) {
-			return $wp_filesystem->mkdir( $directory_path, self::FS_CHMOD_DIR );
+			return (
+				$wp_filesystem->mkdir( $directory_path, self::FS_CHMOD_DIR ) &&
+				$wp_filesystem->put_contents(
+					$index_path,
+					$index_contents,
+					self::FS_CHMOD_FILE
+				)
+			);
 		}
 
 		return false;

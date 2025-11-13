@@ -158,7 +158,7 @@ class Order {
 			'Lines'     => array(),
 		);
 
-		foreach ( $wc_order->get_items() as $key => $item ) {
+		foreach ( $wc_order->get_items() as $item ) {
 			if ( ! $item instanceof WC_Order_Item_Product ) {
 				continue;
 			}
@@ -282,7 +282,7 @@ class Order {
 		}
 
 		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
-			if ( $shipping_method->get_total() !== 0.0 ) {
+			if ( $shipping_method->get_total() > 0 ) {
 				$shipping_total = BigDecimal::of(
 					$shipping_method->get_total()
 				)->plus(

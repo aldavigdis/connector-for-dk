@@ -27,6 +27,7 @@ class Loader {
 			new KennitalaField();
 			new Metaboxes();
 			new OrderStatus();
+			new Updater();
 			new Cron\Schedule();
 			new Rest\CheckLicense();
 			new Rest\Settings();

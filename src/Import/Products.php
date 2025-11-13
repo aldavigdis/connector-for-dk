@@ -604,51 +604,18 @@ class Products {
 		$decimals = (int) get_option( 'woocommerce_price_num_decimals', '0' );
 
 		if ( $store_currency === $dk_currency ) {
-			$price_before_tax = round(
-				$json_object->UnitPrice1,
-				$decimals,
-				PHP_ROUND_HALF_UP
-			);
-
-			$price_with_tax = round(
-				$json_object->UnitPrice1WithTax,
-				$decimals,
-				PHP_ROUND_HALF_UP
-			);
-
-			$sale_price_before_tax = round(
-				$json_object->PropositionPrice,
-				$decimals,
-				PHP_ROUND_HALF_UP
-			);
+			$price_before_tax      = $json_object->UnitPrice1;
+			$price_with_tax        = $json_object->UnitPrice1WithTax;
+			$sale_price_before_tax = $json_object->PropositionPrice;
 
 			if (
 				property_exists( $json_object, 'UnitPrice2' ) &&
 				property_exists( $json_object, 'UnitPrice3' )
 			) {
-				$price_2_before_tax = round(
-					$json_object->UnitPrice2,
-					$decimals,
-					PHP_ROUND_HALF_UP
-				);
-
-				$price_2_with_tax = round(
-					$json_object->UnitPrice2WithTax,
-					$decimals,
-					PHP_ROUND_HALF_UP
-				);
-
-				$price_3_before_tax = round(
-					$json_object->UnitPrice3,
-					$decimals,
-					PHP_ROUND_HALF_UP
-				);
-
-				$price_3_with_tax = round(
-					$json_object->UnitPrice3WithTax,
-					$decimals,
-					PHP_ROUND_HALF_UP
-				);
+				$price_2_before_tax = $json_object->UnitPrice2;
+				$price_2_with_tax   = $json_object->UnitPrice2WithTax;
+				$price_3_before_tax = $json_object->UnitPrice3;
+				$price_3_with_tax   = $json_object->UnitPrice3WithTax;
 			} else {
 				$price_2_before_tax = 0;
 				$price_2_with_tax   = 0;
@@ -734,7 +701,7 @@ class Products {
 	 * @return float The "after tax" price as a float.
 	 */
 	public static function calculate_price_after_tax(
-		float|int $price_before_tax,
+		float $price_before_tax,
 		float $tax_rate
 	): float {
 		if ( $tax_rate === 0 ) {
@@ -749,17 +716,11 @@ class Products {
 			roundingMode: RoundingMode::HALF_UP
 		);
 
-		$decimals = (int) get_option( 'woocommerce_price_num_decimals', '0' );
-
-		return round(
-			BigDecimal::of(
-				$price_before_tax
-			)->multipliedBy(
-				$tax_fraction->plus( 1 )
-			)->toFloat(),
-			$decimals,
-			PHP_ROUND_HALF_UP
-		);
+		return BigDecimal::of(
+			$price_before_tax
+		)->multipliedBy(
+			$tax_fraction->plus( 1 )
+		)->toFloat();
 	}
 
 	/**

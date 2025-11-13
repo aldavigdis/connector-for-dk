@@ -1,5 +1,5 @@
 === Connector for DK ===
-Stable tag: 0.5.0-beta3
+Stable tag: 0.5.0-beta4
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.7.3
@@ -61,6 +61,12 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Products no longer need to be available in order for invoices to be generated
 * Invoice generation is now limited to orders made with the plugin installed
 * Enabling arbitrary configuration using PHP constants
+* Improving PDF invoice retreival, enabling support for Chrome and Safari
+* Improving arithmetic precision
+* Adding vat-specific token product codes that are used when a product SKU is missing
+* Improvements to the settings form
+* Fixing textdomain issues
+* Enabling coupon discounts
 
 == Frequently Asked Questions ==
 

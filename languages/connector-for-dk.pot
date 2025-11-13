@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-3.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Connector for DK 0.5.0-beta3\n"
+"Project-Id-Version: Connector for DK 0.5.0-beta4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/connector-for-dk\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-04T10:55:22+00:00\n"
+"POT-Creation-Date: 2025-11-13T20:40:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: connector-for-dk\n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
-#: src/Config.php:1032
+#: src/Config.php:1038
 msgid "We are unable to check out your order. Please contact us for more information."
 msgstr ""
 
@@ -174,11 +174,11 @@ msgstr ""
 msgid "Your Invoice From %1$s"
 msgstr ""
 
-#: src/Export/Order.php:260
+#: src/Export/Order.php:273
 msgid "Fee"
 msgstr ""
 
-#: src/Export/Order.php:283
+#: src/Export/Order.php:296
 msgid "Shipping"
 msgstr ""
 
@@ -297,95 +297,110 @@ msgstr ""
 msgid "Unknown/Other"
 msgstr ""
 
-#: src/Metaboxes.php:94
+#: src/Metaboxes.php:95
 msgid "DK Sync"
 msgstr ""
 
-#: src/Metaboxes.php:149
+#: src/Metaboxes.php:150
 msgid "DK Variations"
 msgstr ""
 
-#. Translators: The %s is the numeric "price group" the customer is in.
-#: src/OrderMeta.php:84
-#, php-format
-msgid "Group Price %s"
+#: src/OrderStatus.php:88
+msgid "An invoice was not autmatically generated as the customer entered a kennitala."
 msgstr ""
 
-#: src/OrderMeta.php:88
-msgid "List Price"
+#: src/OrderStatus.php:103
+msgid "An invoice could not be automatically generated as the customer's account is blocked in DK."
 msgstr ""
 
-#: src/OrderMeta.php:117
-msgid "(Missing)"
+#: src/OrderStatus.php:113
+msgid "An invoice could not be automatically generated as the country indicated in the order's address does not match with the relevant DK customer record."
 msgstr ""
 
-#: src/OrderStatus.php:80
-msgid "An invoice was not created as the customer entered a kennitala."
+#: src/OrderStatus.php:127
+msgid "An invoice was not automatically generated as the customer did not enter a kennitala."
 msgstr ""
 
-#: src/OrderStatus.php:94
-msgid "An invoice was not created as the customer did not enter a kennitala."
+#: src/OrderStatus.php:138
+#: src/Rest/OrderDKInvoice.php:89
+msgid "An invoice could not be created in DK for this order as it was created before Connector for DK was activated."
 msgstr ""
 
-#: src/OrderStatus.php:105
-msgid "An invoice could not be created in DK for this order as a line item in this order does not have a SKU."
-msgstr ""
-
-#: src/OrderStatus.php:120
+#: src/OrderStatus.php:153
 msgid "An invoice was not created in DK as you have chosen not to automatically create invoices for customers not registered as debtors in DK."
 msgstr ""
 
-#: src/OrderStatus.php:133
+#: src/OrderStatus.php:166
 msgid "Invoicing for international orders is not available in this version of Connector for DK."
 msgstr ""
 
-#: src/OrderStatus.php:146
+#: src/OrderStatus.php:179
 msgid "An invoice was not created in DK as you have chosen not to automatically create invoices for international orders."
 msgstr ""
 
 #. Translators: %1$s is a placeholder for the invoice number generated in DK.
-#: src/OrderStatus.php:160
-#: src/Rest/OrderDKInvoice.php:103
+#: src/OrderStatus.php:193
+#: src/Rest/OrderDKInvoice.php:143
 #, php-format
 msgid "An invoice for this order has been created in DK. The invoice number is %1$s."
 msgstr ""
 
-#: src/OrderStatus.php:171
-#: src/Rest/OrderDKInvoice.php:114
+#: src/OrderStatus.php:204
+#: src/Rest/OrderDKInvoice.php:154
 msgid "An email containing the invoice as a PDF attachment was sent to the customer via DK."
 msgstr ""
 
-#: src/OrderStatus.php:178
-#: src/Rest/OrderDKInvoice.php:121
+#: src/OrderStatus.php:211
+#: src/Rest/OrderDKInvoice.php:161
 msgid "It was not possible to send an email to the customer containing the invoice as a PDF attachment."
 msgstr ""
 
-#: src/OrderStatus.php:199
+#: src/OrderStatus.php:232
 msgid "Unable to create invoice in DK: "
 msgstr ""
 
-#: src/OrderStatus.php:207
+#: src/OrderStatus.php:240
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:76
-msgid "An invoice could not be created in DK for this order as a line item in this order does not have a SKU or there is another issue preventing it from being created."
+#: src/Rest/OrderDKInvoice.php:104
+msgid "An invoice could not be created in for this order as the DK customer record is labelled as blocked."
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:92
+#: src/Rest/OrderDKInvoice.php:115
+msgid "An invoice could not be created in for this order as the country indicated in the order's address does not match with the relevant DK customer record."
+msgstr ""
+
+#: src/Rest/OrderDKInvoice.php:132
 msgid "DK could not create an invoice due to an error."
 msgstr ""
 
 #. Translators: %1$s is a placeholder for the invoice number that was manually entered.
-#: src/Rest/OrderInvoiceNumber.php:87
+#: src/Rest/OrderInvoiceNumber.php:91
 #, php-format
 msgid "Invoice number set to %1$s."
 msgstr ""
 
 #. Translators: %1$s is a placeholder for the invoice number that was manually entered.
-#: src/Rest/OrderInvoiceNumber.php:112
+#: src/Rest/OrderInvoiceNumber.php:116
 #, php-format
 msgid "Credit invoice number set to %1$s."
+msgstr ""
+
+#: src/Rest/OrderInvoicePdf.php:55
+msgid "WooCommerce order not found"
+msgstr ""
+
+#: src/Rest/OrderInvoicePdf.php:63
+msgid "The DK invoice number has not been set for this order"
+msgstr ""
+
+#: src/Rest/OrderInvoicePdf.php:76
+msgid "DK order PDF not found"
+msgstr ""
+
+#: src/Rest/OrderInvoicePdf.php:84
+msgid "File not saved"
 msgstr ""
 
 #: src/Service/DKApiRequest.php:79
@@ -608,6 +623,26 @@ msgstr ""
 
 #: views/admin_sections/customers_international.php:127
 msgid "This ledger code is used for international customer records when they are created in DK."
+msgstr ""
+
+#: views/admin_sections/default_skus.php:17
+msgid "Default Product Codes"
+msgstr ""
+
+#: views/admin_sections/default_skus.php:22
+msgid "In cases where you would like to manually enter your products into WooCommerce without entering a SKU and do not wish to use the product management system in DK to maintain stock counts, Connector for DK needs to match them with a DK product code in order for an invoice to be generated."
+msgstr ""
+
+#: views/admin_sections/default_skus.php:34
+msgid "24% VAT"
+msgstr ""
+
+#: views/admin_sections/default_skus.php:54
+msgid "11% VAT"
+msgstr ""
+
+#: views/admin_sections/default_skus.php:74
+msgid "0% VAT"
 msgstr ""
 
 #: views/admin_sections/gateways.php:16

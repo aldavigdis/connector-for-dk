@@ -9,6 +9,7 @@ use AldaVigdis\ConnectorForDK\Currency;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
 use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
+use AldaVigdis\ConnectorForDK\InvoicePDF;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
 use WP_Error;
@@ -194,6 +195,13 @@ class Settings {
 				$rest_json
 			);
 		}
+
+		InvoicePDF::create_directory_if_it_does_not_exist();
+
+		do_action(
+			'connector_for_dk_settings_end',
+			$rest_json
+		);
 
 		return new WP_REST_Response( array( 'status' => 200 ) );
 	}

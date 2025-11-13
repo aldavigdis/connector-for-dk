@@ -34,6 +34,7 @@ class Metaboxes {
 		'connector_for_dk_last_downstream_sync',
 		'connector_for_dk_price_group',
 		'connector_for_dk_version',
+		'connector_for_dk_pdf_file_name',
 	);
 
 	/**

@@ -4,7 +4,6 @@ services:
     restart: always
     volumes:
       - ./dockpress-secrets:/secrets
-      - /tmp:/var/www/html/wp-content/uploads/
       - .:/var/www/html/wp-content/plugins/connector-for-dk/
     ports:
       - 80:80

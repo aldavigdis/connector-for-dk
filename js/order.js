@@ -138,11 +138,9 @@ class ConnectorForDKOrder {
 		this.resetMessages();
 		this.invoiceLoader().classList.remove( 'hidden' );
 
-		const invoiceID = ConnectorForDKOrder.formData().get(
-			'connector_for_dk_invoice_number'
-		);
+		const orderID = ConnectorForDKOrder.formData().get( 'post_ID' );
 
-		this.getInvoicePdf( invoiceID );
+		this.getInvoicePdf( orderID );
 	}
 
 	static getPdfCreditInvoiceButtonClickAction() {
@@ -160,9 +158,9 @@ class ConnectorForDKOrder {
 		return new FormData( form );
 	}
 
-	static async getInvoicePdf( invoiceID ) {
+	static async getInvoicePdf( orderID ) {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + invoiceID,
+			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + orderID,
 			{
 				method: 'GET',
 				headers: {
@@ -179,12 +177,7 @@ class ConnectorForDKOrder {
 		}
 
 		if ( response.ok ) {
-			const json = await response.json();
-
-			window.open(
-				'data:application/pdf;base64,' + json.data.toString(),
-				'_blank'
-			)
+			window.open( response.url, '_blank' )
 		} else {
 			this.invoicePdfNotFoundError().classList.remove( 'hidden' );
 		}

@@ -8,14 +8,14 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
 use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\ConnectorForDK\InvoicePDF;
 
 /**
  * The Order Invoice PDF REST API endpoint
  */
 class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 	const NAMESPACE = 'ConnectorForDK/v1';
-	const PATH      = '/order_invoice_pdf/(?P<invoice_number>[\d]+)';
+	const PATH      = '/order_invoice_pdf/(?P<order_id>[\d]+)';
 
 	/**
 	 * The constructor
@@ -47,35 +47,50 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response|WP_Error {
-		$api_request = new DKApiRequest();
+		$order = wc_get_order( intval( $request['order_id'] ) );
 
-		$headers = array_merge(
-			$api_request->get_headers,
-			array( 'Accept-Language' => substr( get_locale(), 0, 2 ) )
-		);
-
-		$result = $api_request->wp_http->get(
-			DKApiRequest::DK_API_URL .
-			'/Sales/Invoice/' .
-			$request['invoice_number'] .
-			'/pdf',
-			array( 'headers' => $headers ),
-		);
-
-		if ( $result instanceof WP_Error ) {
-			return new WP_REST_Response( status: 404 );
+		if ( ! $order ) {
+			return new WP_Error(
+				'wc_order_not_found',
+				__( 'WooCommerce order not found', 'connector-for-dk' ),
+				array( 'status' => '404' ),
+			);
 		}
 
-		if ( $result['response']['code'] !== 200 ) {
-			return new WP_REST_Response( status: 404 );
+		if ( empty( $order->get_meta( 'connector_for_dk_invoice_number' ) ) ) {
+			return new WP_Error(
+				'invoice_number_not_set',
+				__(
+					'The DK invoice number has not been set for this order',
+					'connector-for-dk'
+				),
+				array( 'status' => '400' ),
+			);
 		}
+
+		$pdf = new InvoicePDF( $order );
+
+		if ( ! $pdf->pdf_data ) {
+			return new WP_Error(
+				'dk_order_pdf_not_found',
+				__( 'DK order PDF not found', 'connector-for-dk' ),
+				array( 'status' => '404' ),
+			);
+		}
+
+		if ( ! $pdf->file_saved ) {
+			return new WP_Error(
+				'file_not_saved',
+				__( 'File not saved', 'connector-for-dk' ),
+				array( 'status' => '500' ),
+			);
+		}
+
+		header( "Location: $pdf->file_url" );
 
 		return new WP_REST_Response(
-			array(
-				'status' => 200,
-				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-				'data'   => base64_encode( $result['body'] ),
-			)
+			status: 303,
+			headers: array( 'Location' => $pdf->file_url ),
 		);
 	}
 

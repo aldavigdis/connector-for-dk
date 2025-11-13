@@ -97,7 +97,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 
 		if (
 			is_object( $dk_customer ) &&
-			! in_array( OrderHelper::get_kennitala(), $default_kennitala, true )
+			! in_array( OrderHelper::get_kennitala( $wc_order ), $default_kennitala, true )
 		) {
 			if ( $dk_customer->Blocked ) {
 				$wc_order->add_order_note(
@@ -165,6 +165,10 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				);
 			}
 		}
+
+		$wc_order->delete_meta_data(
+			'connector_for_dk_pdf_file_name'
+		);
 
 		$wc_order->delete_meta_data(
 			'connector_for_dk_invoice_creation_error'

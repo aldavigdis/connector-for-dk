@@ -9,6 +9,7 @@ use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
 use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
 use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
+use AldaVigdis\ConnectorForDK\InvoicePDF;
 
 /**
  * The Hourly Cron class
@@ -33,6 +34,8 @@ class Hourly {
 			if ( Config::get_enable_downstream_product_sync() ) {
 				ImportProducts::save_all_from_dk();
 			}
+
+			InvoicePDF::clean_directory();
 		}
 	}
 }

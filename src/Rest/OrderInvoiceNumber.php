@@ -81,6 +81,10 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 					(string) $rest_json->invoice_number
 				);
 
+				$wc_order->delete_meta_data( 'connector_for_dk_pdf_file_name' );
+
+				$wc_order->save_meta_data();
+
 				$wc_order->add_order_note(
 					sprintf(
 						// Translators: %1$s is a placeholder for the invoice number that was manually entered.

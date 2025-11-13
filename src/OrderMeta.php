@@ -4,18 +4,13 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
-use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
-
 use WC_Customer;
 use WC_Order;
-use WC_Order_Item;
-use WC_Product;
 use WC_Order_Item_Product;
 use WC_Product_Variation;
 
@@ -31,22 +26,6 @@ class OrderMeta {
 	 * The constructor
 	 */
 	public function __construct() {
-		if ( Config::get_enable_dk_customer_prices() ) {
-			add_action(
-				'woocommerce_admin_order_item_headers',
-				array( __CLASS__, 'add_original_price_to_order_thead' ),
-				10,
-				1
-			);
-
-			add_action(
-				'woocommerce_admin_order_item_values',
-				array( __CLASS__, 'add_original_price_to_order_table' ),
-				10,
-				2
-			);
-		}
-
 		add_action(
 			'woocommerce_new_order',
 			array( __CLASS__, 'add_meta_to_order_items' ),
@@ -67,78 +46,6 @@ class OrderMeta {
 			10,
 			1
 		);
-	}
-
-	/**
-	 * Add original price to order table header
-	 *
-	 * @param WC_Order $order The order.
-	 */
-	public static function add_original_price_to_order_thead(
-		WC_Order $order
-	): void {
-		$price_group = $order->get_meta( 'connector_for_dk_price_group' );
-
-		if ( in_array( $price_group, array( '2', '3' ), true ) ) {
-			$price_group_label = sprintf(
-				// Translators: The %s is the numeric "price group" the customer is in.
-				__( 'Group Price %s', 'connector-for-dk' ),
-				$price_group
-			);
-		} else {
-			$price_group_label = __( 'List Price', 'connector-for-dk' );
-		}
-
-		echo '<th class="group_price sortable" data-sort="float">';
-		echo esc_html(
-			apply_filters(
-				'connector_for_dk_order_meta_group_price_label',
-				$price_group_label
-			)
-		);
-		echo '</th>';
-	}
-
-	/**
-	 * Add original price to order table
-	 *
-	 * Displays the original price or group price in the order table body
-	 *
-	 * @param WC_Product|false|null    $product The product.
-	 * @param WC_Order_Item|false|null $item The order item.
-	 */
-	public static function add_original_price_to_order_table(
-		WC_Product|false|null $product,
-		WC_Order_Item|false|null $item
-	): void {
-		// Empty cells if this is a shipping or fee line.
-		if ( ! $item instanceof WC_Order_Item_Product ) {
-			echo '<td class="empty" width="1%"></td>';
-			return;
-		}
-
-		// Indicate that the product is missing if it has been removed.
-		if ( ! $product ) {
-			echo '<td class="empty" width="1%">';
-			esc_attr_e( '(Missing)', 'connector-for-dk' );
-			echo '</td>';
-			return;
-		}
-
-		$group_price_meta = apply_filters(
-			'connector_for_dk_group_price_meta_display_value',
-			(float) $item->get_meta( 'connector_for_dk_group_price' ),
-			$item
-		);
-
-		echo '<td class="group_price" width="1%">';
-		echo esc_html(
-			wc_price(
-				$group_price_meta,
-				array( 'in_span' => false )
-			)
-		);
-		echo '</td>';
 	}
 
 	/**

@@ -61,6 +61,12 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Products no longer need to be available in order for invoices to be generated
 * Invoice generation is now limited to orders made with the plugin installed
 * Enabling arbitrary configuration using PHP constants
+* Improving PDF invoice retreival, enabling support for Chrome and Safari
+* Improving arithmetic precision
+* Adding vat-specific token product codes that are used when a product SKU is missing
+* Improvements to the settings form
+* Fixing textdomain issues
+* Enabling coupon discounts
 
 == Frequently Asked Questions ==
 

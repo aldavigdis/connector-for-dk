@@ -106,6 +106,8 @@ class InvoicePDF {
 			'connector_for_dk_pdf_file_name'
 		);
 
+		$this->file_saved = false;
+
 		if (
 			! empty( $filename_meta ) &&
 			$this->wp_filesystem->is_file(

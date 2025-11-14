@@ -9,6 +9,7 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use WP_Exception;
 use WC_Customer;
 use WC_Product;
 use WC_Product_Variation;
@@ -149,6 +150,8 @@ class Product {
 	/**
 	 * Get the tax rate for a product
 	 *
+	 * @throws WP_Exception If WooCommerce tax rates have not been initialised.
+	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
 	 *
 	 * @return float A floating point representation of the tax rate percentage.
@@ -162,6 +165,12 @@ class Product {
 
 		$tax_class = $wc_product->get_tax_class();
 		$tax_rates = $wc_taxes->get_rates( $tax_class );
+
+		if ( empty( $tax_rates ) ) {
+			throw new WP_Exception(
+				esc_attr__( 'Tax rates not initialised', 'connector-for-dk' )
+			);
+		}
 
 		return array_pop( $tax_rates )['rate'];
 	}

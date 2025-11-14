@@ -4,7 +4,7 @@
  * Plugin Name: Connector for DK
  * Plugin URI: https://github.com/aldavigdis/connector-for-dk/
  * Description: Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
- * Version: 0.5.0-beta4
+ * Version: 0.5.0-beta5
  * Requires at least: 6.1.5
  * Requires PHP: 8.2
  * Author: Alda Vigdis

@@ -275,7 +275,10 @@ class CustomerDiscounts {
 			}
 		}
 
-		if ( floatval( $regular_price > floatval( $customer_price ) ) ) {
+		if (
+			round( (float) $regular_price, self::decimals() ) >
+			round( (float) $customer_price, self::decimals() )
+		) {
 			return self::format( $regular_price, $customer_price );
 		}
 
@@ -437,9 +440,11 @@ class CustomerDiscounts {
 			$customer
 		);
 
+		$sale_price = $product->get_sale_price( 'edit' );
+
 		if (
-			floatval( $product->get_sale_price( 'edit' ) ) >
-			floatval( $customer_price )
+			round( (float) $sale_price, self::decimals() ) >
+			round( (float) $customer_price, self::decimals() )
 		) {
 			return $customer_price;
 		}
@@ -479,5 +484,14 @@ class CustomerDiscounts {
 		);
 
 		return $customer_price;
+	}
+
+	/**
+	 * Get the WooCommerce number of decimal
+	 *
+	 * Yeah, this is just a wrapper for `get_option`.
+	 */
+	private static function decimals(): int {
+		return (int) get_option( 'woocommerce_price_num_decimals', 0 );
 	}
 }

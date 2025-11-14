@@ -49,13 +49,6 @@ class CustomerDiscounts {
 			);
 
 			add_filter(
-				'woocommerce_product_variation_get_price',
-				array( __CLASS__, 'get_discounted_price' ),
-				10,
-				2
-			);
-
-			add_filter(
 				'woocommerce_product_get_regular_price',
 				array( __CLASS__, 'get_regular_price' ),
 				10,
@@ -256,7 +249,19 @@ class CustomerDiscounts {
 				false
 			);
 
-			if ( $price_range['min'] !== $price_range['max'] ) {
+			if (
+				$price_range['min'] !== $price_range['max']
+			) {
+				if (
+					$prev_price_range['min'] === $price_range['min'] &&
+					$prev_price_range['max'] === $prev_price_range['max']
+				) {
+					return wc_format_price_range(
+						$prev_price_range['min'],
+						$prev_price_range['max'],
+					);
+				}
+
 				return self::format(
 					wc_format_price_range(
 						$prev_price_range['min'],
@@ -430,12 +435,6 @@ class CustomerDiscounts {
 		$customer_price = ProductHelper::get_customer_price(
 			$product,
 			$customer
-		);
-
-		$regular_price = $product->get_meta(
-			'connector_for_dk_price_1',
-			true,
-			'edit'
 		);
 
 		if (

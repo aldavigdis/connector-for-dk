@@ -666,11 +666,7 @@ class Product {
 		$price_key = "connector_for_dk_price_{$group}";
 
 		if ( $product instanceof WC_Product_Variation ) {
-			if ( self::variation_price_override( $product ) ) {
-				return $product->get_regular_price();
-			}
-
-			$product = wc_get_product( $product->get_parent_id() );
+			return $product->get_regular_price();
 		}
 
 		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {

@@ -78,13 +78,12 @@ class BlockedCustomers {
 		WP_REST_Request $request
 	): mixed {
 		if (
-			$request->get_route() !== '/wc/store/v1/checkout' ||
-			! Config::get_enable_blocked_customers()
+			$request->get_route() !== '/wc/store/v1/checkout'
 		) {
 			return $result;
 		}
 
-		$customer_id = get_current_blog_id();
+		$customer_id = get_current_user_id();
 		$customer    = new WC_Customer( $customer_id );
 
 		if ( $customer->get_meta( 'connector_for_dk_blocked' ) !== '1' ) {
@@ -131,12 +130,13 @@ class BlockedCustomers {
 	 * @throws Exception Exception, containing the error message.
 	 */
 	public static function display_blocked_customer_message(): void {
-		if ( ! Config::get_enable_blocked_customers() ) {
+		$customer_id = get_current_user_id();
+
+		if ( $customer_id === 0 ) {
 			return;
 		}
 
-		$customer_id = get_current_user_id();
-		$customer    = new WC_Customer( $customer_id );
+		$customer = new WC_Customer( $customer_id );
 
 		if ( $customer->get_meta( 'connector_for_dk_blocked' ) === '1' ) {
 			throw new Exception(

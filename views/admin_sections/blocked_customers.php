@@ -23,40 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		'connector-for-dk'
 	);
 	?>
-	</p>
-
-<table id="dk-invoices-table" class="form-table">
-	<tbody>
-		<tr>
-			<th scope="row" class="column-title column-primary">
-			</th>
-			<td>
-				<input
-					id="enable_blocked_customers_field"
-					name="enable_blocked_customers"
-					type="checkbox"
-					<?php echo esc_attr( Config::get_enable_blocked_customers() ? 'checked' : '' ); ?>
-				/>
-				<label for="enable_blocked_customers_field">
-					<?php
-					esc_html_e(
-						'Block customers in WooCommerce, if they are labelled as blocked in DK',
-						'connector-for-dk'
-					);
-					?>
-				</label>
-				<p class="description">
-					<?php
-					esc_html_e(
-						'Blocking customers is based on matching their Kennitala between WooCommerce and DK.',
-						'connector-for-dk'
-					);
-					?>
-				</p>
-			</td>
-		</tr>
-	</tbody>
-</table>
+</p>
 
 <table class="form-table">
 	<tbody>

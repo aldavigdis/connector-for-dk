@@ -42,12 +42,10 @@ class Customers {
 			}
 		}
 
-		$api_request        = new DKApiRequest();
-		$include_properties = implode( ',', self::include_properties() );
-		$query_string       = '?include=' . $include_properties;
+		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
-			self::API_PATH . rawurldecode( $kennitala ) . $query_string,
+			self::API_PATH . rawurldecode( $kennitala )
 		);
 
 		if ( $result instanceof WP_Error ) {

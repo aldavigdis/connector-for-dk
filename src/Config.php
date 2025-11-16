@@ -1081,4 +1081,11 @@ class Config {
 			self::DEFAULT_VAT_SKUS['0']
 		);
 	}
+
+	/**
+	 * Get wether to sync customers' addresses, email addres, phone number etc.
+	 */
+	public static function get_sync_customer_addresses(): bool {
+		return (bool) self::get_option( 'sync_customer_addresses', true );
+	}
 }

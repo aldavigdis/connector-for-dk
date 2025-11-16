@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
+use AldaVigdis\ConnectorForDK\Rest\FetchCustomer;
+
 /**
  * The Loader class
  *
@@ -19,7 +21,9 @@ class Loader {
 			new Admin();
 			new BlockedCustomers();
 			new CustomerDiscounts();
+			new CustomerSync();
 			new DefaultSKUs();
+			new FetchCustomer();
 			new ProductAttributeFilters();
 			new I18n();
 			new InternationalCustomers();

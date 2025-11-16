@@ -238,5 +238,11 @@ class CustomerSync {
 			Admin::ASSET_VERSION,
 			false,
 		);
+
+		wp_set_script_translations(
+			'connector-for-dk-fetch-customer',
+			'connector-for-dk',
+			dirname( plugin_dir_path( __FILE__ ) ) . '/languages'
+		);
 	}
 }

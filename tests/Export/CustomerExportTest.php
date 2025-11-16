@@ -39,7 +39,7 @@ final class CustomerExportTest extends TestCase {
 		assertObjectHasProperty( 'Name', $export_object );
 		assertObjectHasProperty( 'Address1', $export_object );
 		assertObjectHasProperty( 'Address2', $export_object );
-		assertObjectHasProperty( 'Country', $export_object );
+		assertObjectHasProperty( 'CountryCode', $export_object );
 		assertObjectHasProperty( 'City', $export_object );
 		assertObjectHasProperty( 'ZipCode', $export_object );
 		assertObjectHasProperty( 'Phone', $export_object );

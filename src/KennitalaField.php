@@ -319,14 +319,13 @@ class KennitalaField {
 	 */
 	public static function add_field_to_user_profile( array $fields ): array {
 		$billing = array_merge(
-			array_slice( $fields['billing']['fields'], 0, 2 ),
 			array(
 				'kennitala' => array(
 					'label'       => __( 'Kennitala', 'connector-for-dk' ),
 					'description' => '',
 				),
 			),
-			array_slice( $fields['billing']['fields'], 2 )
+			$fields['billing']['fields'],
 		);
 
 		$new_fields = $fields;

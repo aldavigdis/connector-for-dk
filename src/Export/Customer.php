@@ -230,7 +230,10 @@ class Customer {
 			'Email'    => $customer->get_billing_email(),
 		);
 
-		if ( get_option( 'woocommerce_default_country' ) !== $customer->get_billing_country() ) {
+		if (
+			get_option( 'woocommerce_default_country' ) !==
+			$customer->get_billing_country()
+		) {
 			$customer_props['CountryCode'] = $customer->get_billing_country();
 		}
 
@@ -269,7 +272,7 @@ class Customer {
 			'Name'        => $wc_order->get_formatted_billing_full_name(),
 			'Address1'    => $wc_order->get_billing_address_1(),
 			'Address2'    => $wc_order->get_billing_address_2(),
-			'Country'     => $wc_order->get_billing_country(),
+			'CountryCode' => $wc_order->get_billing_country(),
 			'City'        => $wc_order->get_billing_city(),
 			'ZipCode'     => $wc_order->get_billing_postcode(),
 			'Phone'       => $wc_order->get_billing_phone(),

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-13T20:40:45+00:00\n"
+"POT-Creation-Date: 2025-11-16T22:09:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: connector-for-dk\n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
-#: src/Config.php:1038
+#: src/Config.php:1028
 msgid "We are unable to check out your order. Please contact us for more information."
 msgstr ""
 
@@ -160,12 +160,28 @@ msgstr ""
 msgid "The currency rate for ‘%s’ has not been set."
 msgstr ""
 
-#: src/CustomerDiscounts.php:362
+#: src/CustomerDiscounts.php:370
 msgid "Regular Price:"
 msgstr ""
 
-#: src/CustomerDiscounts.php:366
+#: src/CustomerDiscounts.php:374
 msgid "Your Price:"
+msgstr ""
+
+#: src/CustomerSync.php:118
+#: src/KennitalaField.php:267
+#: src/KennitalaField.php:324
+#: src/KennitalaField.php:474
+#: src/KennitalaField.php:665
+msgid "Kennitala"
+msgstr ""
+
+#: src/CustomerSync.php:124
+msgid "Fetch from DK"
+msgstr ""
+
+#: src/CustomerSync.php:127
+msgid "Fetch"
 msgstr ""
 
 #. Translators: The %1$s is a placeholder for the site's title.
@@ -180,6 +196,10 @@ msgstr ""
 
 #: src/Export/Order.php:296
 msgid "Shipping"
+msgstr ""
+
+#: src/Helpers/Product.php:171
+msgid "Tax rates not initialised"
 msgstr ""
 
 #: src/Import/SalesPayments.php:73
@@ -243,45 +263,38 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/KennitalaField.php:267
-#: src/KennitalaField.php:325
-#: src/KennitalaField.php:475
-#: src/KennitalaField.php:666
-msgid "Kennitala"
-msgstr ""
-
 #: src/KennitalaField.php:274
 msgid "Invoice with Kennitala Requested"
 msgstr ""
 
 #. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:489
+#: src/KennitalaField.php:488
 #, php-format
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr ""
 
-#: src/KennitalaField.php:508
-#: src/KennitalaField.php:690
+#: src/KennitalaField.php:507
+#: src/KennitalaField.php:689
 msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: src/KennitalaField.php:544
+#: src/KennitalaField.php:543
 msgid "Invalid kennitala nonce"
 msgstr ""
 
-#: src/KennitalaField.php:572
+#: src/KennitalaField.php:571
 msgid "Kennitala is a required field"
 msgstr ""
 
-#: src/KennitalaField.php:670
+#: src/KennitalaField.php:669
 msgid "Kennitala (Optional)"
 msgstr ""
 
-#: src/KennitalaField.php:694
+#: src/KennitalaField.php:693
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
-#: src/KennitalaField.php:755
+#: src/KennitalaField.php:754
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
@@ -527,19 +540,11 @@ msgstr ""
 msgid "DK facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below."
 msgstr ""
 
-#: views/admin_sections/blocked_customers.php:42
-msgid "Block customers in WooCommerce, if they are labelled as blocked in DK"
-msgstr ""
-
-#: views/admin_sections/blocked_customers.php:50
-msgid "Blocking customers is based on matching their Kennitala between WooCommerce and DK."
-msgstr ""
-
-#: views/admin_sections/blocked_customers.php:66
+#: views/admin_sections/blocked_customers.php:33
 msgid "Message for Blocked Customers"
 msgstr ""
 
-#: views/admin_sections/blocked_customers.php:73
+#: views/admin_sections/blocked_customers.php:40
 msgid "This message is displayed when a blocked customer attempts to check out an order."
 msgstr ""
 
@@ -623,6 +628,14 @@ msgstr ""
 
 #: views/admin_sections/customers_international.php:127
 msgid "This ledger code is used for international customer records when they are created in DK."
+msgstr ""
+
+#: views/admin_sections/customers_sync.php:27
+msgid "Sync customer information from DK"
+msgstr ""
+
+#: views/admin_sections/customers_sync.php:35
+msgid "Connector for DK can keep registered customers' addresses, email addresses and phone numbers in sync with DK. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant DK customer record."
 msgstr ""
 
 #: views/admin_sections/default_skus.php:17
@@ -1130,6 +1143,14 @@ msgstr ""
 
 #: views/dk_product_variations.php:376
 msgid "Menu Order"
+msgstr ""
+
+#: js/fetch_customer.js:59
+msgid "Could not find this customer in DK."
+msgstr ""
+
+#: js/fetch_customer.js:64
+msgid "An unexpected error occured."
 msgstr ""
 
 #: js/products.js:154

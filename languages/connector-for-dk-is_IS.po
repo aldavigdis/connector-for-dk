@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-11-13 21:10+0000\n"
+"PO-Revision-Date: 2025-11-16 22:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -70,7 +70,7 @@ msgstr ""
 "hann hér."
 
 #. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:489
+#: src/KennitalaField.php:488
 #, php-format
 #| msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
@@ -271,6 +271,10 @@ msgstr ""
 "Reikningur var ekki útbúinn í DK því þú hefur valið að búa ekki til "
 "reikninga fyrir erlendar pantanir sjálfkrafa."
 
+#: js/fetch_customer.js:64
+msgid "An unexpected error occured."
+msgstr "Óvænt villa kom upp"
+
 #. Translators: The %1$s is the product's original currency code and %2$s is the shop's currency.
 #: views/dk_connection_product_panel.php:81
 #, php-format
@@ -309,22 +313,9 @@ msgstr "Innheimtuþjónusta banka (IB)"
 msgid "Bank Transfer (BM)"
 msgstr "Bankamillifærsla (BM)"
 
-#: views/admin_sections/blocked_customers.php:42
-msgid "Block customers in WooCommerce, if they are labelled as blocked in DK"
-msgstr ""
-"Loka fyrir viðskiptavini í WooCommerce ef þeir eru merktir sem lokaðir í DK"
-
 #: views/admin_sections/blocked_customers.php:16
 msgid "Blocked Customers"
 msgstr "Lokað fyrir viðskipti"
-
-#: views/admin_sections/blocked_customers.php:50
-msgid ""
-"Blocking customers is based on matching their Kennitala between WooCommerce "
-"and DK."
-msgstr ""
-"Lokun á viðskiptum byggir á því að stemma á milli skráðra kennitalna í "
-"WooCommerce og DK."
 
 #: src/Import/SalesPayments.php:167
 msgid "C Giro Request (CG)"
@@ -356,6 +347,18 @@ msgstr "Tengill Basic fyrir DK"
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
+#: views/admin_sections/customers_sync.php:35
+msgid ""
+"Connector for DK can keep registered customers' addresses, email addresses "
+"and phone numbers in sync with DK. This requires the customer to be "
+"registered as a user and to have the Kennitala field set to a value that "
+"corresponds with the relevant DK customer record."
+msgstr ""
+"Tengill fyrir DK getur haldið heimilisföngum, tölvupóstföngum og símanúmerum "
+"viðskiptavina samstilltum við DK. Þetta krefst þess að viðskiptavinurinn sé "
+"skráður sem notandi og með kennitölu stillta á sama gildi og samsvarandi "
+"skuldunaut í DK."
+
 #: views/activation.php:94
 msgid "Connector For DK Edition"
 msgstr "Útgáfa af Tengli fyrir DK"
@@ -373,6 +376,10 @@ msgstr "Tengill Pro fyrir DK"
 #: views/admin_sections/invoices.php:206
 msgid "Cost SKU"
 msgstr "Vörunúmer vegna kostnaðar"
+
+#: js/fetch_customer.js:59
+msgid "Could not find this customer in DK."
+msgstr "Gat ekki fundið þennan viðskiptavin í DK."
 
 #: views/dk_invoice_metabox.php:71
 msgid "Create in DK"
@@ -604,9 +611,17 @@ msgstr "Villa"
 msgid "Fee"
 msgstr "Gjald"
 
+#: src/CustomerSync.php:127
+msgid "Fetch"
+msgstr "Sækja"
+
 #: views/admin_sections/customers_discounts.php:40
 msgid "Fetch Customer Discount and Price Group Data from DK"
 msgstr "Sækja afsláttarkjör og verðhópa viðskiptavina frá DK"
+
+#: src/CustomerSync.php:124
+msgid "Fetch from DK"
+msgstr "Sækja frá DK"
 
 #: views/admin_sections/products.php:46
 msgid "Fetch Product Data from DK"
@@ -826,11 +841,11 @@ msgstr ""
 msgid "International Customers"
 msgstr "Erlendir viðskiptavinir"
 
-#: src/KennitalaField.php:544
+#: src/KennitalaField.php:543
 msgid "Invalid kennitala nonce"
 msgstr "Ógildur prufustrengur fyrir kennitölu"
 
-#: src/KennitalaField.php:755
+#: src/KennitalaField.php:754
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr "Ógild kennitala. Kennitölur eru 10 tölustafir að lengd."
 
@@ -909,12 +924,13 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
 "PDF-viðhengi"
 
-#: src/KennitalaField.php:267 src/KennitalaField.php:325
-#: src/KennitalaField.php:475 src/KennitalaField.php:666
+#: src/CustomerSync.php:118 src/KennitalaField.php:267
+#: src/KennitalaField.php:324 src/KennitalaField.php:474
+#: src/KennitalaField.php:665
 msgid "Kennitala"
 msgstr "Kennitala"
 
-#: src/KennitalaField.php:670
+#: src/KennitalaField.php:669
 msgid "Kennitala (Optional)"
 msgstr "Kennitala (valfrjálst)"
 
@@ -922,7 +938,7 @@ msgstr "Kennitala (valfrjálst)"
 msgid "Kennitala Field"
 msgstr "Reitur fyrir kennitölu"
 
-#: src/KennitalaField.php:572
+#: src/KennitalaField.php:571
 msgid "Kennitala is a required field"
 msgstr "Kennitölu þarf að fylla út"
 
@@ -954,7 +970,7 @@ msgstr "Gera kennitölureit að skyldu"
 msgid "Menu Order"
 msgstr "Röð í valmynd"
 
-#: views/admin_sections/blocked_customers.php:66
+#: views/admin_sections/blocked_customers.php:33
 #| msgid "Message for Blocked Users"
 msgid "Message for Blocked Customers"
 msgstr "Skilaboð fyrir viðskiptavini sem er lokað fyrir"
@@ -1101,7 +1117,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/CustomerDiscounts.php:362
+#: src/CustomerDiscounts.php:370
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -1113,11 +1129,11 @@ msgstr "Fjarlægja mynd"
 msgid "Replace Image"
 msgstr "Skipta út mynd"
 
-#: src/KennitalaField.php:508 src/KennitalaField.php:690
+#: src/KennitalaField.php:507 src/KennitalaField.php:689
 msgid "Request an Invoice with Kennitala"
 msgstr "Biðja um reikning með kennitölu"
 
-#: src/KennitalaField.php:694
+#: src/KennitalaField.php:693
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
@@ -1189,6 +1205,10 @@ msgstr ""
 msgid "stock keeping unit"
 msgstr "stock keeping unit"
 
+#: views/admin_sections/customers_sync.php:27
+msgid "Sync customer information from DK"
+msgstr "Samstilla upplýsingar um viðskiptavini frá DK"
+
 #: views/dk_connection_product_panel.php:45
 msgid "Sync Inventory with DK"
 msgstr "Samstilla lagerstöðu við DK"
@@ -1217,6 +1237,10 @@ msgid ""
 msgstr ""
 "Það er nauðsynlegt að setja upp skattþrep áður en við samstillum vörur og "
 "upplýsingar og búum til reikninga."
+
+#: src/Helpers/Product.php:171
+msgid "Tax rates not initialised"
+msgstr "Skattþrep ekki virkjuð"
 
 #: views/admin_sections/authentication.php:47
 msgid ""
@@ -1336,7 +1360,7 @@ msgstr ""
 "Bókunarflokkurinn er notaður fyrir erlenda viðskiptavini þegar þeir eru "
 "búnir til í DK."
 
-#: views/admin_sections/blocked_customers.php:73
+#: views/admin_sections/blocked_customers.php:40
 #| msgid ""
 #| "This message is displayed when a blocked user attempts to check out an "
 #| "order."
@@ -1463,7 +1487,7 @@ msgstr "Skoða Github-síðuna fyrir viðbótina"
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr "Skoða umsagnir fyrir þessa viðbót á WordPress.org"
 
-#: src/Config.php:1038
+#: src/Config.php:1028
 msgid ""
 "We are unable to check out your order. Please contact us for more "
 "information."
@@ -1534,6 +1558,6 @@ msgstr "Reikningurinn þinn frá %1$s"
 msgid "Your License"
 msgstr "Þitt leyfi"
 
-#: src/CustomerDiscounts.php:366
+#: src/CustomerDiscounts.php:374
 msgid "Your Price:"
 msgstr "Þitt verð:"

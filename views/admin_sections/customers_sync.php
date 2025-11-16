@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types = 1);
+
+use AldaVigdis\ConnectorForDK\Config;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+?>
+
+<table>
+	<tbody class="form-table">
+		<tr>
+			<th scope="row" class="column-title column-primary">
+			</th>
+			<td>
+				<input
+					id="sync_customer_addresses_field"
+					name="sync_customer_addresses"
+					type="checkbox"
+					<?php echo esc_attr( Config::get_sync_customer_addresses() ? 'checked' : '' ); ?>
+				/>
+				<label for="enable_dk_customer_prices_field">
+					<?php
+					esc_html_e(
+						'Sync customer information from DK',
+						'connector-for-dk'
+					);
+					?>
+				</label>
+				<p>
+					<?php
+					esc_html_e(
+						"Connector for DK can keep registered customers' addresses, email addresses and phone numbers in sync with DK. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant DK customer record.",
+						'connector-for-dk'
+					);
+					?>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>

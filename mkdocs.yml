@@ -1,0 +1,23 @@
+site_name: Tengill Pro fyrir DK - Handbók
+nav:
+  - Aðalsíða: index.md
+  - Notendahandbók:
+    - Uppsetning WP-viðbótar: user_guide/installation.md
+    - Stillingar: user_guide/settings.md
+    - Pantanir og reikningar: user_guide/order_editor.md
+    - Vörur: user_guide/product_editor.md
+    - Notendur og viðskiptavinir: user_guide/users.md
+  - Tæknilegar upplýsingar:
+    - Öryggi: user_guide/security.md
+    - wp-cron: user_guide/cron.md
+    - Leyfiskóðar: user_guide/activation.md
+  - Um Tengil fyrir DK:
+    - Tæknileg aðstoð: technical_support.md
+    - Skilmálar: tos.md
+    - Upplýsingar: about.md
+theme:
+  name: readthedocs
+  locale: is
+extra_css:
+  - style.css
+remote_branch: docs-is

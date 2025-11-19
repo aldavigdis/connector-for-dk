@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="is" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>wp-cron - Tengill Pro fyrir DK - Handbók</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "wp-cron";
+        var mkdocs_page_input_path = "user_guide/cron.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Tengill Pro fyrir DK - Handbók
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Aðalsíða</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Notendahandbók</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Uppsetning WP-viðbótar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../settings/">Stillingar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../order_editor/">Pantanir og reikningar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../product_editor/">Vörur</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../users/">Notendur og viðskiptavinir</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tæknilegar upplýsingar</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../security/">Öryggi</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">wp-cron</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#keyrsla-yfir-http">Keyrsla yfir HTTP</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#keyrsla-me-wp-cli-a-linux">Keyrsla með WP-CLI á Linux</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sem-venjulegur-notandi">Sem venjulegur notandi</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sem-root">Sem root</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stillingar-i-cpanel">Stillingar í CPanel</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../activation/">Leyfiskóðar</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Um Tengil fyrir DK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../technical_support/">Tæknileg aðstoð</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tos/">Skilmálar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../about/">Upplýsingar</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Tengill Pro fyrir DK - Handbók</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tæknilegar upplýsingar</li>
+      <li class="breadcrumb-item active">wp-cron</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="wp-cron">wp-cron</h1>
+<p>Tengill fyrir DK samstillir upplýsingar á um klukkustundar fresti allan sólarhringinn í gegn um <code>wp-cron</code>. WordPress og flest hýsingarfyrirtæki gera ráð fyrir því að keyra <code>wp-cron</code> með því að láta vafra gesta á vefnum þínum kalla í <code>wp-cron.php</code> reglulega á bak við tjöldin.</p>
+<p>Þessu geta fylgt ákveðin vandamál ef um er að ræða mikla umferð eða stóra vefverslun og sækja þarf og skrá mikið af gögnum — og þá duga 30 sekúndur ekki alltaf til að öll gögn séu sótt og samstillt. Einnig fer samstilling ekki fram ef engin umferð er á vefinn þinn og þessi leið er notuð.</p>
+<h3 id="keyrsla-yfir-http">Keyrsla yfir HTTP</h3>
+<p>Á WordPress.org eru upplýsingar um hvernig hægt er að smíða cron-skipun sem kallar í wp-cron.php yfir HTTP. Ókosturinn við þessa leið er hinsvegar sá að sömu 30 sekúndna tímatakmarkanir gilda og áður, en kosturinn er sá að sú leið stendur ekki og fellur með því að vefverslunin þín fái umferð og hægt er að keyra þessa skipun á annari vél.</p>
+<p>Nánari upplýsingar um þessa leið er hægt að finna á <a href="https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/">https://developer.wordpress.org/plugins/cron/hooking-wp-cron-into-the-system-task-scheduler/</a>.</p>
+<h3 id="keyrsla-me-wp-cli-a-linux">Keyrsla með WP-CLI á Linux</h3>
+<p>Ef þú hefur aðgang að skel á vefþjóninum þínum, þá hefur þú mögulega aðgang að WP-CLI, sem hjálpar þér að nota WordPress í gegn um skipanalínuna og ennfremur er mögulegt að nota aðrar PHP-stillingar.</p>
+<p>Til að slökkva á því að gestir geti kallað í <code>wp-cron.php</code> færirðu inn línuna <code>define( 'DISABLE_WP_CRON', true );</code> inn í <code>wp-config.php</code> eða slærð in WP-CLI skipunina <code>wp config set DISABLE_WP_CRON true --raw</code>.</p>
+<h4 id="sem-venjulegur-notandi">Sem venjulegur notandi</h4>
+<p>Sláðu in <code>$ crontab -e</code> til að opna textaritil fyrir crontab-skrá þíns notanda. Neðst í skránna geturðu slegið inn eftirfarandi til að keyra wp-cron í allt að 50 mínútur í senn á klukkutíma fresti, 10 mínútur yfir heila tímann:</p>
+<pre><code class="language-crontab">10 * * * * php -d max_execution_time=3000 /usr/local/bin/wp cron event run --due-now --path=&quot;/home/notandi/www&quot;
+</code></pre>
+<p>Hér er gert ráð fyrir því að vefrótin sé staðsett í möppunni <code>/home/notandi/www</code> en þessu þarftu að breyta þannig að það vísi í vefrótina sem vefurinn þinn er geymdur í.</p>
+<h4 id="sem-root">Sem root</h4>
+<p>Eftirfarandi WP-CLI skipun keyrir wp-cron beint úr skelinni sem annar notandi sem <code>root</code> og slekkur á hámarks vinnslutíma á 50 mínútur. Þetta er hægt að setja inn í systemd-skriftu eða crontab fyrir <code>root</code>.</p>
+<pre><code class="language-sh">$ sudo -u www-data -- php -d max_execution_time=3000 /usr/local/bin/wp cron event run --due-now --path=&quot;/var/www/html&quot;
+</code></pre>
+<p>Athugið að hér er gert ráð fyrir því að sudo-skipunin sé aðgengileg, að vefþjónninn keyri sem notandinn <code>www-data</code> og að vefrótin sé staðsett á <code>/var/www/html</code>. Einnig er gert ráð fyrir því að WP-CLI skipunin sé aðgengileg á <code>/usr/local/bin/wp</code>.</p>
+<h4 id="stillingar-i-cpanel">Stillingar í CPanel</h4>
+<p>Ef hýsingarfyrirtækið þitt notar CPanel er mögulega boðið upp á að stilla Cron þar inni. CPanel býður uppá upplýsingar um það á <a href="https://docs.cpanel.net/cpanel/advanced/cron-jobs/">https://docs.cpanel.net/cpanel/advanced/cron-jobs/</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../security/" class="btn btn-neutral float-left" title="Öryggi"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../activation/" class="btn btn-neutral float-right" title="Leyfiskóðar">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../security/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../activation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

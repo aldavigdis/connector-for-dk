@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="is" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Stillingar - Tengill Pro fyrir DK - Handbók</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Stillingar";
+        var mkdocs_page_input_path = "user_guide/settings.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Tengill Pro fyrir DK - Handbók
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Aðalsíða</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Notendahandbók</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Uppsetning WP-viðbótar</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Stillingar</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#aukenning">Auðkenning</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#greislugattir">Greiðslugáttir</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vorur">Vörur</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#samstilling-a-vorum">Samstilling á vörum</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#uppfra-voruver">Uppfæra vöruverð</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#uppfra-lagerstou">Uppfæra lagerstöðu</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#uppfra-voruheiti">Uppfæra vöruheiti</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#uppfra-vorulysingar">Uppfæra vörulýsingar</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#bua-til-nyjar-vorur-i-woocommerce-ef-r-eru-ekki-til">Búa til nýjar vörur í WooCommerce ef þær eru ekki til</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#eya-vorum-ur-woocommerce-ef-r-eru-ovirkar-ea-eim-hefur-veri-eytt-ur-dk">Eyða vörum úr WooCommerce ef þær eru óvirkar eða þeim hefur verið eytt úr DK</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#flytja-inn-vorur-sem-eru-ekki-merktar-sem-synilegt-i-vefverslun-sem-drog">Flytja inn vörur sem eru ekki merktar sem ‚sýnilegt í vefverslun‘ sem drög</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#afbrigi-og-eiginleikar">Afbrigði og eiginleikar</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reikningar">Reikningar</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sjalfvirk-reikningager">Sjálfvirk reikningagerð</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#senda-reikninga-sjalfkrafa-i-tolvuposti">Senda reikninga sjálfkrafa í tölvupósti</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vorunumer-sjalfgefins-solumanns">Vörunúmer sjálfgefins sölumanns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vorunumer-fyrir-jonustu">Vörunúmer fyrir þjónustu</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sjalfgefin-vorunumer">Sjálfgefin vörunúmer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reitur-fyrir-kennitolu">Reitur fyrir kennitölu</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#viskiptavinir">Viðskiptavinir</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sjalfgefin-kennitala-innlendra-viskiptavina">Sjálfgefin kennitala innlendra viðskiptavina</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bokunarflokkur-innlendra-viskiptavina">Bókunarflokkur innlendra viðskiptavina</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#loka-fyrir-viskipti">Lokað fyrir viðskipti</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#afslttir-fyrir-viskiptavini">Afslættir fyrir viðskiptavini</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#erlendir-viskiptavinir">Erlendir viðskiptavinir</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../order_editor/">Pantanir og reikningar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../product_editor/">Vörur</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../users/">Notendur og viðskiptavinir</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tæknilegar upplýsingar</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../security/">Öryggi</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cron/">wp-cron</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../activation/">Leyfiskóðar</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Um Tengil fyrir DK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../technical_support/">Tæknileg aðstoð</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tos/">Skilmálar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../about/">Upplýsingar</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Tengill Pro fyrir DK - Handbók</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Notendahandbók</li>
+      <li class="breadcrumb-item active">Stillingar</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="stillingar">Stillingar</h1>
+<p>Stillingasíðan er stór um sig, en það er mikilvægt að fara yfir allar stillingar því hver og ein DK-uppsetning er mismunandi og það getur einnig verið mismunandi eftir hverju fyrirtæki hvaða venjur eru notaðar við DK.</p>
+<p>Það eru ýmis stillingaratriði sem þurfa að vera á hreinu áður en næstu skref eru tekin. Það getur verið gagnlegt að fá aðstoð frá þínum eigin bókara, fjármálastjóra eða DK-sérfræðingi áður en þú setur viðbótina upp eða stillir hana af.</p>
+<h2 id="aukenning">Auðkenning</h2>
+<p><img alt="" src="../img/authentication.png" /></p>
+<p>Eitt sem er gott að hafa í huga er að skipta reglulega um API-lykil; t.d. á 6 mánaða fresti og um leið og grunur leikur á að brotist hafi verið inn í WordPress-vefinn þinn því API-lykillinn getur veitt þeim sem hefur hann undir höndum aðgang að þínum bókhaldsgögnum.</p>
+<p>Nánar er fjallað um auðkenningu í kaflanum <a href="../installation/">Uppsetning</a>.</p>
+<h2 id="greislugattir">Greiðslugáttir</h2>
+<p><img alt="" src="../img/payment_gateways.png" /></p>
+<p>Til að hægt sé að útbúa reikninga fyrir pantanir þarf að stemma á milli greiðslugátta í WooCommerce annars vegar og greiðsluaðferðar, greiðslumáta og greiðsluskilmála í DK.</p>
+<p>Til að greiðslur séu bókaðar sjálfkrafa á reikning fyrir hverja pöntun þarf svo að haka við hvort færa eigi greiðslulínur á reikninga fyrir hverja greiðslugátt þar sem það á við.</p>
+<h2 id="vorur">Vörur</h2>
+<p><img alt="" src="../img/products.png" /></p>
+<p>Tengill fyrir DK getur sótt og samstillt upplýsingar um vörur beint frá DK. Upplýsingar á borð við verð, vöruheiti og lýsingu eru færðar beint inn á þær vörur sem skráðar eru með SKU í WooCommerce sem samsvarar vörunúmeri í DK.</p>
+<p>Einnig er hægt að skrá vörur beint í WooCommerce þegar þær eru skráðar sem birtar í vefverslun þeim megin.</p>
+<h3 id="samstilling-a-vorum">Samstilling á vörum</h3>
+<p>Þegar Tengill fyrir DK hefur verið settur upp er slökkt á samstillingu á vörum. Ef þú kveikir á þessu koma fram nánari stillingar og upplýsingar um vörur eru uppfærðar ásamt öðrum gögnum úr DK á klukkutíma fresti.</p>
+<h4 id="uppfra-voruver">Uppfæra vöruverð</h4>
+<p>Ef kveikt er á þessu, þá uppfærir Tengill fyrir DK vöruverð; þar með talið tilboðsverð og tilboðstímabil fyrir þær vörur sem eru samstilltar.</p>
+<h4 id="uppfra-lagerstou">Uppfæra lagerstöðu</h4>
+<p>Ef kveikt er á þessu, þá eru upplýsingar um fjölda á lager og hvort neikvæð lagerstaða sé leyfð fyrir hverja vöru endurspeglað frá DK og yfir í WooCommerce.</p>
+<h4 id="uppfra-voruheiti">Uppfæra vöruheiti</h4>
+<p>Ef kveikt er á þessu, þá eru vöruheiti í WooCommerce reglulega uppfærð út frá vörulýsingu í DK. Í DK er reiturinn vörulýsing notaður til að halda utan um heiti hverrar vöru. Ef þú vilt hafa annað vöruheiti í WooCommerce en í DK, þá geturðu slökkt á þessu.</p>
+<h4 id="uppfra-vorulysingar">Uppfæra vörulýsingar</h4>
+<p>Ef kveikt er á þessu, þá eru vörulýsingar í WooCommerce reglulega uppfærðar út frá ‚auka vörulýsingu 1‘ í DK. Ef þú vilt hafa aðra vörulýsingu í WooCommerce í DK, þá geturðu slökkt á þessu.</p>
+<h4 id="bua-til-nyjar-vorur-i-woocommerce-ef-r-eru-ekki-til">Búa til nýjar vörur í WooCommerce ef þær eru ekki til</h4>
+<p>Ef kveikt er á þessu, þá eru vörur sem merktar eru í DK sem ‚sýnilegt í vefverslun‘ færðar inn og birtar sjálfkrafa í vefverslun.</p>
+<h4 id="eya-vorum-ur-woocommerce-ef-r-eru-ovirkar-ea-eim-hefur-veri-eytt-ur-dk">Eyða vörum úr WooCommerce ef þær eru óvirkar eða þeim hefur verið eytt úr DK</h4>
+<p>Ef kveikt er á þessu, þá er vörum eytt úr WooCommerce þegar þær eru merktar sem óvirkar, ekki lengur sem sýnilegar í vefverslun eða þeim eytt úr DK.</p>
+<h4 id="flytja-inn-vorur-sem-eru-ekki-merktar-sem-synilegt-i-vefverslun-sem-drog">Flytja inn vörur sem eru ekki merktar sem ‚sýnilegt í vefverslun‘ sem drög</h4>
+<p>Ef það er kveikt á þessu, þá sækir Tengill fyrir DK allar vörur og færir þær inn í WooCommerce. Vörur sem ekki eru merkta sem sýnilegar í vefverslun eru þá merktar sem drög í WooCommerce og hægt að vinna í þeim þar inni; t.d. færa inn myndir og annað áður en þær eru birtar.</p>
+<h3 id="afbrigi-og-eiginleikar">Afbrigði og eiginleikar</h3>
+<p>DK fer nokkuð óhefðbundnar leiðir til að skrá eiginleika vöruafbrigða en Tengill fyrir DK gerir sitt besta til að vinna með þau og laga að WooCommerce og birtir full heiti og lýsingu eiginleika vöruafbrigða í þeirri rauð sem þau berast frá DK. Ef þú vilt nota þína eigin filtera eða vilt hreinlega birta kóðana sem DK notar beint er hægt að slökkva á þessu.</p>
+<h2 id="reikningar">Reikningar</h2>
+<p><img alt="" src="../img/invoices.png" /></p>
+<h3 id="sjalfvirk-reikningager">Sjálfvirk reikningagerð</h3>
+<p>Hægt er að kveikja og slökkva á sjálfvirkri reikningagerð út frá eftirfarandi:</p>
+<ul>
+<li>Pantanir með kennitölu</li>
+<li>Pantanir án kennitölu</li>
+<li>Pantanir viðskiptavina sem ekki eru skráðir sem skuldunautar/viðskiptavinir í DK</li>
+<li>Erlendar pantanir</li>
+</ul>
+<h3 id="senda-reikninga-sjalfkrafa-i-tolvuposti">Senda reikninga sjálfkrafa í tölvupósti</h3>
+<p>Hægt er að senda reikninga sjálfkrafa í tölvupósti til þeirra sem gefa upp tölvupóstfang við afgreiðslu. Þetta er <em>ekki</em> gert í gegn um WordPress-uppsetninguna þína heldur í gegn um DK og því þarf að ganga úr skugga um að stillingar fyrir tölvupóstsendingar séu réttar í DK og dkPlus.</p>
+<p>Til að koma í veg fyrir að reikningar sem sendir eru í tölvupósti séu flokkaðir sem ruslpóstur gæti þurft að færa inn réttar SPF og DKIM-færslur fyrir lénið sem vefverslunin keyrir á.</p>
+<h3 id="vorunumer-sjalfgefins-solumanns">Vörunúmer sjálfgefins sölumanns</h3>
+<p>Í DK þarf alltaf að skrá reikninga á sölumann. Hér er mælt með því að stofna sölumann í DK og sleppa því að skrá hann á einstakling. Best er að hann sé tengdur við sama notanda og API-lykillinn er skráður á. Sjálfgefið númer er <code>websales</code>.</p>
+<h3 id="vorunumer-fyrir-jonustu">Vörunúmer fyrir þjónustu</h3>
+<p>Þegar viðskiptavinur er rukkaður fyrir sendingar og kostnað sem reiknaður er út af WooCommerce, þurfa viðeigandi vörunúmer að vera til staðar í DK til að hægt sé að færa það inn á reikning. Athugið að þó verð séu fyrir þessi vörunúmer í DK, þá eru þau verð sem WooCommerce notar færð á reikninginn.</p>
+<h3 id="sjalfgefin-vorunumer">Sjálfgefin vörunúmer</h3>
+<p>Þegar ekkert SKU er skilgreint fyrir vöru í WooCommerce getur Tengill fyrir DK valið eitt af þeim vörunúmerum sem skilgreind eru hér og fært þau á reikning þess í stað.</p>
+<p>Rétt eins og með þjónustu-vörunúmerin fyrir ofan eru verð úr WooCommerce notuð á reikning, þannig að það verð sem skilgreint er í DK skiptir ekki máli við reikningagerð.</p>
+<h3 id="reitur-fyrir-kennitolu">Reitur fyrir kennitölu</h3>
+<p>Tengill fyrir DK bætir inn reit fyrir kennitölu. Hér er hægt að slökkva á honum og kveikja og gera hann að skyldu.</p>
+<p>Einnig er hægt að bæta við haki til að skrá kennitölur á pantanir í WooCommerce án þess að stofna nýjan skuldunaut í DK.</p>
+<h2 id="viskiptavinir">Viðskiptavinir</h2>
+<p><img alt="" src="../img/customers.png" /></p>
+<h3 id="sjalfgefin-kennitala-innlendra-viskiptavina">Sjálfgefin kennitala innlendra viðskiptavina</h3>
+<p>Hér þarf að skrá kennitöluna sem þú notar fyrir reikninga sem ættu almennt séð ekki að hafa ákveðna kennitölu. Þessi kennitala heitir oft <em>Almennir skuldunautar</em> eða <em>Staðgreiðslureikningar</em> í DK-uppsetningunni þinni.</p>
+<h3 id="bokunarflokkur-innlendra-viskiptavina">Bókunarflokkur innlendra viðskiptavina</h3>
+<p>Þegar innlendur viðskiptavinur er stofnaður sem skuldunautur í DK þarf að tilgreina bókunarflokk. Hann er yirleitt <code>0001</code>.</p>
+<h3 id="loka-fyrir-viskipti">Lokað fyrir viðskipti</h3>
+<p>Hér er hægt að slá inn þau skilaboð sem birtast viðskiptavini í vefverslun þegar reynt er að ganga frá pöntun ef lokað er fyrir viðskipti. Þegar það gerist er ekki hægt að gefa út reikning.</p>
+<h3 id="afslttir-fyrir-viskiptavini">Afslættir fyrir viðskiptavini</h3>
+<p>Hægt er að lesa upplýsingar um verðhópa og fasta afslætti innskráðra viðskiptavina úr DK og birta þau verð í WooCommerce.</p>
+<p>Athugið að þetta gildir eingöngu um innskráða viðskiptavini.</p>
+<h3 id="erlendir-viskiptavinir">Erlendir viðskiptavinir</h3>
+<p>Hér er útfært hvernig viðskiptamannanúmer eru útfærð, en erlendir viðskiptavinir eru yfirleitt ekki með kennitölu.</p>
+<p>Viðskiptamannanúmer sem eru búin til út frá ID-númeri erlendra viðskiptavina eru 10 stafa runur.</p>
+<p>Athugið að hér þarf að passa sig að þau viðskiptamannanúmer sem verða til rekist ekki á kerfiskennitölur, sem byrja ýmist á 8 eða 9. DK tekur við bókstöfum og því er sjálfgefið forskeyti <code>E</code> og sjálfgefið númer <code>E000000000</code>, en það er hægt að fara aðrar leiðir eins og að byrja viðskiptamannanúmer á <code>0009</code>.</p>
+<p>Í sumum DK-uppsetningum er annar bókunarflokkur fyrir erlenda viðskiptavini/skuldunauta annar en íslenskra og hér er hægt að stilla hann inn.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../installation/" class="btn btn-neutral float-left" title="Uppsetning WP-viðbótar"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../order_editor/" class="btn btn-neutral float-right" title="Pantanir og reikningar">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../order_editor/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

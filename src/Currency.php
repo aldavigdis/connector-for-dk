@@ -135,8 +135,8 @@ class Currency {
 		return $base_currency_amount->multipliedBy(
 			BigDecimal::of( 1 )->dividedBy(
 				$to_rate,
-				12,
-				RoundingMode::HALF_UP
+				24,
+				RoundingMode::HALF_CEILING
 			)
 		)->toFloat();
 	}

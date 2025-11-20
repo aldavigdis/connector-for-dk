@@ -313,39 +313,30 @@ class Products {
 			$wc_product->set_date_on_sale_to( $price->date_on_sale_to );
 			$wc_product->set_tax_class( $price->tax_class );
 
-			if ( Config::get_enable_dk_customer_prices() ) {
-				$wc_product->update_meta_data(
-					'connector_for_dk_price_1',
-					$price->price
-				);
-				$wc_product->update_meta_data(
-					'connector_for_dk_price_1_before_tax',
-					$price->price_before_tax
-				);
-				$wc_product->update_meta_data(
-					'connector_for_dk_price_2',
-					$price->price_2
-				);
-				$wc_product->update_meta_data(
-					'connector_for_dk_price_2_before_tax',
-					$price->price_2_before_tax
-				);
-				$wc_product->update_meta_data(
-					'connector_for_dk_price_3',
-					$price->price_3
-				);
-				$wc_product->update_meta_data(
-					'connector_for_dk_price_3_before_tax',
-					$price->price_3_before_tax
-				);
-			} else {
-				$wc_product->delete_meta_data( 'connector_for_dk_price_1' );
-				$wc_product->delete_meta_data( 'connector_for_dk_price_1_before_tax' );
-				$wc_product->delete_meta_data( 'connector_for_dk_price_2' );
-				$wc_product->delete_meta_data( 'connector_for_dk_price_2_before_tax' );
-				$wc_product->delete_meta_data( 'connector_for_dk_price_3' );
-				$wc_product->delete_meta_data( 'connector_for_dk_price_3_before_tax' );
-			}
+			$wc_product->update_meta_data(
+				'connector_for_dk_price_1',
+				$price->price
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_price_1_before_tax',
+				$price->price_before_tax
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_price_2',
+				$price->price_2
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_price_2_before_tax',
+				$price->price_2_before_tax
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_price_3',
+				$price->price_3
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_price_3_before_tax',
+				$price->price_3_before_tax
+			);
 
 			$wc_product->update_meta_data(
 				'connector_for_dk_currency',
@@ -509,39 +500,30 @@ class Products {
 				$wc_product->set_date_on_sale_to( $price->date_on_sale_to );
 				$wc_product->set_tax_class( $price->tax_class );
 
-				if ( Config::get_enable_dk_customer_prices() ) {
-					$wc_product->update_meta_data(
-						'connector_for_dk_price_1',
-						$price->price
-					);
-					$wc_product->update_meta_data(
-						'connector_for_dk_price_1_before_tax',
-						$price->price_before_tax
-					);
-					$wc_product->update_meta_data(
-						'connector_for_dk_price_2',
-						$price->price_2
-					);
-					$wc_product->update_meta_data(
-						'connector_for_dk_price_2_before_tax',
-						$price->price_2_before_tax
-					);
-					$wc_product->update_meta_data(
-						'connector_for_dk_price_3',
-						$price->price_3
-					);
-					$wc_product->update_meta_data(
-						'connector_for_dk_price_3_before_tax',
-						$price->price_3_before_tax
-					);
-				} else {
-					$wc_product->delete_meta_data( 'connector_for_dk_price_1' );
-					$wc_product->delete_meta_data( 'connector_for_dk_price_1_before_tax' );
-					$wc_product->delete_meta_data( 'connector_for_dk_price_2' );
-					$wc_product->delete_meta_data( 'connector_for_dk_price_2_before_tax' );
-					$wc_product->delete_meta_data( 'connector_for_dk_price_3' );
-					$wc_product->delete_meta_data( 'connector_for_dk_price_3_before_tax' );
-				}
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_1',
+					$price->price
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_1_before_tax',
+					$price->price_before_tax
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_2',
+					$price->price_2
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_2_before_tax',
+					$price->price_2_before_tax
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_3',
+					$price->price_3
+				);
+				$wc_product->update_meta_data(
+					'connector_for_dk_price_3_before_tax',
+					$price->price_3_before_tax
+				);
 
 				$wc_product->update_meta_data(
 					'connector_for_dk_currency',

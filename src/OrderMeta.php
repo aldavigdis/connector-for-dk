@@ -70,6 +70,11 @@ class OrderMeta {
 				continue;
 			}
 
+			$item->update_meta_data(
+				'connector_for_dk_item_on_sale',
+				strval( $product->is_on_sale() )
+			);
+
 			$group_price = ProductHelper::get_group_price(
 				$product,
 				$customer,
@@ -83,7 +88,7 @@ class OrderMeta {
 
 			$item->update_meta_data(
 				'connector_for_dk_regular_price',
-				$product->get_regular_price( 'edit' )
+				$product->get_meta( 'connector_for_dk_price_1_before_tax' )
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {

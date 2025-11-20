@@ -4,14 +4,6 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
-use WC_Order;
-use WC_Order_Item_Product;
-use WC_Order_Item_Fee;
-use WC_Order_Item_Shipping;
-
 /**
  * The international customers class
  *

@@ -6,9 +6,6 @@ namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;

@@ -60,8 +60,7 @@ class OrderMeta {
 		?int $order_id,
 		WC_Order $order
 	): void {
-		$customer_id = $order->get_customer_id();
-		$customer    = new WC_Customer( $order->get_customer_id() );
+		$customer = new WC_Customer( $order->get_customer_id() );
 
 		foreach ( $order->get_items() as $item ) {
 			if ( ! $item instanceof WC_Order_Item_Product ) {
@@ -79,52 +78,14 @@ class OrderMeta {
 				$customer
 			);
 
-			$subtotal_with_tax = $order->get_item_subtotal(
-				$item,
-				true,
-				false
+			$item->update_meta_data(
+				'connector_for_dk_group_price',
+				$group_price
 			);
-
-			$subtotal_before_tax = $order->get_item_subtotal(
-				$item,
-				false,
-				false
-			);
-
-			$tax_multiplier = BigDecimal::of(
-				ProductHelper::tax_rate(
-					$item->get_product()
-				)
-			)->plus(
-				1
-			)->toFloat();
-
-			if (
-				wc_prices_include_tax() &&
-				OrderHelper::is_domestic( $order )
-			) {
-				$group_price_after_vat = BigDecimal::of(
-					$group_price
-				)->dividedBy(
-					$tax_multiplier,
-					12,
-					RoundingMode::HALF_UP
-				)->toFloat();
-
-				$item->update_meta_data(
-					'connector_for_dk_group_price',
-					$group_price_after_vat
-				);
-			} else {
-				$item->update_meta_data(
-					'connector_for_dk_group_price',
-					$group_price
-				);
-			}
 
 			$item->update_meta_data(
-				'connector_for_dk_vat_multiplier',
-				(string) $tax_multiplier
+				'connector_for_dk_regular_price',
+				$product->get_regular_price( 'edit' )
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {

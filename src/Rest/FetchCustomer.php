@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK\Rest;
 
+use AldaVigdis\ConnectorForDK\CustomerContacts;
 use AldaVigdis\ConnectorForDK\CustomerSync;
 use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
-
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
@@ -51,6 +51,8 @@ class FetchCustomer {
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response|WP_Error {
+		$kennitala = (string) $request['kennitala'];
+
 		$dk_customer = ImportCustomers::get_from_dk( $request['kennitala'] );
 
 		if ( ! is_object( $dk_customer ) ) {
@@ -63,6 +65,11 @@ class FetchCustomer {
 			'first_name' => $dk_customer_name->first_name,
 			'last_name'  => $dk_customer_name->last_name,
 			'company'    => $dk_customer_name->company,
+			'contacts'   => CustomerContacts::get_contacts_for_kennitala(
+				$kennitala,
+				true,
+				false
+			),
 		);
 
 		if ( property_exists( $dk_customer, 'Address1' ) ) {

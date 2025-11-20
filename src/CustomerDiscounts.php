@@ -49,6 +49,13 @@ class CustomerDiscounts {
 			);
 
 			add_filter(
+				'woocommerce_product_variation_get_price',
+				array( __CLASS__, 'get_discounted_price' ),
+				10,
+				2
+			);
+
+			add_filter(
 				'woocommerce_product_get_regular_price',
 				array( __CLASS__, 'get_regular_price' ),
 				10,

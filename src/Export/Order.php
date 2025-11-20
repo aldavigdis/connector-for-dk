@@ -8,6 +8,7 @@ use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product;
@@ -132,10 +133,7 @@ class Order {
 		$customer_array = array( 'Number' => $kennitala );
 		$store_location = wc_get_base_location();
 
-		$export = (
-			$wc_order->get_shipping_country() !==
-			$store_location['country']
-		);
+		$export = OrderHelper::is_international( $wc_order );
 
 		$recipient_array = array(
 			'Name'     => $wc_order->get_formatted_billing_full_name(),
@@ -163,61 +161,47 @@ class Order {
 				continue;
 			}
 
-			$group_price = (float) $item->get_meta(
-				'connector_for_dk_group_price',
-				true,
-				'edit'
-			);
-
 			$sku = self::assume_item_sku( $item );
 
 			if ( $sku === false ) {
 				return false;
 			}
 
-			$tax_multiplier = (float) $item->get_meta(
-				'connector_for_dk_vat_multiplier'
-			);
+			$subtotal = BigDecimal::of(
+				$item->get_subtotal()
+			)->dividedBy(
+				$item->get_quantity(),
+				12,
+				RoundingMode::HALF_UP
+			)->toFloat();
 
-			$group_price_with_vat = BigDecimal::of(
-				$group_price
-			)->multipliedBy(
-				$tax_multiplier
+			$discounted_price = BigDecimal::of(
+				$item->get_total()
+			)->dividedBy(
+				$item->get_quantity(),
+				12,
+				RoundingMode::HALF_UP
 			)->toFloat();
 
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
 				BigDecimal::of(
-					$item->get_subtotal()
+					$subtotal
 				)->minus(
-					$item->get_total()
+					$discounted_price
 				)->multipliedBy(
-					$tax_multiplier
+					$item->get_quantity()
 				)->toFloat(),
 				$item
 			);
-
-			$customer_discount = BigDecimal::of(
-				$item->get_subtotal()
-			)->plus(
-				$item->get_subtotal_tax()
-			)->minus(
-				$group_price_with_vat
-			)->negated()->toFloat();
-
-			$total_discount = BigDecimal::of(
-				$customer_discount
-			)->plus(
-				$discount
-			)->toFloat();
 
 			$order_line_item = array(
 				'ItemCode'       => $sku,
 				'Text'           => $item->get_name(),
 				'Quantity'       => $item->get_quantity(),
-				'Price'          => $group_price_with_vat,
-				'DiscountAmount' => $total_discount,
-				'IncludingVAT'   => true,
+				'Price'          => $subtotal,
+				'DiscountAmount' => $discount,
+				'IncludingVAT'   => false,
 			);
 
 			$origin = $item->get_meta(
@@ -260,12 +244,6 @@ class Order {
 		foreach ( $wc_order->get_fees() as $fee ) {
 			$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
-			$fee_price_with_tax = BigDecimal::of(
-				$fee->get_total()
-			)->plus(
-				$fee->get_total_tax()
-			)->toFloat();
-
 			$order_props['Lines'][] = apply_filters(
 				'connector_for_dk_export_order_fee',
 				array(
@@ -273,8 +251,8 @@ class Order {
 					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => 1,
-					'Price'        => $fee_price_with_tax,
-					'IncludingVAT' => true,
+					'Price'        => (float) $fee->get_total(),
+					'IncludingVAT' => false,
 				),
 				$fee,
 				$wc_order
@@ -283,12 +261,6 @@ class Order {
 
 		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
 			if ( $shipping_method->get_total() > 0 ) {
-				$shipping_total = BigDecimal::of(
-					$shipping_method->get_total()
-				)->plus(
-					$shipping_method->get_total_tax()
-				)->toFloat();
-
 				$order_props['Lines'][] = apply_filters(
 					'connector_for_dk_export_order_shipping',
 					array(
@@ -296,8 +268,8 @@ class Order {
 						'Text'         => __( 'Shipping', 'connector-for-dk' ),
 						'Text2'        => $shipping_method->get_name(),
 						'Quantity'     => 1,
-						'Price'        => (float) $shipping_total,
-						'IncludingVAT' => true,
+						'Price'        => (float) $shipping_method->get_total(),
+						'IncludingVAT' => false,
 					),
 					$shipping_method,
 					$wc_order

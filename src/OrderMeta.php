@@ -72,7 +72,8 @@ class OrderMeta {
 
 			$group_price = ProductHelper::get_group_price(
 				$product,
-				$customer
+				$customer,
+				false
 			);
 
 			$item->update_meta_data(

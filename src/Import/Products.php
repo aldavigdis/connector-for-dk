@@ -320,7 +320,7 @@ class Products {
 				);
 				$wc_product->update_meta_data(
 					'connector_for_dk_price_1_before_tax',
-					$price->price_1_before_tax
+					$price->price_before_tax
 				);
 				$wc_product->update_meta_data(
 					'connector_for_dk_price_2',
@@ -601,8 +601,6 @@ class Products {
 			$json_object->TaxPercent
 		);
 
-		$decimals = (int) get_option( 'woocommerce_price_num_decimals', '0' );
-
 		if ( $store_currency === $dk_currency ) {
 			$price_before_tax      = $json_object->UnitPrice1;
 			$price_with_tax        = $json_object->UnitPrice1WithTax;
@@ -673,7 +671,7 @@ class Products {
 
 		$price_array = array(
 			'price'                 => $price,
-			'price_before_tax'      => $price_2_before_tax,
+			'price_before_tax'      => $price_before_tax,
 			'sale_price'            => $sale_price,
 			'sale_price_before_tax' => $sale_price_before_tax,
 			'date_on_sale_from'     => $date_on_sale_from,

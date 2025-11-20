@@ -19,6 +19,8 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
+use WC_Cart;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

@@ -658,10 +658,12 @@ class Product {
 	 *
 	 * @param WC_Product  $product The product.
 	 * @param WC_Customer $customer The customer.
+	 * @param bool        $including_tax wether to include VAT in the price.
 	 */
 	public static function get_group_price(
 		WC_Product $product,
-		WC_Customer $customer
+		WC_Customer $customer,
+		bool $including_tax = true,
 	): string {
 		$group = (string) $customer->get_meta(
 			'connector_for_dk_price_group',
@@ -673,10 +675,10 @@ class Product {
 			$group = '1';
 		}
 
-		$price_key = "connector_for_dk_price_{$group}";
-
-		if ( $product instanceof WC_Product_Variation ) {
-			return $product->get_regular_price();
+		if ( $including_tax ) {
+			$price_key = "connector_for_dk_price_{$group}";
+		} else {
+			$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
 		}
 
 		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {

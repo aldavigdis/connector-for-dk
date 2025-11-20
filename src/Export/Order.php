@@ -167,11 +167,13 @@ class Order {
 				return false;
 			}
 
-			$group_price = (float) $item->get_meta(
-				'connector_for_dk_group_price',
-				true,
-				'edit'
-			);
+			$subtotal = BigDecimal::of(
+				$item->get_subtotal()
+			)->dividedBy(
+				$item->get_quantity(),
+				12,
+				RoundingMode::HALF_UP
+			)->toFloat();
 
 			$discounted_price = BigDecimal::of(
 				$item->get_total()
@@ -184,7 +186,7 @@ class Order {
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
 				BigDecimal::of(
-					$group_price
+					$subtotal
 				)->minus(
 					$discounted_price
 				)->multipliedBy(
@@ -197,7 +199,7 @@ class Order {
 				'ItemCode'       => $sku,
 				'Text'           => $item->get_name(),
 				'Quantity'       => $item->get_quantity(),
-				'Price'          => $group_price,
+				'Price'          => $subtotal,
 				'DiscountAmount' => $discount,
 				'IncludingVAT'   => false,
 			);

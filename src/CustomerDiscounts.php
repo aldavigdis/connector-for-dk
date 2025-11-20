@@ -6,9 +6,11 @@ namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
-
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use stdClass;
 use WC_Customer;
+use WC_Order_Item;
 use WC_Product;
 use WC_Product_Variable;
 
@@ -82,6 +84,13 @@ class CustomerDiscounts {
 				10,
 				1
 			);
+
+			add_filter(
+				'connector_for_dk_order_item_original_price',
+				array( __CLASS__, 'indicate_discounts_on_invoices' ),
+				10,
+				3
+			);
 		}
 
 		add_action(
@@ -104,6 +113,33 @@ class CustomerDiscounts {
 			10,
 			1
 		);
+	}
+
+	/**
+	 * Indicate customer discounts on invoices
+	 *
+	 * This runs on the connector_for_dk_order_item_original_price filter.
+	 *
+	 * @param float         $subtotal The current subtotal.
+	 * @param WC_Order_Item $item The order item.
+	 * @param WC_Customer   $customer The customer.
+	 */
+	public static function indicate_discounts_on_invoices(
+		float $subtotal,
+		WC_Order_Item $item,
+		WC_Customer $customer
+	): float {
+		$customer_discount = BigDecimal::of(
+			$customer->get_meta( 'connector_for_dk_discount' )
+		)->dividedBy( 100, 12, RoundingMode::HALF_UP );
+
+		return BigDecimal::of(
+			$subtotal
+		)->dividedBy(
+			BigDecimal::of( 1 )->minus( $customer_discount ),
+			12,
+			RoundingMode::HALF_UP
+		)->toFloat();
 	}
 
 	/**

@@ -9,6 +9,7 @@ use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product;
@@ -128,10 +129,10 @@ class Order {
 	 */
 	public static function to_dk_order_body( WC_Order $wc_order ): array|false {
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
+		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 
 		$order_props    = array();
 		$customer_array = array( 'Number' => $kennitala );
-		$store_location = wc_get_base_location();
 
 		$export = OrderHelper::is_international( $wc_order );
 
@@ -175,6 +176,20 @@ class Order {
 				RoundingMode::HALF_UP
 			)->toFloat();
 
+			if ( ! empty( $item->get_meta( 'connector_for_dk_item_on_sale' ) ) ) {
+				$original_price = (float) $item->get_meta(
+					'connector_for_dk_regular_price'
+				);
+			} else {
+				$original_price = apply_filters(
+					'connector_for_dk_order_item_original_price',
+					$subtotal,
+					$item,
+					$customer,
+					$wc_order
+				);
+			}
+
 			$discounted_price = BigDecimal::of(
 				$item->get_total()
 			)->dividedBy(
@@ -186,7 +201,7 @@ class Order {
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
 				BigDecimal::of(
-					$subtotal
+					$original_price
 				)->minus(
 					$discounted_price
 				)->multipliedBy(
@@ -199,7 +214,7 @@ class Order {
 				'ItemCode'       => $sku,
 				'Text'           => $item->get_name(),
 				'Quantity'       => $item->get_quantity(),
-				'Price'          => $subtotal,
+				'Price'          => $original_price,
 				'DiscountAmount' => $discount,
 				'IncludingVAT'   => false,
 			);

@@ -229,12 +229,12 @@ class Product {
 				$tax_fraction = $tax_rate->dividedBy(
 					100,
 					4,
-					roundingMode: RoundingMode::HALF_UP
+					roundingMode: RoundingMode::HALF_CEILING
 				);
 
 				return $price->dividedBy(
 					$tax_fraction->plus( 1 ),
-					roundingMode: RoundingMode::HALF_UP
+					roundingMode: RoundingMode::HALF_CEILING
 				)->toFloat();
 			}
 		} else {
@@ -642,8 +642,8 @@ class Product {
 
 		$multiplier = BigDecimal::of( $discount_meta )->dividedBy(
 			100,
-			12,
-			RoundingMode::HALF_UP
+			24,
+			RoundingMode::HALF_CEILING
 		);
 
 		$price_d          = BigDecimal::of( $group_price );
@@ -736,8 +736,8 @@ class Product {
 			$discount_meta
 		)->dividedBy(
 			100,
-			12,
-			RoundingMode::HALF_UP
+			24,
+			RoundingMode::HALF_CEILING
 		);
 
 		$min_discount = $multiplier->multipliedBy( $min_price );

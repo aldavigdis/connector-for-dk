@@ -692,8 +692,8 @@ class Products {
 
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,
-			12,
-			roundingMode: RoundingMode::HALF_UP
+			24,
+			roundingMode: RoundingMode::HALF_CEILING
 		);
 
 		return BigDecimal::of(

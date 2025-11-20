@@ -131,14 +131,14 @@ class CustomerDiscounts {
 	): float {
 		$customer_discount = BigDecimal::of(
 			$customer->get_meta( 'connector_for_dk_discount' )
-		)->dividedBy( 100, 12, RoundingMode::HALF_UP );
+		)->dividedBy( 100, 24, RoundingMode::HALF_CEILING );
 
 		return BigDecimal::of(
 			$subtotal
 		)->dividedBy(
 			BigDecimal::of( 1 )->minus( $customer_discount ),
-			12,
-			RoundingMode::HALF_UP
+			24,
+			RoundingMode::HALF_CEILING
 		)->toFloat();
 	}
 

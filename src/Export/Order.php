@@ -172,8 +172,8 @@ class Order {
 				$item->get_subtotal()
 			)->dividedBy(
 				$item->get_quantity(),
-				12,
-				RoundingMode::HALF_UP
+				24,
+				RoundingMode::HALF_CEILING
 			)->toFloat();
 
 			if ( ! empty( $item->get_meta( 'connector_for_dk_item_on_sale' ) ) ) {
@@ -194,8 +194,8 @@ class Order {
 				$item->get_total()
 			)->dividedBy(
 				$item->get_quantity(),
-				12,
-				RoundingMode::HALF_UP
+				24,
+				RoundingMode::HALF_CEILING
 			)->toFloat();
 
 			$discount = apply_filters(

@@ -24,6 +24,8 @@ class CustomerSync {
 		add_filter(
 			'woocommerce_customer_meta_fields',
 			array( __CLASS__, 'add_field_to_user_profile' ),
+			10,
+			1
 		);
 
 		add_action(

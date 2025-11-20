@@ -20,6 +20,7 @@ class Loader {
 		if ( CONNECTOR_FOR_DK_EDITION === 'connector_for_dk_pro' ) {
 			new Admin();
 			new BlockedCustomers();
+			new CustomerContacts();
 			new CustomerDiscounts();
 			new CustomerSync();
 			new DefaultSKUs();

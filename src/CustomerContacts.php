@@ -10,9 +10,18 @@ use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use WC_Customer;
 use WC_Order;
 use WP_Error;
-use stdClass;
 
+/**
+ * The Customer Contacts class
+ *
+ * Handles customer contacts, which is a feature in DK that enables multiple
+ * contacts or focal points per customer. This could be based on department or
+ * an induvidiual in the case of companies and organisations.
+ */
 class CustomerContacts {
+	/**
+	 * The constructor
+	 */
 	public function __construct() {
 		add_filter(
 			'woocommerce_customer_meta_fields',
@@ -29,11 +38,20 @@ class CustomerContacts {
 		);
 	}
 
+	/**
+	 * Add the customer contact field to the user editor
+	 *
+	 * This is plugged into the `woocommerce_customer_meta_fields` filter.
+	 *
+	 * @param array $fields The fields to be filtered.
+	 */
 	public static function add_field_to_user_profile( array $fields ): array {
-		if ( empty( $_REQUEST['user_id'] ) ) {
-			$user_id = get_current_user_id();
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( key_exists( 'user_id', $_REQUEST ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$user_id = (int) $_REQUEST['user_id'];
 		} else {
-			$user_id = absint( $_REQUEST['user_id'] );
+			$user_id = get_current_user_id();
 		}
 
 		$customer  = new WC_Customer( $user_id );
@@ -68,6 +86,12 @@ class CustomerContacts {
 		return $new_fields;
 	}
 
+	/**
+	 * Get customer's current contact
+	 *
+	 * @param WC_Customer $wc_customer The customer.
+	 * @param bool        $cached Wether to used the customer transient cache.
+	 */
 	public static function get_current_contact_for_customer(
 		WC_Customer $wc_customer,
 		bool $cached = true,
@@ -99,6 +123,13 @@ class CustomerContacts {
 		return false;
 	}
 
+	/**
+	 * Get all the contacts for a DK customer, based on their kennitala
+	 *
+	 * @param string $kennitala The kennitala.
+	 * @param bool   $cached Wether to use the transient customer cache.
+	 * @param bool   $associative Wether to return an associative array.
+	 */
 	public static function get_contacts_for_kennitala(
 		string $kennitala,
 		bool $cached = true,
@@ -150,6 +181,14 @@ class CustomerContacts {
 		return $contacts_asc;
 	}
 
+	/**
+	 * Add the default customer contact to the DK JSON body
+	 *
+	 * This plugs into the `connector_for_dk_export_order_body` filter.
+	 *
+	 * @param array    $order_props The order props to filter.
+	 * @param WC_Order $order The WooCommerce order itself.
+	 */
 	public static function add_contact_to_order_body(
 		array $order_props,
 		WC_Order $order

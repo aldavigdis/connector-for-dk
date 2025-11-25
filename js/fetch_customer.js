@@ -24,6 +24,11 @@ class ConnectorForDKFetchCustomer {
 	}
 
 	/**
+	 * The contacts select box
+	 *
+	 * Contains all the customer contacts as they are in DK. Each WooCommerce
+	 * customer can have one default contact.
+	 *
 	 * @returns {HTMLElement}
 	 */
 	static contactsField() {
@@ -31,9 +36,15 @@ class ConnectorForDKFetchCustomer {
 	}
 
 	/**
+	 * Repopulate the contacts select box
+	 *
 	 * @param {array} contacts The contacts as they arrive from the REST API.
 	 */
 	static repopulateContactsField( contacts ) {
+		if ( ! this.contactsField() ) {
+			return;
+		}
+
 		const value = this.contactsField().value;
 
 		this.contactsField().innerHTML = '<option value=""></option>';
@@ -175,8 +186,17 @@ class ConnectorForDKFetchCustomer {
 	 * @returns void
 	 */
 	static populateField( fieldName, value ) {
+		// WooCommerce already loads the Select2 jQuery thingimajig for the
+		// country drop-down and we could just as well use that to stick with
+		// their style.
 		if ( fieldName == 'country' ) {
-			jQuery( '#billing_country' ).val( value.toUpperCase() ).trigger( 'change' );
+			jQuery(
+				'#billing_country'
+			).val(
+				value.toUpperCase()
+			).trigger(
+				'change'
+			);
 		}
 
 		const fieldNode = document.getElementById( 'billing_' + fieldName );

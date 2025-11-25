@@ -1088,4 +1088,11 @@ class Config {
 	public static function get_sync_customer_addresses(): bool {
 		return (bool) self::get_option( 'sync_customer_addresses', true );
 	}
+
+	/**
+	 * Get wether to add Iceland to WC's list of countries using VAT
+	 */
+	public static function get_add_iceland_to_vat_countries(): bool {
+		return (bool) self::get_option( 'add_iceland_to_vat_countries', true );
+	}
 }

@@ -27,6 +27,7 @@ class Loader {
 			new FetchCustomer();
 			new ProductAttributeFilters();
 			new I18n();
+			new IcelandTweaks();
 			new InternationalCustomers();
 			new OrderMeta();
 			new KennitalaField();

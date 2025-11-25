@@ -35,6 +35,7 @@ class Metaboxes {
 		'connector_for_dk_price_group',
 		'connector_for_dk_version',
 		'connector_for_dk_pdf_file_name',
+		'connector_for_dk_customer_discount',
 	);
 
 	/**

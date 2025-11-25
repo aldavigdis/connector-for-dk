@@ -168,26 +168,18 @@ class Order {
 				return false;
 			}
 
-			$subtotal = BigDecimal::of(
-				$item->get_subtotal()
-			)->dividedBy(
-				$item->get_quantity(),
-				24,
-				RoundingMode::HALF_CEILING
-			)->toFloat();
-
-			if ( ! empty( $item->get_meta( 'connector_for_dk_item_on_sale' ) ) ) {
-				$original_price = (float) $item->get_meta(
-					'connector_for_dk_regular_price'
-				);
+			if ( empty( $item->get_meta( 'connector_for_dk_item_on_sale' ) ) ) {
+				$subtotal = BigDecimal::of(
+					$item->get_subtotal()
+				)->dividedBy(
+					$item->get_quantity(),
+					24,
+					RoundingMode::HALF_CEILING
+				)->toFloat();
 			} else {
-				$original_price = apply_filters(
-					'connector_for_dk_order_item_original_price',
-					$subtotal,
-					$item,
-					$customer,
-					$wc_order
-				);
+				$subtotal = BigDecimal::of(
+					$item->get_meta( 'connector_for_dk_regular_price' )
+				)->toFloat();
 			}
 
 			$discounted_price = BigDecimal::of(
@@ -201,7 +193,7 @@ class Order {
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
 				BigDecimal::of(
-					$original_price
+					$subtotal
 				)->minus(
 					$discounted_price
 				)->multipliedBy(
@@ -214,7 +206,7 @@ class Order {
 				'ItemCode'       => $sku,
 				'Text'           => $item->get_name(),
 				'Quantity'       => $item->get_quantity(),
-				'Price'          => $original_price,
+				'Price'          => $subtotal,
 				'DiscountAmount' => $discount,
 				'IncludingVAT'   => false,
 			);

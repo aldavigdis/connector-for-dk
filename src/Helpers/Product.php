@@ -648,9 +648,9 @@ class Product {
 
 		$price_d          = BigDecimal::of( $group_price );
 		$discount         = $price_d->multipliedBy( $multiplier );
-		$discounted_price = $price_d->minus( $discount )->toFloat();
+		$discounted_price = $price_d->minus( $discount );
 
-		return (string) $discounted_price;
+		return (string) $discounted_price->toFloat();
 	}
 
 	/**

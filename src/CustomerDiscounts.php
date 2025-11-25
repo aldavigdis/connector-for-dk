@@ -10,9 +10,13 @@ use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use stdClass;
 use WC_Customer;
-use WC_Order_Item;
+use WC_Order;
 use WC_Product;
 use WC_Product_Variable;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * The Customer Discount Class
@@ -41,6 +45,95 @@ class CustomerDiscounts {
 				array( __CLASS__, 'modify_display_price' ),
 				10,
 				2
+			);
+
+			add_filter(
+				'woocommerce_get_discounted_price',
+				function ( float $item_total, array $values, $instance ) {
+					if ( key_exists( 'product_id', $values ) ) {
+						$product = wc_get_product( $values['product_id'] );
+
+						if ( $product && $product->is_on_sale() ) {
+							return $item_total;
+						}
+					}
+
+					$customer_id = get_current_user_id();
+
+					if ( $customer_id === 0 ) {
+						return $item_total;
+					}
+
+					$customer = new WC_Customer( $customer_id );
+
+					$discount_meta = floatval(
+						$customer->get_meta( 'connector_for_dk_discount' )
+					);
+
+					$multiplier = BigDecimal::of( $discount_meta )->dividedBy(
+						100,
+						24,
+						RoundingMode::HALF_CEILING
+					);
+
+					$price_d          = BigDecimal::of( $item_total );
+					$discount         = $price_d->multipliedBy( $multiplier );
+					$discounted_price = $price_d->minus( $discount );
+
+					return $discounted_price->toFloat();
+				},
+				10,
+				3
+			);
+
+			add_action(
+				'woocommerce_cart_totals_before_order_total',
+				array(
+					__CLASS__,
+					'display_customer_discount_above_order_total',
+				),
+				10,
+				0
+			);
+
+			add_action(
+				'woocommerce_review_order_before_order_total',
+				array(
+					__CLASS__,
+					'display_customer_discount_above_order_total',
+				),
+				10,
+				0
+			);
+
+			add_action(
+				'woocommerce_get_order_item_totals',
+				array(
+					__CLASS__,
+					'add_customer_discount_to_order_items_totals',
+				),
+				10,
+				3
+			);
+
+			add_action(
+				'woocommerce_admin_order_totals_after_discount',
+				function ( int $order_id ): void {
+					$order = wc_get_order( $order_id );
+					$discount = $order->get_meta( 'connector_for_dk_customer_discount' );
+
+					if ( empty( $discount ) ) {
+						return;
+					}
+
+					echo '<tr>';
+					echo '<td class="label">Customer discount:</td>';
+					echo '<td width="1%"></td>';
+					echo '<td class="woocommerce-Price-amount amount">';
+					echo esc_html( $discount . '%' );
+					echo '</td>';
+					echo '</tr>';
+				}
 			);
 
 			add_filter(
@@ -84,13 +177,6 @@ class CustomerDiscounts {
 				10,
 				1
 			);
-
-			add_filter(
-				'connector_for_dk_order_item_original_price',
-				array( __CLASS__, 'indicate_discounts_on_invoices' ),
-				10,
-				3
-			);
 		}
 
 		add_action(
@@ -115,31 +201,47 @@ class CustomerDiscounts {
 		);
 	}
 
-	/**
-	 * Indicate customer discounts on invoices
-	 *
-	 * This runs on the connector_for_dk_order_item_original_price filter.
-	 *
-	 * @param float         $subtotal The current subtotal.
-	 * @param WC_Order_Item $item The order item.
-	 * @param WC_Customer   $customer The customer.
-	 */
-	public static function indicate_discounts_on_invoices(
-		float $subtotal,
-		WC_Order_Item $item,
-		WC_Customer $customer
-	): float {
-		$customer_discount = BigDecimal::of(
-			$customer->get_meta( 'connector_for_dk_discount' )
-		)->dividedBy( 100, 24, RoundingMode::HALF_CEILING );
+	public static function display_customer_discount_above_order_total() {
+		$customer_id = get_current_user_id();
+		if ( $customer_id === 0 ) {
+			return;
+		}
 
-		return BigDecimal::of(
-			$subtotal
-		)->dividedBy(
-			BigDecimal::of( 1 )->minus( $customer_discount ),
-			24,
-			RoundingMode::HALF_CEILING
-		)->toFloat();
+		$customer = new WC_Customer( $customer_id );
+
+		$discount = (float) $customer->get_meta( 'connector_for_dk_discount' );
+
+		if ( $discount === 0.0 ) {
+			return;
+		}
+
+		echo '<tr><th>';
+		esc_html_e( 'Customer discount:', 'connector-for-dk' );
+		echo '</th><td>' . esc_html( $discount ) . '%</td></tr>';
+	}
+
+	public static function add_customer_discount_to_order_items_totals(
+		array $total_rows,
+		WC_Order $order,
+	): array {
+		$discount = (float) $order->get_meta(
+			'connector_for_dk_customer_discount'
+		);
+
+		if ( $discount === 0.0 ) {
+			return $total_rows;
+		}
+
+		$discount_row = array(
+			'discount' => array(
+				'label' => __( 'Customer discount:', 'connector-for-dk' ),
+				'value' => $discount . '%',
+			),
+		);
+
+		array_splice( $total_rows, 1, 0, $discount_row );
+
+		return $total_rows;
 	}
 
 	/**

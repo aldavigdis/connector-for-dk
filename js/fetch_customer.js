@@ -24,6 +24,43 @@ class ConnectorForDKFetchCustomer {
 	}
 
 	/**
+	 * The contacts select box
+	 *
+	 * Contains all the customer contacts as they are in DK. Each WooCommerce
+	 * customer can have one default contact.
+	 *
+	 * @returns {HTMLElement}
+	 */
+	static contactsField() {
+		return document.getElementById( 'connector_for_dk_contact' );
+	}
+
+	/**
+	 * Repopulate the contacts select box
+	 *
+	 * @param {array} contacts The contacts as they arrive from the REST API.
+	 */
+	static repopulateContactsField( contacts ) {
+		if ( ! this.contactsField() ) {
+			return;
+		}
+
+		const value = this.contactsField().value;
+
+		this.contactsField().innerHTML = '<option value=""></option>';
+		contacts.forEach(
+			( property ) => {
+				let selected           = property.number === value;
+				let text               = property.name;
+				this.contactsField().add( new Option( text, property.number, selected ) );
+				if ( selected ) {
+					this.contactsField().value = property.number;
+				}
+			}
+		);
+	}
+
+	/**
 	 * The Kennitala field
 	 *
 	 * @returns HTMLElement
@@ -123,16 +160,19 @@ class ConnectorForDKFetchCustomer {
 		if ( response.ok ) {
 			const json = await response.json();
 
+			this.repopulateContactsField( json.contacts );
+
 			Object.keys( json ).forEach(
-					function ( property ) {
-						ConnectorForDKFetchCustomer.populateField(
+				( property ) => {
+					ConnectorForDKFetchCustomer.populateField(
 						property,
 						json[property]
-						);
-					}
-				);
+					);
+				}
+			);
 		} else {
 			this.handleError( response );
+			this.repopulateContactsField( [] );
 		}
 	}
 
@@ -144,8 +184,17 @@ class ConnectorForDKFetchCustomer {
 	 * @returns void
 	 */
 	static populateField( fieldName, value ) {
+		// WooCommerce already loads the Select2 jQuery thingimajig for the
+		// country drop-down and we could just as well use that to stick with
+		// their style.
 		if ( fieldName == 'country' ) {
-			jQuery( '#billing_country' ).val( value.toUpperCase() ).trigger( 'change' );
+			jQuery(
+				'#billing_country'
+			).val(
+				value.toUpperCase()
+			).trigger(
+				'change'
+			);
 		}
 
 		const fieldNode = document.getElementById( 'billing_' + fieldName );
@@ -164,7 +213,6 @@ window.addEventListener(
 	'DOMContentLoaded',
 	() => {
 		if ( ConnectorForDKFetchCustomer.fetchButton() ) {
-			console.log( ConnectorForDKFetchCustomer.fetchButtonCell() );
 			ConnectorForDKFetchCustomer.fetchButtonCell().appendChild(
 				ConnectorForDKFetchCustomer.newErrorElement()
 			);

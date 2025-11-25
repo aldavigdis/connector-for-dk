@@ -7,10 +7,11 @@ nav:
     - Pantanir og reikningar: user_guide/order_editor.md
     - Vörur: user_guide/product_editor.md
     - Notendur og viðskiptavinir: user_guide/users.md
+    - Leyfiskóðar: user_guide/activation.md
   - Tæknilegar upplýsingar:
+    - Þekkt vandamál og lausnir: user_guide/known_issues.md
     - Öryggi: user_guide/security.md
     - wp-cron: user_guide/cron.md
-    - Leyfiskóðar: user_guide/activation.md
   - Um Tengil fyrir DK:
     - Tæknileg aðstoð: technical_support.md
     - Skilmálar: tos.md

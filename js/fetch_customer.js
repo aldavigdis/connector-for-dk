@@ -48,18 +48,16 @@ class ConnectorForDKFetchCustomer {
 		const value = this.contactsField().value;
 
 		this.contactsField().innerHTML = '<option value=""></option>';
-		contacts.forEach( ( property ) => {
-			let selected = property.number === value;
-			let text     = property.name;
-
-			this.contactsField().add(
-				new Option( text, property.number, selected )
-			);
-
-			if ( selected ) {
-				this.contactsField().value = property.number;
+		contacts.forEach(
+			( property ) => {
+				let selected           = property.number === value;
+				let text               = property.name;
+				this.contactsField().add( new Option( text, property.number, selected ) );
+				if ( selected ) {
+					this.contactsField().value = property.number;
+				}
 			}
-		} );
+		);
 	}
 
 	/**

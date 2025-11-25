@@ -49,7 +49,7 @@ class CustomerDiscounts {
 
 			add_filter(
 				'woocommerce_get_discounted_price',
-				function ( float $item_total, array $values, $instance ) {
+				function ( float $item_total, array $values ) {
 					if ( key_exists( 'product_id', $values ) ) {
 						$product = wc_get_product( $values['product_id'] );
 
@@ -83,7 +83,7 @@ class CustomerDiscounts {
 					return $discounted_price->toFloat();
 				},
 				10,
-				3
+				2
 			);
 
 			add_action(
@@ -118,22 +118,9 @@ class CustomerDiscounts {
 
 			add_action(
 				'woocommerce_admin_order_totals_after_discount',
-				function ( int $order_id ): void {
-					$order = wc_get_order( $order_id );
-					$discount = $order->get_meta( 'connector_for_dk_customer_discount' );
-
-					if ( empty( $discount ) ) {
-						return;
-					}
-
-					echo '<tr>';
-					echo '<td class="label">Customer discount:</td>';
-					echo '<td width="1%"></td>';
-					echo '<td class="woocommerce-Price-amount amount">';
-					echo esc_html( $discount . '%' );
-					echo '</td>';
-					echo '</tr>';
-				}
+				array( __CLASS__, 'add_customer_discount_to_discount_totals' ),
+				10,
+				3
 			);
 
 			add_filter(
@@ -201,7 +188,77 @@ class CustomerDiscounts {
 		);
 	}
 
-	public static function display_customer_discount_above_order_total() {
+	/**
+	 * Filter discounted price
+	 *
+	 * @param float $item_total The actual total, to be filtered.
+	 * @param array $values The item as in appears in the cart.
+	 */
+	public static function filter_discounted_price(
+		float $item_total,
+		array $values
+	): float {
+		if ( key_exists( 'product_id', $values ) ) {
+			$product = wc_get_product( $values['product_id'] );
+
+			if ( $product && $product->is_on_sale() ) {
+				return $item_total;
+			}
+		}
+
+		$customer_id = get_current_user_id();
+
+		if ( $customer_id === 0 ) {
+			return $item_total;
+		}
+
+		$customer = new WC_Customer( $customer_id );
+
+		$discount_meta = floatval(
+			$customer->get_meta( 'connector_for_dk_discount' )
+		);
+
+		$multiplier = BigDecimal::of( $discount_meta )->dividedBy(
+			100,
+			24,
+			RoundingMode::HALF_CEILING
+		);
+
+		$price_d          = BigDecimal::of( $item_total );
+		$discount         = $price_d->multipliedBy( $multiplier );
+		$discounted_price = $price_d->minus( $discount );
+
+		return $discounted_price->toFloat();
+	}
+
+	/**
+	 * Add customer discount to discount totals
+	 *
+	 * @param int $order_id The order ID.
+	 */
+	public static function add_customer_discount_to_discount_totals(
+		int $order_id
+	): void {
+		$order    = wc_get_order( $order_id );
+		$discount = $order->get_meta( 'connector_for_dk_customer_discount' );
+
+		if ( empty( $discount ) ) {
+			return;
+		}
+
+		echo '<tr>';
+		echo '<td class="label">Customer discount:</td>';
+		echo '<td width="1%"></td>';
+		echo '<td class="woocommerce-Price-amount amount">';
+		echo esc_html( $discount . '%' );
+		echo '</td>';
+		echo '</tr>';
+	}
+
+	/**
+	 * Display customer discount during the checkout process
+	 */
+	public static function display_customer_discount_above_order_total(): void {
 		$customer_id = get_current_user_id();
 		if ( $customer_id === 0 ) {
 			return;
@@ -220,6 +277,12 @@ class CustomerDiscounts {
 		echo '</th><td>' . esc_html( $discount ) . '%</td></tr>';
 	}
 
+	/**
+	 * Add the customer discount to order item totals
+	 *
+	 * @param array    $total_rows The "total" rows array.
+	 * @param WC_Order $order The order object.
+	 */
 	public static function add_customer_discount_to_order_items_totals(
 		array $total_rows,
 		WC_Order $order,

@@ -1,5 +1,5 @@
 === Connector for DK ===
-Stable tag: 0.5.0-beta7
+Stable tag: 0.5.0
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.7.3
@@ -68,6 +68,8 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Fixing textdomain issues
 * Enabling coupon discounts
 * Added support for customer contacts for registered customers (signed-in users)
+* Added a licensing system
+* Added updates via Github
 
 == Frequently Asked Questions ==
 

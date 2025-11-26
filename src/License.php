@@ -110,11 +110,9 @@ class License {
 			echo sprintf(
 				// Translators: sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
 				esc_html__(
-					'Settings, automatic invoice generation, customer sync, updates and other features will be enabled once you %3$senter your license code%4$s. Licenses can be purchased on %5$stengillpro.is%6$s',
+					'Settings, automatic invoice generation, customer sync, updates and other features will be enabled once you %1$senter your license code%2$s. Licenses can be purchased on %3$stengillpro.is%4$s',
 					'connector-for-dk'
 				),
-				'<strong>',
-				'</strong>',
 				'<a href="' . esc_attr( $license_admin_url ) . '">',
 				'</a>',
 				'<a href="' . esc_attr( $purchase_license_url ) . '" target="_blank">',

@@ -68,6 +68,8 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Fixing textdomain issues
 * Enabling coupon discounts
 * Added support for customer contacts for registered customers (signed-in users)
+* Added a licensing system
+* Added updates via Github
 
 == Frequently Asked Questions ==
 

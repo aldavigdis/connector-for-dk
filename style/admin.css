@@ -1,3 +1,11 @@
+.connector-for-dk-notice {
+	padding: 1em 2em !important;
+}
+
+.connector-for-dk-notice h2 {
+	margin-top: 0.7em;
+}
+
 .wrap#connector-for-dk-wrap {
 	width: calc(100%);
 	max-width: 60rem;
@@ -638,7 +646,6 @@ table.woocommerce_order_items .group_price {
 
 .license-info-table .error, .wp-submenu .expired {
 	color: #fff;
-	font-weight: bold;
 	background-color: #a00;
 	border: 1px solid #600;
 }

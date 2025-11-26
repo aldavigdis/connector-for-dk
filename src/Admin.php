@@ -450,15 +450,6 @@ class Admin {
 			'connector-for-dk',
 			array( __CLASS__, 'render_admin_page' )
 		);
-
-		add_submenu_page(
-			'connector-for-dk',
-			__( 'About Connector for DK', 'connector-for-dk' ),
-			__( 'About', 'connector-for-dk' ),
-			'manage_options',
-			'about-connector-for-dk',
-			array( __CLASS__, 'render_about_page' )
-		);
 	}
 
 	/**
@@ -467,6 +458,13 @@ class Admin {
 	 * This includes our admin page
 	 */
 	public static function render_admin_page(): void {
+		if (
+			class_exists( 'AldaVigdis\ConnectorForDK\License' ) &&
+			! License::is_ok()
+		) {
+			wp_safe_redirect( 'admin.php?page=connector-for-dk-activation' );
+			return;
+		}
 		require dirname( __DIR__ ) . '/views/admin.php';
 	}
 

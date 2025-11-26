@@ -65,41 +65,7 @@ class Activation {
 		$label = __( 'Activate', 'connector-for-dk' );
 
 		if ( License::is_expired() || ! License::is_valid() ) {
-			$label = '<span class="expired">' .
-				__( 'Activate', 'connector-for-dk' ) .
-				'</span>';
-
-			remove_submenu_page(
-				'connector-for-dk',
-				'connector-for-dk'
-			);
-
-			remove_submenu_page(
-				'connector-for-dk',
-				'about-connector-for-dk'
-			);
-
-			remove_menu_page(
-				'connector-for-dk'
-			);
-
-			add_menu_page(
-				__( 'Connector for DK', 'connector-for-dk' ),
-				__( 'Connector for DK', 'connector-for-dk' ),
-				'manage_options',
-				'connector-for-dk',
-				array( __CLASS__, 'render_activation_page' ),
-				'dashicons-admin-links',
-			);
-
-			add_submenu_page(
-				'connector-for-dk',
-				__( 'About Connector for DK', 'connector-for-dk' ),
-				__( 'About', 'connector-for-dk' ),
-				'manage_options',
-				'about-connector-for-dk',
-				array( 'AldaVigdis\ConnectorForDK\Admin', 'render_about_page' )
-			);
+			$label = '<span class="expired">' . __( 'Activate', 'connector-for-dk' ) . '</span>';
 		}
 
 		add_submenu_page(

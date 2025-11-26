@@ -9,15 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-16T22:09:50+00:00\n"
+"POT-Creation-Date: 2025-11-26T21:26:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: connector-for-dk\n"
 
 #. Plugin Name of the plugin
 #: connector-for-dk.php
-#: src/Activation.php:87
-#: src/Activation.php:88
 #: src/Admin.php:437
 #: src/Admin.php:438
 #: views/about.php:17
@@ -27,7 +25,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: connector-for-dk.php
-msgid "https://github.com/aldavigdis/connector-for-dk/"
+msgid "https://tengillpro.is/"
 msgstr ""
 
 #. Description of the plugin
@@ -46,24 +44,13 @@ msgid "https://aldavigdis.is"
 msgstr ""
 
 #: src/Activation.php:65
-#: src/Activation.php:69
-#: src/Activation.php:107
+#: src/Activation.php:68
+#: src/Activation.php:73
 #: views/activation.php:75
 msgid "Activate"
 msgstr ""
 
-#: src/Activation.php:97
-#: src/Admin.php:456
-#: views/about.php:12
-msgid "About Connector for DK"
-msgstr ""
-
-#: src/Activation.php:98
-#: src/Admin.php:457
-msgid "About"
-msgstr ""
-
-#: src/Activation.php:155
+#: src/Activation.php:121
 msgid "Activate License"
 msgstr ""
 
@@ -91,55 +78,55 @@ msgid "Settings"
 msgstr ""
 
 #. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:549
+#: src/Admin.php:547
 #, php-format
 msgid "Please make sure that a product with the Product Code ‘%s’ exsists in DK before saving."
 msgstr ""
 
 #. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:565
+#: src/Admin.php:563
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:577
+#: src/Admin.php:575
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
 
 #. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:617
+#: src/Admin.php:615
 #, php-format
 msgid "Please make sure that a sales person with the number ‘%s’ exsists in DK before saving."
 msgstr ""
 
 #. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:633
+#: src/Admin.php:631
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:645
+#: src/Admin.php:643
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
 
 #. Translators: The %s stands for the kennitala.
-#: src/Admin.php:695
+#: src/Admin.php:693
 #, php-format
 msgid "Please make sure that a customer record with the kennitala ‘%s’ exsists in DK before you continue."
 msgstr ""
 
 #. Translators: The %s stands for the kennitala.
-#: src/Admin.php:711
+#: src/Admin.php:709
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
 
 #. Translators: The %s stands for the kennitala.
-#: src/Admin.php:723
+#: src/Admin.php:721
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
@@ -160,15 +147,24 @@ msgstr ""
 msgid "The currency rate for ‘%s’ has not been set."
 msgstr ""
 
-#: src/CustomerDiscounts.php:370
+#: src/CustomerContacts.php:72
+msgid "Contact Person"
+msgstr ""
+
+#: src/CustomerDiscounts.php:276
+#: src/CustomerDiscounts.php:300
+msgid "Customer discount:"
+msgstr ""
+
+#: src/CustomerDiscounts.php:578
 msgid "Regular Price:"
 msgstr ""
 
-#: src/CustomerDiscounts.php:374
+#: src/CustomerDiscounts.php:582
 msgid "Your Price:"
 msgstr ""
 
-#: src/CustomerSync.php:118
+#: src/CustomerSync.php:120
 #: src/KennitalaField.php:267
 #: src/KennitalaField.php:324
 #: src/KennitalaField.php:474
@@ -176,11 +172,11 @@ msgstr ""
 msgid "Kennitala"
 msgstr ""
 
-#: src/CustomerSync.php:124
+#: src/CustomerSync.php:126
 msgid "Fetch from DK"
 msgstr ""
 
-#: src/CustomerSync.php:127
+#: src/CustomerSync.php:129
 msgid "Fetch"
 msgstr ""
 
@@ -190,16 +186,12 @@ msgstr ""
 msgid "Your Invoice From %1$s"
 msgstr ""
 
-#: src/Export/Order.php:273
+#: src/Export/Order.php:258
 msgid "Fee"
 msgstr ""
 
-#: src/Export/Order.php:296
+#: src/Export/Order.php:275
 msgid "Shipping"
-msgstr ""
-
-#: src/Helpers/Product.php:171
-msgid "Tax rates not initialised"
 msgstr ""
 
 #: src/Import/SalesPayments.php:73
@@ -298,23 +290,61 @@ msgstr ""
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
-#: src/License.php:100
-msgid "Connector Basic for DK"
+#: src/License.php:75
+msgid "Development, testing or staging environment detected 👷‍♀️"
 msgstr ""
 
-#: src/License.php:102
+#. Translators: The sprintf symbols are opening and closing <strong> tags.
+#: src/License.php:80
+#, php-format
+msgid "While updates are disabled, %1$sConnector for DK%2$s features such as automatic invoice generation, customer sync and other features are currently enabled for development and testing purposes."
+msgstr ""
+
+#. Translators: Sprintf symbols 1 and 2 are opening and closing <strong> tags and 3 and 4 are the hyperlink to tengillpro.is.
+#: src/License.php:91
+#, php-format
+msgid "For production sites, licenses are sold on a %1$sper-domain basis only%2$s and can be %3$spurchased on tengillpro.is%4$s"
+msgstr ""
+
+#: src/License.php:107
+msgid "Your Connector for DK license key has not been entered yet 🤔"
+msgstr ""
+
+#. Translators: sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
+#: src/License.php:112
+#, php-format
+msgid "Settings, automatic invoice generation, customer sync, updates and other features will be enabled once you %1$senter your license code%2$s. Licenses can be purchased on %3$stengillpro.is%4$s"
+msgstr ""
+
+#: src/License.php:128
+msgid "Your Connector for DK license has expired! 😱"
+msgstr ""
+
+#. Translators: The sprintf tags are for opening and closing links to tengillpro.is.
+#: src/License.php:133
+#, php-format
+msgid "Settings, automatic invoice generation, customer sync, updates and other features have been disabled until you %1$spurchase a new license code on tengillpro.is%2$s."
+msgstr ""
+
+#: src/License.php:147
+msgid "Your Connector for DK license will expire soon! 🫣"
+msgstr ""
+
+#. Translators: %1$s and %2$s are for opening and closing <strong> tags, %3$s and %4$s are opening and closing links to tengillpro.is and %5$s is the expiry date.
+#: src/License.php:152
+#, php-format
+msgid "To keep your settings, automatic invoice generation, customer sync, updates and other features after %1$s%5$s%2$s, ensure that you %3$spurchase a new license code on tengillpro.is%4$s in time."
+msgstr ""
+
+#: src/License.php:219
 msgid "Connector Pro for DK"
 msgstr ""
 
-#: src/License.php:104
-msgid "Unknown/Other"
-msgstr ""
-
-#: src/Metaboxes.php:95
+#: src/Metaboxes.php:96
 msgid "DK Sync"
 msgstr ""
 
-#: src/Metaboxes.php:150
+#: src/Metaboxes.php:151
 msgid "DK Variations"
 msgstr ""
 
@@ -419,6 +449,10 @@ msgstr ""
 #: src/Service/DKApiRequest.php:79
 #: src/Service/DKApiRequest.php:151
 msgid "The dkPlus API key is missing."
+msgstr ""
+
+#: views/about.php:12
+msgid "About Connector for DK"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
@@ -1145,11 +1179,11 @@ msgstr ""
 msgid "Menu Order"
 msgstr ""
 
-#: js/fetch_customer.js:59
+#: js/fetch_customer.js:96
 msgid "Could not find this customer in DK."
 msgstr ""
 
-#: js/fetch_customer.js:64
+#: js/fetch_customer.js:101
 msgid "An unexpected error occured."
 msgstr ""
 

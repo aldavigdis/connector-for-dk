@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2025-11-16 22:16+0000\n"
+"PO-Revision-Date: 2025-11-26 21:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.4.14\n"
+"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.4.15\n"
 "X-Domain: connector-for-dk"
 
 #. Translators: The sprintf tags represent opening and closing hyperlinks.
@@ -105,13 +105,13 @@ msgid "30 Day Payment Deadline (D30)"
 msgstr "30 daga greiðslufrestur"
 
 #. Translators: The %s stands for the kennitala.
-#: src/Admin.php:711
+#: src/Admin.php:709
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
 
 #. Translators: The %s stands for the kennitala.
-#: src/Admin.php:723
+#: src/Admin.php:721
 #, php-format
 #| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
@@ -122,26 +122,22 @@ msgid "A or B Giro Request (ABG)"
 msgstr "A eða B gíróseðlar (ABG)"
 
 #. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:633
+#: src/Admin.php:631
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:645
+#: src/Admin.php:643
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
 
-#: src/Activation.php:98 src/Admin.php:457
-msgid "About"
-msgstr "Upplýsingar"
-
-#: src/Activation.php:97 src/Admin.php:456 views/about.php:12
+#: views/about.php:12
 msgid "About Connector for DK"
 msgstr "Upplýsingar um Tengil fyrir DK"
 
-#: src/Activation.php:65 src/Activation.php:69 src/Activation.php:107
+#: src/Activation.php:65 src/Activation.php:68 src/Activation.php:73
 #: views/activation.php:75
 msgid "Activate"
 msgstr "Virkja"
@@ -150,7 +146,7 @@ msgstr "Virkja"
 msgid "Activate Connector for DK"
 msgstr "Virkja Tengil fyrir DK"
 
-#: src/Activation.php:155
+#: src/Activation.php:121
 msgid "Activate License"
 msgstr "Virkja leyfi"
 
@@ -271,7 +267,7 @@ msgstr ""
 "Reikningur var ekki útbúinn í DK því þú hefur valið að búa ekki til "
 "reikninga fyrir erlendar pantanir sjálfkrafa."
 
-#: js/fetch_customer.js:64
+#: js/fetch_customer.js:101
 msgid "An unexpected error occured."
 msgstr "Óvænt villa kom upp"
 
@@ -337,13 +333,9 @@ msgstr "Tékkagreiðsla (TGR)"
 msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
-#: src/License.php:100
-msgid "Connector Basic for DK"
-msgstr "Tengill Basic fyrir DK"
-
 #. Plugin Name of the plugin
-#: connector-for-dk.php src/Activation.php:87 src/Activation.php:88
-#: src/Admin.php:437 src/Admin.php:438 views/about.php:17 views/admin.php:35
+#: connector-for-dk.php src/Admin.php:437 src/Admin.php:438 views/about.php:17
+#: views/admin.php:35
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
@@ -369,15 +361,19 @@ msgid ""
 msgstr ""
 "Tengill fyrir DK styður eingöngu verslanir sem staðsettar eru á Íslandi."
 
-#: src/License.php:102
+#: src/License.php:219
 msgid "Connector Pro for DK"
 msgstr "Tengill Pro fyrir DK"
+
+#: src/CustomerContacts.php:72
+msgid "Contact Person"
+msgstr "Tengiliður"
 
 #: views/admin_sections/invoices.php:206
 msgid "Cost SKU"
 msgstr "Vörunúmer vegna kostnaðar"
 
-#: js/fetch_customer.js:59
+#: js/fetch_customer.js:96
 msgid "Could not find this customer in DK."
 msgstr "Gat ekki fundið þennan viðskiptavin í DK."
 
@@ -428,6 +424,10 @@ msgstr "Líðandi mánuður + 15 dagar"
 msgid "Current Month + 20 Days (M20)"
 msgstr "Líðandi mánuður + 20 dagar"
 
+#: src/CustomerDiscounts.php:276 src/CustomerDiscounts.php:300
+msgid "Customer discount:"
+msgstr "Afsláttur viðskiptavinar:"
+
 #: views/admin_sections/customers_discounts.php:15
 msgid "Customer Discounts"
 msgstr "Afslættir fyrir viðskiptavini"
@@ -469,6 +469,10 @@ msgstr ""
 #: views/dk_product_variations.php:324
 msgid "Description"
 msgstr "Lýsing"
+
+#: src/License.php:75
+msgid "Development, testing or staging environment detected 👷‍♀️"
+msgstr "Þetta er líklega þróunar-, prufu-, eða raunprófunarumhverfi 👷‍♀️"
 
 #: views/admin_with_errors.php:117
 msgid "Disable the Kennitala field in the Iceland Post plugin"
@@ -525,7 +529,7 @@ msgstr ""
 msgid "DK order PDF not found"
 msgstr "PDF fyrir pöntun úr DK fannst ekki"
 
-#: src/Metaboxes.php:95
+#: src/Metaboxes.php:96
 msgid "DK Sync"
 msgstr "Samstilling við DK"
 
@@ -539,7 +543,7 @@ msgstr ""
 "reikninga til að virka þarftu að tilgreina vörur í DK fyrir eftirfarandi "
 "þjónustur og skrá hér fyrir neðan."
 
-#: src/Metaboxes.php:150
+#: src/Metaboxes.php:151
 msgid "DK Variations"
 msgstr "Vöruafbrigði úr DK"
 
@@ -607,11 +611,11 @@ msgstr "Kveikt"
 msgid "Error"
 msgstr "Villa"
 
-#: src/Export/Order.php:273
+#: src/Export/Order.php:258
 msgid "Fee"
 msgstr "Gjald"
 
-#: src/CustomerSync.php:127
+#: src/CustomerSync.php:129
 msgid "Fetch"
 msgstr "Sækja"
 
@@ -619,7 +623,7 @@ msgstr "Sækja"
 msgid "Fetch Customer Discount and Price Group Data from DK"
 msgstr "Sækja afsláttarkjör og verðhópa viðskiptavina frá DK"
 
-#: src/CustomerSync.php:124
+#: src/CustomerSync.php:126
 msgid "Fetch from DK"
 msgstr "Sækja frá DK"
 
@@ -642,6 +646,16 @@ msgstr ""
 "í dkPlus sem er með nægilegar aðgangsheimildir og ekki tengdur við "
 "raunverulegan starfsmann og búa svo lykilinn til undir ‚auðkenningartákn‘ á "
 "stillingasíðu þess notanda."
+
+#. Translators: Sprintf symbols 1 and 2 are opening and closing <strong> tags and 3 and 4 are the hyperlink to tengillpro.is.
+#: src/License.php:91
+#, php-format
+msgid ""
+"For production sites, licenses are sold on a %1$sper-domain basis only%2$s "
+"and can be %3$spurchased on tengillpro.is%4$s"
+msgstr ""
+"Áskriftir fyrir vefi sem eru í notkun eru aðeins seldar %1$sfyrir eitt lén í "
+"senn%2$s og hægt er að að %3$skaupa á tengillpro.is%4$s."
 
 #: views/dk_invoice_metabox.php:68
 msgid "Generate a new invoice for this order in DK"
@@ -666,8 +680,8 @@ msgstr "https://aldavigdis.is"
 
 #. Plugin URI of the plugin
 #: connector-for-dk.php
-msgid "https://github.com/aldavigdis/connector-for-dk/"
-msgstr "https://github.com/aldavigdis/connector-for-dk/"
+msgid "https://tengillpro.is/"
+msgstr "https://tengillpro.is/"
 
 #: views/admin_sections/invoices.php:131
 msgid ""
@@ -924,7 +938,7 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
 "PDF-viðhengi"
 
-#: src/CustomerSync.php:118 src/KennitalaField.php:267
+#: src/CustomerSync.php:120 src/KennitalaField.php:267
 #: src/KennitalaField.php:324 src/KennitalaField.php:474
 #: src/KennitalaField.php:665
 msgid "Kennitala"
@@ -1029,7 +1043,7 @@ msgid "Payment Terms in DK"
 msgstr "Greiðsluskilmálar í DK"
 
 #. Translators: The %s stands for the kennitala.
-#: src/Admin.php:695
+#: src/Admin.php:693
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -1039,7 +1053,7 @@ msgstr ""
 "í DK áður en þú heldur áfram."
 
 #. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:549
+#: src/Admin.php:547
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -1049,7 +1063,7 @@ msgstr ""
 "þú vistar."
 
 #. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:617
+#: src/Admin.php:615
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1117,7 +1131,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/CustomerDiscounts.php:370
+#: src/CustomerDiscounts.php:578
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -1183,7 +1197,31 @@ msgstr "Settu inn skattþrep fyrir 24%, 11% and 0% VSK."
 msgid "Settings"
 msgstr "Stillingar"
 
-#: src/Export/Order.php:296
+#. Translators: The sprintf tags are for opening and closing links to tengillpro.is.
+#: src/License.php:133
+#, php-format
+msgid ""
+"Settings, automatic invoice generation, customer sync, updates and other "
+"features have been disabled until you %1$spurchase a new license code on "
+"tengillpro.is%2$s."
+msgstr ""
+"Slökkt hefur verið á stillingum, sjálfvirkri útgáfu reikninga, samstillingi "
+"á viðskiptavinum, uppfærslum o.fl. þar til %1$sþú kaupir nýjan leyfiskóða á "
+"tengillpro.is%2$s."
+
+#. Translators: sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
+#: src/License.php:112
+#, php-format
+msgid ""
+"Settings, automatic invoice generation, customer sync, updates and other "
+"features will be enabled once you %1$senter your license code%2$s. Licenses "
+"can be purchased on %3$stengillpro.is%4$s"
+msgstr ""
+"Stillingar, sjálfvirk reikningagerð, samstilling á viðskiptavinum, "
+"uppfærslur o.fl. um leið og þú %1$sslærð inn leyfiskóða%2$s. Áskriftir er "
+"hægt að fá á %3$stengillpro.is%4$s."
+
+#: src/Export/Order.php:275
 msgid "Shipping"
 msgstr "Sendingar"
 
@@ -1238,10 +1276,6 @@ msgstr ""
 "Það er nauðsynlegt að setja upp skattþrep áður en við samstillum vörur og "
 "upplýsingar og búum til reikninga."
 
-#: src/Helpers/Product.php:171
-msgid "Tax rates not initialised"
-msgstr "Skattþrep ekki virkjuð"
-
 #: views/admin_sections/authentication.php:47
 msgid ""
 "The API key is provided by DK for use with the dkPlus API. Do not share this "
@@ -1282,13 +1316,13 @@ msgid "The dkPlus API key is missing."
 msgstr "API-lykil fyrir DK vantar"
 
 #. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:565
+#: src/Admin.php:563
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:577
+#: src/Admin.php:575
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK"
@@ -1403,6 +1437,18 @@ msgstr ""
 "sem er skráð á hvaða lén sem er. Hafðu það samt í huga að hvert leyfi er "
 "takmarkað við ákveðið lén í raunumhverfi (e. production)"
 
+#. Translators: %1$s and %2$s are for opening and closing <strong> tags, %3$s and %4$s are opening and closing links to tengillpro.is and %5$s is the expiry date.
+#: src/License.php:152
+#, php-format
+msgid ""
+"To keep your settings, automatic invoice generation, customer sync, updates "
+"and other features after %1$s%5$s%2$s, ensure that you %3$spurchase a new "
+"license code on tengillpro.is%4$s in time."
+msgstr ""
+"Ef þú vilt halda stillingum, sjálfvikri reikningagerð, samstillingu á "
+"viðskiptavinum, uppfærslum o.fl. eftir %1$s%5$s%2$s, þá þarftu að %3$skaupa "
+"leyfiskóða á tengillpro.is%4$s í tæka tíð."
+
 #: views/dk_invoice_metabox.php:95
 msgid "Unable to create invoice in DK."
 msgstr "Gat ekki gert reikning í DK."
@@ -1411,10 +1457,6 @@ msgstr "Gat ekki gert reikning í DK."
 #| msgid "Unable to create an invoice in DK: "
 msgid "Unable to create invoice in DK: "
 msgstr "Gat ekki gert reikning í DK:"
-
-#: src/License.php:104
-msgid "Unknown/Other"
-msgstr "Óþekkt/Annað"
 
 #: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:153
 msgid "Update"
@@ -1527,6 +1569,18 @@ msgstr ""
 "er að slökkva á þessu ef þú vilt nota þínar eigin síur til að sýna "
 "vöruafbrigði."
 
+#. Translators: The sprintf symbols are opening and closing <strong> tags.
+#: src/License.php:80
+#, php-format
+msgid ""
+"While updates are disabled, %1$sConnector for DK%2$s features such as "
+"automatic invoice generation, customer sync and other features are currently "
+"enabled for development and testing purposes."
+msgstr ""
+"Þó svo að slökkt sé á uppfærslum, þá eru möguleikar úr %1$sTengli fyrir "
+"DK%2$s á borð við sjálfvirka reikningagerð, samstillingu viðskiptavina o.fl. "
+"aðgengilegt fyrir forritun og prófanir."
+
 #: src/Rest/OrderInvoicePdf.php:55
 msgid "WooCommerce order not found"
 msgstr "WooCommerce-pöntun fannst ekki"
@@ -1548,6 +1602,18 @@ msgstr ""
 "Þú þarft að slökkva á kennitölureitnum úr viðbótinni frá Íslandspósti þar "
 "sem við viljum ekki hafa tvo kennitölureiti í afgreiðsluforminu."
 
+#: src/License.php:128
+msgid "Your Connector for DK license has expired! 😱"
+msgstr "Áskriftin fyrir Tengil fyrir DK rann út! 😱"
+
+#: src/License.php:107
+msgid "Your Connector for DK license key has not been entered yet 🤔"
+msgstr "Þu hefur ekki enn slegið leyfiskóða fyrir Tengil fyrir DK 🤔"
+
+#: src/License.php:147
+msgid "Your Connector for DK license will expire soon! 🫣"
+msgstr "Áskriftin fyrir Tengil fyrir DK er við það að renna út! 🫣"
+
 #. Translators: The %1$s is a placeholder for the site's title.
 #: src/Export/Invoice.php:195
 #, php-format
@@ -1558,6 +1624,6 @@ msgstr "Reikningurinn þinn frá %1$s"
 msgid "Your License"
 msgstr "Þitt leyfi"
 
-#: src/CustomerDiscounts.php:374
+#: src/CustomerDiscounts.php:582
 msgid "Your Price:"
 msgstr "Þitt verð:"

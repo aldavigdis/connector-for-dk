@@ -17,8 +17,18 @@ class Loader {
 	 * The constructor
 	 */
 	public function __construct() {
-		if ( CONNECTOR_FOR_DK_EDITION === 'connector_for_dk_pro' ) {
-			new Admin();
+		new I18n();
+		new Admin();
+
+		new Activation();
+		new License();
+		new Rest\CheckLicense();
+
+		if ( License::is_valid() ) {
+			new Updater();
+		}
+
+		if ( License::is_ok() ) {
 			new BlockedCustomers();
 			new CustomerContacts();
 			new CustomerDiscounts();
@@ -26,16 +36,13 @@ class Loader {
 			new DefaultSKUs();
 			new FetchCustomer();
 			new ProductAttributeFilters();
-			new I18n();
 			new IcelandTweaks();
 			new InternationalCustomers();
 			new OrderMeta();
 			new KennitalaField();
 			new Metaboxes();
 			new OrderStatus();
-			new Updater();
 			new Cron\Schedule();
-			new Rest\CheckLicense();
 			new Rest\Settings();
 			new Rest\OrderDKInvoice();
 			new Rest\OrderInvoiceNumber();

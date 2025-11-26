@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Connector for DK
- * Plugin URI: https://github.com/aldavigdis/connector-for-dk/
+ * Plugin URI: https://tengillpro.is/
  * Description: Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
  * Version: 0.5.0-beta7
  * Requires at least: 6.1.5
@@ -18,8 +18,6 @@
 declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
-
-use WC_Cart;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

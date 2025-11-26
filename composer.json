@@ -1,6 +1,6 @@
 {
     "name": "aldavigdis/connector-for-dk",
-    "version": "0.5.0-beta7",
+    "version": "0.5.0",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",

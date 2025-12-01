@@ -70,6 +70,8 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Added support for customer contacts for registered customers (signed-in users)
 * Added a licensing system
 * Added updates via Github
+* Improved the accuracy of VAT calculations
+* Added Iceland to the WooCommerce list of countries that use VAT
 
 == Frequently Asked Questions ==
 

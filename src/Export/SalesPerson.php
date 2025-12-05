@@ -24,7 +24,7 @@ class SalesPerson {
 		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
-			self::API_PATH . $sales_person_number
+			self::API_PATH . rawurlencode( $sales_person_number )
 		);
 
 		if ( $result instanceof WP_Error ) {

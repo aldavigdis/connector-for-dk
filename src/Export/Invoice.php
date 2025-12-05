@@ -129,9 +129,9 @@ class Invoice {
 
 		$result = $api_request->request_result(
 			self::API_PATH .
-			$invoice_number .
+			rawurlencode( $invoice_number ) .
 			'/reverse?=date=' .
-			$formatted_date,
+			rawurlencode( $formatted_date ),
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -216,7 +216,7 @@ class Invoice {
 		}
 
 		$result = $api_request->request_result(
-			self::API_PATH . $invoice_number . '/email',
+			self::API_PATH . rawurlencode( $invoice_number ) . '/email',
 			wp_json_encode( $request_body )
 		);
 

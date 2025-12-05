@@ -146,7 +146,7 @@ class Customer {
 		}
 
 		$result = $api_request->get_result(
-			'/Customer/' . $dk_customer_number
+			'/Customer/' . rawurlencode( $dk_customer_number )
 		);
 
 		if ( $result instanceof WP_Error ) {

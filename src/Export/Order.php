@@ -72,10 +72,14 @@ class Order {
 			return false;
 		}
 
+		$sanitized_order_number = rawurlencode(
+			self::get_dk_order_number( $wc_order )
+		);
+
 		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
-			'/Sales/Order/' . self::get_dk_order_number( $wc_order )
+			'/Sales/Order/' . $sanitized_order_number
 		);
 
 		if ( $result instanceof WP_Error ) {

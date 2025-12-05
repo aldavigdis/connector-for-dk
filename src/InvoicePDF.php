@@ -277,7 +277,7 @@ class InvoicePDF {
 		$result = $api_request->wp_http->get(
 			DKApiRequest::DK_API_URL .
 			'/Sales/Invoice/' .
-			$invoice_number .
+			rawurlencode( $invoice_number ) .
 			'/pdf',
 			array( 'headers' => $headers ),
 		);

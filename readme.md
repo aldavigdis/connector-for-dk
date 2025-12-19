@@ -4,13 +4,13 @@
 
 Sync your WooCommerce store with DK, including product prices, inventory status and generate invoices for customers on checkout.
 
-This codebase originates as [an earlier work](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce), which I consider to be defunct. This should be considered to be a continuation of the that project by the same developer.
+This codebase originates as [an earlier work](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce), which is currently defunct. This should be considered to be a continuation of the that project by the same developer. This fork of the software is **not supported or endorsed by 1984 Hosting** and the continued development of this fork is done by Alda Vigdís Skarphéðinsdóttir. License codes are sold on [tengillpro.is](https://tengillpro.is).
 
 > [!CAUTION]
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact the author directly via aldavigdis@aldavigdis.is or the WordPress Security Team instead.**
 
 > [!IMPORTANT]
-> This is a code repository used for the *development* of **Connector for DK**, a WordPress plugin. Using the raw source files without installing dependencies using Composer will not work and the `main` branch is considered unstable.
+> This is a code repository used for the *development* of **Connector for DK**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
 
 ## Developer Documentation
 

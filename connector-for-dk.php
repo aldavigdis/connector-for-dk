@@ -5,8 +5,8 @@
  * Plugin URI: https://tengillpro.is/
  * Description: Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
  * Version: 0.5.1
- * Requires at least: 6.1.5
- * Requires PHP: 8.2
+ * Requires at least: 6.7
+ * Requires PHP: 8.4
  * Author: Alda Vigdis
  * Author URI: https://aldavigdis.is
  * License: GPL-3.0-or-later

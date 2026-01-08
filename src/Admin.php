@@ -426,7 +426,12 @@ class Admin {
 	public static function available_payment_gateways(): array {
 		$gateways = new WC_Payment_Gateways();
 
-		return $gateways->get_available_payment_gateways();
+		return array_filter(
+			$gateways->payment_gateways(),
+			function ( $gateway ) {
+				return $gateway->settings['enabled'] === 'yes';
+			}
+		);
 	}
 
 	/**

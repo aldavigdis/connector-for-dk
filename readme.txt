@@ -40,6 +40,13 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Changelog ==
 
+= 0.5.1 =
+* Added rawurlencode to any dynamic URL API requests for improved safety
+* Fixed a bug that prevented the sales person number from being updated
+* Fixed a bug that prevented payment some gateways from showing up in the admin page
+* Fixed a but that prevent customer contacts from being assigned to invoices
+* Fixing discrepancy between license date display between backend and frontend
+
 = 0.5 =
 * A rebrand and re-namespacing of a new fork
 * Moved per-product DK options into a separate tab in the Product Editor

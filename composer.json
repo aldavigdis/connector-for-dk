@@ -1,6 +1,6 @@
 {
     "name": "aldavigdis/connector-for-dk",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
@@ -45,6 +45,9 @@
         }
     ],
     "config": {
+        "platform": {
+            "php": "8.2"
+        },
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "composer/installers": false,

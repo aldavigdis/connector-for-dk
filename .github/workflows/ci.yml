@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.2', '8.3', '8.4', '8.5']
-        wp-versions: ['master', '6.8', '6.8.3']
+        wp-versions: ['master', '6.8.3', '6.9']
     env:
       DB_NAME: 'wp-test'
       DB_HOST: '127.0.0.1'

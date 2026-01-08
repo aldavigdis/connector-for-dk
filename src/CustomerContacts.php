@@ -193,7 +193,15 @@ class CustomerContacts {
 		array $order_props,
 		WC_Order $order
 	): array {
-		$kennitala = $order_props['Customer']['Kennitala'];
+		if ( ! key_exists( 'Customer', $order_props ) ) {
+			return $order_props;
+		}
+
+		if ( ! key_exists( 'Number', $order_props['Customer'] ) ) {
+			return $order_props;
+		}
+
+		$kennitala = $order_props['Customer']['Number'];
 
 		$default_kennitala = array(
 			Config::get_default_kennitala(),

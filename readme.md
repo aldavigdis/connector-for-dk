@@ -22,7 +22,7 @@ This file is mainly intended for development and contribution purposes.
 
 We use Github actions as a continious integration process to automatically test the plugin using the following PHP and WordPress versions:
 
-* PHP 8.3 and above
+* PHP 8.2 and above
 * WordPress 6.8 and above
 
 We generally assume that the most recent version of WooCommerce is in use and use that for testing across the supported PHP and WordPress versions. This is done using a test martrix in the Github CI process.

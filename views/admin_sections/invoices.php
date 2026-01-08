@@ -144,14 +144,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tbody>
 			<tr>
 				<th scope="row" class="column-title column-primary">
-					<label for="default_sales_person_field">
+					<label for="default_sales_person_number_field">
 						<?php esc_html_e( 'Default Sales Person Number', 'connector-for-dk' ); ?>
 					</label>
 				</th>
 				<td>
 					<input
-						id="default_sales_person_field"
-						name="default_sales_person"
+						id="default_sales_person_number_field"
+						name="default_sales_person_number"
 						type="text"
 						value="<?php echo esc_attr( Config::get_default_sales_person_number() ); ?>"
 					/>

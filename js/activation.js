@@ -71,13 +71,13 @@ class ConnectorForDKActivation {
 	) {
 		let validFromDate   = new Date( validFrom * 1000 );
 		let validFromString = validFromDate.getUTCFullYear() + '-' +
-							  (validFromDate.getUTCMonth() + 1 ).toString().padStart(2, '0') + '-' +
-							  validFromDate.getUTCDate().toString().padStart(2, '0');
+							  (validFromDate.getUTCMonth() + 1 ).toString().padStart( 2, '0' ) + '-' +
+							  validFromDate.getUTCDate().toString().padStart( 2, '0' );
 
 		let expiresDate       = new Date( expires * 1000 );
 		let expiresDateString = expiresDate.getUTCFullYear() + '-' +
-								( expiresDate.getUTCMonth() + 1 ).toString().padStart(2, '0') + '-' +
-								expiresDate.getUTCDate().toString().padStart(2, '0');
+								( expiresDate.getUTCMonth() + 1 ).toString().padStart( 2, '0' ) + '-' +
+								expiresDate.getUTCDate().toString().padStart( 2, '0' );
 
 		let editionCell   = document.querySelector( '#connector_for_dk_license_product_row .value' );
 		let uuidCell      = document.querySelector( '#connector_for_dk_license_id_row .value' );

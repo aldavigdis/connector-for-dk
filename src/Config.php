@@ -1095,4 +1095,29 @@ class Config {
 	public static function get_add_iceland_to_vat_countries(): bool {
 		return (bool) self::get_option( 'add_iceland_to_vat_countries', true );
 	}
+
+	public static function get_product_weight_sync_enabled(): bool {
+		return (bool) self::get_option( 'product_weight_sync', true );
+	}
+
+	public static function get_calculate_dimensional_weight(): bool {
+		return (bool) self::get_option(
+			'calculate_dimensional_weight',
+			false
+		);
+	}
+
+	public static function get_calculate_dimensional_weight_if_missing_weight(): bool {
+		return (bool) self::get_option(
+			'calculate_dimensional_weight_if_missing_weight',
+			false
+		);
+	}
+
+	public static function get_dimensional_weights_courier(): string {
+		return (string) self::get_option(
+			'dimensional_weights_courier',
+			'iceland_post'
+		);
+	}
 }

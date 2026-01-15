@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\DimensionalWeight\CourierDividers;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -103,6 +104,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 						<div>
 							<input
+								id="product_weight_sync_field"
+								name="product_weight_sync_enabled"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_product_weight_sync_enabled() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_weight_sync_field">
+								<?php esc_html_e( 'Update Product Weight', 'connector-for-dk' ); ?>
+							</label>
+						</div>
+						<div>
+							<input
 								id="create_new_products_field"
 								name="create_new_products"
 								type="checkbox"
@@ -141,6 +153,95 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</table>
 
 	<hr />
+
+	<?php if ( class_exists( 'AldaVigdis\ConnectorForDK\DimensionalWeight\Calculator' ) ) : ?>
+
+	<h3><?php esc_html_e( 'Dimensional Weight', 'connector-for-dk' ); ?></h3>
+
+	<p>
+		<?php
+		esc_html_e(
+			"Some transport companies calculate a dimensional weight for voluminous shipments. On sync, Connector for DK can calculate a product's volumetric weight based on the volume indicated in DK, which then overrides the actual weight in WooCommerce.",
+			'connector-for-dk'
+		);
+		?>
+	</p>
+
+	<p>
+		<?php
+		esc_html_e(
+			'Enabling this may improve shipping cost estimates for voluminous products but will replace their weight in WooCommerce with the calculated dimensional weight and requires their weight and volume to be set in DK.',
+			'connector-for-dk'
+		);
+		?>
+	</p>
+
+	<table id="dk-products-dimensional-weights-table" class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+				</th>
+				<td>
+					<input
+						id="calculate_dimensional_weight_field"
+						name="calculate_dimensional_weight"
+						type="checkbox"
+						<?php echo esc_attr( Config::get_calculate_dimensional_weight() ? 'checked' : '' ); ?>
+					/>
+					<label for="calculate_dimensional_weight_field">
+						<?php esc_html_e( 'Calculate Dimensional Weight for Voluminous Products', 'connector-for-dk' ); ?>
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+				</th>
+				<td>
+					<input
+						id="calculate_dimensional_weight_if_missing_weight_field"
+						name="calculate_dimensional_weight_if_missing_weight"
+						type="checkbox"
+						<?php echo esc_attr( Config::get_calculate_dimensional_weight_if_missing_weight() ? 'checked' : '' ); ?>
+					/>
+					<label for="calculate_dimensional_weight_if_missing_weight_field">
+						<?php esc_html_e( 'Calculate Dimensional Weight for Products Missing Actual Weight', 'connector-for-dk' ); ?>
+					</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table id="dk-products-dimensional-weights-courier-table" class="form-table">
+		<tbody>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+					<label for="dimensional_weights_courier_field">
+						<?php esc_html_e( 'Courier or Transport Company', 'connector-for-dk' ); ?>
+					</label>
+				</th>
+				<td>
+					<select
+						id="dimensional_weights_courier_field"
+						name="dimensional_weights_courier"
+						type="text"
+					>
+						<?php foreach ( CourierDividers::cases() as $courier_divider ) : ?>
+							<option
+								value="<?php echo esc_attr( $courier_divider->value ); ?>"
+								<?php echo esc_attr( Config::get_dimensional_weights_courier() === $courier_divider->value ? 'selected' : '' ); ?>
+							>
+								<?php echo esc_attr( $courier_divider->full_name() ); ?>
+							</option>
+						<?php endforeach ?>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<hr />
+
+	<?php endif ?>
 
 	<h3><?php esc_html_e( 'Variations and Attributes', 'connector-for-dk' ); ?></h3>
 	<p>

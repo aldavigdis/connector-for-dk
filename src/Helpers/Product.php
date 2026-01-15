@@ -169,10 +169,6 @@ class Product {
 			return 0;
 		}
 
-		if ( ! array_key_exists( 'rate', $tax_rates ) ) {
-			return 0;
-		}
-
 		return array_pop( $tax_rates )['rate'];
 	}
 

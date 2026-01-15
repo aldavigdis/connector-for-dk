@@ -8,6 +8,7 @@ use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use WC_Customer;
 use WC_Order;
@@ -325,12 +326,12 @@ class Order {
 			return $product->get_sku();
 		}
 
-		$rate = self::assume_item_tax_rate( $item );
+		$rate = ProductHelper::tax_rate( $item->get_product() );
 
 		switch ( $rate ) {
 			case 0.0:
 				return Config::get_sku_for_0_vat();
-			case 0.11:
+			case 11.0:
 				return Config::get_sku_for_11_vat();
 			default:
 				return Config::get_sku_for_24_vat();

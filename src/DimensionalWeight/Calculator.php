@@ -7,6 +7,23 @@ namespace AldaVigdis\ConnectorForDK\DimensionalWeight;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 
+/**
+ * The Dimensional Weight Calculator class
+ *
+ * Some shipping companies calculate and charge for dimensional weight instead
+ * of the actual weight of voluminous products.
+ *
+ * For a parcel that is 40x25x15, Iceland Post calculates a 5.0 kg weight by
+ * volume, even if the brutto weight of the parcel is less than that. This is
+ * based on dividing the volume in cubic centimeters with 3000.
+ *
+ * Other couriers use a different divider, which are defined in the
+ * `AldaVigdis\ConnectorForDK\DimensionalWeight\CourierDividers` Enum.
+ *
+ * DK meanwhile DK has a volume attribute for each product
+ *
+ * @see AldaVigdis\ConnectorForDK\DimensionalWeight
+ */
 class Calculator {
 	const DEFAULT_COURIER    = 'iceland_post';
 	const DIVIDER_MULTIPLIER = 1_000_000;

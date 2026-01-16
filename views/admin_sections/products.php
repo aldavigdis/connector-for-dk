@@ -161,7 +161,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		esc_html_e(
-			"Some transport companies calculate a dimensional weight for voluminous shipments. On sync, Connector for DK can calculate a product's volumetric weight based on the volume indicated in DK, which then overrides the actual weight in WooCommerce.",
+			"Some transport companies calculate a dimensional weight for shipping voluminous products. On sync, Connector for DK can calculate a product's volumetric weight based on the volume indicated in DK, which then overrides the actual weight in WooCommerce.",
 			'connector-for-dk'
 		);
 		?>
@@ -170,7 +170,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		esc_html_e(
-			'Enabling this may improve shipping cost estimates for voluminous products but will replace their weight in WooCommerce with the calculated dimensional weight and requires their weight and volume to be set in DK.',
+			'Enabling this may improve cost estimates for voluminous orders but will replace their weight in WooCommerce with the calculated dimensional weight and requires their weight and volume to be set in DK.',
 			'connector-for-dk'
 		);
 		?>

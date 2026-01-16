@@ -1,197 +1,74 @@
 # Copyright (C) 2025 Alda Vigdis
 # This file is distributed under the GPL-3.0-or-later.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Connector for DK 0.5.1\n"
+"Project-Id-Version: Connector for DK 0.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/connector-for-dk\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-26T21:26:06+00:00\n"
+"POT-Creation-Date: 2026-01-16 22:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Domain: connector-for-dk\n"
+"\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
-#. Plugin Name of the plugin
-#: connector-for-dk.php
-#: src/Admin.php:437
-#: src/Admin.php:438
-#: views/about.php:17
-#: views/admin.php:35
-msgid "Connector for DK"
-msgstr ""
-
-#. Plugin URI of the plugin
-#: connector-for-dk.php
-msgid "https://tengillpro.is/"
-msgstr ""
-
-#. Description of the plugin
-#: connector-for-dk.php
-msgid "Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout."
-msgstr ""
-
-#. Author of the plugin
-#: connector-for-dk.php
-msgid "Alda Vigdis"
-msgstr ""
-
-#. Author URI of the plugin
-#: connector-for-dk.php
-msgid "https://aldavigdis.is"
-msgstr ""
-
-#: src/Activation.php:65
-#: src/Activation.php:68
-#: src/Activation.php:73
-#: views/activation.php:75
-msgid "Activate"
-msgstr ""
-
-#: src/Activation.php:121
-msgid "Activate License"
-msgstr ""
-
-#: src/Admin.php:170
-msgid "This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use."
-msgstr ""
-
-#: src/Admin.php:229
-msgid "Community Support"
-msgstr ""
-
-#: src/Admin.php:240
-#: src/Admin.php:249
-#: src/Admin.php:277
-msgid "DK Invoice"
-msgstr ""
-
-#: src/Admin.php:324
-msgid "Error"
-msgstr ""
-
-#: src/Admin.php:447
-#: src/Admin.php:448
-msgid "Settings"
-msgstr ""
-
-#. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:547
+#. The sprintf tags represent opening and closing hyperlinks.
+#: views/about.php:42
 #, php-format
-msgid "Please make sure that a product with the Product Code ‘%s’ exsists in DK before saving."
+msgid ""
+"%1$sAlda Vigdís%2$s, the lead author of the plugin also provides bespoke "
+"solutions for WordPress, WooCommerce and other systems, professional support "
+"and guidance for the use of this plugin as well as security, accessibility "
+"and perormance audits for your website, and you shouldn't hesitate to "
+"%4$sreach out to her%2$s if you have any questions. She also accepts "
+"%3$sdonations on Github Sponsors%2$s."
 msgstr ""
 
-#. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:563
+#. The %1$s and %2$s indicate an opening and closing <strong> tag.
+#: views/admin_sections/submit.php:17
 #, php-format
-msgid "The Item Code ‘%s’ was found in DK."
+msgid ""
+"%1$sError:%2$s Please check if all the information was entered correctly and "
+"try again."
 msgstr ""
 
-#. Translators: The %s stands for the relevant SKU.
-#: src/Admin.php:575
+#. The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:65
 #, php-format
-msgid "The Item Code ‘%s’ was not found in DK."
+msgid "%1$sError:%2$s The code you entered could not be validated."
 msgstr ""
 
-#. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:615
+#. %1$s an %2$s stand for opening and closing <strong> tags.
+#: views/dk_invoice_metabox.php:177
 #, php-format
-msgid "Please make sure that a sales person with the number ‘%s’ exsists in DK before saving."
+msgid ""
+"%1$sNote:%2$s Invoicing for international orders is not available in this "
+"version of Connector for DK. You can manually create an invoice in DK and "
+"reference it here."
 msgstr ""
 
-#. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:631
+#. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
+#: src/KennitalaField.php:488
 #, php-format
-msgid "A sales person with the number ‘%s’ was found in DK."
+msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr ""
 
-#. Translators: The %s stands for the relevant sales person number.
-#: src/Admin.php:643
-#, php-format
-msgid "A sales person with the number ‘%s’ was not found in DK."
+#: views/dk_product_variations.php:53
+msgid "(None)"
 msgstr ""
 
-#. Translators: The %s stands for the kennitala.
-#: src/Admin.php:693
-#, php-format
-msgid "Please make sure that a customer record with the kennitala ‘%s’ exsists in DK before you continue."
+#: views/admin_sections/default_skus.php:74
+msgid "0% VAT"
 msgstr ""
 
-#. Translators: The %s stands for the kennitala.
-#: src/Admin.php:709
-#, php-format
-msgid "A customer record with the kennitala ‘%s’ was found in DK."
-msgstr ""
-
-#. Translators: The %s stands for the kennitala.
-#: src/Admin.php:721
-#, php-format
-msgid "A customer record with the kennitala ‘%s’ was not found in DK."
-msgstr ""
-
-#: src/Config.php:1028
-msgid "We are unable to check out your order. Please contact us for more information."
-msgstr ""
-
-#. Translators: The %s stands for the currency code.
-#: src/Currency.php:156
-#, php-format
-msgid "The currency code ‘%s’ is invalid."
-msgstr ""
-
-#. Translators: The %s stands for the currency code.
-#: src/Currency.php:177
-#, php-format
-msgid "The currency rate for ‘%s’ has not been set."
-msgstr ""
-
-#: src/CustomerContacts.php:72
-msgid "Contact Person"
-msgstr ""
-
-#: src/CustomerDiscounts.php:276
-#: src/CustomerDiscounts.php:300
-msgid "Customer discount:"
-msgstr ""
-
-#: src/CustomerDiscounts.php:578
-msgid "Regular Price:"
-msgstr ""
-
-#: src/CustomerDiscounts.php:582
-msgid "Your Price:"
-msgstr ""
-
-#: src/CustomerSync.php:120
-#: src/KennitalaField.php:267
-#: src/KennitalaField.php:324
-#: src/KennitalaField.php:474
-#: src/KennitalaField.php:665
-msgid "Kennitala"
-msgstr ""
-
-#: src/CustomerSync.php:126
-msgid "Fetch from DK"
-msgstr ""
-
-#: src/CustomerSync.php:129
-msgid "Fetch"
-msgstr ""
-
-#. Translators: The %1$s is a placeholder for the site's title.
-#: src/Export/Invoice.php:195
-#, php-format
-msgid "Your Invoice From %1$s"
-msgstr ""
-
-#: src/Export/Order.php:258
-msgid "Fee"
-msgstr ""
-
-#: src/Export/Order.php:275
-msgid "Shipping"
+#: views/admin_sections/default_skus.php:54
+msgid "11% VAT"
 msgstr ""
 
 #: src/Import/SalesPayments.php:73
@@ -202,8 +79,272 @@ msgstr ""
 msgid "20 Day Payment Deadline (D20)"
 msgstr ""
 
+#: views/admin_sections/default_skus.php:34
+msgid "24% VAT"
+msgstr ""
+
 #: src/Import/SalesPayments.php:77
 msgid "30 Day Payment Deadline (D30)"
+msgstr ""
+
+#. The %s stands for the kennitala.
+#: src/Admin.php:714
+#, php-format
+msgid "A customer record with the kennitala ‘%s’ was found in DK."
+msgstr ""
+
+#. The %s stands for the kennitala.
+#: src/Admin.php:726
+#, php-format
+msgid "A customer record with the kennitala ‘%s’ was not found in DK."
+msgstr ""
+
+#: src/Import/SalesPayments.php:163
+msgid "A or B Giro Request (ABG)"
+msgstr ""
+
+#. The %s stands for the relevant sales person number.
+#: src/Admin.php:636
+#, php-format
+msgid "A sales person with the number ‘%s’ was found in DK."
+msgstr ""
+
+#. The %s stands for the relevant sales person number.
+#: src/Admin.php:648
+#, php-format
+msgid "A sales person with the number ‘%s’ was not found in DK."
+msgstr ""
+
+#: views/about.php:12
+msgid "About Connector for DK"
+msgstr ""
+
+#: src/Activation.php:65 src/Activation.php:68 src/Activation.php:73
+#: views/activation.php:75
+msgid "Activate"
+msgstr ""
+
+#: views/activation.php:37
+msgid "Activate Connector for DK"
+msgstr ""
+
+#: src/Activation.php:121
+msgid "Activate License"
+msgstr ""
+
+#: views/activation.php:40 views/activation.php:52
+msgid "Activation Code"
+msgstr ""
+
+#: views/admin_sections/gateways.php:120
+msgid "Add payment line to invoices"
+msgstr ""
+
+#. Author of the plugin
+msgid "Alda Vigdis"
+msgstr ""
+
+#: views/dk_product_variations.php:312
+msgid "Allow backorders"
+msgstr ""
+
+#: views/dk_product_variations.php:298
+msgid "Allow backorders, but notify customer"
+msgstr ""
+
+#: src/OrderStatus.php:204 src/Rest/OrderDKInvoice.php:154
+msgid ""
+"An email containing the invoice as a PDF attachment was sent to the customer "
+"via DK."
+msgstr ""
+
+#: src/OrderStatus.php:113
+msgid ""
+"An invoice could not be automatically generated as the country indicated in "
+"the order's address does not match with the relevant DK customer record."
+msgstr ""
+
+#: src/OrderStatus.php:103
+msgid ""
+"An invoice could not be automatically generated as the customer's account is "
+"blocked in DK."
+msgstr ""
+
+#: src/OrderStatus.php:240
+msgid "An invoice could not be created in DK due to an unhandled error."
+msgstr ""
+
+#: src/OrderStatus.php:138 src/Rest/OrderDKInvoice.php:89
+msgid ""
+"An invoice could not be created in DK for this order as it was created "
+"before Connector for DK was activated."
+msgstr ""
+
+#: src/Rest/OrderDKInvoice.php:115
+msgid ""
+"An invoice could not be created in for this order as the country indicated "
+"in the order's address does not match with the relevant DK customer record."
+msgstr ""
+
+#: src/Rest/OrderDKInvoice.php:104
+msgid ""
+"An invoice could not be created in for this order as the DK customer record "
+"is labelled as blocked."
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number generated in DK.
+#: src/OrderStatus.php:193 src/Rest/OrderDKInvoice.php:143
+#, php-format
+msgid ""
+"An invoice for this order has been created in DK. The invoice number is %1$s."
+msgstr ""
+
+#: src/OrderStatus.php:88
+msgid ""
+"An invoice was not autmatically generated as the customer entered a "
+"kennitala."
+msgstr ""
+
+#: src/OrderStatus.php:127
+msgid ""
+"An invoice was not automatically generated as the customer did not enter a "
+"kennitala."
+msgstr ""
+
+#: src/OrderStatus.php:153
+msgid ""
+"An invoice was not created in DK as you have chosen not to automatically "
+"create invoices for customers not registered as debtors in DK."
+msgstr ""
+
+#: src/OrderStatus.php:179
+msgid ""
+"An invoice was not created in DK as you have chosen not to automatically "
+"create invoices for international orders."
+msgstr ""
+
+#. The %1$s is the product's original currency code and %2$s is the shop's currency.
+#: views/dk_connection_product_panel.php:81
+#, php-format
+msgid ""
+"As the product price is converted from ‘%1$s’ or is set manually to ‘%2$s’ "
+"using the ‘Foreign Prices’ feature in DK, changes to the product price in "
+"WooCommerce will not be updated in DK and will be overwritten on sync. You "
+"can change the foreign price and currency in DK."
+msgstr ""
+
+#: views/admin_with_errors.php:104
+msgid ""
+"At least one payment gateway needs to be set up in WooCommerce before "
+"receiving orders from customers and creating invoices."
+msgstr ""
+
+#: views/admin_sections/authentication.php:14
+msgid "Authentication"
+msgstr ""
+
+#: views/dk_product_variations.php:272
+msgid "Backorders"
+msgstr ""
+
+#: src/Import/SalesPayments.php:173
+msgid "Bank Collection Service (IB)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:165
+msgid "Bank Transfer (BM)"
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:16
+msgid "Blocked Customers"
+msgstr ""
+
+#: src/Import/SalesPayments.php:167
+msgid "C Giro Request (CG)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:169
+msgid "Card Payment (GKR)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:87 src/Import/SalesPayments.php:175
+msgid "Cash Payment (STGR)"
+msgstr ""
+
+#: src/Import/SalesPayments.php:177
+msgid "Cheque Payment (TGR)"
+msgstr ""
+
+#: src/Admin.php:229
+msgid "Community Support"
+msgstr ""
+
+#. Name of the plugin
+#: src/Admin.php:442 src/Admin.php:443 views/admin.php:35 views/about.php:17
+msgid "Connector for DK"
+msgstr ""
+
+#: views/admin_sections/customers_sync.php:35
+msgid ""
+"Connector for DK can keep registered customers' addresses, email addresses "
+"and phone numbers in sync with DK. This requires the customer to be "
+"registered as a user and to have the Kennitala field set to a value that "
+"corresponds with the relevant DK customer record."
+msgstr ""
+
+#: views/activation.php:94
+msgid "Connector For DK Edition"
+msgstr ""
+
+#: views/admin_with_errors.php:52
+msgid ""
+"Connector for DK only supports stores with the base location set to Iceland."
+msgstr ""
+
+#: src/License.php:219
+msgid "Connector Pro for DK"
+msgstr ""
+
+#: src/CustomerContacts.php:72
+msgid "Contact Person"
+msgstr ""
+
+#: views/admin_sections/invoices.php:206
+msgid "Cost SKU"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:71
+msgid "Create in DK"
+msgstr ""
+
+#: views/admin_sections/invoices.php:94
+msgid "Create Invoices Automatically for Customers not Registered in DK"
+msgstr ""
+
+#: views/admin_sections/invoices_intl_checkbox.php:25
+msgid "Create Invoices Automatically for International Orders"
+msgstr ""
+
+#: views/admin_sections/invoices.php:38
+msgid "Create Invoices Automatically for Orders With a Kennitala"
+msgstr ""
+
+#: views/admin_sections/invoices.php:66
+msgid "Create Invoices Automatically for Orders Without a Kennitala"
+msgstr ""
+
+#: views/admin_sections/products.php:112
+msgid "Create new products in WooCommerce if they don't exist"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:126
+msgid "Credit Invoice Number"
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:116
+#, php-format
+msgid "Credit invoice number set to %1$s."
 msgstr ""
 
 #: src/Import/SalesPayments.php:79
@@ -218,300 +359,452 @@ msgstr ""
 msgid "Current Month + 20 Days (M20)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:85
-msgid "Postal COD (POST)"
+#: src/CustomerDiscounts.php:276 src/CustomerDiscounts.php:300
+msgid "Customer discount:"
 msgstr ""
 
-#: src/Import/SalesPayments.php:87
-#: src/Import/SalesPayments.php:175
-msgid "Cash Payment (STGR)"
+#: views/admin_sections/customers_discounts.php:15
+msgid "Customer Discounts"
 msgstr ""
 
-#: src/Import/SalesPayments.php:163
-msgid "A or B Giro Request (ABG)"
+#: views/admin_sections/customers.php:16
+msgid "Customers"
 msgstr ""
 
-#: src/Import/SalesPayments.php:165
-msgid "Bank Transfer (BM)"
+#: views/admin_sections/kennitala.php:70
+msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr ""
 
-#: src/Import/SalesPayments.php:167
-msgid "C Giro Request (CG)"
+#: views/dk_product_variations.php:43
+msgid "Default Attributes"
 msgstr ""
 
-#: src/Import/SalesPayments.php:169
-msgid "Card Payment (GKR)"
+#: views/admin_sections/customers.php:23
+msgid "Default Customer Kennitala"
 msgstr ""
 
-#: src/Import/SalesPayments.php:171
-msgid "Giro Transfer (GM)"
+#: views/admin_sections/customers_international.php:45
+msgid "Default Customer Number for International Customers"
 msgstr ""
 
-#: src/Import/SalesPayments.php:173
-msgid "Bank Collection Service (IB)"
+#: views/admin_sections/default_skus.php:17
+msgid "Default Product Codes"
 msgstr ""
 
-#: src/Import/SalesPayments.php:177
-msgid "Cheque Payment (TGR)"
+#: views/admin_sections/invoices.php:148
+msgid "Default Sales Person Number"
 msgstr ""
 
-#: src/KennitalaField.php:274
-msgid "Invoice with Kennitala Requested"
+#: views/admin_sections/products.php:123
+msgid ""
+"Delete products from WooCommerce if labelled as inactive or deleted in DK"
 msgstr ""
 
-#. Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:488
-#, php-format
-msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
-msgstr ""
-
-#: src/KennitalaField.php:507
-#: src/KennitalaField.php:689
-msgid "Request an Invoice with Kennitala"
-msgstr ""
-
-#: src/KennitalaField.php:543
-msgid "Invalid kennitala nonce"
-msgstr ""
-
-#: src/KennitalaField.php:571
-msgid "Kennitala is a required field"
-msgstr ""
-
-#: src/KennitalaField.php:669
-msgid "Kennitala (Optional)"
-msgstr ""
-
-#: src/KennitalaField.php:693
-msgid "Request an Invoice with Kennitala (optional)"
-msgstr ""
-
-#: src/KennitalaField.php:754
-msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
+#: views/dk_product_variations.php:324
+msgid "Description"
 msgstr ""
 
 #: src/License.php:75
 msgid "Development, testing or staging environment detected 👷‍♀️"
 msgstr ""
 
-#. Translators: The sprintf symbols are opening and closing <strong> tags.
-#: src/License.php:80
-#, php-format
-msgid "While updates are disabled, %1$sConnector for DK%2$s features such as automatic invoice generation, customer sync and other features are currently enabled for development and testing purposes."
+#: views/admin_with_errors.php:117
+msgid "Disable the Kennitala field in the Iceland Post plugin"
 msgstr ""
 
-#. Translators: Sprintf symbols 1 and 2 are opening and closing <strong> tags and 3 and 4 are the hyperlink to tengillpro.is.
-#: src/License.php:91
-#, php-format
-msgid "For production sites, licenses are sold on a %1$sper-domain basis only%2$s and can be %3$spurchased on tengillpro.is%4$s"
+#: views/admin_sections/customers_discounts.php:68
+msgid "Display Customers' Prices as Discounts"
 msgstr ""
 
-#: src/License.php:107
-msgid "Your Connector for DK license key has not been entered yet 🤔"
+#: views/admin_sections/products.php:167
+msgid "Display the Attribute Label Description from DK"
 msgstr ""
 
-#. Translators: sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
-#: src/License.php:112
-#, php-format
-msgid "Settings, automatic invoice generation, customer sync, updates and other features will be enabled once you %1$senter your license code%2$s. Licenses can be purchased on %3$stengillpro.is%4$s"
-msgstr ""
-
-#: src/License.php:128
-msgid "Your Connector for DK license has expired! 😱"
-msgstr ""
-
-#. Translators: The sprintf tags are for opening and closing links to tengillpro.is.
-#: src/License.php:133
-#, php-format
-msgid "Settings, automatic invoice generation, customer sync, updates and other features have been disabled until you %1$spurchase a new license code on tengillpro.is%2$s."
-msgstr ""
-
-#: src/License.php:147
-msgid "Your Connector for DK license will expire soon! 🫣"
-msgstr ""
-
-#. Translators: %1$s and %2$s are for opening and closing <strong> tags, %3$s and %4$s are opening and closing links to tengillpro.is and %5$s is the expiry date.
-#: src/License.php:152
-#, php-format
-msgid "To keep your settings, automatic invoice generation, customer sync, updates and other features after %1$s%5$s%2$s, ensure that you %3$spurchase a new license code on tengillpro.is%4$s in time."
-msgstr ""
-
-#: src/License.php:219
-msgid "Connector Pro for DK"
-msgstr ""
-
-#: src/Metaboxes.php:96
-msgid "DK Sync"
-msgstr ""
-
-#: src/Metaboxes.php:151
-msgid "DK Variations"
-msgstr ""
-
-#: src/OrderStatus.php:88
-msgid "An invoice was not autmatically generated as the customer entered a kennitala."
-msgstr ""
-
-#: src/OrderStatus.php:103
-msgid "An invoice could not be automatically generated as the customer's account is blocked in DK."
-msgstr ""
-
-#: src/OrderStatus.php:113
-msgid "An invoice could not be automatically generated as the country indicated in the order's address does not match with the relevant DK customer record."
-msgstr ""
-
-#: src/OrderStatus.php:127
-msgid "An invoice was not automatically generated as the customer did not enter a kennitala."
-msgstr ""
-
-#: src/OrderStatus.php:138
-#: src/Rest/OrderDKInvoice.php:89
-msgid "An invoice could not be created in DK for this order as it was created before Connector for DK was activated."
-msgstr ""
-
-#: src/OrderStatus.php:153
-msgid "An invoice was not created in DK as you have chosen not to automatically create invoices for customers not registered as debtors in DK."
-msgstr ""
-
-#: src/OrderStatus.php:166
-msgid "Invoicing for international orders is not available in this version of Connector for DK."
-msgstr ""
-
-#: src/OrderStatus.php:179
-msgid "An invoice was not created in DK as you have chosen not to automatically create invoices for international orders."
-msgstr ""
-
-#. Translators: %1$s is a placeholder for the invoice number generated in DK.
-#: src/OrderStatus.php:193
-#: src/Rest/OrderDKInvoice.php:143
-#, php-format
-msgid "An invoice for this order has been created in DK. The invoice number is %1$s."
-msgstr ""
-
-#: src/OrderStatus.php:204
-#: src/Rest/OrderDKInvoice.php:154
-msgid "An email containing the invoice as a PDF attachment was sent to the customer via DK."
-msgstr ""
-
-#: src/OrderStatus.php:211
-#: src/Rest/OrderDKInvoice.php:161
-msgid "It was not possible to send an email to the customer containing the invoice as a PDF attachment."
-msgstr ""
-
-#: src/OrderStatus.php:232
-msgid "Unable to create invoice in DK: "
-msgstr ""
-
-#: src/OrderStatus.php:240
-msgid "An invoice could not be created in DK due to an unhandled error."
-msgstr ""
-
-#: src/Rest/OrderDKInvoice.php:104
-msgid "An invoice could not be created in for this order as the DK customer record is labelled as blocked."
-msgstr ""
-
-#: src/Rest/OrderDKInvoice.php:115
-msgid "An invoice could not be created in for this order as the country indicated in the order's address does not match with the relevant DK customer record."
+#: views/admin_sections/products.php:190
+msgid "Display the Attribute Value Description from DK"
 msgstr ""
 
 #: src/Rest/OrderDKInvoice.php:132
 msgid "DK could not create an invoice due to an error."
 msgstr ""
 
-#. Translators: %1$s is a placeholder for the invoice number that was manually entered.
-#: src/Rest/OrderInvoiceNumber.php:91
-#, php-format
-msgid "Invoice number set to %1$s."
+#: views/admin_sections/blocked_customers.php:21
+msgid ""
+"DK facilitates blocking customer accounts. You can enable this feature in "
+"your WooCommerce store below."
 msgstr ""
 
-#. Translators: %1$s is a placeholder for the invoice number that was manually entered.
-#: src/Rest/OrderInvoiceNumber.php:116
-#, php-format
-msgid "Credit invoice number set to %1$s."
+#: src/Admin.php:240 src/Admin.php:249 src/Admin.php:277
+msgid "DK Invoice"
 msgstr ""
 
-#: src/Rest/OrderInvoicePdf.php:55
-msgid "WooCommerce order not found"
+#: views/admin_sections/customers_international.php:23
+msgid ""
+"DK needs a way to identify international customers that don't have a "
+"kennitala but need their own customer records. Connector for DK handles this "
+"by generating an alphanumeric sequence based on the customer's ID number in "
+"WooCommerce."
 msgstr ""
 
-#: src/Rest/OrderInvoicePdf.php:63
-msgid "The DK invoice number has not been set for this order"
+#: views/admin_sections/customers_discounts.php:19
+msgid ""
+"DK offers per-customer discounts as well as price groups with up to 3 "
+"different prices per product."
 msgstr ""
 
 #: src/Rest/OrderInvoicePdf.php:76
 msgid "DK order PDF not found"
 msgstr ""
 
+#: src/Metaboxes.php:96
+msgid "DK Sync"
+msgstr ""
+
+#: views/admin_sections/invoices.php:175
+msgid ""
+"DK treats shipping and other costs as line items on invoices. In order for "
+"invoicing to work, you need to assign a product in DK to each of the "
+"following services and assign them below."
+msgstr ""
+
+#: src/Metaboxes.php:151
+msgid "DK Variations"
+msgstr ""
+
+#: views/dk_product_variations.php:33
+msgid ""
+"DK's own ‘Product Variations’ feature is required to add or remove product "
+"variations that originate in DK."
+msgstr ""
+
+#: views/admin_sections/authentication.php:28
+msgid "dkPlus API Key"
+msgstr ""
+
+#: views/dk_product_variations.php:284
+msgid "Do not allow backorders"
+msgstr ""
+
+#: views/activation.php:142
+msgid "Domain"
+msgstr ""
+
+#. The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:181
+#, php-format
+msgid ""
+"Don't have a Connector Basic or Pro license? — You can buy and renew "
+"licenses at %1$stengillpro.is%2$s."
+msgstr ""
+
+#: views/dk_product_variations.php:355
+msgid "Downloadable"
+msgstr ""
+
+#: views/dk_connection_product_panel.php:64
+msgid ""
+"Due to limitations in DK, if this feature is enabled, manually editing the "
+"product stock quantity and availability in WooCommerce will not result in it "
+"being reflected in DK. It will be overwritten on next sync."
+msgstr ""
+
+#: views/admin_sections/kennitala.php:42
+msgid "Enable Kennitala Field in the Checkout Form"
+msgstr ""
+
+#: views/admin_sections/products.php:50
+msgid ""
+"Enable this to fetch and update product information from DK on an hourly "
+"basis."
+msgstr ""
+
+#: views/dk_product_variations.php:342
+msgid "Enabled"
+msgstr ""
+
+#: src/Admin.php:324
+msgid "Error"
+msgstr ""
+
+#: src/Export/Order.php:263
+msgid "Fee"
+msgstr ""
+
+#: src/CustomerSync.php:129
+msgid "Fetch"
+msgstr ""
+
+#: views/admin_sections/customers_discounts.php:40
+msgid "Fetch Customer Discount and Price Group Data from DK"
+msgstr ""
+
+#: src/CustomerSync.php:126
+msgid "Fetch from DK"
+msgstr ""
+
+#: views/admin_sections/products.php:46
+msgid "Fetch Product Data from DK"
+msgstr ""
+
 #: src/Rest/OrderInvoicePdf.php:84
 msgid "File not saved"
 msgstr ""
 
-#: src/Service/DKApiRequest.php:79
-#: src/Service/DKApiRequest.php:151
-msgid "The dkPlus API key is missing."
+#: views/admin_sections/authentication.php:17
+msgid ""
+"For creating an API key, we recommend creating a separate user with "
+"sufficient access priveleges, not connected to an actual employee in dkPlus "
+"and then generating an API key for that user under ‘Tokens’ in that user’s "
+"Settings page."
 msgstr ""
 
-#: views/about.php:12
-msgid "About Connector for DK"
-msgstr ""
-
-#. Translators: %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
-#: views/about.php:26
+#. Sprintf symbols 1 and 2 are opening and closing <strong> tags and 3 and 4 are the hyperlink to tengillpro.is.
+#: src/License.php:91
 #, php-format
-msgid "The plugin %1$sConnector for DK%2$s has taken hundreds of hours of development for the past years and is provided free of charge to everyone. If you value what the plugin has to offer, then you may want to show your gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or %5$sstarring it on Github%4$s."
+msgid ""
+"For production sites, licenses are sold on a %1$sper-domain basis only%2$s "
+"and can be %3$spurchased on tengillpro.is%4$s"
 msgstr ""
 
-#: views/about.php:32
-msgid "Visit the WordPress.org plugin review page for this plugin"
+#: views/dk_invoice_metabox.php:68
+msgid "Generate a new invoice for this order in DK"
 msgstr ""
 
-#: views/about.php:34
-msgid "Visit the plugin's Github profile"
+#: views/dk_invoice_metabox.php:62 views/dk_invoice_metabox.php:161
+msgid "Get PDF"
 msgstr ""
 
-#. Translators: The sprintf tags represent opening and closing hyperlinks.
-#: views/about.php:42
+#: views/dk_invoice_metabox.php:59
+msgid "Get the invoice as a PDF file"
+msgstr ""
+
+#: src/Import/SalesPayments.php:171
+msgid "Giro Transfer (GM)"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://aldavigdis.is"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://tengillpro.is/"
+msgstr ""
+
+#: views/admin_sections/invoices.php:131
+msgid ""
+"If enabled, an email containing the invoice will be sent to the customer "
+"automatically after checkout. This uses the DK email functionality, so make "
+"sure that email delivery is configured correctly in DK."
+msgstr ""
+
+#: views/admin_sections/products.php:171
+msgid ""
+"If enabled, the code for attribute labels will be replaced with the "
+"attribute description from DK. Disable this if you only need the attribute "
+"label code."
+msgstr ""
+
+#: views/admin_sections/products.php:194
+msgid ""
+"If enabled, the code for attribute values will be replaced with the "
+"attribute description from DK. Disable this if you only need the attribute "
+"value code."
+msgstr ""
+
+#: views/dk_connection_product_panel.php:119
+msgid ""
+"If this feature is enabled, changes to the product’s prices and tax rate in "
+"DK will be reflected in WooCommerce. This includes sale prices and dates."
+msgstr ""
+
+#: views/dk_connection_product_panel.php:159
+msgid ""
+"If this feature is enabled, the product name gets set to the DK ‘product "
+"description’ on sync. Disabling this means that you can set a different name "
+"from the one you use in DK for the product in WooCommerce."
+msgstr ""
+
+#: views/admin_sections/kennitala.php:78
+msgid ""
+"If this is enabled, a checkbox is added to the checkout form, that the "
+"customer needs to tick in order to have a kennitala assigned to their "
+"invoice, or the invoice will be treated like one without a kennitala."
+msgstr ""
+
+#: views/admin_sections/kennitala.php:21
+msgid ""
+"If this is enabled, a Kennitala field is added to the checkout form. The "
+"Kennitala may be made mandatory as well. Please note that a checksum is not "
+"calculated and that no lookup is run against the Population Registry or the "
+"Company Registry."
+msgstr ""
+
+#: views/admin_sections/invoices.php:102
+msgid ""
+"If this is enabled, a new ‘debtor’ record witll be created in DK for every "
+"new customer who places an order and supplies a Kennitala that is not in DK "
+"already."
+msgstr ""
+
+#: views/admin_sections/customers_discounts.php:76
+msgid ""
+"If this is enabled, Customer's prices are shown as discounts in the "
+"storefront."
+msgstr ""
+
+#: views/admin_sections/customers_discounts.php:48
+msgid ""
+"If this is enabled, information on customer discounts and price groups are "
+"fetched from DK on an hourly basis based on each customer's Kennitala. "
+"Customer prices are only available to logged-in and registered users with "
+"the Kennitala attribute set to one that equals the relevant Kennitala or "
+"Customer Number in DK."
+msgstr ""
+
+#: views/admin_sections/invoices.php:74
+msgid ""
+"If this is enabled, orders without a kennitala will be assigned the ‘Default "
+"Customer Kennitala’."
+msgstr ""
+
+#: views/admin_sections/kennitala.php:106
+msgid ""
+"If this is enabled, the Kennitala field is mandatory for finishing the "
+"checkout process."
+msgstr ""
+
+#: views/admin_sections/products.php:134
+msgid "Import products not labelled as ‘for online store’ as drafts"
+msgstr ""
+
+#: views/admin_sections/default_skus.php:22
+msgid ""
+"In cases where you would like to manually enter your products into "
+"WooCommerce without entering a SKU and do not wish to use the product "
+"management system in DK to maintain stock counts, Connector for DK needs to "
+"match them with a DK product code in order for an invoice to be generated."
+msgstr ""
+
+#: views/admin_sections/products.php:26
+msgid ""
+"In this section, you can enable and fine-tune your product sync settings. "
+"For example, if you do not want to overwrite the prices or names of your "
+"current WooCommerce products by default, or only fetch products labelled as "
+"‘for online store’ you can do it here."
+msgstr ""
+
+#: views/admin_sections/customers_international.php:77
+msgid "International Customer Number Prefix"
+msgstr ""
+
+#: views/admin_sections/customers_international.php:32
+msgid ""
+"International customer numbers are generated based on a combination of a "
+"prefix and the WooCommerce customer ID. We recommend using an alphabetical "
+"prefix in order to prevent conflicts. You may use both numbers and uppercase "
+"characters from the English alphabet."
+msgstr ""
+
+#: views/admin_sections/customers_international.php:18
+msgid "International Customers"
+msgstr ""
+
+#: src/KennitalaField.php:543
+msgid "Invalid kennitala nonce"
+msgstr ""
+
+#: src/KennitalaField.php:754
+msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:88
+msgid "Invoice has been created in DK."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:116
+msgid "Invoice not found in DK."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:26
+msgid "Invoice Number"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:102
+msgid "Invoice number has been assigned."
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number that was manually entered.
+#: src/Rest/OrderInvoiceNumber.php:91
 #, php-format
-msgid "%1$sAlda Vigdís%2$s, the lead author of the plugin also provides bespoke solutions for WordPress, WooCommerce and other systems, professional support and guidance for the use of this plugin as well as security, accessibility and perormance audits for your website, and you shouldn't hesitate to %4$sreach out to her%2$s if you have any questions. She also accepts %3$sdonations on Github Sponsors%2$s."
+msgid "Invoice number set to %1$s."
 msgstr ""
 
-#: views/about.php:46
-msgid "Visit Alda's website"
+#: views/dk_invoice_metabox.php:109
+msgid "Invoice number was not assigned."
 msgstr ""
 
-#: views/about.php:48
-msgid "Visit Alda's Github Sponsors profile"
+#: src/KennitalaField.php:274
+msgid "Invoice with Kennitala Requested"
 msgstr ""
 
-#: views/about.php:49
-msgid "Send Alda an email"
+#: views/admin_sections/invoices.php:15
+msgid "Invoices"
 msgstr ""
 
-#: views/activation.php:37
-msgid "Activate Connector for DK"
+#: views/admin_sections/invoices_intl_checkbox.php:33
+msgid ""
+"Invoices for international orders will result in or get associated with a "
+"customer record in DK using a customer number based on their WooCommerce "
+"user ID. (See ‘International Customers’ below for further details.)"
 msgstr ""
 
-#: views/activation.php:40
-#: views/activation.php:52
-msgid "Activation Code"
+#: views/admin_sections/invoices.php:18
+msgid ""
+"Invoices may be made in DK upon successful checkout, or manually from the "
+"WooCommerce Order Editor. This can based on wether the customer supplies a "
+"kennitala and a kennitala field can be enabled as well."
 msgstr ""
 
-#: views/activation.php:44
-msgid "When you purchased your Connector Pro License, you received an activation code, which is a 320-character sequence of letters, numbers and symbols. Paste it into the field below to activate your license."
+#: src/OrderStatus.php:166
+msgid ""
+"Invoicing for international orders is not available in this version of "
+"Connector for DK."
 msgstr ""
 
-#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
-#: views/activation.php:65
-#, php-format
-msgid "%1$sError:%2$s The code you entered could not be validated."
+#: src/OrderStatus.php:211 src/Rest/OrderDKInvoice.php:161
+msgid ""
+"It was not possible to send an email to the customer containing the invoice "
+"as a PDF attachment."
 msgstr ""
 
-#: views/activation.php:83
-msgid "Your License"
+#: src/CustomerSync.php:120 src/KennitalaField.php:267
+#: src/KennitalaField.php:324 src/KennitalaField.php:474
+#: src/KennitalaField.php:665
+msgid "Kennitala"
 msgstr ""
 
-#: views/activation.php:94
-msgid "Connector For DK Edition"
+#: src/KennitalaField.php:669
+msgid "Kennitala (Optional)"
+msgstr ""
+
+#: views/admin_sections/kennitala.php:16
+msgid "Kennitala Field"
+msgstr ""
+
+#: src/KennitalaField.php:571
+msgid "Kennitala is a required field"
+msgstr ""
+
+#: views/admin_sections/customers.php:55
+msgid "Ledger Code for Domestic Customers"
+msgstr ""
+
+#: views/admin_sections/customers_international.php:115
+msgid "Ledger Code for International Customers"
+msgstr ""
+
+#: views/activation.php:130
+msgid "License Expires At"
 msgstr ""
 
 #: views/activation.php:106
@@ -522,463 +815,24 @@ msgstr ""
 msgid "License Valid From"
 msgstr ""
 
-#: views/activation.php:130
-msgid "License Expires At"
+#: views/admin_sections/kennitala.php:98
+msgid "Make Kennitala Field Mandatory"
 msgstr ""
 
-#: views/activation.php:142
-msgid "Domain"
-msgstr ""
-
-#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
-#: views/activation.php:163
-#, php-format
-msgid "This WordPress installation was identified as running in a %1$sdevelopment, testing or staging environment%2$s, so you can use a valid license assigned to any domain. Just remember that domain restrictions apply in production environments."
-msgstr ""
-
-#. Translators: The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
-#: views/activation.php:181
-#, php-format
-msgid "Don't have a Connector Basic or Pro license? — You can buy and renew licenses at %1$stengillpro.is%2$s."
-msgstr ""
-
-#: views/admin_sections/authentication.php:14
-msgid "Authentication"
-msgstr ""
-
-#: views/admin_sections/authentication.php:17
-msgid "For creating an API key, we recommend creating a separate user with sufficient access priveleges, not connected to an actual employee in dkPlus and then generating an API key for that user under ‘Tokens’ in that user’s Settings page."
-msgstr ""
-
-#: views/admin_sections/authentication.php:28
-msgid "dkPlus API Key"
-msgstr ""
-
-#: views/admin_sections/authentication.php:42
-msgid "Valid"
-msgstr ""
-
-#: views/admin_sections/authentication.php:43
-msgid "This is a required field"
-msgstr ""
-
-#: views/admin_sections/authentication.php:47
-msgid "The API key is provided by DK for use with the dkPlus API. Do not share this key with anyone."
-msgstr ""
-
-#: views/admin_sections/blocked_customers.php:16
-msgid "Blocked Customers"
-msgstr ""
-
-#: views/admin_sections/blocked_customers.php:21
-msgid "DK facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below."
+#: views/dk_product_variations.php:376
+msgid "Menu Order"
 msgstr ""
 
 #: views/admin_sections/blocked_customers.php:33
 msgid "Message for Blocked Customers"
 msgstr ""
 
-#: views/admin_sections/blocked_customers.php:40
-msgid "This message is displayed when a blocked customer attempts to check out an order."
-msgstr ""
-
-#: views/admin_sections/customers.php:16
-msgid "Customers"
-msgstr ""
-
-#: views/admin_sections/customers.php:23
-msgid "Default Customer Kennitala"
-msgstr ""
-
-#: views/admin_sections/customers.php:44
-msgid "The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a DK customer record called ‘Various Customers’ etc."
-msgstr ""
-
-#: views/admin_sections/customers.php:55
-msgid "Ledger Code for Domestic Customers"
-msgstr ""
-
-#: views/admin_sections/customers.php:67
-msgid "The ledger code is used for new customer records when they are created in DK."
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:15
-msgid "Customer Discounts"
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:19
-msgid "DK offers per-customer discounts as well as price groups with up to 3 different prices per product."
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:40
-msgid "Fetch Customer Discount and Price Group Data from DK"
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:48
-msgid "If this is enabled, information on customer discounts and price groups are fetched from DK on an hourly basis based on each customer's Kennitala. Customer prices are only available to logged-in and registered users with the Kennitala attribute set to one that equals the relevant Kennitala or Customer Number in DK."
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:68
-msgid "Display Customers' Prices as Discounts"
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:76
-msgid "If this is enabled, Customer's prices are shown as discounts in the storefront."
-msgstr ""
-
-#: views/admin_sections/customers_international.php:18
-msgid "International Customers"
-msgstr ""
-
-#: views/admin_sections/customers_international.php:23
-msgid "DK needs a way to identify international customers that don't have a kennitala but need their own customer records. Connector for DK handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce."
-msgstr ""
-
-#: views/admin_sections/customers_international.php:32
-msgid "International customer numbers are generated based on a combination of a prefix and the WooCommerce customer ID. We recommend using an alphabetical prefix in order to prevent conflicts. You may use both numbers and uppercase characters from the English alphabet."
-msgstr ""
-
-#: views/admin_sections/customers_international.php:45
-msgid "Default Customer Number for International Customers"
-msgstr ""
-
-#: views/admin_sections/customers_international.php:66
-msgid "Similarly to the default Kennitala for domestic customers, this one is used for international guest customers that can't, don't have or won't supply a kennitala during checkout."
-msgstr ""
-
-#: views/admin_sections/customers_international.php:77
-msgid "International Customer Number Prefix"
-msgstr ""
-
-#. Translators: %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
-#: views/admin_sections/customers_international.php:93
-#, php-format
-msgid "This is used as the beginning of the 10-digit Customer Number. For example, with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as DK customer number ‘%3$s’."
-msgstr ""
-
-#: views/admin_sections/customers_international.php:115
-msgid "Ledger Code for International Customers"
-msgstr ""
-
-#: views/admin_sections/customers_international.php:127
-msgid "This ledger code is used for international customer records when they are created in DK."
-msgstr ""
-
-#: views/admin_sections/customers_sync.php:27
-msgid "Sync customer information from DK"
-msgstr ""
-
-#: views/admin_sections/customers_sync.php:35
-msgid "Connector for DK can keep registered customers' addresses, email addresses and phone numbers in sync with DK. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant DK customer record."
-msgstr ""
-
-#: views/admin_sections/default_skus.php:17
-msgid "Default Product Codes"
-msgstr ""
-
-#: views/admin_sections/default_skus.php:22
-msgid "In cases where you would like to manually enter your products into WooCommerce without entering a SKU and do not wish to use the product management system in DK to maintain stock counts, Connector for DK needs to match them with a DK product code in order for an invoice to be generated."
-msgstr ""
-
-#: views/admin_sections/default_skus.php:34
-msgid "24% VAT"
-msgstr ""
-
-#: views/admin_sections/default_skus.php:54
-msgid "11% VAT"
-msgstr ""
-
-#: views/admin_sections/default_skus.php:74
-msgid "0% VAT"
-msgstr ""
-
-#: views/admin_sections/gateways.php:16
-msgid "Payment Gateways"
-msgstr ""
-
-#: views/admin_sections/gateways.php:17
-msgid "Please select the payment method name for each payment gateway as it appears in DK as well as the payment mode:"
-msgstr ""
-
 #: views/admin_sections/gateways.php:22
 msgid "Method ID in DK"
 msgstr ""
 
-#: views/admin_sections/gateways.php:23
-msgid "Payment Mode in DK"
-msgstr ""
-
-#: views/admin_sections/gateways.php:24
-msgid "Payment Terms in DK"
-msgstr ""
-
-#: views/admin_sections/gateways.php:120
-msgid "Add payment line to invoices"
-msgstr ""
-
-#: views/admin_sections/invoices.php:15
-msgid "Invoices"
-msgstr ""
-
-#: views/admin_sections/invoices.php:18
-msgid "Invoices may be made in DK upon successful checkout, or manually from the WooCommerce Order Editor. This can based on wether the customer supplies a kennitala and a kennitala field can be enabled as well."
-msgstr ""
-
-#: views/admin_sections/invoices.php:38
-msgid "Create Invoices Automatically for Orders With a Kennitala"
-msgstr ""
-
-#: views/admin_sections/invoices.php:46
-msgid "When a customer requests to have a kennitala assigned to an invoice, a customer record is created in DK if it does not already exist, using the billing information supplied for the order."
-msgstr ""
-
-#: views/admin_sections/invoices.php:66
-msgid "Create Invoices Automatically for Orders Without a Kennitala"
-msgstr ""
-
-#: views/admin_sections/invoices.php:74
-msgid "If this is enabled, orders without a kennitala will be assigned the ‘Default Customer Kennitala’."
-msgstr ""
-
-#: views/admin_sections/invoices.php:94
-msgid "Create Invoices Automatically for Customers not Registered in DK"
-msgstr ""
-
-#: views/admin_sections/invoices.php:102
-msgid "If this is enabled, a new ‘debtor’ record witll be created in DK for every new customer who places an order and supplies a Kennitala that is not in DK already."
-msgstr ""
-
-#: views/admin_sections/invoices.php:123
-msgid "Send Invoices Automatically via Email"
-msgstr ""
-
-#: views/admin_sections/invoices.php:131
-msgid "If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the DK email functionality, so make sure that email delivery is configured correctly in DK."
-msgstr ""
-
-#: views/admin_sections/invoices.php:148
-msgid "Default Sales Person Number"
-msgstr ""
-
-#: views/admin_sections/invoices.php:172
-msgid "Service SKUs"
-msgstr ""
-
-#: views/admin_sections/invoices.php:175
-msgid "DK treats shipping and other costs as line items on invoices. In order for invoicing to work, you need to assign a product in DK to each of the following services and assign them below."
-msgstr ""
-
-#: views/admin_sections/invoices.php:186
-msgid "Shipping SKU"
-msgstr ""
-
-#: views/admin_sections/invoices.php:206
-msgid "Cost SKU"
-msgstr ""
-
-#: views/admin_sections/invoices_intl_checkbox.php:25
-msgid "Create Invoices Automatically for International Orders"
-msgstr ""
-
-#: views/admin_sections/invoices_intl_checkbox.php:33
-msgid "Invoices for international orders will result in or get associated with a customer record in DK using a customer number based on their WooCommerce user ID. (See ‘International Customers’ below for further details.)"
-msgstr ""
-
-#: views/admin_sections/kennitala.php:16
-msgid "Kennitala Field"
-msgstr ""
-
-#: views/admin_sections/kennitala.php:21
-msgid "If this is enabled, a Kennitala field is added to the checkout form. The Kennitala may be made mandatory as well. Please note that a checksum is not calculated and that no lookup is run against the Population Registry or the Company Registry."
-msgstr ""
-
-#: views/admin_sections/kennitala.php:42
-msgid "Enable Kennitala Field in the Checkout Form"
-msgstr ""
-
-#: views/admin_sections/kennitala.php:50
-msgid "This adds a kennitala field to the WooCommerce checkout page. This supports both the ‘Classic’ version and the ‘Block Editor’ version. Do note that a new debtor redcord will be created for each new Kennitala used for an invoice."
-msgstr ""
-
-#: views/admin_sections/kennitala.php:70
-msgid "Customers Need to Request to have a Kennitala on Invoices"
-msgstr ""
-
-#: views/admin_sections/kennitala.php:78
-msgid "If this is enabled, a checkbox is added to the checkout form, that the customer needs to tick in order to have a kennitala assigned to their invoice, or the invoice will be treated like one without a kennitala."
-msgstr ""
-
-#: views/admin_sections/kennitala.php:98
-msgid "Make Kennitala Field Mandatory"
-msgstr ""
-
-#: views/admin_sections/kennitala.php:106
-msgid "If this is enabled, the Kennitala field is mandatory for finishing the checkout process."
-msgstr ""
-
-#: views/admin_sections/products.php:14
-msgid "Products"
-msgstr ""
-
-#: views/admin_sections/products.php:15
-msgid "Product Sync"
-msgstr ""
-
-#: views/admin_sections/products.php:18
-msgid "Product sync and invoice generation are based on matching a product's DK Product Code with its SKU in WooCommerce."
-msgstr ""
-
-#: views/admin_sections/products.php:26
-msgid "In this section, you can enable and fine-tune your product sync settings. For example, if you do not want to overwrite the prices or names of your current WooCommerce products by default, or only fetch products labelled as ‘for online store’ you can do it here."
-msgstr ""
-
-#: views/admin_sections/products.php:46
-msgid "Fetch Product Data from DK"
-msgstr ""
-
-#: views/admin_sections/products.php:50
-msgid "Enable this to fetch and update product information from DK on an hourly basis."
-msgstr ""
-
-#: views/admin_sections/products.php:68
-msgid "Update Product Prices"
-msgstr ""
-
-#: views/admin_sections/products.php:79
-msgid "Update Stock Status"
-msgstr ""
-
-#: views/admin_sections/products.php:90
-msgid "Update Product Names"
-msgstr ""
-
-#: views/admin_sections/products.php:101
-msgid "Update Product Description"
-msgstr ""
-
-#: views/admin_sections/products.php:112
-msgid "Create new products in WooCommerce if they don't exist"
-msgstr ""
-
-#: views/admin_sections/products.php:123
-msgid "Delete products from WooCommerce if labelled as inactive or deleted in DK"
-msgstr ""
-
-#: views/admin_sections/products.php:134
-msgid "Import products not labelled as ‘for online store’ as drafts"
-msgstr ""
-
-#: views/admin_sections/products.php:145
-msgid "Variations and Attributes"
-msgstr ""
-
-#: views/admin_sections/products.php:148
-msgid "While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK. You can disable these if you want to use your own filters for displaying variations."
-msgstr ""
-
-#: views/admin_sections/products.php:167
-msgid "Display the Attribute Label Description from DK"
-msgstr ""
-
-#: views/admin_sections/products.php:171
-msgid "If enabled, the code for attribute labels will be replaced with the attribute description from DK. Disable this if you only need the attribute label code."
-msgstr ""
-
-#: views/admin_sections/products.php:190
-msgid "Display the Attribute Value Description from DK"
-msgstr ""
-
-#: views/admin_sections/products.php:194
-msgid "If enabled, the code for attribute values will be replaced with the attribute description from DK. Disable this if you only need the attribute value code."
-msgstr ""
-
-#. Translators: The %1$s and %2$s indicate an opening and closing <strong> tag.
-#: views/admin_sections/submit.php:17
-#, php-format
-msgid "%1$sError:%2$s Please check if all the information was entered correctly and try again."
-msgstr ""
-
-#: views/admin_sections/submit.php:33
-msgid "Save"
-msgstr ""
-
-#: views/admin_with_errors.php:21
-msgid "Please take care of this first!"
-msgstr ""
-
-#: views/admin_with_errors.php:31
-msgid "There's a couple of things you need to do before we let you continue using the Connector for DK plugin."
-msgstr ""
-
-#: views/admin_with_errors.php:43
-msgid "Set store location to Iceland"
-msgstr ""
-
-#: views/admin_with_errors.php:52
-msgid "Connector for DK only supports stores with the base location set to Iceland."
-msgstr ""
-
-#: views/admin_with_errors.php:65
-msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
-msgstr ""
-
-#: views/admin_with_errors.php:74
-msgid "Tax rates need to be set up before we can start syncing product information and creating invoices."
-msgstr ""
-
-#: views/admin_with_errors.php:82
-msgid "Products synced from DK will be matched with the relevant VAT rate, but it requires the relevant rate to be present in WooCommerce."
-msgstr ""
-
-#: views/admin_with_errors.php:95
-msgid "Set Up WooCommerce Payment Gateways"
-msgstr ""
-
-#: views/admin_with_errors.php:104
-msgid "At least one payment gateway needs to be set up in WooCommerce before receiving orders from customers and creating invoices."
-msgstr ""
-
-#: views/admin_with_errors.php:117
-msgid "Disable the Kennitala field in the Iceland Post plugin"
-msgstr ""
-
-#: views/admin_with_errors.php:126
-msgid "You'll need to disable the Kennitala field from the Iceland Post plugin as we don't want to have two kennitala fields in the checkout form."
-msgstr ""
-
-#: views/admin_with_errors.php:134
-msgid "Otherwise, Connector for DK is compatible with the Iceland Post plugin as it saves the kennitala in the same way."
-msgstr ""
-
-#. Translators: %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
-#: views/dk_connection_product_panel.php:23
-#, php-format
-msgid "Please make sure that the %1$sSKU%2$s is set to a unique value, which equals the intended %3$sItem Code%4$s in DK for sync and invoicing functionality to work."
-msgstr ""
-
-#: views/dk_connection_product_panel.php:28
-msgid "stock keeping unit"
-msgstr ""
-
-#: views/dk_connection_product_panel.php:45
-msgid "Sync Inventory with DK"
-msgstr ""
-
-#. Translators: %1$s is the current yes/no value.
-#: views/dk_connection_product_panel.php:50
-#: views/dk_connection_product_panel.php:105
-#: views/dk_connection_product_panel.php:145
-#, php-format
-msgid "Use Default (Currently ‘%1$s’)"
-msgstr ""
-
-#: views/dk_connection_product_panel.php:51
-#: views/dk_connection_product_panel.php:53
-#: views/dk_connection_product_panel.php:106
-#: views/dk_connection_product_panel.php:108
-#: views/dk_connection_product_panel.php:146
-#: views/dk_connection_product_panel.php:148
-msgid "Yes"
+#: views/dk_invoice_metabox.php:43 views/dk_invoice_metabox.php:142
+msgid "Needs to be numeric"
 msgstr ""
 
 #: views/dk_connection_product_panel.php:51
@@ -990,139 +844,6 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: views/dk_connection_product_panel.php:64
-msgid "Due to limitations in DK, if this feature is enabled, manually editing the product stock quantity and availability in WooCommerce will not result in it being reflected in DK. It will be overwritten on next sync."
-msgstr ""
-
-#. Translators: The %1$s is the product's original currency code and %2$s is the shop's currency.
-#: views/dk_connection_product_panel.php:81
-#, php-format
-msgid "As the product price is converted from ‘%1$s’ or is set manually to ‘%2$s’ using the ‘Foreign Prices’ feature in DK, changes to the product price in WooCommerce will not be updated in DK and will be overwritten on sync. You can change the foreign price and currency in DK."
-msgstr ""
-
-#: views/dk_connection_product_panel.php:100
-msgid "Sync Price with DK"
-msgstr ""
-
-#: views/dk_connection_product_panel.php:119
-msgid "If this feature is enabled, changes to the product’s prices and tax rate in DK will be reflected in WooCommerce. This includes sale prices and dates."
-msgstr ""
-
-#: views/dk_connection_product_panel.php:140
-msgid "Sync Name with DK"
-msgstr ""
-
-#: views/dk_connection_product_panel.php:159
-msgid "If this feature is enabled, the product name gets set to the DK ‘product description’ on sync. Disabling this means that you can set a different name from the one you use in DK for the product in WooCommerce."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:26
-msgid "Invoice Number"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:43
-#: views/dk_invoice_metabox.php:142
-msgid "Needs to be numeric"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:51
-msgid "Update the invoice number reference without generating a new invoice in DK"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:54
-#: views/dk_invoice_metabox.php:153
-msgid "Update"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:59
-msgid "Get the invoice as a PDF file"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:62
-#: views/dk_invoice_metabox.php:161
-msgid "Get PDF"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:68
-msgid "Generate a new invoice for this order in DK"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:71
-msgid "Create in DK"
-msgstr ""
-
-#: views/dk_invoice_metabox.php:88
-msgid "Invoice has been created in DK."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:95
-msgid "Unable to create invoice in DK."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:102
-msgid "Invoice number has been assigned."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:109
-msgid "Invoice number was not assigned."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:116
-msgid "Invoice not found in DK."
-msgstr ""
-
-#: views/dk_invoice_metabox.php:126
-msgid "Credit Invoice Number"
-msgstr ""
-
-#. Translators: %1$s an %2$s stand for opening and closing <strong> tags.
-#: views/dk_invoice_metabox.php:177
-#, php-format
-msgid "%1$sNote:%2$s Invoicing for international orders is not available in this version of Connector for DK. You can manually create an invoice in DK and reference it here."
-msgstr ""
-
-#: views/dk_product_variations.php:33
-msgid "DK's own ‘Product Variations’ feature is required to add or remove product variations that originate in DK."
-msgstr ""
-
-#: views/dk_product_variations.php:43
-msgid "Default Attributes"
-msgstr ""
-
-#: views/dk_product_variations.php:53
-msgid "(None)"
-msgstr ""
-
-#. Translators: The %d is the variation ID.
-#: views/dk_product_variations.php:82
-#, php-format
-msgid "Variation #%d"
-msgstr ""
-
-#: views/dk_product_variations.php:92
-msgid "Replace Image"
-msgstr ""
-
-#: views/dk_product_variations.php:106
-msgid "Remove Image"
-msgstr ""
-
-#: views/dk_product_variations.php:136
-msgid "Override price for this product variation"
-msgstr ""
-
-#. Translators: The %s is the currency symbol for WooCommerce.
-#: views/dk_product_variations.php:151
-#, php-format
-msgid "Price (%s)"
-msgstr ""
-
-#. Translators: The %s is the currency symbol for WooCommerce.
-#: views/dk_product_variations.php:173
-#, php-format
-msgid "Sale Price (%s)"
-msgstr ""
-
 #: views/dk_product_variations.php:193
 msgid "On sale from"
 msgstr ""
@@ -1131,66 +852,518 @@ msgstr ""
 msgid "On sale to"
 msgstr ""
 
+#: views/admin_with_errors.php:134
+msgid ""
+"Otherwise, Connector for DK is compatible with the Iceland Post plugin as it "
+"saves the kennitala in the same way."
+msgstr ""
+
 #: views/dk_product_variations.php:232
 msgid "Override inventory"
 msgstr ""
 
-#: views/dk_product_variations.php:250
-msgid "Set stock quantity"
+#: views/dk_product_variations.php:136
+msgid "Override price for this product variation"
+msgstr ""
+
+#: views/admin_sections/gateways.php:16
+msgid "Payment Gateways"
+msgstr ""
+
+#: views/admin_sections/gateways.php:23
+msgid "Payment Mode in DK"
+msgstr ""
+
+#: views/admin_sections/gateways.php:24
+msgid "Payment Terms in DK"
+msgstr ""
+
+#. The %s stands for the kennitala.
+#: src/Admin.php:698
+#, php-format
+msgid ""
+"Please make sure that a customer record with the kennitala ‘%s’ exsists in "
+"DK before you continue."
+msgstr ""
+
+#. The %s stands for the relevant SKU.
+#: src/Admin.php:552
+#, php-format
+msgid ""
+"Please make sure that a product with the Product Code ‘%s’ exsists in DK "
+"before saving."
+msgstr ""
+
+#. The %s stands for the relevant sales person number.
+#: src/Admin.php:620
+#, php-format
+msgid ""
+"Please make sure that a sales person with the number ‘%s’ exsists in DK "
+"before saving."
+msgstr ""
+
+#. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
+#: views/dk_connection_product_panel.php:23
+#, php-format
+msgid ""
+"Please make sure that the %1$sSKU%2$s is set to a unique value, which equals "
+"the intended %3$sItem Code%4$s in DK for sync and invoicing functionality to "
+"work."
+msgstr ""
+
+#: views/admin_sections/gateways.php:17
+msgid ""
+"Please select the payment method name for each payment gateway as it appears "
+"in DK as well as the payment mode:"
+msgstr ""
+
+#: views/admin_with_errors.php:21
+msgid "Please take care of this first!"
+msgstr ""
+
+#: src/Import/SalesPayments.php:85
+msgid "Postal COD (POST)"
+msgstr ""
+
+#. The %s is the currency symbol for WooCommerce.
+#: views/dk_product_variations.php:151
+#, php-format
+msgid "Price (%s)"
+msgstr ""
+
+#: views/admin_sections/products.php:15
+msgid "Product Sync"
+msgstr ""
+
+#: views/admin_sections/products.php:18
+msgid ""
+"Product sync and invoice generation are based on matching a product's DK "
+"Product Code with its SKU in WooCommerce."
+msgstr ""
+
+#: views/admin_sections/products.php:14
+msgid "Products"
+msgstr ""
+
+#: views/admin_with_errors.php:82
+msgid ""
+"Products synced from DK will be matched with the relevant VAT rate, but it "
+"requires the relevant rate to be present in WooCommerce."
 msgstr ""
 
 #: views/dk_product_variations.php:260
 msgid "Quantity"
 msgstr ""
 
-#: views/dk_product_variations.php:272
-msgid "Backorders"
+#: src/CustomerDiscounts.php:578
+msgid "Regular Price:"
 msgstr ""
 
-#: views/dk_product_variations.php:284
-msgid "Do not allow backorders"
+#: views/dk_product_variations.php:106
+msgid "Remove Image"
 msgstr ""
 
-#: views/dk_product_variations.php:298
-msgid "Allow backorders, but notify customer"
+#: views/dk_product_variations.php:92
+msgid "Replace Image"
 msgstr ""
 
-#: views/dk_product_variations.php:312
-msgid "Allow backorders"
+#: src/KennitalaField.php:507 src/KennitalaField.php:689
+msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: views/dk_product_variations.php:324
-msgid "Description"
+#: src/KennitalaField.php:693
+msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
-#: views/dk_product_variations.php:342
-msgid "Enabled"
+#. The %s is the currency symbol for WooCommerce.
+#: views/dk_product_variations.php:173
+#, php-format
+msgid "Sale Price (%s)"
 msgstr ""
 
-#: views/dk_product_variations.php:355
-msgid "Downloadable"
+#: views/admin_sections/submit.php:33
+msgid "Save"
+msgstr ""
+
+#: views/about.php:49
+msgid "Send Alda an email"
+msgstr ""
+
+#: views/admin_sections/invoices.php:123
+msgid "Send Invoices Automatically via Email"
+msgstr ""
+
+#: views/admin_sections/invoices.php:172
+msgid "Service SKUs"
+msgstr ""
+
+#: views/dk_product_variations.php:250
+msgid "Set stock quantity"
+msgstr ""
+
+#: views/admin_with_errors.php:43
+msgid "Set store location to Iceland"
+msgstr ""
+
+#: views/admin_with_errors.php:95
+msgid "Set Up WooCommerce Payment Gateways"
+msgstr ""
+
+#: views/admin_with_errors.php:65
+msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
+msgstr ""
+
+#: src/Admin.php:452 src/Admin.php:453
+msgid "Settings"
+msgstr ""
+
+#. The sprintf tags are for opening and closing links to tengillpro.is.
+#: src/License.php:133
+#, php-format
+msgid ""
+"Settings, automatic invoice generation, customer sync, updates and other "
+"features have been disabled until you %1$spurchase a new license code on "
+"tengillpro.is%2$s."
+msgstr ""
+
+#. sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
+#: src/License.php:112
+#, php-format
+msgid ""
+"Settings, automatic invoice generation, customer sync, updates and other "
+"features will be enabled once you %1$senter your license code%2$s. Licenses "
+"can be purchased on %3$stengillpro.is%4$s"
+msgstr ""
+
+#: src/Export/Order.php:280
+msgid "Shipping"
+msgstr ""
+
+#: views/admin_sections/invoices.php:186
+msgid "Shipping SKU"
+msgstr ""
+
+#: views/admin_sections/customers_international.php:66
+msgid ""
+"Similarly to the default Kennitala for domestic customers, this one is used "
+"for international guest customers that can't, don't have or won't supply a "
+"kennitala during checkout."
+msgstr ""
+
+#: views/dk_connection_product_panel.php:28
+msgid "stock keeping unit"
+msgstr ""
+
+#: views/admin_sections/customers_sync.php:27
+msgid "Sync customer information from DK"
+msgstr ""
+
+#: views/dk_connection_product_panel.php:45
+msgid "Sync Inventory with DK"
+msgstr ""
+
+#: views/dk_connection_product_panel.php:140
+msgid "Sync Name with DK"
+msgstr ""
+
+#: views/dk_connection_product_panel.php:100
+msgid "Sync Price with DK"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Sync your WooCommerce store with DK, including prices, inventory status and "
+"generate invoices for customers on checkout."
+msgstr ""
+
+#: views/admin_with_errors.php:74
+msgid ""
+"Tax rates need to be set up before we can start syncing product information "
+"and creating invoices."
+msgstr ""
+
+#: views/admin_sections/authentication.php:47
+msgid ""
+"The API key is provided by DK for use with the dkPlus API. Do not share this "
+"key with anyone."
+msgstr ""
+
+#. The %s stands for the currency code.
+#: src/Currency.php:156
+#, php-format
+msgid "The currency code ‘%s’ is invalid."
+msgstr ""
+
+#. The %s stands for the currency code.
+#: src/Currency.php:177
+#, php-format
+msgid "The currency rate for ‘%s’ has not been set."
+msgstr ""
+
+#: views/admin_sections/customers.php:44
+msgid ""
+"The default kennitala is used for guest customers that don't have or supply "
+"a kennitala during checkout. This should correspond with a DK customer "
+"record called ‘Various Customers’ etc."
+msgstr ""
+
+#: src/Rest/OrderInvoicePdf.php:63
+msgid "The DK invoice number has not been set for this order"
+msgstr ""
+
+#: src/Service/DKApiRequest.php:79 src/Service/DKApiRequest.php:151
+msgid "The dkPlus API key is missing."
+msgstr ""
+
+#. The %s stands for the relevant SKU.
+#: src/Admin.php:568
+#, php-format
+msgid "The Item Code ‘%s’ was found in DK."
+msgstr ""
+
+#. The %s stands for the relevant SKU.
+#: src/Admin.php:580
+#, php-format
+msgid "The Item Code ‘%s’ was not found in DK."
+msgstr ""
+
+#: views/admin_sections/customers.php:67
+msgid ""
+"The ledger code is used for new customer records when they are created in DK."
+msgstr ""
+
+#. %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
+#: views/about.php:26
+#, php-format
+msgid ""
+"The plugin %1$sConnector for DK%2$s has taken hundreds of hours of "
+"development for the past years and is provided free of charge to everyone. "
+"If you value what the plugin has to offer, then you may want to show your "
+"gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or %5$sstarring it "
+"on Github%4$s."
+msgstr ""
+
+#: views/admin_with_errors.php:31
+msgid ""
+"There's a couple of things you need to do before we let you continue using "
+"the Connector for DK plugin."
+msgstr ""
+
+#: views/admin_sections/kennitala.php:50
+msgid ""
+"This adds a kennitala field to the WooCommerce checkout page. This supports "
+"both the ‘Classic’ version and the ‘Block Editor’ version. Do note that a "
+"new debtor redcord will be created for each new Kennitala used for an "
+"invoice."
+msgstr ""
+
+#: views/admin_sections/authentication.php:43
+msgid "This is a required field"
+msgstr ""
+
+#. %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
+#: views/admin_sections/customers_international.php:93
+#, php-format
+msgid ""
+"This is used as the beginning of the 10-digit Customer Number. For example, "
+"with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as "
+"DK customer number ‘%3$s’."
+msgstr ""
+
+#: views/admin_sections/customers_international.php:127
+msgid ""
+"This ledger code is used for international customer records when they are "
+"created in DK."
+msgstr ""
+
+#: views/admin_sections/blocked_customers.php:40
+msgid ""
+"This message is displayed when a blocked customer attempts to check out an "
+"order."
+msgstr ""
+
+#: src/Admin.php:170
+msgid ""
+"This plugin is developed, maintained and supported on goodwill basis, "
+"without any warranty or guarantees as per the GPLv3 license. As the plugin "
+"connects to, uses and affects live DK accounting data, it is higly "
+"recommended that all information in your DK accounting software is backed up "
+"and that your DK accounting records are monitored for any unexpected changes."
+" Furthermore, it is higly recommended that you evaluate this plugin in a "
+"limited capacity in a staging environment before putting it to full use."
+msgstr ""
+
+#. The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
+#: views/activation.php:163
+#, php-format
+msgid ""
+"This WordPress installation was identified as running in a %1$sdevelopment, "
+"testing or staging environment%2$s, so you can use a valid license assigned "
+"to any domain. Just remember that domain restrictions apply in production "
+"environments."
+msgstr ""
+
+#. %1$s and %2$s are for opening and closing <strong> tags, %3$s and %4$s are opening and closing links to tengillpro.is and %5$s is the expiry date.
+#: src/License.php:152
+#, php-format
+msgid ""
+"To keep your settings, automatic invoice generation, customer sync, updates "
+"and other features after %1$s%5$s%2$s, ensure that you %3$spurchase a new "
+"license code on tengillpro.is%4$s in time."
+msgstr ""
+
+#: views/dk_invoice_metabox.php:95
+msgid "Unable to create invoice in DK."
+msgstr ""
+
+#: src/OrderStatus.php:232
+msgid "Unable to create invoice in DK: "
+msgstr ""
+
+#: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:153
+msgid "Update"
+msgstr ""
+
+#: views/admin_sections/products.php:101
+msgid "Update Product Description"
+msgstr ""
+
+#: views/admin_sections/products.php:90
+msgid "Update Product Names"
+msgstr ""
+
+#: views/admin_sections/products.php:68
+msgid "Update Product Prices"
+msgstr ""
+
+#: views/admin_sections/products.php:79
+msgid "Update Stock Status"
+msgstr ""
+
+#: views/dk_invoice_metabox.php:51
+msgid ""
+"Update the invoice number reference without generating a new invoice in DK"
+msgstr ""
+
+#. %1$s is the current yes/no value.
+#: views/dk_connection_product_panel.php:50
+#: views/dk_connection_product_panel.php:105
+#: views/dk_connection_product_panel.php:145
+#, php-format
+msgid "Use Default (Currently ‘%1$s’)"
+msgstr ""
+
+#: views/admin_sections/authentication.php:42
+msgid "Valid"
+msgstr ""
+
+#. The %d is the variation ID.
+#: views/dk_product_variations.php:82
+msgid "Variation #%d"
+msgstr ""
+
+#: views/admin_sections/products.php:145
+msgid "Variations and Attributes"
 msgstr ""
 
 #: views/dk_product_variations.php:368
 msgid "Virtual"
 msgstr ""
 
-#: views/dk_product_variations.php:376
-msgid "Menu Order"
+#: views/about.php:48
+msgid "Visit Alda's Github Sponsors profile"
 msgstr ""
 
-#: js/fetch_customer.js:96
-msgid "Could not find this customer in DK."
+#: views/about.php:46
+msgid "Visit Alda's website"
 msgstr ""
 
-#: js/fetch_customer.js:101
-msgid "An unexpected error occured."
+#: views/about.php:34
+msgid "Visit the plugin's Github profile"
 msgstr ""
 
-#: js/products.js:154
-msgid "Select or upload image for this variation"
+#: views/about.php:32
+msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr ""
 
-#: js/products.js:155
-msgid "Use"
+#: src/Config.php:1028
+msgid ""
+"We are unable to check out your order. Please contact us for more "
+"information."
+msgstr ""
+
+#: views/admin_sections/invoices.php:46
+msgid ""
+"When a customer requests to have a kennitala assigned to an invoice, a "
+"customer record is created in DK if it does not already exist, using the "
+"billing information supplied for the order."
+msgstr ""
+
+#: views/activation.php:44
+msgid ""
+"When you purchased your Connector Pro License, you received an activation "
+"code, which is a 320-character sequence of letters, numbers and symbols. "
+"Paste it into the field below to activate your license."
+msgstr ""
+
+#: views/admin_sections/products.php:148
+msgid ""
+"While the variation and attribute codes from DK are used internally, their "
+"values can be displayed as the descriptions that are set for each of them in "
+"DK. You can disable these if you want to use your own filters for displaying "
+"variations."
+msgstr ""
+
+#. The sprintf symbols are opening and closing <strong> tags.
+#: src/License.php:80
+#, php-format
+msgid ""
+"While updates are disabled, %1$sConnector for DK%2$s features such as "
+"automatic invoice generation, customer sync and other features are currently "
+"enabled for development and testing purposes."
+msgstr ""
+
+#: src/Rest/OrderInvoicePdf.php:55
+msgid "WooCommerce order not found"
+msgstr ""
+
+#: views/dk_connection_product_panel.php:51
+#: views/dk_connection_product_panel.php:53
+#: views/dk_connection_product_panel.php:106
+#: views/dk_connection_product_panel.php:108
+#: views/dk_connection_product_panel.php:146
+#: views/dk_connection_product_panel.php:148
+msgid "Yes"
+msgstr ""
+
+#: views/admin_with_errors.php:126
+msgid ""
+"You'll need to disable the Kennitala field from the Iceland Post plugin as "
+"we don't want to have two kennitala fields in the checkout form."
+msgstr ""
+
+#: src/License.php:128
+msgid "Your Connector for DK license has expired! 😱"
+msgstr ""
+
+#: src/License.php:107
+msgid "Your Connector for DK license key has not been entered yet 🤔"
+msgstr ""
+
+#: src/License.php:147
+msgid "Your Connector for DK license will expire soon! 🫣"
+msgstr ""
+
+#. The %1$s is a placeholder for the site's title.
+#: src/Export/Invoice.php:195
+#, php-format
+msgid "Your Invoice From %1$s"
+msgstr ""
+
+#: views/activation.php:83
+msgid "Your License"
+msgstr ""
+
+#: src/CustomerDiscounts.php:582
+msgid "Your Price:"
 msgstr ""

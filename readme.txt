@@ -1,5 +1,5 @@
 === Connector for DK ===
-Stable tag: 0.5.1
+Stable tag: 0.5.2
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.8
@@ -40,7 +40,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Changelog ==
 
-= 0.5.1 =
+= 0.5.2 =
 * Added rawurlencode to any dynamic URL API requests for improved safety
 * Fixed a bug that prevented the sales person number from being updated
 * Fixed a bug that prevented payment some gateways from showing up in the admin page

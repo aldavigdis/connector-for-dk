@@ -39,8 +39,10 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
-
 = 0.5.2 =
+* Fixed 11% VAT matching for products without SKU
+
+= 0.5.1 =
 * Added rawurlencode to any dynamic URL API requests for improved safety
 * Fixed a bug that prevented the sales person number from being updated
 * Fixed a bug that prevented payment some gateways from showing up in the admin page

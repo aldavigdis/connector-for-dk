@@ -6,6 +6,7 @@ namespace AldaVigdis\ConnectorForDK\Helpers;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
+use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 use WC_Customer;
 use WC_Order;
 
@@ -98,7 +99,7 @@ class Order {
 	 * @param WC_Order $wc_order The order.
 	 */
 	public static function get_invoice_number(
-		WC_Order $wc_order
+		WC_Order|OrderRefund $wc_order
 	): string|false {
 		$invoice_number = $wc_order->get_meta(
 			'connector_for_dk_invoice_number',

@@ -10,6 +10,7 @@ use WC_Order;
 use WP_Error;
 use WP_Filesystem_Base;
 use WP_Filesystem_Direct;
+use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
 require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
 require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
@@ -36,7 +37,7 @@ class InvoicePDF {
 	/**
 	 * The WooCommerce order
 	 */
-	public WC_Order $order;
+	public WC_Order|OrderRefund $order;
 
 	/**
 	 * The filesystem path to the directory where we save invoices
@@ -81,9 +82,9 @@ class InvoicePDF {
 	/**
 	 * The constructor
 	 *
-	 * @param WC_Order $order The WooCommerce order to get a PDF for.
+	 * @param WC_Order|OrderRefund $order The WooCommerce order to get a PDF for.
 	 */
-	public function __construct( WC_Order $order ) {
+	public function __construct( WC_Order|OrderRefund $order ) {
 		$this->order = $order;
 
 		$uploads_directory = wp_upload_dir();

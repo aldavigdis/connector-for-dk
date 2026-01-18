@@ -11,6 +11,7 @@ use WP_Error;
 use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
 use AldaVigdis\ConnectorForDK\Rest\PostEndpointTemplate;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use WC_Order;
 
 /**
  * The Order Invoice Number REST API class
@@ -70,21 +71,21 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 
 		$wc_order = wc_get_order( $rest_json->order_id );
 
-		if ( $rest_json->type === 'debit' ) {
-			$original_invoice_number = ExportInvoice::get_dk_invoice_number(
-				$wc_order
+		$original_invoice_number = ExportInvoice::get_dk_invoice_number(
+			$wc_order
+		);
+
+		if ( $rest_json->invoice_number !== $original_invoice_number ) {
+			$wc_order->update_meta_data(
+				'connector_for_dk_invoice_number',
+				(string) $rest_json->invoice_number
 			);
 
-			if ( $rest_json->invoice_number !== $original_invoice_number ) {
-				ExportInvoice::assign_dk_invoice_number(
-					$wc_order,
-					(string) $rest_json->invoice_number
-				);
+			$wc_order->delete_meta_data( 'connector_for_dk_pdf_file_name' );
 
-				$wc_order->delete_meta_data( 'connector_for_dk_pdf_file_name' );
+			$wc_order->save_meta_data();
 
-				$wc_order->save_meta_data();
-
+			if ( $wc_order instanceof WC_Order ) {
 				$wc_order->add_order_note(
 					sprintf(
 						// Translators: %1$s is a placeholder for the invoice number that was manually entered.
@@ -97,40 +98,6 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 				);
 			}
 		}
-
-		if ( $rest_json->type === 'credit' ) {
-			$original_credit_invoice_number = ExportInvoice::get_dk_credit_invoice_number(
-				$wc_order
-			);
-
-			if ( $rest_json->invoice_number !== $original_credit_invoice_number ) {
-				ExportInvoice::assign_dk_credit_invoice_number(
-					$wc_order,
-					(string) $rest_json->invoice_number
-				);
-			}
-
-			$wc_order->add_order_note(
-				sprintf(
-					// Translators: %1$s is a placeholder for the invoice number that was manually entered.
-					__(
-						'Credit invoice number set to %1$s.',
-						'connector-for-dk'
-					),
-					$rest_json->invoice_number
-				)
-			);
-		}
-
-		$wc_order->delete_meta_data(
-			'connector_for_dk_invoice_creation_error'
-		);
-
-		$wc_order->delete_meta_data(
-			'connector_for_dk_invoice_creation_error_message'
-		);
-
-		$wc_order->save_meta_data();
 
 		return new WP_REST_Response( status: 200 );
 	}

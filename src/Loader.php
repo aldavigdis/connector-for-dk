@@ -30,6 +30,7 @@ class Loader {
 
 		if ( License::is_ok() ) {
 			new BlockedCustomers();
+			new CreditInvoices();
 			new CustomerContacts();
 			new CustomerDiscounts();
 			new CustomerSync();
@@ -44,6 +45,7 @@ class Loader {
 			new OrderStatus();
 			new Cron\Schedule();
 			new Rest\Settings();
+			new Rest\OrderDKCreditInvoice();
 			new Rest\OrderDKInvoice();
 			new Rest\OrderInvoiceNumber();
 			new Rest\OrderInvoicePdf();

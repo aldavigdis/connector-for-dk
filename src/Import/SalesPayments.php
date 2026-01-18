@@ -216,6 +216,8 @@ class SalesPayments {
 	 * Get payment methods
 	 *
 	 * Uses a transient to cache the results from the DK API for 24 hours.
+	 *
+	 * @return array<stdClass>
 	 */
 	public static function get_methods(): array {
 		$methods_transient = get_transient( 'connector_for_dk_payment_methods' );
@@ -236,6 +238,8 @@ class SalesPayments {
 
 	/**
 	 * Get payment methods from the DK API, bypassing the transient cache
+	 *
+	 * @return array<stdClass>
 	 */
 	public static function get_methods_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
@@ -276,6 +280,8 @@ class SalesPayments {
 	 *
 	 * @param array $json_response The already-decoded JSON data as it comes
 	 *                             from the API.
+	 *
+	 * @return array<stdClass>
 	 */
 	public static function convert_json_response_for_methods(
 		array $json_response

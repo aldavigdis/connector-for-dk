@@ -107,24 +107,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</tr>
 				<tr class="payment-line-field">
 					<td colspan="3">
-						<input
-							id="add_payment_line_field_<?php echo esc_attr( $p->id ); ?>"
-							name="add_payment_line"
-							type="checkbox"
-							<?php echo esc_attr( $payment_map->add_line ? 'checked' : '' ); ?>
-						/>
-						<label
-							for="add_payment_line_field_<?php echo esc_attr( $p->id ); ?>"
-						>
-							<?php
-							esc_html_e(
-								'Add payment line to invoices',
-								'connector-for-dk'
-							);
-							?>
-						</label>
+							<span class="payment-line-checkbox">
+								<input
+									id="add_payment_line_field_<?php echo esc_attr( $p->id ); ?>"
+									name="add_payment_line"
+									type="checkbox"
+									<?php echo esc_attr( $payment_map->add_line ? 'checked' : '' ); ?>
+								/>
+								<label
+									for="add_payment_line_field_<?php echo esc_attr( $p->id ); ?>"
+								>
+									<?php
+									esc_html_e(
+										'Add payment line to invoices',
+										'connector-for-dk'
+									);
+									?>
+								</label>
+							</span>
 
-						<?php do_action( 'connector_for_dk_after_payment_line_checkbox', $p ); ?>
+							<?php do_action( 'connector_for_dk_after_payment_line_checkbox', $p ); ?>
 					</td>
 
 					<?php do_action( 'connector_for_dk_end_of_payment_line_row', $p ); ?>

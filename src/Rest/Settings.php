@@ -175,7 +175,8 @@ class Settings {
 				$p->dk_id,
 				$p->dk_mode,
 				$p->dk_term,
-				$p->add_line
+				$p->add_line,
+				$p->add_credit_line
 			);
 		}
 

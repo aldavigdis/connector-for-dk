@@ -132,7 +132,7 @@ class Order {
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order object.
 	 */
-	public static function to_dk_order_body( WC_Order $wc_order ): array|false {
+	public static function to_dk_order_body( WC_Order $wc_order, $include_lines = true ): array|false {
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 
@@ -161,6 +161,14 @@ class Order {
 			'Currency'  => $wc_order->get_currency(),
 			'Lines'     => array(),
 		);
+
+		if ( ! $include_lines ) {
+			return apply_filters(
+				'connector_for_dk_export_order_body',
+				$order_props,
+				$wc_order
+			);
+		}
 
 		foreach ( $wc_order->get_items() as $item ) {
 			if ( ! $item instanceof WC_Order_Item_Product ) {
@@ -256,6 +264,12 @@ class Order {
 		foreach ( $wc_order->get_fees() as $fee ) {
 			$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
+			$subtotal = BigDecimal::of(
+				$fee->get_total()
+			)->minus(
+				$fee->get_total_tax()
+			)->abs()->toFloat();
+
 			$order_props['Lines'][] = apply_filters(
 				'connector_for_dk_export_order_fee',
 				array(
@@ -263,7 +277,7 @@ class Order {
 					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => 1,
-					'Price'        => (float) $fee->get_total(),
+					'Price'        => $subtotal,
 					'IncludingVAT' => false,
 				),
 				$fee,
@@ -273,6 +287,12 @@ class Order {
 
 		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
 			if ( $shipping_method->get_total() > 0 ) {
+				$subtotal = BigDecimal::of(
+					$shipping_method->get_total()
+				)->minus(
+					$shipping_method->get_total_tax()
+				)->abs()->toFloat();
+
 				$order_props['Lines'][] = apply_filters(
 					'connector_for_dk_export_order_shipping',
 					array(
@@ -280,7 +300,7 @@ class Order {
 						'Text'         => __( 'Shipping', 'connector-for-dk' ),
 						'Text2'        => $shipping_method->get_name(),
 						'Quantity'     => 1,
-						'Price'        => (float) $shipping_method->get_total(),
+						'Price'        => $subtotal,
 						'IncludingVAT' => false,
 					),
 					$shipping_method,
@@ -314,7 +334,7 @@ class Order {
 	 *
 	 * @param WC_Order_Item_Product $item The item.
 	 */
-	private static function assume_item_sku(
+	public static function assume_item_sku(
 		WC_Order_Item_Product $item
 	): string {
 		$product = $item->get_product();

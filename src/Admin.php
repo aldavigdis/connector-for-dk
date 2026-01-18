@@ -11,6 +11,7 @@ use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\Products;
 use WC_Payment_Gateways;
+use WC_Payment_Gateway;
 use stdClass;
 use WC_Order;
 
@@ -422,13 +423,15 @@ class Admin {
 
 	/**
 	 * Fetch the available payment gateways
+	 *
+	 * @return array<WC_Payment_Gateway> An array of available payment gateways.
 	 */
 	public static function available_payment_gateways(): array {
 		$gateways = new WC_Payment_Gateways();
 
 		return array_filter(
 			$gateways->payment_gateways(),
-			function ( $gateway ) {
+			function ( WC_Payment_Gateway $gateway ): bool {
 				return $gateway->settings['enabled'] === 'yes';
 			}
 		);

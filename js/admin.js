@@ -18,7 +18,12 @@ class ConnectorForDK {
 	}
 	static paymentAddLineCheckboxes() {
 		return document.querySelectorAll(
-			'#payment-gateway-id-map-table tbody tr.payment-line-field input'
+			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_payment_line]'
+		);
+	}
+	static paymentAddCreditLineCheckboxes() {
+		return document.querySelectorAll(
+			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_credit_payment_line]'
 		);
 	}
 
@@ -46,20 +51,22 @@ class ConnectorForDK {
 
 			ConnectorForDK.postSettingsData( formDataObject );
 		} else {
-			let paymentIds        = formData.getAll( 'payment_id' );
-			let paymentModes      = formData.getAll( 'payment_mode' );
-			let paymentTerms      = formData.getAll( 'payment_term' );
-			let addLineCheckboxes = ConnectorForDK.paymentAddLineCheckboxes();
+			let paymentIds              = formData.getAll( 'payment_id' );
+			let paymentModes            = formData.getAll( 'payment_mode' );
+			let paymentTerms            = formData.getAll( 'payment_term' );
+			let addLineCheckboxes       = ConnectorForDK.paymentAddLineCheckboxes();
+			let addCreditLineCheckboxes = ConnectorForDK.paymentAddCreditLineCheckboxes();
 
 			let paymentMethods = [];
 			let paymentsLength = paymentIds.length;
 
 			for (let i = 0; i < paymentsLength; i++) {
-				let wooId   = ConnectorForDK.rowElements()[i].dataset.gatewayId;
-				let dkId    = parseInt( paymentIds[i] );
-				let dkMode  = paymentModes[i];
-				let dkTerm  = paymentTerms[i];
-				let addLine = addLineCheckboxes[i].checked;
+				let wooId         = ConnectorForDK.rowElements()[i].dataset.gatewayId;
+				let dkId          = parseInt( paymentIds[i] );
+				let dkMode        = paymentModes[i];
+				let dkTerm        = paymentTerms[i];
+				let addLine       = addLineCheckboxes[i].checked;
+				let addCreditLine = addCreditLineCheckboxes[i].checked
 
 				if (isNaN( dkId )) {
 					dkId = 0;
@@ -72,6 +79,7 @@ class ConnectorForDK {
 						dk_mode:  dkMode,
 						dk_term:  dkTerm,
 						add_line: addLine,
+						add_credit_line: addCreditLine,
 					}
 				);
 			}
@@ -91,7 +99,8 @@ class ConnectorForDK {
 					let inputName        = node.getAttribute( 'name' );
 					let inputValue       = node.value;
 					let disallowedInputs = [ 'add_payment_line', 'payment_id',
-											 'payment_mode', 'payment_term' ];
+											 'payment_mode', 'payment_term',
+											 'add_credit_payment_line' ];
 					if ( ! disallowedInputs.includes( inputName ) ) {
 						if ( inputType === 'text' ) {
 							formDataObject[ inputName ] = inputValue.trim();

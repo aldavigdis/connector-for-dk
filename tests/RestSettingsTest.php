@@ -22,11 +22,12 @@ final class RestSettingstest extends TestCase {
 		'customer_number_prefix' => 'WCN',
 		'payment_methods'        => array(
 			array(
-				'woo_id'   => 'bacs',
-				'dk_id'    => 10,
-				'dk_mode'  => 'GKR',
-				'dk_term'  => 'STGR',
-				'add_line' => true,
+				'woo_id'          => 'bacs',
+				'dk_id'           => 10,
+				'dk_mode'         => 'GKR',
+				'dk_term'         => 'STGR',
+				'add_line'        => true,
+				'add_credit_line' => true,
 			),
 		),
 	);

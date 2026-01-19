@@ -110,8 +110,8 @@ class ConnectorForDKCreditInvoices {
 	}
 
 	static updateButtonClickAction( node ) {
-		const refundId = parseInt(node.dataset.refundId);
-		const invoiceNumber = parseInt(this.textInput(refundId).value);
+		const refundId      = parseInt( node.dataset.refundId );
+		const invoiceNumber = parseInt( this.textInput( refundId ).value );
 
 		this.enableLoader( refundId );
 
@@ -119,13 +119,13 @@ class ConnectorForDKCreditInvoices {
 	}
 
 	static pdfButtonClickAction( node ) {
-		const refundId = parseInt(node.dataset.refundId);
+		const refundId = parseInt( node.dataset.refundId );
 		this.enableLoader( refundId );
 		this.getPdf( refundId );
 	}
 
 	static createButtonClickAction( node ) {
-		const refundId = parseInt(node.dataset.refundId);
+		const refundId = parseInt( node.dataset.refundId );
 		this.enableLoader( refundId );
 		this.createInvoice( refundId );
 	}

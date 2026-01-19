@@ -7,15 +7,12 @@ namespace AldaVigdis\ConnectorForDK\Export;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
 use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
 use WP_Error;
 use WC_Order;
 use WC_Order_Item_Product;
-use WC_Order_Item_Shipping;
-use WC_Order_Item_Fee;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
 class CreditInvoice {
@@ -88,7 +85,7 @@ class CreditInvoice {
 	public static function to_dk_invoice_body(
 		OrderRefund|WC_Order $order_refund
 	): array|false {
-		$wc_order  = wc_get_order( $order_refund->get_parent_id() );
+		$wc_order = wc_get_order( $order_refund->get_parent_id() );
 
 		$invoice_body = ExportOrder::to_dk_order_body( $wc_order, false );
 

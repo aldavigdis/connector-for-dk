@@ -184,6 +184,25 @@ class CreditInvoice {
 			$invoice_body['Lines'][] = $order_line_item;
 		}
 
+		if ( $wc_order->is_paid() && $payment_mapping->add_credit_line ) {
+			$total = BigDecimal::of(
+				$order_refund->get_total()
+			);
+
+			$invoice_body['Payments'] = array(
+				apply_filters(
+					'connector_for_dk_invoice_payment_line',
+					array(
+						'ID'     => $payment_mapping->dk_id,
+						'Name'   => $payment_mapping->dk_name,
+						'Amount' => $total->toFloat(),
+					),
+					$payment_mapping,
+					$order_refund
+				),
+			);
+		}
+
 		return $invoice_body;
 	}
 

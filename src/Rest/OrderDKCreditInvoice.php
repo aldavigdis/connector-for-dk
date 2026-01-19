@@ -103,6 +103,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 			if ( $dk_customer->Blocked ) {
 				$wc_order->add_order_note(
 					sprintf(
+						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'A credit invoice could not be created in DK for refund #%1$s as the DK customer record is labelled as blocked.',
 							'connector-for-dk'
@@ -117,6 +118,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 			if ( $dk_customer->CountryCode !== $tax_location['country'] && $tax_location['country'] !== $base_location['country'] ) {
 				$wc_order->add_order_note(
 					sprintf(
+						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'An invoice could not be created in for refund #%1$s as the country indicated not match with the relevant DK customer record.',
 							'connector-for-dk'
@@ -136,6 +138,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 
 		if ( ! is_string( $invoice_number ) ) {
 			$wc_order->add_order_note(
+				// Translators: %1$s stands for the WooCommerce order return ID.
 				__(
 					'DK could not create a credit invoice for refund #%1$s due to an error.',
 					'connector-for-dk'
@@ -147,7 +150,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 
 		$wc_order->add_order_note(
 			sprintf(
-				// Translators: %1$s is a placeholder for the invoice number generated in DK.
+				// Translators: %1$s is a placeholder for the invoice number generated in DK and %2$s for the WooCommerce order return ID.
 				__(
 					'A credit invoice for refund #%2$s has been created in DK. The invoice number is %1$s.',
 					'connector-for-dk'
@@ -161,6 +164,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 			if ( ExportCreditInvoice::email_in_dk( $wc_order ) ) {
 				$wc_order->add_order_note(
 					sprintf(
+						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'An email containing a credit invoice for refund #%1$s as a PDF attachment was sent to the customer via DK.',
 							'connector-for-dk'
@@ -171,6 +175,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 			} else {
 				$wc_order->add_order_note(
 					sprintf(
+						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'It was not possible to send an email to the customer containing a credit invoice for refund #%1$s as a PDF attachment.',
 							'connector-for-dk'

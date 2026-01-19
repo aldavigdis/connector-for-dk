@@ -131,8 +131,12 @@ class Order {
 	 * Export a WooCommerce wc_order to a DK API wc_order POST body
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order object.
+	 * @param bool     $include_lines Wether to include the line items or not.
 	 */
-	public static function to_dk_order_body( WC_Order $wc_order, $include_lines = true ): array|false {
+	public static function to_dk_order_body(
+		WC_Order $wc_order,
+		bool $include_lines = true
+	): array|false {
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 

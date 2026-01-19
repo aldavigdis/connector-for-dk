@@ -12,7 +12,6 @@ use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
 /**
  * The Invoice Export class
@@ -227,7 +226,7 @@ class Invoice {
 	 * @return string The invoice number.
 	 */
 	public static function assign_dk_invoice_number(
-		WC_Order|OrderRefund $wc_order,
+		WC_Order $wc_order,
 		string $dk_invoice_number
 	): string {
 		$wc_order->update_meta_data(
@@ -246,7 +245,7 @@ class Invoice {
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 */
 	public static function get_dk_invoice_number(
-		WC_Order|OrderRefund $wc_order
+		WC_Order $wc_order
 	): string {
 		return (string) $wc_order->get_meta(
 			'connector_for_dk_invoice_number'

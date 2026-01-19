@@ -96,7 +96,7 @@ class Order {
 	/**
 	 * Get the DK invoice number for an order
 	 *
-	 * @param WC_Order $wc_order The order.
+	 * @param WC_Order|OrderRefund $wc_order The order.
 	 */
 	public static function get_invoice_number(
 		WC_Order|OrderRefund $wc_order

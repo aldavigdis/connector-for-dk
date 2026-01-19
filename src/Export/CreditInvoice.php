@@ -15,9 +15,20 @@ use WC_Order;
 use WC_Order_Item_Product;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
+/**
+ * The Credit Invoice Export class
+ *
+ * Converts WooCommerce refunds to DK credit invoices.
+ */
 class CreditInvoice {
 	const API_PATH = '/Sales/Invoice/';
 
+	/**
+	 * Create a credit invoice in DK from WooCommerce order refund
+	 *
+	 * @param OrderRefund $order_refund The WooCommerce order refund.
+	 * @param bool        $force Wether or not to force the creation of the credit invoice.
+	 */
 	public static function create_in_dk(
 		OrderRefund $order_refund,
 		bool $force = false
@@ -82,6 +93,11 @@ class CreditInvoice {
 		return false;
 	}
 
+	/**
+	 * Concert an order refund to a JSON body for creating a DK credit invoice
+	 *
+	 * @param OrderRefund|WC_Order $order_refund The WooCommerce order refund.
+	 */
 	public static function to_dk_invoice_body(
 		OrderRefund|WC_Order $order_refund
 	): array|false {
@@ -171,19 +187,15 @@ class CreditInvoice {
 		return $invoice_body;
 	}
 
+	/**
+	 * Email a credit invoice to the customer
+	 *
+	 * @param WC_Order|OrderRefund $order_refund The order refund.
+	 */
 	public static function email_in_dk(
-		WC_Order|OrderRefund $wc_order,
-		string $invoice_type = 'debit'
+		WC_Order|OrderRefund $order_refund
 	): bool|WP_Error {
-		if (
-			! in_array(
-				$invoice_type,
-				array( 'debit', 'credit' ),
-				true
-			)
-		) {
-			return false;
-		}
+		$wc_order = wc_get_order( $order_refund->get_parent_id() );
 
 		$to = $wc_order->get_billing_email();
 
@@ -204,9 +216,7 @@ class CreditInvoice {
 
 		$api_request = new DKApiRequest();
 
-		if ( $invoice_type === 'debit' ) {
-			$invoice_number = self::get_dk_invoice_number( $wc_order );
-		}
+		$invoice_number = self::get_dk_invoice_number( $order_refund );
 
 		if ( empty( $invoice_number ) ) {
 			return false;
@@ -232,24 +242,35 @@ class CreditInvoice {
 		return false;
 	}
 
+	/**
+	 * Assign a DK invoice number to a refund
+	 *
+	 * @param WC_Order|OrderRefund $order_refund The WooCommerce order refund.
+	 * @param string               $dk_invoice_number The DK invoice number.
+	 */
 	public static function assign_dk_invoice_number(
-		WC_Order|OrderRefund $wc_order,
+		WC_Order|OrderRefund $order_refund,
 		string $dk_invoice_number
 	): string {
-		$wc_order->update_meta_data(
+		$order_refund->update_meta_data(
 			'connector_for_dk_invoice_number',
 			$dk_invoice_number
 		);
 
-		$wc_order->save_meta_data();
+		$order_refund->save_meta_data();
 
 		return $dk_invoice_number;
 	}
 
+	/**
+	 * Get the DK invoice number for a WooCommerce order refund
+	 *
+	 * @param WC_Order|OrderRefund $order_refund The order refund.
+	 */
 	public static function get_dk_invoice_number(
-		WC_Order|OrderRefund $wc_order
+		WC_Order|OrderRefund $order_refund
 	): string {
-		return (string) $wc_order->get_meta(
+		return (string) $order_refund->get_meta(
 			'connector_for_dk_invoice_number'
 		);
 	}

@@ -161,7 +161,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 		);
 
 		if ( Config::get_email_invoice() ) {
-			if ( ExportCreditInvoice::email_in_dk( $wc_order ) ) {
+			if ( ExportCreditInvoice::email_in_dk( $refund ) ) {
 				$wc_order->add_order_note(
 					sprintf(
 						// Translators: %1$s stands for the WooCommerce order return ID.

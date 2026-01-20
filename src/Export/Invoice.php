@@ -11,13 +11,12 @@ use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
-use DateTime;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 
 /**
  * The Invoice Export class
  *
- * Facilitates the creation of invoices and credit invoices in DK from orders in
+ * Facilitates the creation of invoices in DK from orders in
  * WooCommerce.
  */
 class Invoice {
@@ -100,69 +99,6 @@ class Invoice {
 	}
 
 	/**
-	 * Reverse an invoice for a WooCommerce order, creating a credit invoice in the process
-	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
-	 *
-	 * @return string|false|WP_Error A string representing the credit invoice
-	 *                               number from DK on success, false if
-	 *                               connection was established but the request
-	 *                               was rejected, WC_Error if there was a
-	 *                               connection error.
-	 */
-	public static function reverse_in_dk(
-		WC_Order $wc_order
-	): string|false|WP_Error {
-		$api_request    = new DKApiRequest();
-		$invoice_number = self::get_dk_invoice_number( $wc_order );
-
-		if ( empty( $invoice_number ) ) {
-			return false;
-		}
-
-		if ( ! empty( self::get_dk_credit_invoice_number( $wc_order ) ) ) {
-			return false;
-		}
-
-		$date           = new DateTime();
-		$formatted_date = $date->format( 'Y-m-d' );
-
-		$result = $api_request->request_result(
-			self::API_PATH .
-			rawurlencode( $invoice_number ) .
-			'/reverse?=date=' .
-			rawurlencode( $formatted_date ),
-		);
-
-		if ( $result instanceof WP_Error ) {
-			return $result;
-		}
-
-		if ( $result->response_code !== 200 ) {
-			if ( property_exists( $result->data, 'Message' ) ) {
-				$error_message = $result->data->Message;
-			} else {
-				$error_message = '';
-			}
-			return new WP_Error(
-				'http_' . (string) $result->response_code,
-				$error_message,
-				$result->data
-			);
-		}
-
-		if ( property_exists( $result->data, 'Number' ) ) {
-			self::assign_dk_credit_invoice_number(
-				$wc_order,
-				$result->data->Number
-			);
-			return $result->data->Number;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Sends an invoice for an order to a customer via DK
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
@@ -205,10 +141,6 @@ class Invoice {
 
 		if ( $invoice_type === 'debit' ) {
 			$invoice_number = self::get_dk_invoice_number( $wc_order );
-		}
-
-		if ( $invoice_type === 'credit' ) {
-			$invoice_number = self::get_dk_credit_invoice_number( $wc_order );
 		}
 
 		if ( empty( $invoice_number ) ) {
@@ -317,41 +249,6 @@ class Invoice {
 	): string {
 		return (string) $wc_order->get_meta(
 			'connector_for_dk_invoice_number'
-		);
-	}
-
-	/**
-	 * Assign a DK credit invoice number to an order
-	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
-	 * @param string   $dk_credit_invoice_number The credit invoice number.
-	 */
-	public static function assign_dk_credit_invoice_number(
-		WC_Order $wc_order,
-		string $dk_credit_invoice_number
-	): string {
-		$wc_order->update_meta_data(
-			'connector_for_dk_credit_invoice_number',
-			$dk_credit_invoice_number
-		);
-
-		$wc_order->save_meta_data();
-
-		return $dk_credit_invoice_number;
-	}
-
-	/**
-	 * Get the DK credit invoice number from an order
-	 *
-	 * @param WC_Order $wc_order The WooCommerce order.
-	 *
-	 * @return string The credit invoice number from DK.
-	 */
-	public static function get_dk_credit_invoice_number(
-		WC_Order $wc_order
-	): string {
-		return (string) $wc_order->get_meta(
-			'connector_for_dk_credit_invoice_number'
 		);
 	}
 }

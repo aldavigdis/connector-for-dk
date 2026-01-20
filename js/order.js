@@ -11,33 +11,15 @@ class ConnectorForDKOrder {
 		);
 	}
 
-	static creditInvoiceInput() {
-		return document.getElementById(
-			'connector-for-dk-invoice-metabox-credit-invoice-number-input'
-		);
-	}
-
 	static invoiceNumberInvalid() {
 		return document.getElementById(
 			'connector-for-dk-invoice-metabox-invoice-number-invalid'
 		);
 	}
 
-	static creditInvoiceInvalid() {
-		return document.getElementById(
-			'connector-for-dk-credit-invoice-metabox-invoice-number-invalid'
-		);
-	}
-
 	static getPdfButton() {
 		return document.getElementById(
 			'connector-for-dk-invoice-metabox-invoice-get-pdf-button'
-		);
-	}
-
-	static getCreditPdfButton() {
-		return document.getElementById(
-			'connector-for-dk-invoice-metabox-credit-invoice-get-pdf-button'
 		);
 	}
 
@@ -54,21 +36,9 @@ class ConnectorForDKOrder {
 		);
 	}
 
-	static updateCreditInvoiceButton() {
-		return document.getElementById(
-			'connector-for-dk-invoice-metabox-credit-invoice-number-update-button'
-		);
-	}
-
 	static invoiceLoader() {
 		return document.getElementById(
 			'connector-for-dk-invoice-metabox-invoice-loader'
-		);
-	}
-
-	static creditInvoiceLoader() {
-		return document.getElementById(
-			'connector-for-dk-invoice-metabox-credit-invoice-loader'
 		);
 	}
 
@@ -119,19 +89,9 @@ class ConnectorForDKOrder {
 		this.updateInvoiceButtonClickAction();
 	}
 
-	static updateCreditInvoiceButtonClickEvent( e ) {
-		e.preventDefault();
-		this.updateCreditInvoiceButtonClickAction();
-	}
-
 	static getPdfClickEvent( e ) {
 		e.preventDefault();
 		this.getPdfInvoiceButtonClickAction();
-	}
-
-	static getCreditPdfClickEvent( e ) {
-		e.preventDefault();
-		this.getPdfCreditInvoiceButtonClickAction();
 	}
 
 	static getPdfInvoiceButtonClickAction() {
@@ -141,16 +101,6 @@ class ConnectorForDKOrder {
 		const orderID = ConnectorForDKOrder.formData().get( 'post_ID' );
 
 		this.getInvoicePdf( orderID );
-	}
-
-	static getPdfCreditInvoiceButtonClickAction() {
-		this.creditInvoiceLoader().classList.remove( 'hidden' );
-
-		const creditInvoiceID = ConnectorForDKOrder.formData().get(
-			'connector_for_dk_credit_invoice_number'
-		);
-
-		this.getCreditInvoicePdf( creditInvoiceID );
 	}
 
 	static formData() {
@@ -172,7 +122,6 @@ class ConnectorForDKOrder {
 
 		if ( response ) {
 			this.invoiceLoader().classList.add( 'hidden' );
-			this.creditInvoiceLoader().classList.add( 'hidden' );
 			this.invoicePdfNotFoundError().classList.add( 'hidden' );
 		}
 
@@ -180,32 +129,6 @@ class ConnectorForDKOrder {
 			window.open( response.url, '_blank' )
 		} else {
 			this.invoicePdfNotFoundError().classList.remove( 'hidden' );
-		}
-	}
-
-	static async getCreditInvoicePdf( invoiceID ) {
-		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + invoiceID,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json;charset=UTF-8',
-					'X-WP-Nonce': wpApiSettings.nonce,
-				}
-			}
-		);
-
-		if ( response ) {
-			this.creditInvoiceLoader().classList.add( 'hidden' );
-		}
-
-		if ( response.ok ) {
-			const json = await response.json();
-
-			window.open(
-				'data:application/pdf;base64,' + json.data,
-				'_blank'
-			)
 		}
 	}
 
@@ -229,29 +152,13 @@ class ConnectorForDKOrder {
 		);
 
 		if ( response.ok ) {
-			switch (type) {
-				case 'credit':
-					this.creditInvoiceLoader().classList.add( 'hidden' );
-					this.updateCreditInvoiceButton().disabled = false;
-					break;
-
-				default:
-					this.invoiceLoader().classList.add( 'hidden' );
-					this.updateInvoiceButton().disabled = false;
-					this.invoiceNumberAssignedMessage().classList.remove( 'hidden' );
-					break;
-			}
+			this.invoiceLoader().classList.add( 'hidden' );
+			this.updateInvoiceButton().disabled = false;
+			this.invoiceNumberAssignedMessage().classList.remove( 'hidden' );
 		} else {
-			switch (type) {
-				case 'credit':
-					break;
-
-				default:
-					this.invoiceLoader().classList.add( 'hidden' );
-					this.updateInvoiceButton().disabled = false;
-					this.invoiceAssignmentError().classList.remove( 'hidden' );
-					break;
-			}
+			this.invoiceLoader().classList.add( 'hidden' );
+			this.updateInvoiceButton().disabled = false;
+			this.invoiceAssignmentError().classList.remove( 'hidden' );
 		}
 	}
 
@@ -264,16 +171,6 @@ class ConnectorForDKOrder {
 		const invoiceNumber = parseInt( this.formData().get( 'connector_for_dk_invoice_number' ) );
 
 		this.submitInvoiceNumber( postID, invoiceNumber, 'debit' );
-	}
-
-	static updateCreditInvoiceButtonClickAction() {
-		this.creditInvoiceLoader().classList.remove( 'hidden' );
-		this.updateCreditInvoiceButton().disabled = true;
-
-		const postID        = parseInt( this.formData().get( 'post_ID' ) );
-		const invoiceNumber = parseInt( this.formData().get( 'connector_for_dk_credit_invoice_number' ) );
-
-		this.submitInvoiceNumber( postID, invoiceNumber, 'credit' );
 	}
 
 	static disableUpdateInvoiceFieldIfInvalid() {
@@ -300,26 +197,6 @@ class ConnectorForDKOrder {
 			if ( this.createDkInvoiceButton() ) {
 				this.createDkInvoiceButton().disabled = true;
 			}
-		}
-	}
-
-	static disableUpdateCreditInvoiceFieldIfInvalid() {
-		const creditInvoiceNumber = this.formData().get(
-			'connector_for_dk_credit_invoice_number'
-		);
-
-		if ( /^[1-9][0-9]{0,}$/.test( creditInvoiceNumber ) ) {
-			this.updateCreditInvoiceButton().disabled = false;
-			this.getCreditPdfButton().disabled        = false;
-			this.creditInvoiceInvalid().classList.add( 'hidden' );
-		} else {
-			this.updateCreditInvoiceButton().disabled = true;
-			this.getCreditPdfButton().disabled        = true;
-			this.creditInvoiceInvalid().classList.remove( 'hidden' );
-		}
-
-		if ( creditInvoiceNumber === '' ) {
-			this.creditInvoiceInvalid().classList.add( 'hidden' );
 		}
 	}
 
@@ -379,24 +256,10 @@ window.addEventListener(
 				}
 			);
 
-			ConnectorForDKOrder.updateCreditInvoiceButton().addEventListener(
-				'click',
-				( e ) => {
-					ConnectorForDKOrder.updateCreditInvoiceButtonClickEvent( e );
-				}
-			);
-
 			ConnectorForDKOrder.getPdfButton().addEventListener(
 				'click',
 				( e ) => {
 					ConnectorForDKOrder.getPdfClickEvent( e );
-				}
-			);
-
-			ConnectorForDKOrder.getCreditPdfButton().addEventListener(
-				'click',
-				( e ) => {
-					ConnectorForDKOrder.getCreditPdfClickEvent( e );
 				}
 			);
 
@@ -408,15 +271,6 @@ window.addEventListener(
 			);
 
 			ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
-
-			ConnectorForDKOrder.creditInvoiceInput().addEventListener(
-				'input',
-				( e ) => {
-					ConnectorForDKOrder.disableUpdateCreditInvoiceFieldIfInvalid();
-				}
-			);
-
-			ConnectorForDKOrder.disableUpdateCreditInvoiceFieldIfInvalid();
 
 			if ( ConnectorForDKOrder.createDkInvoiceButton() ) {
 				ConnectorForDKOrder.createDkInvoiceButton().addEventListener(

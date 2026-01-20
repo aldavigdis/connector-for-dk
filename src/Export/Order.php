@@ -268,12 +268,6 @@ class Order {
 		foreach ( $wc_order->get_fees() as $fee ) {
 			$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
-			$subtotal = BigDecimal::of(
-				$fee->get_total()
-			)->minus(
-				$fee->get_total_tax()
-			)->abs()->toFloat();
-
 			$order_props['Lines'][] = apply_filters(
 				'connector_for_dk_export_order_fee',
 				array(
@@ -281,7 +275,7 @@ class Order {
 					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => 1,
-					'Price'        => $subtotal,
+					'Price'        => $fee->get_total(),
 					'IncludingVAT' => false,
 				),
 				$fee,
@@ -291,12 +285,6 @@ class Order {
 
 		foreach ( $wc_order->get_shipping_methods() as $shipping_method ) {
 			if ( $shipping_method->get_total() > 0 ) {
-				$subtotal = BigDecimal::of(
-					$shipping_method->get_total()
-				)->minus(
-					$shipping_method->get_total_tax()
-				)->abs()->toFloat();
-
 				$order_props['Lines'][] = apply_filters(
 					'connector_for_dk_export_order_shipping',
 					array(
@@ -304,7 +292,7 @@ class Order {
 						'Text'         => __( 'Shipping', 'connector-for-dk' ),
 						'Text2'        => $shipping_method->get_name(),
 						'Quantity'     => 1,
-						'Price'        => $subtotal,
+						'Price'        => $shipping_method->get_total(),
 						'IncludingVAT' => false,
 					),
 					$shipping_method,

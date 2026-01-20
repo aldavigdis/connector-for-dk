@@ -144,12 +144,6 @@ class CreditInvoice {
 		foreach ( $order_refund->get_fees() as $fee ) {
 			$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
 
-			$subtotal = BigDecimal::of(
-				$fee->get_total()
-			)->minus(
-				$fee->get_total_tax()
-			)->abs()->toFloat();
-
 			$order_props['Lines'][] = apply_filters(
 				'connector_for_dk_export_order_fee',
 				array(
@@ -157,7 +151,7 @@ class CreditInvoice {
 					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => -1,
-					'Price'        => $subtotal,
+					'Price'        => $fee->get_total(),
 					'IncludingVAT' => false,
 				),
 				$fee,
@@ -166,18 +160,12 @@ class CreditInvoice {
 		}
 
 		foreach ( $order_refund->get_shipping_methods() as $shipping_method ) {
-			$subtotal = BigDecimal::of(
-				$shipping_method->get_total()
-			)->minus(
-				$shipping_method->get_total_tax()
-			)->abs()->toFloat();
-
 			$order_line_item = array(
 				'ItemCode'     => Config::get_shipping_sku(),
 				'Text'         => __( 'Shipping', 'connector-for-dk' ),
 				'Text2'        => $shipping_method->get_name(),
 				'Quantity'     => -1,
-				'Price'        => $subtotal,
+				'Price'        => $shipping_method->get_total(),
 				'IncludingVAT' => false,
 			);
 

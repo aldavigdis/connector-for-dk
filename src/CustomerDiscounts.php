@@ -39,7 +39,7 @@ class CustomerDiscounts {
 	 * The constructor
 	 */
 	public function __construct() {
-		if ( Config::get_enable_dk_customer_prices() ) {
+		if ( Config::get_enable_dk_customer_prices() && Config::get_option( 'customer_discounts_enabled' ) ) {
 			add_filter(
 				'woocommerce_get_price_html',
 				array( __CLASS__, 'modify_display_price' ),

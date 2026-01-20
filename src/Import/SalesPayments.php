@@ -15,7 +15,8 @@ use WP_Error;
  * Provides funtions for handling downstream payment methods from DK
  */
 class SalesPayments {
-	const TRANSIENT_EXPIRY = 600;
+	const TRANSIENT_EXPIRY = 2 * HOUR_IN_SECONDS;
+	const REQUEST_TIMEOUT  = 1;
 
 	const DK_PAYMENT_MODES = array(
 		'ABG',
@@ -45,7 +46,8 @@ class SalesPayments {
 	public static function get_payment_terms_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
 		$result  = $request->get_result(
-			'/general/table/ARPTERM.DAT/records?legacy=true&fields=CODE,DESCRIPTION'
+			'/general/table/ARPTERM.DAT/records?legacy=true&fields=CODE,DESCRIPTION',
+			self::REQUEST_TIMEOUT
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -102,18 +104,28 @@ class SalesPayments {
 	 * @return array<string>
 	 */
 	public static function get_payment_terms(): array {
-		$terms_transient = get_transient( 'connector_for_dk_payment_terms' );
+		$terms_updated   = get_option( 'connector_for_dk_payment_terms_updated' );
+		$terms_transient = get_option( 'connector_for_dk_payment_terms' );
 
-		if ( is_array( $terms_transient ) ) {
+		if (
+			is_array( $terms_transient ) &&
+			( $terms_updated > time() - HOUR_IN_SECONDS )
+		) {
 			return $terms_transient;
 		}
 
 		if ( is_string( Config::get_dk_api_key() ) ) {
 			$terms = self::get_payment_terms_from_dk();
+
 			if ( is_array( $terms ) ) {
 				$plucked_terms = array_column( $terms, 'CODE' );
 
-				set_transient(
+				update_option(
+					'connector_for_dk_payment_terms_updated',
+					time()
+				);
+
+				update_option(
 					'connector_for_dk_payment_terms',
 					$plucked_terms,
 					self::TRANSIENT_EXPIRY
@@ -134,7 +146,8 @@ class SalesPayments {
 	public static function get_payment_modes_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
 		$result  = $request->get_result(
-			'/general/table/ARPMODE.DAT/records?legacy=true&fields=CODE,DESCRIPTION'
+			'/general/table/ARPMODE.DAT/records?legacy=true&fields=CODE,DESCRIPTION',
+			self::REQUEST_TIMEOUT
 		);
 
 		if ( $result instanceof WP_Error ) {
@@ -190,23 +203,34 @@ class SalesPayments {
 	 * contents of DK_PAYMENT_MODES will be returned.
 	 */
 	public static function get_payment_modes(): array {
+		$modes_updated   = get_option( 'connector_for_dk_payment_modes_updated' );
 		$modes_transient = get_transient( 'connector_for_dk_payment_modes' );
 
-		if ( is_array( $modes_transient ) ) {
+		if (
+			is_array( $modes_transient ) &&
+			( $modes_updated > time() - HOUR_IN_SECONDS )
+		) {
 			return $modes_transient;
 		}
 
 		if ( is_string( Config::get_dk_api_key() ) ) {
-			$modes         = self::get_payment_modes_from_dk();
-			$plucked_modes = array_column( $modes, 'CODE' );
+			$modes = self::get_payment_modes_from_dk();
 
-			set_transient(
-				'connector_for_dk_payment_modes',
-				$plucked_modes,
-				self::TRANSIENT_EXPIRY
-			);
+			if ( is_array( $modes ) ) {
+				$plucked_modes = array_column( $modes, 'CODE' );
 
-			return $plucked_modes;
+				update_option(
+					'connector_for_dk_payment_modes_updated',
+					time()
+				);
+
+				update_option(
+					'connector_for_dk_payment_modes',
+					$plucked_modes
+				);
+
+				return $plucked_modes;
+			}
 		}
 
 		return self::DK_PAYMENT_MODES;
@@ -220,20 +244,34 @@ class SalesPayments {
 	 * @return array<stdClass>
 	 */
 	public static function get_methods(): array {
+		$methods_updated   = get_option( 'connector_for_dk_payment_modes_updated' );
 		$methods_transient = get_transient( 'connector_for_dk_payment_methods' );
 
-		if ( ! $methods_transient ) {
-			$methods_from_dk = self::get_methods_from_dk();
-
-			if ( is_array( $methods_from_dk ) ) {
-				self::save_methods( $methods_from_dk );
-				return $methods_from_dk;
-			}
-
-			return [];
+		if (
+			is_array( $methods_transient ) &&
+			( $methods_updated > time() - HOUR_IN_SECONDS )
+		) {
+			return $methods_transient;
 		}
 
-		return $methods_transient;
+		if ( is_string( Config::get_dk_api_key() ) ) {
+			$methods = self::get_methods_from_dk();
+
+			if ( is_array( $methods ) ) {
+				update_option(
+					'connector_for_dk_payment_methods',
+					$methods
+				);
+				update_option(
+					'connector_for_dk_payment_modes_updated',
+					time()
+				);
+
+				return $methods;
+			}
+		}
+
+		return array();
 	}
 
 	/**
@@ -244,7 +282,8 @@ class SalesPayments {
 	public static function get_methods_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
 		$result  = $request->get_result(
-			'/Sales/Payment/Type?include=PaymentId%2CName%2CActive'
+			'/Sales/Payment/Type?include=PaymentId%2CName%2CActive',
+			self::REQUEST_TIMEOUT
 		);
 
 		if ( $result instanceof WP_Error ) {

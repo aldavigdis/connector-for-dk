@@ -64,7 +64,8 @@ class DKApiRequest {
 	 * This uses the `WP_Http` class to fets a API resource from the DK API
 	 * using a GET request.
 	 *
-	 * @param string $path The internal path do the API resource.
+	 * @param string    $path The internal path do the API resource.
+	 * @param float|int $timeout The timeout in seconds.
 	 *
 	 * @return WP_Error|stdClass An object containing a `data` attribute with
 	 *                           the JSON encoded response body and a
@@ -72,7 +73,10 @@ class DKApiRequest {
 	 *                           HTTP response status as an integer, or WP_Error
 	 *                           on failure.
 	 */
-	public function get_result( string $path ): WP_Error|stdClass {
+	public function get_result(
+		string $path,
+		float|int $timeout = self::GET_TIMEOUT
+	): WP_Error|stdClass {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
@@ -85,7 +89,7 @@ class DKApiRequest {
 			array(
 				'httpversion' => '1.1',
 				'headers'     => $this->get_headers,
-				'timeout'     => self::GET_TIMEOUT,
+				'timeout'     => $timeout,
 			),
 		);
 

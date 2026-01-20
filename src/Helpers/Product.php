@@ -602,7 +602,8 @@ class Product {
 		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
-			self::API_PATH . rawurlencode( $sku )
+			self::API_PATH . rawurlencode( $sku ),
+			0.5
 		);
 
 		if ( $result instanceof WP_Error ) {

@@ -14,6 +14,7 @@ use WC_Payment_Gateways;
 use WC_Payment_Gateway;
 use stdClass;
 use WC_Order;
+use WP_Error;
 
 /**
  * The ConnectorForDK Admin class
@@ -562,7 +563,7 @@ class Admin {
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
 		} elseif ( $transient_value || ProductHelper::is_in_dk( $sku ) === true ) {
-			if ( ! $transient_value ) {
+			if ( ! $transient_value || ! $transient_value instanceof WP_Error ) {
 				set_transient( $transient_name, '1', self::TRANSIENT_EXPIRY );
 			}
 

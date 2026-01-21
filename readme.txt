@@ -40,6 +40,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Changelog ==
 = 0.6.0 =
+* Improving handling for slow dkPlus API response times
 * Introducing product category sync
 * Introducing per-refund credit invoices
 * Labelling customer discounts as experimental

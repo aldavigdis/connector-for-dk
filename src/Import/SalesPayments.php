@@ -128,7 +128,6 @@ class SalesPayments {
 				update_option(
 					'connector_for_dk_payment_terms',
 					$plucked_terms,
-					self::TRANSIENT_EXPIRY
 				);
 
 				return $plucked_terms;

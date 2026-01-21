@@ -43,6 +43,7 @@ class Loader {
 			new KennitalaField();
 			new Metaboxes();
 			new OrderStatus();
+			new ProductCategories();
 			new Cron\Schedule();
 			new Rest\Settings();
 			new Rest\OrderDKCreditInvoice();

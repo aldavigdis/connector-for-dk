@@ -103,6 +103,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 						<div>
 							<input
+								id="product_category_sync_field"
+								name="product_category_sync"
+								type="checkbox"
+								<?php echo esc_attr( Config::get_product_category_sync() ? 'checked' : '' ); ?>
+							/>
+							<label for="product_category_sync_field">
+								<?php esc_html_e( 'Update Product Category', 'connector-for-dk' ); ?>
+							</label>
+						</div>
+						<div>
+							<input
 								id="create_new_products_field"
 								name="create_new_products"
 								type="checkbox"
@@ -201,4 +212,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 		</tbody>
 	</table>
+
+	<?php do_action( 'connector_for_dk_end_of_products_section' ); ?>
 </section>

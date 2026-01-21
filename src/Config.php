@@ -1105,4 +1105,11 @@ class Config {
 	public static function get_add_iceland_to_vat_countries(): bool {
 		return (bool) self::get_option( 'add_iceland_to_vat_countries', true );
 	}
+
+	/**
+	 * Get wether to sync product categories
+	 */
+	public static function get_product_category_sync(): bool {
+		return (bool) self::get_option( 'product_category_sync', false );
+	}
 }

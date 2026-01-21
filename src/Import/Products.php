@@ -11,6 +11,7 @@ use AldaVigdis\ConnectorForDK\Currency;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\ProductCategories;
 use DateTime;
 use stdClass;
 use WC_DateTime;
@@ -38,7 +39,7 @@ class Products {
 		'UnitPrice3WithTax,TaxPercent,AllowNegativeInventiry,ExtraDesc1,' .
 		'ExtraDesc2,ShowItemInWebShop,Inactive,Deleted,PropositionDateTo,' .
 		'PropositionDateFrom,CurrencyCode,CurrencyPrices,IsVariation,' .
-		'Warehouses';
+		'Warehouses,Group';
 
 	/**
 	 * Save all products from DK
@@ -355,6 +356,19 @@ class Products {
 			self::update_variations( $merged_variations, $wc_product );
 		}
 
+		if (
+			property_exists( $json_object, 'Group' ) &&
+			Config::get_product_category_sync()
+		) {
+			$wc_product->set_category_ids(
+				array(
+					ProductCategories::woocommerce_category_for_group(
+						$json_object->Group
+					),
+				)
+			);
+		}
+
 		if ( Config::get_product_quantity_sync() ) {
 			$wc_product->set_manage_stock( true );
 
@@ -464,6 +478,19 @@ class Products {
 			} else {
 				$wc_product->set_status( 'Draft' );
 			}
+		}
+
+		if (
+			property_exists( $json_object, 'Group' ) &&
+			Config::get_product_category_sync()
+		) {
+			$wc_product->set_category_ids(
+				array(
+					ProductCategories::woocommerce_category_for_group(
+						$json_object->Group
+					),
+				)
+			);
 		}
 
 		if (

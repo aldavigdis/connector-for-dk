@@ -31,14 +31,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php foreach ( ImportProductGroups::get_all() as $key => $name ) : ?>
 		<tr data-dk-product-group="<?php echo esc_attr( $key ); ?>">
 			<th scope="row" class="column-title column-primary">
-				<label for="woocommerce_category_field">
+				<label for="woocommerce_category_field_<?php echo esc_attr( $key ); ?>">
 					<code><?php echo esc_attr( $key ); ?></code>
 					<?php echo esc_attr( $name ); ?>
 				</label>
 			</th>
 			<td>
 				<select
-					id="woocommerce_category_field"
+					id="woocommerce_category_field_<?php echo esc_attr( $key ); ?>"
 					name="category_id"
 					type="text"
 					value="<?php echo esc_attr( $key ); ?>"

@@ -39,6 +39,12 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.6.0 =
+* Introducing product category sync
+* Introducing per-refund credit invoices
+* Labelling customer discounts as experimental
+* Fixing a bug that caused customer discounts to be stacked
+
 = 0.5.2 =
 * Fixed 11% VAT matching for products without SKU
 

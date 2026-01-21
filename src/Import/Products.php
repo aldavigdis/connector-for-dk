@@ -11,6 +11,7 @@ use AldaVigdis\ConnectorForDK\Currency;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\DimensionalWeight\Calculator as DimensionalWeightCalculator;
 use DateTime;
 use stdClass;
 use WC_DateTime;
@@ -296,8 +297,10 @@ class Products {
 			$wc_product->set_short_description( $json_object->ExtraDesc2 );
 		}
 
-		if ( ! empty( $json_object->NetWeight ) ) {
-			$wc_product->set_weight( $json_object->NetWeight );
+		$weight = self::maybe_calculate_volumetric_weight( $json_object );
+
+		if ( ! empty( $weight ) ) {
+			$wc_product->set_weight( $weight );
 		}
 
 		$price = self::get_product_price_from_json( $json_object );
@@ -480,10 +483,12 @@ class Products {
 			$wc_product->set_description( $json_object->ExtraDesc1 );
 		}
 
-		if ( empty( $json_object->NetWeight ) ) {
+		$weight = self::maybe_calculate_volumetric_weight( $json_object );
+
+		if ( empty( $weight ) ) {
 			$wc_product->set_weight( '' );
 		} else {
-			$wc_product->set_weight( $json_object->NetWeight );
+			$wc_product->set_weight( $weight );
 		}
 
 		if ( ProductHelper::price_sync_enabled( $wc_product ) ) {
@@ -1075,5 +1080,40 @@ class Products {
 		}
 
 		return 0.0;
+	}
+
+	private static function maybe_calculate_volumetric_weight(
+		stdClass $json_object
+	): float {
+		if ( ! class_exists( 'AldaVigdis\ConnectorForDK\DimensionalWeight\Calculator' ) ) {
+			return $json_object->NetWeight;
+		}
+
+		if ( ! Config::get_calculate_dimensional_weight() ) {
+			return $json_object->NetWeight;
+		}
+
+		if ( empty( $json_object->UnitVolume ) ) {
+			return $json_object->NetWeight;
+		}
+
+		$dimensional_weight = DimensionalWeightCalculator::calculate(
+			$json_object->UnitVolume,
+			Config::get_dimensional_weights_courier(),
+			$json_object->NetWeight
+		);
+
+		if ( Config::get_calculate_dimensional_weight_if_missing_weight() ) {
+			return $dimensional_weight;
+		}
+
+		if (
+			( $dimensional_weight > $json_object->NetWeight ) &&
+			( ! empty( $json_object->NetWeight ) )
+		) {
+			return $dimensional_weight;
+		}
+
+		return $json_object->NetWeight;
 	}
 }

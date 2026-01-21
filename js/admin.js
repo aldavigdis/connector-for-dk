@@ -16,6 +16,11 @@ class ConnectorForDK {
 			'#payment-gateway-id-map-table tbody tr[data-gateway-id]'
 		);
 	}
+	static categoryRows() {
+		return document.querySelectorAll(
+			'#dk-product-categories-table tbody tr[data-dk-product-group]'
+		);
+	}
 	static paymentAddLineCheckboxes() {
 		return document.querySelectorAll(
 			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_payment_line]'
@@ -54,6 +59,7 @@ class ConnectorForDK {
 			let paymentIds              = formData.getAll( 'payment_id' );
 			let paymentModes            = formData.getAll( 'payment_mode' );
 			let paymentTerms            = formData.getAll( 'payment_term' );
+			let CategoryIds             = formData.getAll( 'category_id' );
 			let addLineCheckboxes       = ConnectorForDK.paymentAddLineCheckboxes();
 			let addCreditLineCheckboxes = ConnectorForDK.paymentAddCreditLineCheckboxes();
 
@@ -84,8 +90,23 @@ class ConnectorForDK {
 				);
 			}
 
+			let categoryMappings = [];
+			let categoriesLength = CategoryIds.length;
+			for (let i = 0; i < categoriesLength; i++) {
+				let dkGroup    = ConnectorForDK.categoryRows()[i].dataset.dkProductGroup;
+				let categoryId = parseInt( CategoryIds[i] );
+
+				categoryMappings.push(
+					{
+						dk_group: dkGroup,
+						category_id: categoryId,
+					}
+				);
+			}
+
 			let formDataObject = {
 				payment_methods: paymentMethods,
+				category_mappings: categoryMappings,
 				enable_cronjob: true
 			};
 
@@ -100,7 +121,8 @@ class ConnectorForDK {
 					let inputValue       = node.value;
 					let disallowedInputs = [ 'add_payment_line', 'payment_id',
 											 'payment_mode', 'payment_term',
-											 'add_credit_payment_line' ];
+											 'add_credit_payment_line',
+											 'category_id' ];
 					if ( ! disallowedInputs.includes( inputName ) ) {
 						if ( inputType === 'text' ) {
 							formDataObject[ inputName ] = inputValue.trim();
@@ -134,7 +156,6 @@ class ConnectorForDK {
 		ConnectorForDK.settingsLoader().classList.add( 'hidden' );
 
 		if ( response.ok ) {
-			ConnectorForDK.settingsSubmit().disabled = false;
 			window.location.reload();
 		} else {
 			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );

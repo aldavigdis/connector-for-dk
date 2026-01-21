@@ -25,6 +25,17 @@
                 },
                 "required": ["woo_id", "dk_id" ]
             }
+        },
+        "category_mappings": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "dk_group": { "type": "string" },
+                    "category_id": { "type": "number" }
+                },
+                "required": ["dk_group", "category_id"]
+            }
         }
     },
     "required": ["api_key"]

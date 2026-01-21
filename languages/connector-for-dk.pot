@@ -10,11 +10,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-16 22:00+0000\n"
+"POT-Creation-Date: 2026-01-21 10:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: connector-for-dk\n"
-"\n"
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
@@ -45,7 +44,7 @@ msgid "%1$sError:%2$s The code you entered could not be validated."
 msgstr ""
 
 #. %1$s an %2$s stand for opening and closing <strong> tags.
-#: views/dk_invoice_metabox.php:177
+#: views/refund_credit_invoice_partial.php:78
 #, php-format
 msgid ""
 "%1$sNote:%2$s Invoicing for international orders is not available in this "
@@ -71,11 +70,11 @@ msgstr ""
 msgid "11% VAT"
 msgstr ""
 
-#: src/Import/SalesPayments.php:73
+#: src/Import/SalesPayments.php:75
 msgid "15 Day Payment Deadline (D15)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:75
+#: src/Import/SalesPayments.php:77
 msgid "20 Day Payment Deadline (D20)"
 msgstr ""
 
@@ -83,34 +82,56 @@ msgstr ""
 msgid "24% VAT"
 msgstr ""
 
-#: src/Import/SalesPayments.php:77
+#: src/Import/SalesPayments.php:79
 msgid "30 Day Payment Deadline (D30)"
 msgstr ""
 
+#. %1$s stands for the WooCommerce order return ID.
+#: src/Rest/OrderDKCreditInvoice.php:107
+#, php-format
+msgid ""
+"A credit invoice could not be created in DK for refund #%1$s as the DK "
+"customer record is labelled as blocked."
+msgstr ""
+
+#: src/Rest/OrderDKCreditInvoice.php:90
+msgid ""
+"A credit invoice could not be created in DK for this order as it was created "
+"before Connector for DK was activated."
+msgstr ""
+
+#. %1$s is a placeholder for the invoice number generated in DK and %2$s for the WooCommerce order return ID.
+#: src/Rest/OrderDKCreditInvoice.php:154
+#, php-format
+msgid ""
+"A credit invoice for refund #%2$s has been created in DK. The invoice number "
+"is %1$s."
+msgstr ""
+
 #. The %s stands for the kennitala.
-#: src/Admin.php:714
+#: src/Admin.php:718
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:726
+#: src/Admin.php:730
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
 
-#: src/Import/SalesPayments.php:163
+#: src/Import/SalesPayments.php:176
 msgid "A or B Giro Request (ABG)"
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:636
+#: src/Admin.php:640
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:648
+#: src/Admin.php:652
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -136,7 +157,11 @@ msgstr ""
 msgid "Activation Code"
 msgstr ""
 
-#: views/admin_sections/gateways.php:120
+#: views/credit_invoice_payment_line_partial.php:28
+msgid "Add payment line to credit invoices"
+msgstr ""
+
+#: views/admin_sections/gateways.php:121
 msgid "Add payment line to invoices"
 msgstr ""
 
@@ -150,6 +175,14 @@ msgstr ""
 
 #: views/dk_product_variations.php:298
 msgid "Allow backorders, but notify customer"
+msgstr ""
+
+#. %1$s stands for the WooCommerce order return ID.
+#: src/Rest/OrderDKCreditInvoice.php:168
+#, php-format
+msgid ""
+"An email containing a credit invoice for refund #%1$s as a PDF attachment "
+"was sent to the customer via DK."
 msgstr ""
 
 #: src/OrderStatus.php:204 src/Rest/OrderDKInvoice.php:154
@@ -178,6 +211,14 @@ msgstr ""
 msgid ""
 "An invoice could not be created in DK for this order as it was created "
 "before Connector for DK was activated."
+msgstr ""
+
+#. %1$s stands for the WooCommerce order return ID.
+#: src/Rest/OrderDKCreditInvoice.php:122
+#, php-format
+msgid ""
+"An invoice could not be created in for refund #%1$s as the country indicated "
+"not match with the relevant DK customer record."
 msgstr ""
 
 #: src/Rest/OrderDKInvoice.php:115
@@ -247,40 +288,47 @@ msgstr ""
 msgid "Backorders"
 msgstr ""
 
-#: src/Import/SalesPayments.php:173
+#: src/Import/SalesPayments.php:186
 msgid "Bank Collection Service (IB)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:165
+#: src/Import/SalesPayments.php:178
 msgid "Bank Transfer (BM)"
+msgstr ""
+
+#: views/admin_sections/product_categories.php:22
+msgid ""
+"Below, you can pair up each product group from DK with an equivalent "
+"category in WooCommerce. One WooCommerce category may be chosen for each DK "
+"product group."
 msgstr ""
 
 #: views/admin_sections/blocked_customers.php:16
 msgid "Blocked Customers"
 msgstr ""
 
-#: src/Import/SalesPayments.php:167
+#: src/Import/SalesPayments.php:180
 msgid "C Giro Request (CG)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:169
+#: src/Import/SalesPayments.php:182
 msgid "Card Payment (GKR)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:87 src/Import/SalesPayments.php:175
+#: src/Import/SalesPayments.php:89 src/Import/SalesPayments.php:188
 msgid "Cash Payment (STGR)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:177
+#: src/Import/SalesPayments.php:190
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Admin.php:229
+#: src/Admin.php:231
 msgid "Community Support"
 msgstr ""
 
 #. Name of the plugin
-#: src/Admin.php:442 src/Admin.php:443 views/admin.php:35 views/about.php:17
+#: src/Admin.php:446 src/Admin.php:447 views/admin.php:35 views/about.php:17
 msgid "Connector for DK"
 msgstr ""
 
@@ -313,7 +361,7 @@ msgstr ""
 msgid "Cost SKU"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:71
+#: views/refund_credit_invoice_partial.php:62 views/dk_invoice_metabox.php:71
 msgid "Create in DK"
 msgstr ""
 
@@ -333,38 +381,32 @@ msgstr ""
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr ""
 
-#: views/admin_sections/products.php:112
+#: views/admin_sections/products.php:123
 msgid "Create new products in WooCommerce if they don't exist"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:126
+#: views/refund_credit_invoice_partial.php:27
 msgid "Credit Invoice Number"
 msgstr ""
 
-#. %1$s is a placeholder for the invoice number that was manually entered.
-#: src/Rest/OrderInvoiceNumber.php:116
-#, php-format
-msgid "Credit invoice number set to %1$s."
-msgstr ""
-
-#: src/Import/SalesPayments.php:79
+#: src/Import/SalesPayments.php:81
 msgid "Current Month (LM)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:81
+#: src/Import/SalesPayments.php:83
 msgid "Current Month + 15 Days (M15)"
 msgstr ""
 
-#: src/Import/SalesPayments.php:83
+#: src/Import/SalesPayments.php:85
 msgid "Current Month + 20 Days (M20)"
 msgstr ""
 
-#: src/CustomerDiscounts.php:276 src/CustomerDiscounts.php:300
+#: src/CustomerDiscounts.php:269 src/CustomerDiscounts.php:293
 msgid "Customer discount:"
 msgstr ""
 
 #: views/admin_sections/customers_discounts.php:15
-msgid "Customer Discounts"
+msgid "Customer Discounts and Price Groups"
 msgstr ""
 
 #: views/admin_sections/customers.php:16
@@ -395,7 +437,7 @@ msgstr ""
 msgid "Default Sales Person Number"
 msgstr ""
 
-#: views/admin_sections/products.php:123
+#: views/admin_sections/products.php:134
 msgid ""
 "Delete products from WooCommerce if labelled as inactive or deleted in DK"
 msgstr ""
@@ -412,16 +454,22 @@ msgstr ""
 msgid "Disable the Kennitala field in the Iceland Post plugin"
 msgstr ""
 
-#: views/admin_sections/customers_discounts.php:68
+#: views/admin_sections/customers_discounts.php:88
 msgid "Display Customers' Prices as Discounts"
 msgstr ""
 
-#: views/admin_sections/products.php:167
+#: views/admin_sections/products.php:178
 msgid "Display the Attribute Label Description from DK"
 msgstr ""
 
-#: views/admin_sections/products.php:190
+#: views/admin_sections/products.php:201
 msgid "Display the Attribute Value Description from DK"
+msgstr ""
+
+#. %1$s stands for the WooCommerce order return ID.
+#: src/Rest/OrderDKCreditInvoice.php:142
+#, php-format
+msgid "DK could not create a credit invoice for refund #%1$s due to an error."
 msgstr ""
 
 #: src/Rest/OrderDKInvoice.php:132
@@ -434,7 +482,7 @@ msgid ""
 "your WooCommerce store below."
 msgstr ""
 
-#: src/Admin.php:240 src/Admin.php:249 src/Admin.php:277
+#: src/Admin.php:242 src/Admin.php:251 src/Admin.php:279
 msgid "DK Invoice"
 msgstr ""
 
@@ -444,12 +492,6 @@ msgid ""
 "kennitala but need their own customer records. Connector for DK handles this "
 "by generating an alphanumeric sequence based on the customer's ID number in "
 "WooCommerce."
-msgstr ""
-
-#: views/admin_sections/customers_discounts.php:19
-msgid ""
-"DK offers per-customer discounts as well as price groups with up to 3 "
-"different prices per product."
 msgstr ""
 
 #: src/Rest/OrderInvoicePdf.php:76
@@ -522,11 +564,11 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin.php:324
+#: src/Admin.php:326
 msgid "Error"
 msgstr ""
 
-#: src/Export/Order.php:263
+#: src/Export/CreditInvoice.php:151 src/Export/Order.php:275
 msgid "Fee"
 msgstr ""
 
@@ -534,7 +576,7 @@ msgstr ""
 msgid "Fetch"
 msgstr ""
 
-#: views/admin_sections/customers_discounts.php:40
+#: views/admin_sections/customers_discounts.php:60
 msgid "Fetch Customer Discount and Price Group Data from DK"
 msgstr ""
 
@@ -566,19 +608,27 @@ msgid ""
 "and can be %3$spurchased on tengillpro.is%4$s"
 msgstr ""
 
+#: views/refund_credit_invoice_partial.php:58
+msgid "Generate a new credit invoice for this order in DK"
+msgstr ""
+
 #: views/dk_invoice_metabox.php:68
 msgid "Generate a new invoice for this order in DK"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:62 views/dk_invoice_metabox.php:161
+#: views/refund_credit_invoice_partial.php:54 views/dk_invoice_metabox.php:62
 msgid "Get PDF"
+msgstr ""
+
+#: views/refund_credit_invoice_partial.php:50
+msgid "Get the credit invoice as a PDF file"
 msgstr ""
 
 #: views/dk_invoice_metabox.php:59
 msgid "Get the invoice as a PDF file"
 msgstr ""
 
-#: src/Import/SalesPayments.php:171
+#: src/Import/SalesPayments.php:184
 msgid "Giro Transfer (GM)"
 msgstr ""
 
@@ -597,14 +647,14 @@ msgid ""
 "sure that email delivery is configured correctly in DK."
 msgstr ""
 
-#: views/admin_sections/products.php:171
+#: views/admin_sections/products.php:182
 msgid ""
 "If enabled, the code for attribute labels will be replaced with the "
 "attribute description from DK. Disable this if you only need the attribute "
 "label code."
 msgstr ""
 
-#: views/admin_sections/products.php:194
+#: views/admin_sections/products.php:205
 msgid ""
 "If enabled, the code for attribute values will be replaced with the "
 "attribute description from DK. Disable this if you only need the attribute "
@@ -646,13 +696,13 @@ msgid ""
 "already."
 msgstr ""
 
-#: views/admin_sections/customers_discounts.php:76
+#: views/admin_sections/customers_discounts.php:96
 msgid ""
 "If this is enabled, Customer's prices are shown as discounts in the "
 "storefront."
 msgstr ""
 
-#: views/admin_sections/customers_discounts.php:48
+#: views/admin_sections/customers_discounts.php:68
 msgid ""
 "If this is enabled, information on customer discounts and price groups are "
 "fetched from DK on an hourly basis based on each customer's Kennitala. "
@@ -673,7 +723,7 @@ msgid ""
 "checkout process."
 msgstr ""
 
-#: views/admin_sections/products.php:134
+#: views/admin_sections/products.php:145
 msgid "Import products not labelled as ‘for online store’ as drafts"
 msgstr ""
 
@@ -734,7 +784,7 @@ msgid "Invoice number has been assigned."
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number that was manually entered.
-#: src/Rest/OrderInvoiceNumber.php:91
+#: src/Rest/OrderInvoiceNumber.php:92
 #, php-format
 msgid "Invoice number set to %1$s."
 msgstr ""
@@ -769,6 +819,14 @@ msgstr ""
 msgid ""
 "Invoicing for international orders is not available in this version of "
 "Connector for DK."
+msgstr ""
+
+#. %1$s stands for the WooCommerce order return ID.
+#: src/Rest/OrderDKCreditInvoice.php:179
+#, php-format
+msgid ""
+"It was not possible to send an email to the customer containing a credit "
+"invoice for refund #%1$s as a PDF attachment."
 msgstr ""
 
 #: src/OrderStatus.php:211 src/Rest/OrderDKInvoice.php:161
@@ -831,7 +889,7 @@ msgstr ""
 msgid "Method ID in DK"
 msgstr ""
 
-#: views/dk_invoice_metabox.php:43 views/dk_invoice_metabox.php:142
+#: views/dk_invoice_metabox.php:43
 msgid "Needs to be numeric"
 msgstr ""
 
@@ -879,7 +937,7 @@ msgid "Payment Terms in DK"
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:698
+#: src/Admin.php:702
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -887,7 +945,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:552
+#: src/Admin.php:556
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -895,7 +953,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:620
+#: src/Admin.php:624
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -911,6 +969,12 @@ msgid ""
 "work."
 msgstr ""
 
+#: views/admin_sections/customers_discounts.php:19
+msgid ""
+"Please note that customer discounts are an experimental feature that will "
+"not work well with sites that use the block editor or FSE."
+msgstr ""
+
 #: views/admin_sections/gateways.php:17
 msgid ""
 "Please select the payment method name for each payment gateway as it appears "
@@ -921,7 +985,7 @@ msgstr ""
 msgid "Please take care of this first!"
 msgstr ""
 
-#: src/Import/SalesPayments.php:85
+#: src/Import/SalesPayments.php:87
 msgid "Postal COD (POST)"
 msgstr ""
 
@@ -929,6 +993,10 @@ msgstr ""
 #: views/dk_product_variations.php:151
 #, php-format
 msgid "Price (%s)"
+msgstr ""
+
+#: views/admin_sections/product_categories.php:17
+msgid "Product Categories"
 msgstr ""
 
 #: views/admin_sections/products.php:15
@@ -955,7 +1023,7 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: src/CustomerDiscounts.php:578
+#: src/CustomerDiscounts.php:571
 msgid "Regular Price:"
 msgstr ""
 
@@ -1013,7 +1081,7 @@ msgstr ""
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
 msgstr ""
 
-#: src/Admin.php:452 src/Admin.php:453
+#: src/Admin.php:456 src/Admin.php:457
 msgid "Settings"
 msgstr ""
 
@@ -1035,7 +1103,7 @@ msgid ""
 "can be purchased on %3$stengillpro.is%4$s"
 msgstr ""
 
-#: src/Export/Order.php:280
+#: src/Export/CreditInvoice.php:165 src/Export/Order.php:292
 msgid "Shipping"
 msgstr ""
 
@@ -1111,18 +1179,18 @@ msgstr ""
 msgid "The DK invoice number has not been set for this order"
 msgstr ""
 
-#: src/Service/DKApiRequest.php:79 src/Service/DKApiRequest.php:151
+#: src/Service/DKApiRequest.php:83 src/Service/DKApiRequest.php:155
 msgid "The dkPlus API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:568
+#: src/Admin.php:572
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:580
+#: src/Admin.php:584
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
@@ -1182,7 +1250,7 @@ msgid ""
 "order."
 msgstr ""
 
-#: src/Admin.php:170
+#: src/Admin.php:172
 msgid ""
 "This plugin is developed, maintained and supported on goodwill basis, "
 "without any warranty or guarantees as per the GPLv3 license. As the plugin "
@@ -1220,8 +1288,12 @@ msgstr ""
 msgid "Unable to create invoice in DK: "
 msgstr ""
 
-#: views/dk_invoice_metabox.php:54 views/dk_invoice_metabox.php:153
+#: views/refund_credit_invoice_partial.php:46 views/dk_invoice_metabox.php:54
 msgid "Update"
+msgstr ""
+
+#: views/admin_sections/products.php:112
+msgid "Update Product Category"
 msgstr ""
 
 #: views/admin_sections/products.php:101
@@ -1238,6 +1310,12 @@ msgstr ""
 
 #: views/admin_sections/products.php:79
 msgid "Update Stock Status"
+msgstr ""
+
+#: views/refund_credit_invoice_partial.php:42
+msgid ""
+"Update the credit invoice number reference without generating a new credit "
+"invoice in DK"
 msgstr ""
 
 #: views/dk_invoice_metabox.php:51
@@ -1262,7 +1340,7 @@ msgstr ""
 msgid "Variation #%d"
 msgstr ""
 
-#: views/admin_sections/products.php:145
+#: views/admin_sections/products.php:156
 msgid "Variations and Attributes"
 msgstr ""
 
@@ -1286,7 +1364,7 @@ msgstr ""
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr ""
 
-#: src/Config.php:1028
+#: src/Config.php:1038
 msgid ""
 "We are unable to check out your order. Please contact us for more "
 "information."
@@ -1306,7 +1384,7 @@ msgid ""
 "Paste it into the field below to activate your license."
 msgstr ""
 
-#: views/admin_sections/products.php:148
+#: views/admin_sections/products.php:159
 msgid ""
 "While the variation and attribute codes from DK are used internally, their "
 "values can be displayed as the descriptions that are set for each of them in "
@@ -1336,6 +1414,16 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+#. %1$s and %2$s are standins for opening and closing <code> tags.
+#: views/admin_sections/customers_discounts.php:33
+#, php-format
+msgid ""
+"You will need to add the line "
+"%1$sCONNECTOR_FOR_DK_CUSTOMER_DISCOUNTS_ENABLED = true;%2$s to an "
+"appropriate location in your %1$swp-config.php%2$s file to enable customer "
+"discounts."
+msgstr ""
+
 #: views/admin_with_errors.php:126
 msgid ""
 "You'll need to disable the Kennitala field from the Iceland Post plugin as "
@@ -1355,7 +1443,7 @@ msgid "Your Connector for DK license will expire soon! 🫣"
 msgstr ""
 
 #. The %1$s is a placeholder for the site's title.
-#: src/Export/Invoice.php:195
+#: src/Export/CreditInvoice.php:215 src/Export/Invoice.php:131
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr ""
@@ -1364,6 +1452,6 @@ msgstr ""
 msgid "Your License"
 msgstr ""
 
-#: src/CustomerDiscounts.php:582
+#: src/CustomerDiscounts.php:575
 msgid "Your Price:"
 msgstr ""

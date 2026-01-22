@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		esc_html_e(
-			"Product sync and invoice generation are based on matching a product's DK Product Code with its SKU in WooCommerce.",
+			"Product sync and invoice generation are based on matching a product's dk Product Code with its SKU in WooCommerce.",
 			'connector-for-dk'
 		);
 		?>
@@ -43,12 +43,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php echo esc_attr( Config::get_enable_downstream_product_sync() ? 'checked' : '' ); ?>
 					/>
 					<label for="enable_downstream_product_sync_field">
-						<?php esc_html_e( 'Fetch Product Data from DK', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Fetch Product Data from dk', 'connector-for-dk' ); ?>
 					</label>
 					<p class="description">
 						<?php
 						esc_html_e(
-							'Enable this to fetch and update product information from DK on an hourly basis.',
+							'Enable this to fetch and update product information from dk on an hourly basis.',
 							'connector-for-dk'
 						)
 						?>
@@ -131,7 +131,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php echo esc_attr( Config::get_delete_inactive_products() ? 'checked' : '' ); ?>
 							/>
 							<label for="delete_inactive_products_field">
-								<?php esc_html_e( 'Delete products from WooCommerce if labelled as inactive or deleted in DK', 'connector-for-dk' ); ?>
+								<?php esc_html_e( 'Delete products from WooCommerce if labelled as inactive or deleted in dk', 'connector-for-dk' ); ?>
 							</label>
 						</div>
 						<div>
@@ -157,7 +157,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		esc_html_e(
-			'While the variation and attribute codes from DK are used internally, their values can be displayed as the descriptions that are set for each of them in DK. You can disable these if you want to use your own filters for displaying variations.',
+			'While the variation and attribute codes from dk are used internally, their values can be displayed as the descriptions that are set for each of them in dk. You can disable these if you want to use your own filters for displaying variations.',
 			'connector-for-dk'
 		);
 		?>
@@ -175,12 +175,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php echo esc_attr( Config::get_use_attribute_description() ? 'checked' : '' ); ?>
 					/>
 					<label for="use_attribute_description_label_field">
-						<?php esc_html_e( 'Display the Attribute Label Description from DK', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Display the Attribute Label Description from dk', 'connector-for-dk' ); ?>
 					</label>
 					<p class="description">
 						<?php
 						esc_html_e(
-							'If enabled, the code for attribute labels will be replaced with the attribute description from DK. Disable this if you only need the attribute label code.',
+							'If enabled, the code for attribute labels will be replaced with the attribute description from dk. Disable this if you only need the attribute label code.',
 							'connector-for-dk'
 						);
 						?>
@@ -198,12 +198,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php echo esc_attr( Config::get_use_attribute_value_description() ? 'checked' : '' ); ?>
 					/>
 					<label for="use_attribute_description_value_field">
-						<?php esc_html_e( 'Display the Attribute Value Description from DK', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Display the Attribute Value Description from dk', 'connector-for-dk' ); ?>
 					</label>
 					<p class="description">
 						<?php
 						esc_html_e(
-							'If enabled, the code for attribute values will be replaced with the attribute description from DK. Disable this if you only need the attribute value code.',
+							'If enabled, the code for attribute values will be replaced with the attribute description from dk. Disable this if you only need the attribute value code.',
 							'connector-for-dk'
 						);
 						?>

@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="description">
 			<?php
 			esc_html_e(
-				'Invoices for international orders will result in or get associated with a customer record in DK using a customer number based on their WooCommerce user ID. (See ‘International Customers’ below for further details.)',
+				'Invoices for international orders will result in or get associated with a customer record in dk using a customer number based on their WooCommerce user ID. (See ‘International Customers’ below for further details.)',
 				'connector-for-dk'
 			);
 			?>

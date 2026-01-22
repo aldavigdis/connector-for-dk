@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label for="enable_dk_customer_prices_field">
 					<?php
 					esc_html_e(
-						'Fetch Customer Discount and Price Group Data from DK',
+						'Fetch Customer Discount and Price Group Data from dk',
 						'connector-for-dk'
 					);
 					?>
@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="description">
 					<?php
 					esc_html_e(
-						"If this is enabled, information on customer discounts and price groups are fetched from DK on an hourly basis based on each customer's Kennitala. Customer prices are only available to logged-in and registered users with the Kennitala attribute set to one that equals the relevant Kennitala or Customer Number in DK.",
+						"If this is enabled, information on customer discounts and price groups are fetched from dk on an hourly basis based on each customer's Kennitala. Customer prices are only available to logged-in and registered users with the Kennitala attribute set to one that equals the relevant Kennitala or Customer Number in dk.",
 						'connector-for-dk'
 					);
 					?>

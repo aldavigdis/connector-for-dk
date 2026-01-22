@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <section class="section">
 	<h2><?php esc_html_e( 'Payment Gateways', 'connector-for-dk' ); ?></h2>
-	<p><?php esc_html_e( 'Please select the payment method name for each payment gateway as it appears in DK as well as the payment mode:', 'connector-for-dk' ); ?></p>
+	<p><?php esc_html_e( 'Please select the payment method name for each payment gateway as it appears in dk as well as the payment mode:', 'connector-for-dk' ); ?></p>
 	<table id="payment-gateway-id-map-table" class="form-table">
 		<thead>
 			<tr>
 				<th scope="col"></th>
-				<th scope="col"><?php esc_html_e( 'Method ID in DK', 'connector-for-dk' ); ?></th>
-				<th scope="col"><?php esc_html_e( 'Payment Mode in DK', 'connector-for-dk' ); ?></th>
-				<th scope="col"><?php esc_html_e( 'Payment Terms in DK', 'connector-for-dk' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Method ID in dk', 'connector-for-dk' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Payment Mode in dk', 'connector-for-dk' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Payment Terms in dk', 'connector-for-dk' ); ?></th>
 				<?php do_action( 'connector_for_dk_after_payment_gateway_heading_cells', $p ); ?>
 			</tr>
 		</thead>

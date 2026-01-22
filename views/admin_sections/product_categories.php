@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 	esc_html_e(
-		'Below, you can pair up each product group from DK with an equivalent category in WooCommerce. One WooCommerce category may be chosen for each DK product group.',
+		'Below, you can pair up each product group from dk with an equivalent category in WooCommerce. One WooCommerce category may be chosen for each dk product group.',
 		'connector-for-dk'
 	);
 	?>

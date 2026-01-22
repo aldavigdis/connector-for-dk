@@ -29,7 +29,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			<p class="subheading">
 		<?php
 		esc_html_e(
-			"There's a couple of things you need to do before we let you continue using the Connector for DK plugin.",
+			"There's a couple of things you need to do before we let you continue using the Connector for dk plugin.",
 			'connector-for-dk'
 		);
 		?>
@@ -50,7 +50,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							'Connector for DK only supports stores with the base location set to Iceland.',
+							'Connector for dk only supports stores with the base location set to Iceland.',
 							'connector-for-dk'
 						);
 						?>
@@ -80,7 +80,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							'Products synced from DK will be matched with the relevant VAT rate, but it requires the relevant rate to be present in WooCommerce.',
+							'Products synced from dk will be matched with the relevant VAT rate, but it requires the relevant rate to be present in WooCommerce.',
 							'connector-for-dk'
 						);
 						?>
@@ -132,7 +132,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							'Otherwise, Connector for DK is compatible with the Iceland Post plugin as it saves the kennitala in the same way.',
+							'Otherwise, Connector for dk is compatible with the Iceland Post plugin as it saves the kennitala in the same way.',
 							'connector-for-dk'
 						);
 						?>

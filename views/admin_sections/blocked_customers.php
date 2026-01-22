@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 	esc_html_e(
-		'DK facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below.',
+		'dk facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below.',
 		'connector-for-dk'
 	);
 	?>

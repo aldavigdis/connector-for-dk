@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label for="enable_dk_customer_prices_field">
 					<?php
 					esc_html_e(
-						'Sync customer information from DK',
+						'Sync customer information from dk',
 						'connector-for-dk'
 					);
 					?>
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p>
 					<?php
 					esc_html_e(
-						"Connector for DK can keep registered customers' addresses, email addresses and phone numbers in sync with DK. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant DK customer record.",
+						"Connector for dk can keep registered customers' addresses, email addresses and phone numbers in sync with DK. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant dk customer record.",
 						'connector-for-dk'
 					);
 					?>

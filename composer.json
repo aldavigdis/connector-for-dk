@@ -1,6 +1,6 @@
 {
     "name": "aldavigdis/connector-for-dk",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
@@ -15,7 +15,7 @@
     },
     "require": {
         "opis/json-schema": "^2.0@dev",
-        "typisttech/imposter-plugin": "^0.6.0@dev",
+        "typisttech/imposter-plugin": "^0.6.1@dev",
         "brick/math": "^0.12",
         "tuupola/base85": "^2.1",
         "silverassist/wp-github-updater": "^1.2"

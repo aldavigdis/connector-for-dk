@@ -20,6 +20,7 @@ use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
 use WC_Product_Variable;
+use RoundingMode as PHPRoundingMode;
 
 /**
  * The Products import class
@@ -603,6 +604,7 @@ class Products {
 	public static function get_product_price_from_json(
 		stdClass $json_object
 	): stdClass|false|WP_Error {
+		$decimals       = (int) get_option( 'woocommerce_price_num_decimals', 0 );
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = Config::get_dk_currency();
 
@@ -632,11 +634,23 @@ class Products {
 		}
 
 		if ( wc_prices_include_tax() ) {
-			$price = $price_with_tax;
+			$price = round(
+				$price_with_tax,
+				$decimals,
+				PHPRoundingMode::HalfAwayFromZero
+			);
 
 			if ( isset( $price_2_with_tax, $price_3_with_tax ) ) {
-				$price_2 = $price_2_with_tax;
-				$price_3 = $price_3_with_tax;
+				$price_2 = round(
+					$price_2_with_tax,
+					$decimals,
+					PHPRoundingMode::HalfAwayFromZero
+				);
+				$price_3 = round(
+					$price_3_with_tax,
+					$decimals,
+					PHPRoundingMode::HalfAwayFromZero
+				);
 			}
 
 			if ( $sale_price_before_tax > 0 ) {
@@ -648,11 +662,23 @@ class Products {
 				$sale_price = '';
 			}
 		} else {
-			$price = $price_before_tax;
+			$price = round(
+				$price_before_tax,
+				$decimals,
+				PHPRoundingMode::HalfAwayFromZero
+			);
 
 			if ( isset( $price_2_before_tax, $price_3_before_tax ) ) {
-				$price_2 = $price_2_before_tax;
-				$price_3 = $price_3_before_tax;
+				$price_2 = round(
+					$price_2_before_tax,
+					$decimals,
+					PHPRoundingMode::HalfAwayFromZero
+				);
+				$price_3 = round(
+					$price_3_before_tax,
+					$decimals,
+					PHPRoundingMode::HalfAwayFromZero
+				);
 			}
 
 			if ( $sale_price_before_tax > 0 ) {

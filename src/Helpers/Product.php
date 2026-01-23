@@ -16,6 +16,7 @@ use WC_Tax;
 use WC_DateTime;
 use WC_Product_Variable;
 use WP_Error;
+use RoundingMode as PHPRoundingMode;
 
 /**
  * The Product Helper Class
@@ -647,7 +648,11 @@ class Product {
 		$discount         = $price_d->multipliedBy( $multiplier );
 		$discounted_price = $price_d->minus( $discount );
 
-		return (string) $discounted_price->toFloat();
+		return (string) round(
+			$discounted_price->toFloat(),
+			2,
+			PHPRoundingMode::HalfAwayFromZero
+		);
 	}
 
 	/**

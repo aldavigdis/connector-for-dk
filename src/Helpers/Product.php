@@ -628,6 +628,8 @@ class Product {
 		WC_Product $product,
 		WC_Customer $customer
 	): string {
+		$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+
 		$discount_meta = floatval(
 			$customer->get_meta( 'connector_for_dk_discount' )
 		);
@@ -650,7 +652,7 @@ class Product {
 
 		return (string) round(
 			$discounted_price->toFloat(),
-			2,
+			$decimals,
 			PHPRoundingMode::HalfAwayFromZero
 		);
 	}

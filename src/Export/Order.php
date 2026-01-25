@@ -15,6 +15,7 @@ use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product;
 use WP_Error;
+use RoundingMode as PHPRoundingMode;
 
 /**
  * The Order Export class
@@ -209,13 +210,17 @@ class Order {
 
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
-				BigDecimal::of(
-					$subtotal
-				)->minus(
-					$discounted_price
-				)->multipliedBy(
-					$item->get_quantity()
-				)->toFloat(),
+				round(
+					BigDecimal::of(
+						$subtotal
+					)->minus(
+						$discounted_price
+					)->multipliedBy(
+						$item->get_quantity()
+					)->toFloat(),
+					(int) get_option( 'woocommerce_price_num_decimals', 0 ),
+					PHPRoundingMode::HalfAwayFromZero
+				),
 				$item
 			);
 

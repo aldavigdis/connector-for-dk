@@ -104,8 +104,15 @@ class SalesPayments {
 	 * @return array<string>
 	 */
 	public static function get_payment_terms(): array {
-		$terms_updated   = get_option( 'connector_for_dk_payment_terms_updated' );
-		$terms_transient = get_option( 'connector_for_dk_payment_terms' );
+		$terms_updated = get_option(
+			'connector_for_dk_payment_terms_updated',
+			false
+		);
+
+		$terms_transient = get_option(
+			'connector_for_dk_payment_terms',
+			false
+		);
 
 		if (
 			is_array( $terms_transient ) &&
@@ -134,7 +141,11 @@ class SalesPayments {
 			}
 		}
 
-		return array();
+		if ( ! $terms_transient ) {
+			return array();
+		}
+
+		return $terms_transient;
 	}
 
 	/**
@@ -202,8 +213,15 @@ class SalesPayments {
 	 * contents of DK_PAYMENT_MODES will be returned.
 	 */
 	public static function get_payment_modes(): array {
-		$modes_updated   = get_option( 'connector_for_dk_payment_modes_updated' );
-		$modes_transient = get_transient( 'connector_for_dk_payment_modes' );
+		$modes_updated = get_option(
+			'connector_for_dk_payment_modes_updated',
+			0
+		);
+
+		$modes_transient = get_transient(
+			'connector_for_dk_payment_modes',
+			false
+		);
 
 		if (
 			is_array( $modes_transient ) &&
@@ -232,7 +250,11 @@ class SalesPayments {
 			}
 		}
 
-		return self::DK_PAYMENT_MODES;
+		if ( ! $modes_transient ) {
+			return self::DK_PAYMENT_MODES;
+		}
+
+		return (array) $modes_transient;
 	}
 
 	/**
@@ -243,8 +265,15 @@ class SalesPayments {
 	 * @return array<stdClass>
 	 */
 	public static function get_methods(): array {
-		$methods_updated   = get_option( 'connector_for_dk_payment_modes_updated' );
-		$methods_transient = get_transient( 'connector_for_dk_payment_methods' );
+		$methods_updated = get_option(
+			'connector_for_dk_payment_modes_updated',
+			0
+		);
+
+		$methods_transient = get_transient(
+			'connector_for_dk_payment_methods',
+			false
+		);
 
 		if (
 			is_array( $methods_transient ) &&
@@ -270,7 +299,11 @@ class SalesPayments {
 			}
 		}
 
-		return array();
+		if ( ! $methods_transient ) {
+			return array();
+		}
+
+		return $methods_transient;
 	}
 
 	/**

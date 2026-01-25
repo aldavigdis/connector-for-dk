@@ -124,13 +124,6 @@ class CustomerDiscounts {
 			);
 
 			add_filter(
-				'woocommerce_product_variation_get_price',
-				array( __CLASS__, 'get_discounted_price' ),
-				10,
-				2
-			);
-
-			add_filter(
 				'woocommerce_product_get_regular_price',
 				array( __CLASS__, 'get_regular_price' ),
 				10,
@@ -425,11 +418,7 @@ class CustomerDiscounts {
 			$customer
 		);
 
-		$regular_price = $product->get_meta(
-			'connector_for_dk_price_1',
-			true,
-			'edit'
-		);
+		$regular_price = $product->get_price( 'edit' );
 
 		if ( $product->is_on_sale() ) {
 			return wc_format_sale_price(

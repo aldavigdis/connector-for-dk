@@ -39,6 +39,11 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.6.2 =
+* Removing the variation discount filter as it was causing discounts to be applied twice
+* Rounding customer discounts for improved accuracy
+* Tweaking attribute caching strategy
+
 = 0.6.1 =
 * Rounding imported product prices and discounted customers' prices
 

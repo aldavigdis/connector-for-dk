@@ -19,19 +19,31 @@ class ProductGroups {
 
 	const INCLUDE_PROPERTIES = array( 'Number', 'Description' );
 
-	const TRANSIENT_EXPIRY = 900;
+	const TRANSIENT_EXPIRY = 60;
 
 	/**
 	 * Get the product categories, using a local cache
+	 *
+	 * @param bool $skip_cache Wether to skip the cahce and get the product
+	 *                         groups directly from the dkPlus API.
 	 */
-	public static function get_all(): array {
-		$product_groups_updated = get_option( 'connector_for_dk_product_groups_updated' );
+	public static function get_all(
+		bool $skip_cache = false
+	): array {
+		$product_groups_updated = get_option(
+			'connector_for_dk_product_groups_updated',
+			0
+		);
 
-		$product_groups_transient = self::get_all_from_dk();
+		$product_groups_transient = get_option(
+			'connector_for_dk_product_groups',
+			false
+		);
 
 		if (
+			$skip_cache === false &&
 			is_array( $product_groups_transient ) &&
-			( $product_groups_updated > time() - HOUR_IN_SECONDS )
+			( $product_groups_updated > time() - self::TRANSIENT_EXPIRY )
 		) {
 			return $product_groups_transient;
 		}
@@ -54,7 +66,11 @@ class ProductGroups {
 			}
 		}
 
-		return array();
+		if ( ! $product_groups_transient ) {
+			return array();
+		}
+
+		return $product_groups_transient;
 	}
 
 	/**

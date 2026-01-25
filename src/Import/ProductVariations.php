@@ -182,11 +182,20 @@ class ProductVariations {
 	 * used in DK, keyed by their variation ID.
 	 */
 	public static function get_variations(): array {
-		$variations_transient = get_transient(
-			'connector_for_dk_variations'
+		$variations_updated = get_option(
+			'connector_for_dk_variations_updated',
+			0
 		);
 
-		if ( is_array( $variations_transient ) ) {
+		$variations_transient = get_transient(
+			'connector_for_dk_variations',
+			false
+		);
+
+		if (
+			is_array( $variations_transient ) &&
+			( $variations_updated > time() - HOUR_IN_SECONDS )
+		) {
 			return $variations_transient;
 		}
 
@@ -202,7 +211,11 @@ class ProductVariations {
 			return $variations_value;
 		}
 
-		return array();
+		if ( $variations_transient === false ) {
+			return array();
+		}
+
+		return $variations_transient;
 	}
 
 	/**

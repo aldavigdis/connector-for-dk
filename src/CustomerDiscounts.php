@@ -107,11 +107,22 @@ class CustomerDiscounts {
 			);
 
 			add_action(
+				'woocommerce_proceed_to_checkout',
+				array( __CLASS__, 'display_enumeration_notice' ),
+				10,
+				0
+			);
+
+			add_action(
+				'woocommerce_review_order_before_submit',
+				array( __CLASS__, 'display_enumeration_notice' ),
+				10,
+				0
+			);
+
+			add_action(
 				'woocommerce_get_order_item_totals',
-				array(
-					__CLASS__,
-					'add_customer_discount_to_order_items_totals',
-				),
+				array( __CLASS__, 'add_customer_discount_to_order_items_totals' ),
 				10,
 				3
 			);
@@ -150,6 +161,34 @@ class CustomerDiscounts {
 				10,
 				1
 			);
+
+			add_filter(
+				'woocommerce_product_get_price',
+				array( __CLASS__, 'get_group_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_product_variation_get_price',
+				array( __CLASS__, 'get_group_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_cart_item_price',
+				array( __CLASS__, 'filter_cart_item_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_cart_item_subtotal',
+				array( __CLASS__, 'filter_cart_item_subtotal' ),
+				10,
+				2
+			);
 		}
 
 		add_action(
@@ -171,6 +210,119 @@ class CustomerDiscounts {
 			array( __CLASS__, 'add_discount_info_to_include_properties' ),
 			10,
 			1
+		);
+	}
+
+	/**
+	 * Filter cart items to display discounts
+	 *
+	 * Formats cart item prices to display them as discounted in the classic
+	 * shortcode based checkout process.
+	 *
+	 * @param string $product_price The original product price string.
+	 * @param array  $cart_item The item, as an associative array from WC()->cart.
+	 *
+	 * @return string A formatted string, with the original price struck-out if
+	 *                there is a discount.
+	 */
+	public static function filter_cart_item_price(
+		string $product_price,
+		array $cart_item
+	): string {
+		$original_price = $cart_item['data']->get_price( 'edit' );
+
+		$discounted_price = self::get_discounted_price(
+			$original_price,
+			$cart_item['data']
+		);
+
+		if ( $discounted_price === $original_price ) {
+			return $product_price;
+		}
+
+		return self::format(
+			$product_price,
+			$discounted_price
+		);
+	}
+
+	/**
+	 * Format cart item subtotals to display discounts
+	 *
+	 * @param string $product_subtotal The subtotal string.
+	 * @param array  $cart_item The item, as an associative array from WC()->cart.
+	 *
+	 * @return string A formatted string, with the original price struck-out if
+	 *                there is a discount.
+	 */
+	public static function filter_cart_item_subtotal(
+		string $product_subtotal,
+		array $cart_item
+	): string {
+		$original_price = $cart_item['data']->get_price( 'edit' );
+
+		$discounted_price = self::get_discounted_price(
+			$original_price,
+			$cart_item['data']
+		);
+
+		if ( $discounted_price === $original_price ) {
+			return $original_price;
+		}
+
+		$discounted_subtotal = BigDecimal::of(
+			$discounted_price
+		)->multipliedBy(
+			$cart_item['quantity']
+		)->toFloat();
+
+		return self::format(
+			$product_subtotal,
+			(string) $discounted_subtotal
+		);
+	}
+
+	/**
+	 * Display a disclaimer below the classic checkout
+	 */
+	public static function display_enumeration_notice(): void {
+		echo '<p>';
+		echo sprintf(
+			// Translators: The sprintf symbols are opening and closing <strong> tags.
+			esc_html__(
+				'%1$sNote:%2$s The final enumeration will be provided on your invoice.',
+				'connector-for-dk'
+			),
+			'<strong>',
+			'</strong>'
+		);
+		echo '</p>';
+	}
+
+	/**
+	 * Get the group price for an item, without discount
+	 *
+	 * @param string     $price The original price.
+	 * @param WC_Product $product The WooCommerce product.
+	 *
+	 * @return string The group price.
+	 */
+	public static function get_group_price(
+		string $price,
+		WC_Product $product
+	): string {
+		$customer_id = get_current_user_id();
+
+		if ( $customer_id === 0 ) {
+			return $price;
+		}
+
+		$customer = new WC_Customer( $customer_id );
+
+		return ProductHelper::get_group_price(
+			$product,
+			$customer,
+			( get_option( 'woocommerce_tax_display_shop' ) === 'incl' )
 		);
 	}
 
@@ -258,9 +410,35 @@ class CustomerDiscounts {
 			return;
 		}
 
+		if ( ( get_option( 'woocommerce_tax_display_shop' ) === 'incl' ) ) {
+			$cart_items_total = BigDecimal::of(
+				WC()->cart->get_subtotal()
+			)->plus(
+				WC()->cart->get_subtotal_tax()
+			);
+		} else {
+			$cart_items_total = WC()->cart->get_subtotal();
+		}
+
+		$discount_multiplier = BigDecimal::of( $discount )->dividedBy(
+			100,
+			24,
+			RoundingMode::HALF_CEILING
+		);
+
+		$discount_amt = BigDecimal::of(
+			$cart_items_total
+		)->multipliedBy(
+			$discount_multiplier
+		);
+
 		echo '<tr><th>';
 		esc_html_e( 'Customer discount:', 'connector-for-dk' );
-		echo '</th><td>' . esc_html( $discount ) . '%</td></tr>';
+		echo '</th><td>';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wc_price( $discount_amt->toFloat() );
+		echo ' <small>(' . esc_html( $discount ) . '%)</small>';
+		echo '</td></tr>';
 	}
 
 	/**

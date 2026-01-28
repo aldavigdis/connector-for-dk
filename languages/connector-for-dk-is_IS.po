@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-01-21 10:31+0000\n"
+"PO-Revision-Date: 2026-01-28 05:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -68,6 +68,12 @@ msgstr ""
 "%1$sAthugið:%2$s Reikningagerð fyrir erlendar pantanir er ekki til fyrir "
 "þessa útgáfu af Tengli fyrir DK. Þú getur gert reikning handvirkt og vísað í "
 "hann hér."
+
+#. The sprintf symbols are opening and closing <strong> tags.
+#: src/CustomerDiscounts.php:292
+#, php-format
+msgid "%1$sNote:%2$s The final enumeration will be provided on your invoice."
+msgstr "%1$sAthugið:%2$s Lokaupphæðir munu koma fram á reikning."
 
 #. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
 #: src/KennitalaField.php:488
@@ -145,7 +151,7 @@ msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í DK."
 
-#: src/Import/SalesPayments.php:176
+#: src/Import/SalesPayments.php:186
 msgid "A or B Giro Request (ABG)"
 msgstr "A eða B gíróseðlar (ABG)"
 
@@ -348,11 +354,11 @@ msgstr "Auðkenning"
 msgid "Backorders"
 msgstr "Neikvæð lagerstaða"
 
-#: src/Import/SalesPayments.php:186
+#: src/Import/SalesPayments.php:196
 msgid "Bank Collection Service (IB)"
 msgstr "Innheimtuþjónusta banka (IB)"
 
-#: src/Import/SalesPayments.php:178
+#: src/Import/SalesPayments.php:188
 msgid "Bank Transfer (BM)"
 msgstr "Bankamillifærsla (BM)"
 
@@ -369,19 +375,19 @@ msgstr ""
 msgid "Blocked Customers"
 msgstr "Lokað fyrir viðskipti"
 
-#: src/Import/SalesPayments.php:180
+#: src/Import/SalesPayments.php:190
 msgid "C Giro Request (CG)"
 msgstr "C gíróseðlar (CG)"
 
-#: src/Import/SalesPayments.php:182
+#: src/Import/SalesPayments.php:192
 msgid "Card Payment (GKR)"
 msgstr "Greiðslukort (GKR)"
 
-#: src/Import/SalesPayments.php:89 src/Import/SalesPayments.php:188
+#: src/Import/SalesPayments.php:89 src/Import/SalesPayments.php:198
 msgid "Cash Payment (STGR)"
 msgstr "Staðgreitt (STGR)"
 
-#: src/Import/SalesPayments.php:190
+#: src/Import/SalesPayments.php:200
 msgid "Cheque Payment (TGR)"
 msgstr "Tékkagreiðsla (TGR)"
 
@@ -469,7 +475,7 @@ msgstr "Líðandi mánuður + 15 dagar"
 msgid "Current Month + 20 Days (M20)"
 msgstr "Líðandi mánuður + 20 dagar"
 
-#: src/CustomerDiscounts.php:269 src/CustomerDiscounts.php:293
+#: src/CustomerDiscounts.php:436 src/CustomerDiscounts.php:464
 msgid "Customer discount:"
 msgstr "Afsláttur viðskiptavinar:"
 
@@ -655,7 +661,7 @@ msgstr "Kveikt"
 msgid "Error"
 msgstr "Villa"
 
-#: src/Export/CreditInvoice.php:151 src/Export/Order.php:275
+#: src/Export/CreditInvoice.php:151 src/Export/Order.php:280
 msgid "Fee"
 msgstr "Gjald"
 
@@ -721,7 +727,7 @@ msgstr "Sækja kreditreikning sem PDF-skrá"
 msgid "Get the invoice as a PDF file"
 msgstr "Sækja reikninginn sem PDF-skrá."
 
-#: src/Import/SalesPayments.php:184
+#: src/Import/SalesPayments.php:194
 msgid "Giro Transfer (GM)"
 msgstr "Gírómillifærsla (GM)"
 
@@ -1203,7 +1209,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/CustomerDiscounts.php:571
+#: src/CustomerDiscounts.php:738
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -1289,7 +1295,7 @@ msgstr ""
 "uppfærslur o.fl. um leið og þú %1$sslærð inn leyfiskóða%2$s. Áskriftir er "
 "hægt að fá á %3$stengillpro.is%4$s."
 
-#: src/Export/CreditInvoice.php:165 src/Export/Order.php:292
+#: src/Export/CreditInvoice.php:165 src/Export/Order.php:297
 msgid "Shipping"
 msgstr "Sendingar"
 
@@ -1709,6 +1715,6 @@ msgstr "Reikningurinn þinn frá %1$s"
 msgid "Your License"
 msgstr "Þitt leyfi"
 
-#: src/CustomerDiscounts.php:575
+#: src/CustomerDiscounts.php:742
 msgid "Your Price:"
 msgstr "Þitt verð:"

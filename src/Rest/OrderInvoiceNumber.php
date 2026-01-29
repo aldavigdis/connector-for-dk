@@ -8,10 +8,13 @@ use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
+use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
 use AldaVigdis\ConnectorForDK\Rest\PostEndpointTemplate;
 use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use AldaVigdis\ConnectorForDK\Export\CreditInvoice as ExportCreditInvoice;
 use WC_Order;
+use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
 /**
  * The Order Invoice Number REST API class
@@ -71,29 +74,48 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 
 		$wc_order = wc_get_order( $rest_json->order_id );
 
-		$original_invoice_number = ExportInvoice::get_dk_invoice_number(
-			$wc_order
+		$wc_order->update_meta_data(
+			'connector_for_dk_invoice_number',
+			(string) $rest_json->invoice_number
 		);
 
-		if ( $rest_json->invoice_number !== $original_invoice_number ) {
-			$wc_order->update_meta_data(
-				'connector_for_dk_invoice_number',
-				(string) $rest_json->invoice_number
+		$wc_order->delete_meta_data( 'connector_for_dk_pdf_file_name' );
+
+		$wc_order->save_meta_data();
+
+		if ( $wc_order instanceof WC_Order ) {
+			$wc_order->add_order_note(
+				sprintf(
+					// Translators: %1$s is a placeholder for the invoice number that was manually entered.
+					__(
+						'Invoice number set to %1$s.',
+						'connector-for-dk'
+					),
+					$rest_json->invoice_number
+				)
 			);
+		}
 
-			$wc_order->delete_meta_data( 'connector_for_dk_pdf_file_name' );
-
-			$wc_order->save_meta_data();
-
-			if ( $wc_order instanceof WC_Order ) {
+		if ( Config::get_email_invoice() ) {
+			if ( $wc_order instanceof OrderRefund && ExportCreditInvoice::email_in_dk( $wc_order ) ) {
+				$parent = wc_get_order( $wc_order->get_parent_id() );
+				if ( $parent ) {
+					$parent->add_order_note(
+						sprintf(
+							// Translators: %1$s stands for the WooCommerce order return ID.
+							__(
+								'An email containing a credit invoice for refund #%1$s as a PDF attachment was sent to the customer via DK.',
+								'connector-for-dk'
+							),
+							$wc_order->get_id()
+						)
+					);
+				}
+			} elseif ( $wc_order instanceof WC_Order && ExportInvoice::email_in_dk( $wc_order ) ) {
 				$wc_order->add_order_note(
-					sprintf(
-						// Translators: %1$s is a placeholder for the invoice number that was manually entered.
-						__(
-							'Invoice number set to %1$s.',
-							'connector-for-dk'
-						),
-						$rest_json->invoice_number
+					__(
+						'An email containing the invoice as a PDF attachment was sent to the customer via DK.',
+						'connector-for-dk'
 					)
 				);
 			}

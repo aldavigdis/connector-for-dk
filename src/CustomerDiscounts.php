@@ -8,9 +8,12 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use RoundingMode as PHPRoundingMode;
 use stdClass;
 use WC_Customer;
 use WC_Order;
+use WC_Order_Item;
+use WC_Order_Item_Product;
 use WC_Product;
 use WC_Product_Variable;
 
@@ -189,6 +192,13 @@ class CustomerDiscounts {
 				10,
 				2
 			);
+
+			add_filter(
+				'woocommerce_order_formatted_line_subtotal',
+				array( __CLASS__, 'filter_order_line_item_subtotal' ),
+				10,
+				2
+			);
 		}
 
 		add_action(
@@ -244,6 +254,41 @@ class CustomerDiscounts {
 			$product_price,
 			$discounted_price
 		);
+	}
+
+	/**
+	 * Display subtotals in the order confirmation as discounted
+	 *
+	 * @param string        $product_subtotal The originally displayed subtotal.
+	 * @param WC_Order_Item $item The WooCommerce item.
+	 */
+	public static function filter_order_line_item_subtotal(
+		string $product_subtotal,
+		WC_Order_Item $item
+	): string {
+		if ( $item instanceof WC_Order_Item_Product && $item->get_product() ) {
+			$discounted_subtotal = self::get_discounted_price(
+				$product_subtotal,
+				$item->get_product()
+			);
+
+			if ( $discounted_subtotal === $product_subtotal ) {
+				return $product_subtotal;
+			}
+
+			$discounted_subtotal = BigDecimal::of(
+				$discounted_subtotal
+			)->multipliedBy(
+				$item->get_quantity()
+			)->toFloat();
+
+			return self::format(
+				$product_subtotal,
+				(string) $discounted_subtotal
+			);
+		}
+
+		return $product_subtotal;
 	}
 
 	/**
@@ -644,8 +689,8 @@ class CustomerDiscounts {
 		}
 
 		if (
-			round( (float) $regular_price, self::decimals() ) >
-			round( (float) $customer_price, self::decimals() )
+			round( (float) $regular_price, self::decimals(), PHPRoundingMode::HalfEven ) >
+			round( (float) $customer_price, self::decimals(), PHPRoundingMode::HalfEven )
 		) {
 			return self::format( $regular_price, $customer_price );
 		}
@@ -811,8 +856,8 @@ class CustomerDiscounts {
 		$sale_price = $product->get_sale_price( 'edit' );
 
 		if (
-			round( (float) $sale_price, self::decimals() ) >
-			round( (float) $customer_price, self::decimals() )
+			round( (float) $sale_price, self::decimals(), PHPRoundingMode::HalfEven ) >
+			round( (float) $customer_price, self::decimals(), PHPRoundingMode::HalfEven )
 		) {
 			return $customer_price;
 		}

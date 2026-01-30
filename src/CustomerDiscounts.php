@@ -364,10 +364,19 @@ class CustomerDiscounts {
 
 		$customer = new WC_Customer( $customer_id );
 
-		return ProductHelper::get_group_price(
-			$product,
-			$customer,
-			( get_option( 'woocommerce_tax_display_shop' ) === 'incl' )
+		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
+
+		return (string) round(
+			floatval(
+				ProductHelper::get_group_price(
+					$product,
+					$customer,
+					( get_option( 'woocommerce_tax_display_shop' ) === 'incl' ),
+					$incl_tax
+				),
+			),
+			self::decimals(),
+			PHPRoundingMode::HalfAwayFromZero
 		);
 	}
 

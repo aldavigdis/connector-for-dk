@@ -65,8 +65,6 @@ class OrderMeta {
 			$customer->get_meta( 'connector_for_dk_discount' )
 		);
 
-		$discount_total = BigDecimal::of( 0 );
-
 		foreach ( $order->get_items() as $item ) {
 			if ( ! $item instanceof WC_Order_Item_Product ) {
 				continue;
@@ -87,18 +85,6 @@ class OrderMeta {
 				$product,
 				$customer,
 				false
-			);
-
-			$discount = BigDecimal::of(
-				$product->get_regular_price( 'edit' )
-			)->minus(
-				$group_price
-			);
-
-			$discount_total = BigDecimal::of(
-				$discount_total
-			)->plus(
-				$discount
 			);
 
 			$item->update_meta_data(
@@ -154,8 +140,6 @@ class OrderMeta {
 
 			$item->save_meta_data();
 		}
-
-		$order->set_discount_total( (string) $discount_total->toFloat() );
 
 		$order->update_meta_data(
 			'connector_for_dk_price_group',

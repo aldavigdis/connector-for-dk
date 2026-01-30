@@ -109,7 +109,7 @@ class OrderStatus {
 				return;
 			}
 
-			if ( $dk_customer->CountryCode !== $tax_location['country'] ) {
+			if ( property_exists( $dk_customer, 'CountryCode' ) && $dk_customer->CountryCode !== $tax_location['country'] ) {
 				__(
 					"An invoice could not be automatically generated as the country indicated in the order's address does not match with the relevant DK customer record.",
 					'connector-for-dk'

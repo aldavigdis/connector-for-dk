@@ -188,7 +188,11 @@ class Order {
 
 			if ( empty( $item->get_meta( 'connector_for_dk_item_on_sale' ) ) ) {
 				$subtotal = BigDecimal::of(
-					$item->get_subtotal()
+					BigDecimal::of(
+						$item->get_subtotal()
+					)->plus(
+						$item->get_subtotal_tax()
+					)
 				)->dividedBy(
 					$item->get_quantity(),
 					24,
@@ -196,12 +200,16 @@ class Order {
 				)->toFloat();
 			} else {
 				$subtotal = BigDecimal::of(
-					$item->get_meta( 'connector_for_dk_regular_price' )
+					BigDecimal::of(
+						$item->get_total()
+					)->plus(
+						$item->get_total_tax()
+					)
 				)->toFloat();
 			}
 
 			$discounted_price = BigDecimal::of(
-				$item->get_total()
+				BigDecimal::of( $item->get_total() )->plus( $item->get_total_tax() )
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
@@ -219,7 +227,7 @@ class Order {
 						$item->get_quantity()
 					)->toFloat(),
 					(int) get_option( 'woocommerce_price_num_decimals', 0 ),
-					PHPRoundingMode::HalfAwayFromZero
+					PHPRoundingMode::HalfEven
 				),
 				$item
 			);
@@ -230,7 +238,7 @@ class Order {
 				'Quantity'       => $item->get_quantity(),
 				'Price'          => $subtotal,
 				'DiscountAmount' => $discount,
-				'IncludingVAT'   => false,
+				'IncludingVAT'   => true,
 			);
 
 			$origin = $item->get_meta(

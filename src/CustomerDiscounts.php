@@ -8,6 +8,7 @@ use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use RoundingMode as PHPRoundingMode;
 use stdClass;
 use WC_Customer;
 use WC_Order;
@@ -644,8 +645,8 @@ class CustomerDiscounts {
 		}
 
 		if (
-			round( (float) $regular_price, self::decimals() ) >
-			round( (float) $customer_price, self::decimals() )
+			round( (float) $regular_price, self::decimals(), PHPRoundingMode::HalfEven ) >
+			round( (float) $customer_price, self::decimals(), PHPRoundingMode::HalfEven )
 		) {
 			return self::format( $regular_price, $customer_price );
 		}
@@ -811,8 +812,8 @@ class CustomerDiscounts {
 		$sale_price = $product->get_sale_price( 'edit' );
 
 		if (
-			round( (float) $sale_price, self::decimals() ) >
-			round( (float) $customer_price, self::decimals() )
+			round( (float) $sale_price, self::decimals(), PHPRoundingMode::HalfEven ) >
+			round( (float) $customer_price, self::decimals(), PHPRoundingMode::HalfEven )
 		) {
 			return $customer_price;
 		}

@@ -564,7 +564,7 @@ class CustomerDiscounts {
 
 		$wc_customer->update_meta_data(
 			'connector_for_dk_price_group',
-			strval( $dk_customer->PriceGroup )
+			strval( $dk_customer->PriceGroup + 1 )
 		);
 
 		$wc_customer->save_meta_data();

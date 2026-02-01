@@ -1002,33 +1002,6 @@ class Config {
 	}
 
 	/**
-	 * Get wether to display DK customer prices as discounts
-	 *
-	 * This will display a <del> HTML snippet with the regular price next to
-	 * each product on the storefront, along with the customer's price.
-	 */
-	public static function get_display_dk_customer_prices_as_discount(): bool {
-		return (bool) self::get_option(
-			'display_dk_customer_prices_as_discount',
-			true
-		);
-	}
-
-	/**
-	 * Set wether to display DK customer prices as discounts
-	 *
-	 * @param bool $value True to enable, false to disable.
-	 */
-	public static function set_display_dk_customer_prices_as_discount(
-		bool $value
-	): bool {
-		return self::update_option(
-			'display_dk_customer_prices_as_discount',
-			$value
-		);
-	}
-
-	/**
 	 * Get the message that is shown to customers if their account is blocked.
 	 */
 	public static function get_blocked_customers_message(): string {

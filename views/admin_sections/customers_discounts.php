@@ -73,34 +73,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</p>
 			</td>
 		</tr>
-		<tr>
-			<th scope="row" class="column-title column-primary">
-			</th>
-			<td>
-				<input
-					id="display_dk_customer_prices_as_discount_field"
-					name="display_dk_customer_prices_as_discount"
-					type="checkbox"
-					<?php echo esc_attr( Config::get_display_dk_customer_prices_as_discount() ? 'checked' : '' ); ?>
-				/>
-				<label for="display_dk_customer_prices_as_discount_field">
-					<?php
-					esc_html_e(
-						"Display Customers' Prices as Discounts",
-						'connector-for-dk'
-					);
-					?>
-				</label>
-				<p class="description">
-					<?php
-					esc_html_e(
-						"If this is enabled, Customer's prices are shown as discounts in the storefront.",
-						'connector-for-dk'
-					);
-					?>
-				</p>
-			</td>
-		</tr>
 	</tbody>
 </table>
 

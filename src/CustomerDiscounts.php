@@ -222,10 +222,6 @@ class CustomerDiscounts {
 	): string {
 		$customer_id = get_current_user_id();
 
-		if ( $customer_id === 0 ) {
-			return $product->get_regular_price( 'edit' );
-		}
-
 		$customer = new WC_Customer( $customer_id );
 
 		$regular_price_range = ProductHelper::get_customer_variable_price_range(

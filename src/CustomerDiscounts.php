@@ -7,11 +7,8 @@ namespace AldaVigdis\ConnectorForDK;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
-use RoundingMode as PHPRoundingMode;
 use stdClass;
 use WC_Customer;
-use WC_Order;
 use WC_Order_Item;
 use WC_Order_Item_Product;
 use WC_Product;
@@ -42,17 +39,68 @@ class CustomerDiscounts {
 	 * The constructor
 	 */
 	public function __construct() {
-		if ( Config::get_enable_dk_customer_prices() && Config::get_option( 'customer_discounts_enabled' ) ) {
+		add_filter( 'woocommerce_show_variation_price', '__return_true', PHP_INT_MAX );
+
+		if ( Config::get_enable_dk_customer_prices() ) {
+			add_filter(
+				'woocommerce_get_price_html',
+				array( __CLASS__, 'get_price_html' ),
+				10,
+				2
+			);
+
 			add_filter(
 				'woocommerce_product_get_price',
-				array( __CLASS__, 'filter_price_to_group_price' ),
+				array( __CLASS__, 'price_to_customer_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_product_variation_get_price',
+				array( __CLASS__, 'price_to_customer_price' ),
 				10,
 				2
 			);
 
 			add_filter(
 				'woocommerce_product_get_regular_price',
-				array( __CLASS__, 'filter_regular_price_to_group_price' ),
+				array( __CLASS__, 'regular_price_to_group_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_product_variation_get_regular_price',
+				array( __CLASS__, 'regular_price_to_group_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'connector_for_dk_customer_price_format',
+				array( __CLASS__, 'adapt_formatting_to_themes' ),
+				10,
+				1
+			);
+
+			add_filter(
+				'woocommerce_cart_item_price',
+				array( __CLASS__, 'filter_cart_item_price' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_cart_item_subtotal',
+				array( __CLASS__, 'filter_cart_item_subtotal' ),
+				10,
+				2
+			);
+
+			add_filter(
+				'woocommerce_order_formatted_line_subtotal',
+				array( __CLASS__, 'filter_order_line_item_subtotal' ),
 				10,
 				2
 			);
@@ -80,42 +128,135 @@ class CustomerDiscounts {
 		);
 	}
 
-	public static function filter_price_to_group_price(
+	/**
+	 * Replace the current product's price with the customer's discounted price
+	 *
+	 * Used in the `woocommerce_product_get_price` and
+	 * `woocommerce_product_variation_get_price` filters.
+	 *
+	 * @param string     $price The original price.
+	 * @param WC_Product $product The WooCommerce product.
+	 */
+	public static function price_to_customer_price(
 		string $price,
 		WC_Product $product
 	): string {
-		$discount = self::get_current_customer_discount();
-
-		if ( $discount === 0.0 ) {
-			return self::get_product_group_price( $product );
+		if ( is_admin() ) {
+			return ( $price );
 		}
 
-		$discount_precentage_decimal = BigDecimal::of(
-			$discount
-		)->dividedBy(
-			100,
-			24,
-			RoundingMode::HALF_CEILING
-		);
+		if ( $product->is_on_sale() ) {
+			return $product->get_sale_price( 'edit' );
+		}
 
-		$discount_amount = BigDecimal::of(
-			(float) self::get_product_group_price( $product )
-		)->multipliedBy(
-			BigDecimal::of( 1 )->minus( $discount_precentage_decimal )
-		);
-
-		return (string) round(
-			$discount_amount->toFloat(),
-			(int) get_option( 'woocommerce_price_num_decimals', 0 ),
-			PHPRoundingMode::HalfEven
-		);
+		return self::get_current_customer_price( $product );
 	}
 
-	public static function filter_regular_price_to_group_price(
+	/**
+	 * Replace the current product's price with the customer's group price
+	 *
+	 * @param string     $price The original price.
+	 * @param WC_Product $product The WooCommerce product.
+	 */
+	public static function regular_price_to_group_price(
 		string $price,
 		WC_Product $product
 	): string {
+		if ( is_admin() ) {
+			return ( $price );
+		}
+
+		if ( $product->is_on_sale( 'edit' ) ) {
+			return $product->get_regular_price( 'edit' );
+		}
+
 		return self::get_product_group_price( $product );
+	}
+
+	/**
+	 * Format a product's price as HTML
+	 *
+	 * Replaces the standard product price partial with our own, which is
+	 * slightly different.
+	 *
+	 * @param string     $price The price partial to replace.
+	 * @param WC_Product $product The product.
+	 */
+	public static function get_price_html(
+		string $price,
+		WC_Product $product
+	): string {
+		if ( $product instanceof WC_Product_Variable ) {
+			return self::get_price_html_for_variable_product( $price, $product );
+		}
+
+		if ( $product->is_on_sale( 'edit' ) ) {
+			$regular_price  = $product->get_regular_price( 'edit' );
+			$customer_price = $product->get_sale_price( 'edit' );
+
+			return wc_format_sale_price(
+				wc_price( $regular_price ),
+				wc_price( $customer_price )
+			);
+		} else {
+			$regular_price  = self::get_product_group_price( $product );
+			$customer_price = self::get_current_customer_price( $product );
+		}
+
+		if ( $regular_price === $customer_price ) {
+			return wc_price( $customer_price );
+		}
+
+		return self::format( $regular_price, $customer_price );
+	}
+
+	/**
+	 * Format a variable product's price range as HTML
+	 *
+	 * @param string     $price The price partial to replace.
+	 * @param WC_Product $product The product.
+	 */
+	public static function get_price_html_for_variable_product(
+		string $price,
+		WC_Product $product
+	): string {
+		$customer_id = get_current_user_id();
+
+		if ( $customer_id === 0 ) {
+			return $product->get_regular_price( 'edit' );
+		}
+
+		$customer = new WC_Customer( $customer_id );
+
+		$regular_price_range = ProductHelper::get_customer_variable_price_range(
+			$product,
+			$customer,
+			false
+		);
+
+		$current_price_range = ProductHelper::get_customer_variable_price_range(
+			$product,
+			$customer,
+			true
+		);
+
+		if (
+			$regular_price_range['min'] === $current_price_range['min'] &&
+			$regular_price_range['max'] === $current_price_range['max']
+		) {
+			return $price;
+		}
+
+		return self::format(
+			wc_format_price_range(
+				$regular_price_range['min'],
+				$regular_price_range['max']
+			),
+			wc_format_price_range(
+				$current_price_range['min'],
+				$current_price_range['max']
+			)
+		);
 	}
 
 	/**
@@ -171,33 +312,228 @@ class CustomerDiscounts {
 		$wc_customer->save_meta_data();
 	}
 
+	/**
+	 * Adapt the discounted price format to different themes
+	 *
+	 * This simply takes in the `connector_for_dk_customer_price_format` filter
+	 * and applies changes to the output depending on the currently active
+	 * theme.
+	 *
+	 * @param string $html The HTML snippet from the `format` function.
+	 */
+	public static function adapt_formatting_to_themes( string $html ): string {
+		$current_theme = wp_get_theme();
+
+		if ( $current_theme->get_stylesheet() === 'blocksy' ) {
+			return "<span class=\"sale-price customer-price\">{$html}</span>";
+		}
+
+		return $html;
+	}
+
+	/**
+	 * Filter cart items to display discounts
+	 *
+	 * Formats cart item prices to display them as discounted in the classic
+	 * shortcode based checkout process.
+	 *
+	 * @param string $product_price The original product price string.
+	 * @param array  $cart_item The item, as an associative array from WC()->cart.
+	 *
+	 * @return string A formatted string, with the original price struck-out if
+	 *                there is a discount.
+	 */
+	public static function filter_cart_item_price(
+		string $product_price,
+		array $cart_item
+	): string {
+		$original_price = $cart_item['data']->get_regular_price( 'edit' );
+
+		$discounted_price = self::get_current_customer_price(
+			$cart_item['data']
+		);
+
+		if ( $discounted_price === $original_price ) {
+			return $product_price;
+		}
+
+		return self::format(
+			$cart_item['data']->get_regular_price( 'edit' ),
+			$discounted_price
+		);
+	}
+
+	/**
+	 * Format cart item subtotals to display discounts
+	 *
+	 * @param string $product_subtotal The subtotal string.
+	 * @param array  $cart_item The item, as an associative array from WC()->cart.
+	 *
+	 * @return string A formatted string, with the original price struck-out if
+	 *                there is a discount.
+	 */
+	public static function filter_cart_item_subtotal(
+		string $product_subtotal,
+		array $cart_item
+	): string {
+		$original_price = $cart_item['data']->get_regular_price( 'edit' );
+
+		$discounted_price = self::get_current_customer_price(
+			$cart_item['data']
+		);
+
+		if ( $discounted_price === $original_price ) {
+			return $original_price;
+		}
+
+		$original_subtotal = (string) BigDecimal::of(
+			$original_price
+		)->multipliedBy(
+			$cart_item['quantity']
+		)->toFloat();
+
+		$discounted_subtotal = (string) BigDecimal::of(
+			$discounted_price
+		)->multipliedBy(
+			$cart_item['quantity']
+		)->toFloat();
+
+		return self::format(
+			$original_subtotal,
+			$discounted_subtotal
+		);
+	}
+
+	/**
+	 * Display subtotals in the order confirmation as discounted
+	 *
+	 * @param string        $product_subtotal The originally displayed subtotal.
+	 * @param WC_Order_Item $item The WooCommerce item.
+	 */
+	public static function filter_order_line_item_subtotal(
+		string $product_subtotal,
+		WC_Order_Item $item
+	): string {
+		if (
+			$item instanceof WC_Order_Item_Product &&
+			$item->get_product() &&
+			$item->get_total() !== $item->get_subtotal()
+		) {
+			return self::format(
+				(string) BigDecimal::of(
+					$item->get_subtotal()
+				)->plus(
+					$item->get_subtotal_tax()
+				)->toFloat(),
+				(string) BigDecimal::of(
+					$item->get_total()
+				)->plus(
+					$item->get_total_tax()
+				)->toFloat()
+			);
+		}
+
+		return $product_subtotal;
+	}
+
+	/**
+	 * Get the product's group price for the currently logged-in customer
+	 *
+	 * This gets the group price before discount, which is then used as the
+	 * "before" price.
+	 *
+	 * If the customer is not logged in, this will return the standard price of
+	 * the product.
+	 *
+	 * @param WC_Product $product The product.
+	 */
 	private static function get_product_group_price(
 		WC_Product $product
 	): string {
+		if ( is_admin() ) {
+			return ( $product->get_price( 'edit' ) );
+		}
+
 		$customer_id = get_current_user_id();
 
 		if ( $customer_id === 0 ) {
-			return $product->get_regular_price( 'edit' );
+			return $product->get_price( 'edit' );
 		}
 
 		$customer = new WC_Customer( $customer_id );
+
+		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
 
 		return ProductHelper::get_group_price(
 			$product,
 			$customer,
-			( get_option( 'woocommerce_tax_display_shop' ) === 'incl' )
+			$incl_tax
 		);
 	}
 
-	private static function get_current_customer_discount(): float {
+	/**
+	 * Get the currently logged-in customer's price, with discount
+	 *
+	 * @param WC_Product $product The product.
+	 */
+	public static function get_current_customer_price(
+		WC_Product $product
+	): string {
+		if ( is_admin() ) {
+			return ( $product->get_price( 'edit' ) );
+		}
+
+		if ( $product->is_on_sale( 'edit' ) ) {
+			return $product->get_sale_price( 'edit' );
+		}
+
 		$customer_id = get_current_user_id();
 
 		if ( $customer_id === 0 ) {
-			return 0.0;
+			return $product->get_price( 'edit' );
 		}
 
 		$customer = new WC_Customer( $customer_id );
 
-		return (float) $customer->get_meta( 'connector_for_dk_discount' );
+		return ProductHelper::get_customer_price( $product, $customer );
+	}
+
+	/**
+	 * Format "before and after" prices when the customer has a discount
+	 *
+	 * @param string $regular_price The regular group price.
+	 * @param string $customer_price The customer's price.
+	 */
+	private static function format(
+		string $regular_price,
+		string $customer_price
+	): string {
+		if ( is_numeric( $regular_price ) ) {
+			$display_regular_price = wc_price( $regular_price, array() );
+		} else {
+			$display_regular_price = $regular_price;
+		}
+
+		if ( is_numeric( $customer_price ) ) {
+			$display_customer_price = wc_price( $customer_price, array() );
+		} else {
+			$display_customer_price = $customer_price;
+		}
+
+		$html = "<span class='screen-reader-text'>" .
+				__( 'Regular Price:', 'connector-for-dk' ) .
+				'</span> ' .
+				"<del>{$display_regular_price}</del> " .
+				'<span class="screen-reader-text">' .
+				__( 'Your Price:', 'connector-for-dk' ) .
+				'</span> ' .
+				"<ins>{$display_customer_price}</ins>";
+
+		return apply_filters(
+			'connector_for_dk_customer_price_format',
+			$html,
+			$regular_price,
+			$customer_price
+		);
 	}
 }

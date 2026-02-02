@@ -186,30 +186,24 @@ class Order {
 				return false;
 			}
 
-			if ( empty( $item->get_meta( 'connector_for_dk_item_on_sale' ) ) ) {
-				$subtotal = BigDecimal::of(
-					BigDecimal::of(
-						$item->get_subtotal()
-					)->plus(
-						$item->get_subtotal_tax()
-					)
-				)->dividedBy(
-					$item->get_quantity(),
-					24,
-					RoundingMode::HALF_CEILING
-				)->toFloat();
-			} else {
-				$subtotal = BigDecimal::of(
-					BigDecimal::of(
-						$item->get_total()
-					)->plus(
-						$item->get_total_tax()
-					)
-				)->toFloat();
-			}
+			$subtotal = BigDecimal::of(
+				BigDecimal::of(
+					$item->get_subtotal()
+				)->plus(
+					$item->get_subtotal_tax()
+				)
+			)->dividedBy(
+				$item->get_quantity(),
+				24,
+				RoundingMode::HALF_CEILING
+			)->toFloat();
 
 			$discounted_price = BigDecimal::of(
-				BigDecimal::of( $item->get_total() )->plus( $item->get_total_tax() )
+				BigDecimal::of(
+					$item->get_total()
+				)->plus(
+					$item->get_total_tax()
+				)
 			)->dividedBy(
 				$item->get_quantity(),
 				24,

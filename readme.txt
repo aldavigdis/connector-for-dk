@@ -1,5 +1,5 @@
 === Connector for DK ===
-Stable tag: 0.6.3
+Stable tag: 0.6.4
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.8
@@ -39,6 +39,11 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.6.4 =
+* Revamping the customer discount system, which not works with blocks (FSE/Gutenberg)
+* Fixing off-by-one errors for customers price groups
+* Fixing email delivery for international orders
+
 = 0.6.3 =
 * Improving discount display for logged-in customers
 

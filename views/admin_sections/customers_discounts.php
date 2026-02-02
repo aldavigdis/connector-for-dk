@@ -14,35 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <h3><?php echo esc_html_e( 'Customer Discounts and Price Groups', 'connector-for-dk' ); ?></h3>
 
-<p>
-	<?php
-	echo esc_html_e(
-		'Please note that customer discounts are an experimental feature that will not work well with sites that use the block editor or FSE.',
-		'connector-for-dk'
-	);
-	?>
-</p>
-
-<?php if ( ! Config::get_option( 'customer_discounts_enabled' ) ) : ?>
-
-<p>
-	<?php
-	echo sprintf(
-		esc_html(
-			// Translators: %1$s and %2$s are standins for opening and closing <code> tags.
-			__(
-				'You will need to add the line %1$sCONNECTOR_FOR_DK_CUSTOMER_DISCOUNTS_ENABLED = true;%2$s to an appropriate location in your %1$swp-config.php%2$s file to enable customer discounts.',
-				'connector-for-dk'
-			)
-		),
-		'<code>',
-		'</code>'
-	);
-	?>
-</p>
-
-<?php else : ?>
-
 <table>
 	<tbody class="form-table">
 		<tr>
@@ -75,5 +46,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tr>
 	</tbody>
 </table>
-
-<?php endif ?>

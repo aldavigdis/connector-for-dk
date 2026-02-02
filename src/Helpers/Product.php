@@ -231,6 +231,7 @@ class Product {
 
 				return $price->dividedBy(
 					$tax_fraction->plus( 1 ),
+					24,
 					roundingMode: RoundingMode::HALF_CEILING
 				)->toFloat();
 			}
@@ -634,7 +635,9 @@ class Product {
 			$customer->get_meta( 'connector_for_dk_discount' )
 		);
 
-		$group_price = self::get_group_price( $product, $customer );
+		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
+
+		$group_price = self::get_group_price( $product, $customer, $incl_tax );
 
 		if ( empty( $group_price ) ) {
 			$group_price = '0';
@@ -685,20 +688,12 @@ class Product {
 			$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
 		}
 
-		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {
+		if ( in_array( $group, array( '2', '3' ), true ) ) {
 			$group_price = $product->get_meta( $price_key, true, 'edit' );
-
-			if ( $group_price === '0' ) {
-				return $product->get_regular_price( 'edit' );
-			}
 
 			if ( ! empty( $group_price ) ) {
 				return $group_price;
 			}
-		}
-
-		if ( ! empty( $product->get_regular_price( 'edit' ) ) ) {
-			return $product->get_regular_price( 'edit' );
 		}
 
 		return $product->get_price( 'edit' );

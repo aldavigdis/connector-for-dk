@@ -87,6 +87,7 @@
         "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/ ./views/",
         "release:zip": "bash ./bin/release-zip.sh",
         "checksums:generate": "bash ./bin/checksums-generate.sh",
-        "checksums:validate": "bash ./bin/checksums-validate.sh"
+        "checksums:validate": "bash ./bin/checksums-validate.sh",
+        "connector:sync": "docker exec -it $(docker-compose ps -q | head -n 1) wp cron event run connector_for_dk_hourly --allow-root"
     }
 }

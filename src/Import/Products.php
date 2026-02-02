@@ -1000,6 +1000,43 @@ class Products {
 					$variation->set_date_on_sale_from( $price->date_on_sale_from );
 					$variation->set_date_on_sale_to( $price->date_on_sale_to );
 					$variation->set_tax_class( $price->tax_class );
+
+					$variation->update_meta_data(
+						'connector_for_dk_price_1',
+						$wc_product->get_meta(
+							'connector_for_dk_price_1'
+						)
+					);
+					$variation->update_meta_data(
+						'connector_for_dk_price_1_before_tax',
+						$wc_product->get_meta(
+							'connector_for_dk_price_1_before_tax'
+						)
+					);
+					$variation->update_meta_data(
+						'connector_for_dk_price_2',
+						$wc_product->get_meta(
+							'connector_for_dk_price_2'
+						)
+					);
+					$variation->update_meta_data(
+						'connector_for_dk_price_2_before_tax',
+						$wc_product->get_meta(
+							'connector_for_dk_price_2_before_tax'
+						)
+					);
+					$variation->update_meta_data(
+						'connector_for_dk_price_3',
+						$wc_product->get_meta(
+							'connector_for_dk_price_3'
+						)
+					);
+					$variation->update_meta_data(
+						'connector_for_dk_price_3_before_tax',
+						$wc_product->get_meta(
+							'connector_for_dk_price_3_before_tax'
+						)
+					);
 				}
 
 				$affected_variation_ids[] = $variation->save();
@@ -1030,6 +1067,43 @@ class Products {
 							$variation->set_date_on_sale_from( $price->date_on_sale_from );
 							$variation->set_date_on_sale_to( $price->date_on_sale_to );
 							$variation->set_tax_class( $price->tax_class );
+
+							$variation->update_meta_data(
+								'connector_for_dk_price_1',
+								$wc_product->get_meta(
+									'connector_for_dk_price_1'
+								)
+							);
+							$variation->update_meta_data(
+								'connector_for_dk_price_1_before_tax',
+								$wc_product->get_meta(
+									'connector_for_dk_price_1_before_tax'
+								)
+							);
+							$variation->update_meta_data(
+								'connector_for_dk_price_2',
+								$wc_product->get_meta(
+									'connector_for_dk_price_2'
+								)
+							);
+							$variation->update_meta_data(
+								'connector_for_dk_price_2_before_tax',
+								$wc_product->get_meta(
+									'connector_for_dk_price_2_before_tax'
+								)
+							);
+							$variation->update_meta_data(
+								'connector_for_dk_price_3',
+								$wc_product->get_meta(
+									'connector_for_dk_price_3'
+								)
+							);
+							$variation->update_meta_data(
+								'connector_for_dk_price_3_before_tax',
+								$wc_product->get_meta(
+									'connector_for_dk_price_3_before_tax'
+								)
+							);
 						}
 					}
 

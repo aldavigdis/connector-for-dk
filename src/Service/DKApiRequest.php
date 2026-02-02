@@ -17,7 +17,7 @@ use WP_Http;
 class DKApiRequest {
 	const DK_API_URL   = 'https://api.dkplus.is/api/v1';
 	const GET_TIMEOUT  = 10.0;
-	const POST_TIMEOUT = 15.0;
+	const POST_TIMEOUT = 20.0;
 
 	/**
 	 * The DK API key

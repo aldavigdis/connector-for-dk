@@ -4,12 +4,15 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
+use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product_Variation;
+use RoundingMode as PHPRoundingMode;
 
 /**
  * The Order Meta class
@@ -25,13 +28,6 @@ class OrderMeta {
 	public function __construct() {
 		add_action(
 			'woocommerce_new_order',
-			array( __CLASS__, 'add_meta_to_order_items' ),
-			10,
-			2
-		);
-
-		add_action(
-			'woocommerce_update_order',
 			array( __CLASS__, 'add_meta_to_order_items' ),
 			10,
 			2
@@ -75,26 +71,45 @@ class OrderMeta {
 				continue;
 			}
 
-			$item->update_meta_data(
-				'connector_for_dk_item_on_sale',
-				strval( $product->is_on_sale() )
-			);
-
-			$group_price = ProductHelper::get_group_price(
-				$product,
-				$customer,
-				false
-			);
-
-			$item->update_meta_data(
-				'connector_for_dk_group_price',
-				$group_price
-			);
-
-			$item->update_meta_data(
-				'connector_for_dk_regular_price',
-				$product->get_meta( 'connector_for_dk_price_1_before_tax' )
-			);
+			if ( $order->get_prices_include_tax() ) {
+				$item->set_subtotal(
+					(string) round(
+						BigDecimal::of(
+							BigDecimal::of(
+								$product->get_regular_price()
+							)->dividedBy(
+								BigDecimal::of( 1 )->plus(
+									BigDecimal::of(
+										ProductHelper::tax_rate( $product )
+									)->dividedBy(
+										100,
+										24,
+										RoundingMode::HALF_CEILING
+									)
+								),
+								24,
+								RoundingMode::HALF_CEILING
+							)
+						)->multipliedBy(
+							$item->get_quantity()
+						)->toFloat(),
+						2,
+						PHPRoundingMode::HalfAwayFromZero
+					)
+				);
+			} else {
+				$item->set_subtotal(
+					(string) round(
+						BigDecimal::of(
+							$product->get_regular_price()
+						)->multipliedBy(
+							$item->get_quantity()
+						)->toFloat(),
+						2,
+						PHPRoundingMode::HalfAwayFromZero
+					)
+				);
+			}
 
 			if ( $product instanceof WC_Product_Variation ) {
 				$parent = wc_get_product( $product->get_parent_id() );
@@ -151,6 +166,8 @@ class OrderMeta {
 		);
 
 		$order->save_meta_data();
+
+		$order->calculate_totals();
 	}
 
 	/**

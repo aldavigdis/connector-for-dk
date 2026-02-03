@@ -39,8 +39,11 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.6.4.1 =
+* Updating attribute caching strategy, making the UI more stable when the dkPlus API isn't responding and improving speed
+
 = 0.6.4 =
-* Revamping the customer discount system, which not works with blocks (FSE/Gutenberg)
+* Revamping the customer discount system, which now works with blocks (FSE/Gutenberg)
 * Fixing off-by-one errors for customers price groups
 * Fixing email delivery for international orders
 

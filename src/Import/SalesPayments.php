@@ -15,8 +15,8 @@ use WP_Error;
  * Provides funtions for handling downstream payment methods from DK
  */
 class SalesPayments {
-	const TRANSIENT_EXPIRY = 2 * HOUR_IN_SECONDS;
-	const REQUEST_TIMEOUT  = 1;
+	const TRANSIENT_EXPIRY = 15 * MINUTE_IN_SECONDS;
+	const REQUEST_TIMEOUT  = 5;
 
 	const DK_PAYMENT_MODES = array(
 		'ABG',
@@ -106,7 +106,7 @@ class SalesPayments {
 	public static function get_payment_terms(): array {
 		$terms_updated = get_option(
 			'connector_for_dk_payment_terms_updated',
-			false
+			0
 		);
 
 		$terms_transient = get_option(
@@ -116,7 +116,7 @@ class SalesPayments {
 
 		if (
 			is_array( $terms_transient ) &&
-			( $terms_updated > time() - HOUR_IN_SECONDS )
+			( $terms_updated > time() - self::TRANSIENT_EXPIRY )
 		) {
 			return $terms_transient;
 		}
@@ -218,14 +218,14 @@ class SalesPayments {
 			0
 		);
 
-		$modes_transient = get_transient(
+		$modes_transient = get_option(
 			'connector_for_dk_payment_modes',
 			false
 		);
 
 		if (
 			is_array( $modes_transient ) &&
-			( $modes_updated > time() - HOUR_IN_SECONDS )
+			( $modes_updated > time() - self::TRANSIENT_EXPIRY )
 		) {
 			return $modes_transient;
 		}
@@ -266,18 +266,18 @@ class SalesPayments {
 	 */
 	public static function get_methods(): array {
 		$methods_updated = get_option(
-			'connector_for_dk_payment_modes_updated',
+			'connector_for_dk_payment_methods_updated',
 			0
 		);
 
-		$methods_transient = get_transient(
+		$methods_transient = get_option(
 			'connector_for_dk_payment_methods',
 			false
 		);
 
 		if (
 			is_array( $methods_transient ) &&
-			( $methods_updated > time() - HOUR_IN_SECONDS )
+			( $methods_updated > time() - self::TRANSIENT_EXPIRY )
 		) {
 			return $methods_transient;
 		}
@@ -291,7 +291,7 @@ class SalesPayments {
 					$methods
 				);
 				update_option(
-					'connector_for_dk_payment_modes_updated',
+					'connector_for_dk_payment_methods_updated',
 					time()
 				);
 
@@ -378,18 +378,5 @@ class SalesPayments {
 		);
 
 		return $methods;
-	}
-
-	/**
-	 * Save the payment methods from DK as 24-hour transient value
-	 *
-	 * @param array $methods The array of methods as they come from the DK API.
-	 */
-	public static function save_methods( array $methods ): bool {
-		return set_transient(
-			'connector_for_dk_payment_methods',
-			$methods,
-			self::TRANSIENT_EXPIRY
-		);
 	}
 }

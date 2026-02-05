@@ -615,9 +615,6 @@ class Admin {
 	 * }
 	 */
 	public static function info_for_sales_person( string $number ): stdClass {
-		$transient_name  = "connector_for_dk_sales_person_{$number}_is_in_dk";
-		$transient_value = boolval( get_transient( $transient_name ) );
-
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
@@ -630,11 +627,7 @@ class Admin {
 
 			$class    = 'info';
 			$dashicon = 'dashicons-info';
-		} elseif ( $transient_value || SalesPerson::is_in_dk( $number ) === true ) {
-			if ( ! $transient_value ) {
-				set_transient( $transient_name, '1', self::TRANSIENT_EXPIRY );
-			}
-
+		} elseif ( SalesPerson::is_in_dk( $number ) === true ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
 				__(

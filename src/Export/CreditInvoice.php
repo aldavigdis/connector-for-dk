@@ -13,6 +13,7 @@ use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
 use WP_Error;
 use WC_Order;
 use WC_Order_Item_Product;
+use RoundingMode as PHPRoundingMode;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
 /**
@@ -101,6 +102,7 @@ class CreditInvoice {
 	public static function to_dk_invoice_body(
 		OrderRefund|WC_Order $order_refund
 	): array|false {
+		$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
 		$wc_order = wc_get_order( $order_refund->get_parent_id() );
 
 		$invoice_body = ExportOrder::to_dk_order_body( $wc_order, false );
@@ -120,29 +122,79 @@ class CreditInvoice {
 			if ( $item instanceof WC_Order_Item_Product ) {
 				$sku = ExportOrder::assume_item_sku( $item );
 
-				$subtotal = BigDecimal::of(
-					$item->get_subtotal()
-				)->abs()->toFloat();
+				$subtotal = round(
+					BigDecimal::of(
+						$item->get_subtotal()
+					)->abs()->plus(
+						BigDecimal::of(
+							$item->get_subtotal_tax()
+						)->abs()
+					)->toFloat(),
+					$decimals,
+					PHPRoundingMode::HalfEven
+				);
 
 				$order_line_item = array(
 					'ItemCode'     => $sku,
 					'Text'         => $item->get_name(),
 					'Quantity'     => $item->get_quantity(),
 					'Price'        => $subtotal,
-					'IncludingVAT' => false,
+					'IncludingVAT' => true,
+				);
+
+				$refunded_item_id = (int) $item->get_meta( '_refunded_item_id' );
+
+				if ( ! empty( $refunded_item_id ) ) {
+					$origin = wc_get_order_item_meta(
+						$refunded_item_id,
+						'connector_for_dk_origin'
+					);
+
+					$variation = wc_get_product( $item->get_variation_id() );
+
+					if ( $origin === 'product_variation' && $variation !== false ) {
+						$variation_attributes = $variation->get_attributes();
+						$variation_values     = array_values( $variation_attributes );
+
+						$variation_line = array();
+
+						$variation_line['Code'] = $variation_values[0];
+
+						if ( isset( $variation_values[1] ) ) {
+							$variation_line['Code2'] = $variation_values[1];
+						}
+
+						$variation_line['Quantity'] = $item->get_quantity();
+
+						$order_line_item['Variations'] = array( (object) $variation_line );
+					}
+
+					if ( $origin !== 'product_variation' && $variation !== false ) {
+						$order_line_item['ItemCode'] = $variation->get_sku();
+					}
+				}
+
+				$invoice_body['Lines'][] = apply_filters(
+					'connector_for_dk_order_export_line_item',
+					$order_line_item,
+					$item,
+					$wc_order
 				);
 			}
-
-			$invoice_body['Lines'][] = apply_filters(
-				'connector_for_dk_order_export_line_item',
-				$order_line_item,
-				$item,
-				$wc_order
-			);
 		}
 
 		foreach ( $order_refund->get_fees() as $fee ) {
 			$sanitized_name = str_replace( '&nbsp;', '', $fee->get_name() );
+
+			$fee_price = round(
+				BigDecimal::of(
+					$fee->get_total()
+				)->plus(
+					$fee->get_total_tax()
+				)->abs()->toFloat(),
+				$decimals,
+				PHPRoundingMode::HalfEven
+			);
 
 			$order_props['Lines'][] = apply_filters(
 				'connector_for_dk_export_order_fee',
@@ -151,8 +203,8 @@ class CreditInvoice {
 					'Text'         => __( 'Fee', 'connector-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => -1,
-					'Price'        => $fee->get_total(),
-					'IncludingVAT' => false,
+					'Price'        => $fee_price,
+					'IncludingVAT' => true,
 				),
 				$fee,
 				$wc_order
@@ -160,13 +212,25 @@ class CreditInvoice {
 		}
 
 		foreach ( $order_refund->get_shipping_methods() as $shipping_method ) {
+			$shipping_price = round(
+				BigDecimal::of(
+					$shipping_method->get_total()
+				)->plus(
+					BigDecimal::of(
+						$shipping_method->get_total_tax()
+					)->abs()
+				)->abs()->toFloat(),
+				$decimals,
+				PHPRoundingMode::HalfEven
+			);
+
 			$order_line_item = array(
 				'ItemCode'     => Config::get_shipping_sku(),
 				'Text'         => __( 'Shipping', 'connector-for-dk' ),
 				'Text2'        => $shipping_method->get_name(),
 				'Quantity'     => -1,
-				'Price'        => $shipping_method->get_total(),
-				'IncludingVAT' => false,
+				'Price'        => $shipping_price,
+				'IncludingVAT' => true,
 			);
 
 			$invoice_body['Lines'][] = $order_line_item;

@@ -97,11 +97,48 @@ class OrderMeta {
 						PHPRoundingMode::HalfAwayFromZero
 					)
 				);
+				$item->set_total(
+					(string) round(
+						BigDecimal::of(
+							BigDecimal::of(
+								$product->get_price()
+							)->dividedBy(
+								BigDecimal::of( 1 )->plus(
+									BigDecimal::of(
+										ProductHelper::tax_rate( $product )
+									)->dividedBy(
+										100,
+										24,
+										RoundingMode::HALF_CEILING
+									)
+								),
+								24,
+								RoundingMode::HALF_CEILING
+							)
+						)->multipliedBy(
+							$item->get_quantity()
+						)->toFloat(),
+						2,
+						PHPRoundingMode::HalfAwayFromZero
+					)
+				);
 			} else {
 				$item->set_subtotal(
 					(string) round(
 						BigDecimal::of(
 							$product->get_regular_price()
+						)->multipliedBy(
+							$item->get_quantity()
+						)->toFloat(),
+						2,
+						PHPRoundingMode::HalfAwayFromZero
+					)
+				);
+
+				$item->set_total(
+					(string) round(
+						BigDecimal::of(
+							$product->get_price()
 						)->multipliedBy(
 							$item->get_quantity()
 						)->toFloat(),

@@ -25,14 +25,14 @@ class SalesPerson {
 		string $sales_person_number
 	): bool|WP_Error {
 		$updated = get_option(
-			'sales_person_' .
+			'connector_for_dk_sales_person_' .
 			rawurlencode( $sales_person_number ) .
 			'_exsists_updated',
 			0
 		);
 
 		$transient = get_option(
-			'sales_person_' .
+			'connector_for_dk_sales_person_' .
 			rawurlencode( $sales_person_number ) .
 			'_exsists',
 			false
@@ -61,14 +61,14 @@ class SalesPerson {
 		}
 
 		update_option(
-			'sales_person_' .
+			'connector_for_dk_sales_person_' .
 			rawurlencode( $sales_person_number ) .
 			'_exsists',
 			true
 		);
 
 		update_option(
-			'sales_person_' .
+			'connector_for_dk_sales_person_' .
 			rawurlencode( $sales_person_number ) .
 			'_exsists_updated',
 			time()

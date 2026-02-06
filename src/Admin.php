@@ -35,6 +35,7 @@ class Admin {
 		'products',
 		'invoices',
 		'customers',
+		'webhooks',
 	);
 
 	/**

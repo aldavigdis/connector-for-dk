@@ -147,6 +147,66 @@ class KennitalaField {
 			10,
 			0
 		);
+
+		add_filter(
+			'manage_users_columns',
+			array( __CLASS__, 'add_column_to_users_table' ),
+			5,
+			1
+		);
+
+		add_filter(
+			'manage_users_custom_column',
+			array( __CLASS__, 'add_column_content_to_users_table' ),
+			10,
+			3
+		);
+	}
+
+	/**
+	 * Add the kennitala column to the users table
+	 *
+	 * @param array $columns The current set of columns to filter.
+	 */
+	public static function add_column_to_users_table(
+		array $columns
+	): array {
+		if ( ! current_user_can( 'edit_users' ) ) {
+			return $columns;
+		}
+
+		$array_offset = array_search( 'email', array_keys( $columns ), true );
+
+		return array_merge(
+			array_slice( $columns, 0, $array_offset, true ),
+			array(
+				'connector_for_dk_kennitala' =>
+				__( 'Kennitala', 'connector-for-dk' ),
+			),
+			array_slice( $columns, $array_offset, null, true )
+		);
+	}
+
+	/**
+	 * Render the content of the kennitala column in the users table
+	 *
+	 * @param string $output The output to filter.
+	 * @param string $column_name The column name/key.
+	 * @param string $user_id The user's ID.
+	 */
+	public static function add_column_content_to_users_table(
+		string $output,
+		string $column_name,
+		string $user_id
+	): string {
+		if ( $column_name === 'connector_for_dk_kennitala' ) {
+			$customer  = new WC_Customer( $user_id );
+			$kennitala = $customer->get_meta( 'kennitala' );
+
+			return $kennitala;
+		}
+
+		return $output;
 	}
 
 	/**

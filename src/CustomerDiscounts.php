@@ -188,7 +188,7 @@ class CustomerDiscounts {
 		$array_offset = array_search( 'role', array_keys( $columns ), true );
 
 		$discount_columns = array(
-			'connector_for_dk_price_group' => __(
+			'connector_for_dk_price_group'       => __(
 				'Price Group',
 				'connector-for-dk'
 			),

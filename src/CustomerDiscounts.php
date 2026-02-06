@@ -12,6 +12,7 @@ use WC_Order_Item;
 use WC_Order_Item_Product;
 use WC_Product;
 use WC_Product_Variable;
+use WP_User;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -135,6 +136,27 @@ class CustomerDiscounts {
 			10,
 			3
 		);
+
+		add_action(
+			'edit_user_profile',
+			array( __CLASS__, 'display_discount_information_in_user_editor' ),
+			10,
+			1
+		);
+	}
+
+	public static function display_discount_information_in_user_editor( WP_User $profile_user ) {
+		$customer = new WC_Customer( $profile_user->ID );
+
+		$GLOBALS['connector_for_dk_user_editor_price_group'] = intval(
+			$customer->get_meta( 'connector_for_dk_price_group' )
+		);
+
+		$GLOBALS['connector_for_dk_user_editor_discount'] = floatval(
+			$customer->get_meta( 'connector_for_dk_customer_discount' )
+		);
+
+		require dirname( __DIR__ ) . '/views/user_discount_information.php';
 	}
 
 	public static function add_columns_to_users_table( array $columns ): array {
@@ -152,7 +174,7 @@ class CustomerDiscounts {
 			'connector_for_dk_customer_discount' => __(
 				'Discount',
 				'connector-for-dk'
-			)
+			),
 		);
 
 		return array_merge(

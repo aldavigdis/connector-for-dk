@@ -121,6 +121,79 @@ class CustomerDiscounts {
 			10,
 			1
 		);
+
+		add_filter(
+			'manage_users_columns',
+			array( __CLASS__, 'add_columns_to_users_table' ),
+			10,
+			1
+		);
+
+		add_filter(
+			'manage_users_custom_column',
+			array( __CLASS__, 'add_column_content_to_users_table' ),
+			10,
+			3
+		);
+	}
+
+	public static function add_columns_to_users_table( array $columns ): array {
+		if ( ! current_user_can( 'edit_users' ) ) {
+			return $columns;
+		}
+
+		$array_offset = array_search( 'role', array_keys( $columns ), true );
+
+		$discount_columns = array(
+			'connector_for_dk_price_group' => __(
+				'Price Group',
+				'connector-for-dk'
+			),
+			'connector_for_dk_customer_discount' => __(
+				'Discount',
+				'connector-for-dk'
+			)
+		);
+
+		return array_merge(
+			array_slice( $columns, 0, $array_offset, true ),
+			$discount_columns,
+			array_slice( $columns, $array_offset, null, true )
+		);
+	}
+
+	public static function add_column_content_to_users_table(
+		string $output,
+		string $column_name,
+		string $user_id
+	): string {
+		if ( $column_name === 'connector_for_dk_price_group' ) {
+			$customer    = new WC_Customer( $user_id );
+			$price_group = $customer->get_meta(
+				'connector_for_dk_price_group'
+			);
+
+			if ( empty( $price_group ) ) {
+				return '1';
+			} else {
+				return $price_group;
+			}
+		}
+
+		if ( $column_name === 'connector_for_dk_customer_discount' ) {
+			$customer = new WC_Customer( $user_id );
+			$discount = $customer->get_meta(
+				'connector_for_dk_customer_discount'
+			);
+
+			if ( empty( $pricdiscounte_group ) ) {
+				return '0%';
+			} else {
+				return $discount . '%';
+			}
+		}
+
+		return $output;
 	}
 
 	/**

@@ -23,7 +23,7 @@ use WP_Error;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.6.4.1';
+	const ASSET_VERSION = '0.6.4.2';
 	const PLUGIN_SLUG   = 'connector-for-dk';
 
 	const TRANSIENT_EXPIRY = 900;

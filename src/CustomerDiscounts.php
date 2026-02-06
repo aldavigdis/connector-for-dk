@@ -138,6 +138,13 @@ class CustomerDiscounts {
 		);
 
 		add_action(
+			'show_user_profile',
+			array( __CLASS__, 'display_discount_information_in_user_editor' ),
+			10,
+			1
+		);
+
+		add_action(
 			'edit_user_profile',
 			array( __CLASS__, 'display_discount_information_in_user_editor' ),
 			10,
@@ -145,7 +152,14 @@ class CustomerDiscounts {
 		);
 	}
 
-	public static function display_discount_information_in_user_editor( WP_User $profile_user ) {
+	/**
+	 * Display information on a user's price group and discount in the user editor
+	 *
+	 * @param WP_User $profile_user The WP user who's profile is being edited.
+	 */
+	public static function display_discount_information_in_user_editor(
+		WP_User $profile_user
+	): void {
 		$customer = new WC_Customer( $profile_user->ID );
 
 		$GLOBALS['connector_for_dk_user_editor_price_group'] = intval(
@@ -159,7 +173,14 @@ class CustomerDiscounts {
 		require dirname( __DIR__ ) . '/views/user_discount_information.php';
 	}
 
-	public static function add_columns_to_users_table( array $columns ): array {
+	/**
+	 * Add price group and discount columns to the user table
+	 *
+	 * @param array $columns The current set of columns to filter.
+	 */
+	public static function add_columns_to_users_table(
+		array $columns
+	): array {
 		if ( ! current_user_can( 'edit_users' ) ) {
 			return $columns;
 		}
@@ -184,6 +205,13 @@ class CustomerDiscounts {
 		);
 	}
 
+	/**
+	 * Add content to the price group and discount columns in the user table
+	 *
+	 * @param string $output The output to filter.
+	 * @param string $column_name The column name/key.
+	 * @param string $user_id The user's ID.
+	 */
 	public static function add_column_content_to_users_table(
 		string $output,
 		string $column_name,
@@ -208,11 +236,7 @@ class CustomerDiscounts {
 				'connector_for_dk_customer_discount'
 			);
 
-			if ( empty( $pricdiscounte_group ) ) {
-				return '0%';
-			} else {
-				return $discount . '%';
-			}
+			return (string) floatval( $discount ) . '%';
 		}
 
 		return $output;

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		esc_html_e(
-			'Invoices may be made in DK upon successful checkout, or manually from the WooCommerce Order Editor. This can based on wether the customer supplies a kennitala and a kennitala field can be enabled as well.',
+			'Invoices may be made in dk upon successful checkout, or manually from the WooCommerce Order Editor. This can based on wether the customer supplies a kennitala and a kennitala field can be enabled as well.',
 			'connector-for-dk'
 		);
 		?>
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'When a customer requests to have a kennitala assigned to an invoice, a customer record is created in DK if it does not already exist, using the billing information supplied for the order.',
+							'When a customer requests to have a kennitala assigned to an invoice, a customer record is created in dk if it does not already exist, using the billing information supplied for the order.',
 							'connector-for-dk'
 						);
 						?>
@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<label for="create_invoice_for_customers_not_in_dk_field">
 						<?php
 						esc_html_e(
-							'Create Invoices Automatically for Customers not Registered in DK',
+							'Create Invoices Automatically for Customers not Registered in dk',
 							'connector-for-dk'
 						);
 						?>
@@ -100,7 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'If this is enabled, a new ‘debtor’ record witll be created in DK for every new customer who places an order and supplies a Kennitala that is not in DK already.',
+							'If this is enabled, a new ‘debtor’ record witll be created in dk for every new customer who places an order and supplies a Kennitala that is not in dk already.',
 							'connector-for-dk'
 						);
 						?>
@@ -129,7 +129,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the DK email functionality, so make sure that email delivery is configured correctly in DK.',
+							'If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the dk email functionality, so make sure that email delivery is configured correctly in dk.',
 							'connector-for-dk'
 						);
 						?>
@@ -173,7 +173,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		esc_html_e(
-			'DK treats shipping and other costs as line items on invoices. In order for invoicing to work, you need to assign a product in DK to each of the following services and assign them below.',
+			'dk treats shipping and other costs as line items on invoices. In order for invoicing to work, you need to assign a product in dk to each of the following services and assign them below.',
 			'connector-for-dk'
 		);
 		?>

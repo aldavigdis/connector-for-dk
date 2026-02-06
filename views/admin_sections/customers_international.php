@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 	esc_html_e(
-		"DK needs a way to identify international customers that don't have a kennitala but need their own customer records. Connector for DK handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
+		"dk needs a way to identify international customers that don't have a kennitala but need their own customer records. Connector for dk handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
 		'connector-for-dk'
 	);
 	?>
@@ -91,7 +91,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					echo sprintf(
 						// Translators: %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
 						esc_html__(
-							'This is used as the beginning of the 10-digit Customer Number. For example, with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as DK customer number ‘%3$s’.',
+							'This is used as the beginning of the 10-digit Customer Number. For example, with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as dk customer number ‘%3$s’.',
 							'connector-for-dk'
 						),
 						esc_attr( Config::get_international_kennitala_prefix() ),
@@ -125,7 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="description">
 					<?php
 					esc_html_e(
-						'This ledger code is used for international customer records when they are created in DK.',
+						'This ledger code is used for international customer records when they are created in dk.',
 						'connector-for-dk'
 					);
 					?>

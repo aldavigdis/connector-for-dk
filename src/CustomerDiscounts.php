@@ -167,7 +167,7 @@ class CustomerDiscounts {
 		);
 
 		$GLOBALS['connector_for_dk_user_editor_discount'] = floatval(
-			$customer->get_meta( 'connector_for_dk_customer_discount' )
+			$customer->get_meta( 'connector_for_dk_discount' )
 		);
 
 		require dirname( __DIR__ ) . '/views/user_discount_information.php';
@@ -188,11 +188,11 @@ class CustomerDiscounts {
 		$array_offset = array_search( 'role', array_keys( $columns ), true );
 
 		$discount_columns = array(
-			'connector_for_dk_price_group'       => __(
+			'connector_for_dk_price_group' => __(
 				'Price Group',
 				'connector-for-dk'
 			),
-			'connector_for_dk_customer_discount' => __(
+			'connector_for_dk_discount'    => __(
 				'Discount',
 				'connector-for-dk'
 			),
@@ -230,11 +230,9 @@ class CustomerDiscounts {
 			}
 		}
 
-		if ( $column_name === 'connector_for_dk_customer_discount' ) {
+		if ( $column_name === 'connector_for_dk_discount' ) {
 			$customer = new WC_Customer( $user_id );
-			$discount = $customer->get_meta(
-				'connector_for_dk_customer_discount'
-			);
+			$discount = $customer->get_meta( 'connector_for_dk_discount' );
 
 			return (string) floatval( $discount ) . '%';
 		}

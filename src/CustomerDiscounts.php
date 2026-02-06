@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
-use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use stdClass;
@@ -39,72 +38,68 @@ class CustomerDiscounts {
 	 * The constructor
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_show_variation_price', '__return_true', PHP_INT_MAX );
+		add_filter(
+			'woocommerce_get_price_html',
+			array( __CLASS__, 'get_price_html' ),
+			10,
+			2
+		);
 
-		if ( Config::get_enable_dk_customer_prices() ) {
-			add_filter(
-				'woocommerce_get_price_html',
-				array( __CLASS__, 'get_price_html' ),
-				10,
-				2
-			);
+		add_filter(
+			'woocommerce_product_get_price',
+			array( __CLASS__, 'price_to_customer_price' ),
+			10,
+			2
+		);
 
-			add_filter(
-				'woocommerce_product_get_price',
-				array( __CLASS__, 'price_to_customer_price' ),
-				10,
-				2
-			);
+		add_filter(
+			'woocommerce_product_variation_get_price',
+			array( __CLASS__, 'price_to_customer_price' ),
+			10,
+			2
+		);
 
-			add_filter(
-				'woocommerce_product_variation_get_price',
-				array( __CLASS__, 'price_to_customer_price' ),
-				10,
-				2
-			);
+		add_filter(
+			'woocommerce_product_get_regular_price',
+			array( __CLASS__, 'regular_price_to_group_price' ),
+			10,
+			2
+		);
 
-			add_filter(
-				'woocommerce_product_get_regular_price',
-				array( __CLASS__, 'regular_price_to_group_price' ),
-				10,
-				2
-			);
+		add_filter(
+			'woocommerce_product_variation_get_regular_price',
+			array( __CLASS__, 'regular_price_to_group_price' ),
+			10,
+			2
+		);
 
-			add_filter(
-				'woocommerce_product_variation_get_regular_price',
-				array( __CLASS__, 'regular_price_to_group_price' ),
-				10,
-				2
-			);
+		add_filter(
+			'connector_for_dk_customer_price_format',
+			array( __CLASS__, 'adapt_formatting_to_themes' ),
+			10,
+			1
+		);
 
-			add_filter(
-				'connector_for_dk_customer_price_format',
-				array( __CLASS__, 'adapt_formatting_to_themes' ),
-				10,
-				1
-			);
+		add_filter(
+			'woocommerce_cart_item_price',
+			array( __CLASS__, 'filter_cart_item_price' ),
+			10,
+			2
+		);
 
-			add_filter(
-				'woocommerce_cart_item_price',
-				array( __CLASS__, 'filter_cart_item_price' ),
-				10,
-				2
-			);
+		add_filter(
+			'woocommerce_cart_item_subtotal',
+			array( __CLASS__, 'filter_cart_item_subtotal' ),
+			10,
+			2
+		);
 
-			add_filter(
-				'woocommerce_cart_item_subtotal',
-				array( __CLASS__, 'filter_cart_item_subtotal' ),
-				10,
-				2
-			);
-
-			add_filter(
-				'woocommerce_order_formatted_line_subtotal',
-				array( __CLASS__, 'filter_order_line_item_subtotal' ),
-				10,
-				2
-			);
-		}
+		add_filter(
+			'woocommerce_order_formatted_line_subtotal',
+			array( __CLASS__, 'filter_order_line_item_subtotal' ),
+			10,
+			2
+		);
 
 		add_action(
 			'connector_for_dk_end_of_customers_section',

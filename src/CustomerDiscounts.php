@@ -12,6 +12,7 @@ use WC_Order_Item;
 use WC_Order_Item_Product;
 use WC_Product;
 use WC_Product_Variable;
+use WP_User;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -121,6 +122,124 @@ class CustomerDiscounts {
 			10,
 			1
 		);
+
+		add_filter(
+			'manage_users_columns',
+			array( __CLASS__, 'add_columns_to_users_table' ),
+			10,
+			1
+		);
+
+		add_filter(
+			'manage_users_custom_column',
+			array( __CLASS__, 'add_column_content_to_users_table' ),
+			10,
+			3
+		);
+
+		add_action(
+			'show_user_profile',
+			array( __CLASS__, 'display_discount_information_in_user_editor' ),
+			10,
+			1
+		);
+
+		add_action(
+			'edit_user_profile',
+			array( __CLASS__, 'display_discount_information_in_user_editor' ),
+			10,
+			1
+		);
+	}
+
+	/**
+	 * Display information on a user's price group and discount in the user editor
+	 *
+	 * @param WP_User $profile_user The WP user who's profile is being edited.
+	 */
+	public static function display_discount_information_in_user_editor(
+		WP_User $profile_user
+	): void {
+		$customer = new WC_Customer( $profile_user->ID );
+
+		$GLOBALS['connector_for_dk_user_editor_price_group'] = intval(
+			$customer->get_meta( 'connector_for_dk_price_group' )
+		);
+
+		$GLOBALS['connector_for_dk_user_editor_discount'] = floatval(
+			$customer->get_meta( 'connector_for_dk_customer_discount' )
+		);
+
+		require dirname( __DIR__ ) . '/views/user_discount_information.php';
+	}
+
+	/**
+	 * Add price group and discount columns to the user table
+	 *
+	 * @param array $columns The current set of columns to filter.
+	 */
+	public static function add_columns_to_users_table(
+		array $columns
+	): array {
+		if ( ! current_user_can( 'edit_users' ) ) {
+			return $columns;
+		}
+
+		$array_offset = array_search( 'role', array_keys( $columns ), true );
+
+		$discount_columns = array(
+			'connector_for_dk_price_group'       => __(
+				'Price Group',
+				'connector-for-dk'
+			),
+			'connector_for_dk_customer_discount' => __(
+				'Discount',
+				'connector-for-dk'
+			),
+		);
+
+		return array_merge(
+			array_slice( $columns, 0, $array_offset, true ),
+			$discount_columns,
+			array_slice( $columns, $array_offset, null, true )
+		);
+	}
+
+	/**
+	 * Add content to the price group and discount columns in the user table
+	 *
+	 * @param string $output The output to filter.
+	 * @param string $column_name The column name/key.
+	 * @param string $user_id The user's ID.
+	 */
+	public static function add_column_content_to_users_table(
+		string $output,
+		string $column_name,
+		string $user_id
+	): string {
+		if ( $column_name === 'connector_for_dk_price_group' ) {
+			$customer    = new WC_Customer( $user_id );
+			$price_group = $customer->get_meta(
+				'connector_for_dk_price_group'
+			);
+
+			if ( empty( $price_group ) ) {
+				return '1';
+			} else {
+				return $price_group;
+			}
+		}
+
+		if ( $column_name === 'connector_for_dk_customer_discount' ) {
+			$customer = new WC_Customer( $user_id );
+			$discount = $customer->get_meta(
+				'connector_for_dk_customer_discount'
+			);
+
+			return (string) floatval( $discount ) . '%';
+		}
+
+		return $output;
 	}
 
 	/**

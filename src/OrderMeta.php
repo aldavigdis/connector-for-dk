@@ -44,7 +44,8 @@ class OrderMeta {
 	/**
 	 * Add meta data to order items
 	 *
-	 * Adds required metadata to order items when orders are created
+	 * Adds required metadata to order items and rounds totals and subtotals
+	 * when orders are created.
 	 *
 	 * @param null|int $order_id The order ID (unused).
 	 * @param WC_Order $order The order.
@@ -200,6 +201,11 @@ class OrderMeta {
 		$order->update_meta_data(
 			'connector_for_dk_version',
 			Admin::ASSET_VERSION
+		);
+
+		$order->update_meta_data(
+			'connector_for_dk_invoice_attempts',
+			0
 		);
 
 		$order->save_meta_data();

@@ -136,6 +136,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</p>
 				</td>
 			</tr>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+				</th>
+				<td>
+					<input
+						id="defer_invoicing_to_cron_field"
+						name="defer_invoicing_to_cron"
+						type="checkbox"
+						<?php echo esc_attr( Config::get_defer_invoicing_to_cron() ? 'checked' : '' ); ?>
+					/>
+					<label for="defer_invoicing_to_cron_field">
+						<?php
+						esc_html_e(
+							'Defer invoice generation to a background task',
+							'connector-for-dk'
+						);
+						?>
+					</label>
+					<p class="description">
+						<?php
+						esc_html_e(
+							'This makes the checkout process faster, but will lead to a delay in invoice generation. Disable this to generate invoices immediately on checkout.',
+							'connector-for-dk'
+						);
+						?>
+					</p>
+				</td>
+			</tr>
 			<?php do_action( 'connector_for_dk_end_of_invoices_checkboxes' ); ?>
 		</tbody>
 	</table>

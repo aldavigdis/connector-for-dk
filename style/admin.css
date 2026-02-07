@@ -314,6 +314,11 @@ table .column-dk_invoice_id .debit_invoice {
 	font-weight: 600;
 }
 
+table .column-dk_invoice_id .pending {
+	color: rgb(172, 112, 0);
+	font-weight: 600;
+}
+
 table .column-dk_invoice_id .credit_invoice {
 	color: #333;
 	font-weight: 600;

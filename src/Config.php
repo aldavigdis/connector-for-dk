@@ -1085,4 +1085,11 @@ class Config {
 	public static function get_product_category_sync(): bool {
 		return (bool) self::get_option( 'product_category_sync', false );
 	}
+
+	/**
+	 * Get wether to defer invoice generation to a cron job
+	 */
+	public static function get_defer_invoicing_to_cron(): bool {
+		return (bool) self::get_option( 'defer_invoicing_to_cron', true );
+	}
 }

@@ -298,35 +298,23 @@ class Admin {
 		if ( $column_name === 'dk_invoice_id' ) {
 			$invoice_number = OrderHelper::get_invoice_number( $wc_order );
 
-			$credit_invoice_number = OrderHelper::get_credit_invoice_number(
-				$wc_order
-			);
-
-			$invoice_creation_error = OrderHelper::get_invoice_creation_error(
-				$wc_order
-			);
+			if ( empty( $wc_order->get_meta( 'connector_for_dk_version' ) ) ) {
+				return;
+			}
 
 			if ( ! empty( $invoice_number ) ) {
 				echo '<span class="dashicons dashicons-yes debit_invoice"></span> ';
 				echo '<span class="debit_invoice">';
 				echo esc_html( $invoice_number );
 				echo '</span>';
-				if ( ! empty( $credit_invoice_number ) ) {
-					echo ' / ';
-					echo '<span class="credit_invoice">';
-					echo esc_html( $credit_invoice_number );
-					echo '</span>';
-				}
 				return;
 			}
 
-			if ( ! empty( $invoice_creation_error ) ) {
-				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
-				echo '<span class="invoice_error">';
-				esc_html_e( 'Error', 'connector-for-dk' );
-				echo '</span>';
-				return;
-			}
+			echo '<span class="dashicons dashicons-marker pending"></span> ';
+			echo '<span class="pending">';
+			esc_html_e( 'Pending...', 'connector-for-dk' );
+			echo '</span>';
+			return;
 		}
 	}
 

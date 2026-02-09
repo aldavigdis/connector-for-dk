@@ -15,6 +15,7 @@ use WC_Payment_Gateway;
 use stdClass;
 use WC_Order;
 use WP_Error;
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
  * The ConnectorForDK Admin class
@@ -335,6 +336,10 @@ class Admin {
 		}
 
 		$errors = array();
+
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() === false ) {
+			array_push( $errors, 'hpos' );
+		}
 
 		if ( self::check_base_location() === false ) {
 			array_push( $errors, 'base_location' );

@@ -36,6 +36,28 @@ $pre_activation_errors = Admin::pre_activation_errors();
 	</p>
 
 		<ul class="admin-check-errors">
+			<?php if ( in_array( 'hpos', $pre_activation_errors, true ) ) : ?>
+			<li>
+				<span>
+					<?php
+					esc_html_e(
+						'Enable ‘HPOS’ Order Storage',
+						'connector-for-dk'
+					);
+					?>
+				</span>
+				<ul>
+					<li>
+						<?php
+						esc_html_e(
+							'Connector for dk only supports stores with ‘HPOS’ (High Performance Order Storage) enabled.',
+							'connector-for-dk'
+						);
+						?>
+					</li>
+				</ul>
+			</li>
+			<?php endif ?>
 			<?php if ( in_array( 'base_location', $pre_activation_errors, true ) ) : ?>
 			<li>
 				<span>

@@ -18,6 +18,7 @@ use WC_Product_Variation;
  */
 class Metaboxes {
 	const PROTECTED_META = array(
+		'connector_for_dk_invoice_attempts',
 		'connector_for_dk_price_sync',
 		'connector_for_dk_stock_sync',
 		'connector_for_dk_name_sync',

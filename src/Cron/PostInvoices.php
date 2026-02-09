@@ -15,19 +15,23 @@ use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
  * invoice number assigned yet.
  */
 class PostInvoices {
+	const GET_ORDERS_LIMIT = 10;
+	const PAST_ORDER_LIMIT = 4 * HOUR_IN_SECONDS;
+
 	/**
 	 * Run hourly task
 	 */
 	public static function run(): void {
-		$yesterday     = gmdate( 'r', time() - DAY_IN_SECONDS );
+		$the_past      = gmdate( 'r', time() - self::PAST_ORDER_LIMIT );
 		$recent_orders = wc_get_orders(
 			array(
 				'status'       => array( 'completed', 'processing' ),
 				'meta_key'     => 'connector_for_dk_invoice_number',
 				'meta_compare' => 'NOT EXISTS',
-				'date_query'   => array( 'after' => $yesterday ),
+				'date_query'   => array( 'after' => $the_past ),
 				'order'        => 'ASC',
 				'orderby'      => 'ID',
+				'limit'        => self::GET_ORDERS_LIMIT,
 			)
 		);
 

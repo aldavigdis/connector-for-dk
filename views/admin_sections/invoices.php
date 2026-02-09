@@ -157,7 +157,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'This makes the checkout process faster, but will lead to a delay in invoice generation. Disable this to generate invoices immediately on checkout.',
+							'This makes the checkout process a bit faster, but invoice generation may be on hold for up to 20 minutes. Disable this to generate invoices immediately on checkout.',
 							'connector-for-dk'
 						);
 						?>
@@ -170,6 +170,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<table id="dk-invoices-textfields-table" class="form-table">
 		<tbody>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+					<label for="invoice_reference_prefix_field">
+						<?php esc_html_e( 'Invoice Reference Prefix', 'connector-for-dk' ); ?>
+					</label>
+				</th>
+				<td>
+					<input
+						id="invoice_reference_prefix_field"
+						name="invoice_reference_prefix"
+						type="text"
+						value="<?php echo esc_attr( Config::get_invoice_reference_prefix() ); ?>"
+					/>
+					<p class="description">
+						<?php
+						esc_html_e(
+							'A refence to the relevant orders is added to each invoice in dk that originates in WooCommerce. Here you can define a string of text to prefix the order with in your invoices.',
+							'connector-for-dk'
+						);
+						?>
+					</p>
+				</td>
+			</tr>
 			<tr>
 				<th scope="row" class="column-title column-primary">
 					<label for="default_sales_person_number_field">
@@ -187,6 +210,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="infotext <?php echo esc_attr( $info_for_sales_person->css_class ); ?>">
 						<span class="dashicons <?php echo esc_attr( $info_for_sales_person->dashicon ); ?>"></span>
 						<?php echo esc_html( $info_for_sales_person->text ); ?>
+					</p>
+					<p class="description">
+						<?php
+						esc_html_e(
+							'A sales person needs to be referenced on every invoice in dk. A sales person number can be alphanumeric.',
+							'connector-for-dk'
+						);
+						?>
 					</p>
 				</td>
 			</tr>

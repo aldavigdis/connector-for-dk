@@ -161,7 +161,7 @@ class Order {
 		}
 
 		$order_props = array(
-			'Reference' => 'WC-' . $wc_order->get_id(),
+			'Reference' => self::order_reference( $wc_order ),
 			'Customer'  => $customer_array,
 			'Receiver'  => $recipient_array,
 			'Currency'  => $wc_order->get_currency(),
@@ -401,5 +401,14 @@ class Order {
 		}
 
 		return BigDecimal::of( 1 )->minus( $tax_multiplier )->toFloat();
+	}
+
+	/**
+	 * Generate the order reference from an order's ID
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 */
+	private static function order_reference( WC_Order $wc_order ): string {
+		return Config::get_invoice_reference_prefix() . $wc_order->get_id();
 	}
 }

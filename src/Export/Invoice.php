@@ -12,6 +12,7 @@ use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use stdClass;
 
 /**
  * The Invoice Export class
@@ -250,5 +251,81 @@ class Invoice {
 		return (string) $wc_order->get_meta(
 			'connector_for_dk_invoice_number'
 		);
+	}
+
+	/**
+	 * Check if an order has plausibly been invoiced in DK
+	 *
+	 * This checks if there is an invoice already in dk that corresponds to an
+	 * order's ID, amount and customer.
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 */
+	public static function is_plausibly_invoiced_in_dk(
+		WC_Order $order
+	): false|WP_Error|string {
+		$api_request = new DKApiRequest();
+
+		$order_reference = Config::get_invoice_reference_prefix() .
+			(string) $order->get_id();
+
+		$result = $api_request->get_result(
+			self::API_PATH .
+			'reference/' .
+			$order_reference
+		);
+
+		if ( $result instanceof WP_Error ) {
+			return $result;
+		}
+
+		if (
+			! is_object( $result ) ||
+			! is_array( $result->data ) ||
+			empty( $result->data )
+		) {
+			return false;
+		}
+
+		$invoices = $result->data;
+
+		usort(
+			$invoices,
+			function ( stdclass $a, stdClass $b ): int {
+				$time_a = strtotime( $a->Created );
+				$time_b = strtotime( $b->Created );
+
+				if ( $time_a === $time_b ) {
+					return 0;
+				}
+
+				return ( $time_a < $time_b ) ? 1 : -1;
+			}
+		);
+
+		$last_invoice = array_first( $invoices );
+
+		if (
+			strtotime( (string) $last_invoice->Created ) <
+			strtotime( (string) $order->get_date_created() )
+		) {
+			return false;
+		}
+
+		if (
+			(float) $last_invoice->TotalAmountWithTax !==
+			(float) $order->get_total()
+		) {
+			return false;
+		}
+
+		if (
+			(string) $last_invoice->CNumber !==
+			OrderHelper::get_kennitala( $order )
+		) {
+			return false;
+		}
+
+		return (string) $last_invoice->Number;
 	}
 }

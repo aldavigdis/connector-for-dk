@@ -232,7 +232,15 @@ class OrderStatus {
 			return;
 		}
 
-		$invoice_number = ExportInvoice::create_in_dk( $order );
+		$plausible_invoice_number = ExportInvoice::is_plausibly_invoiced_in_dk(
+			$order
+		);
+
+		if ( is_string( $plausible_invoice_number ) ) {
+			$invoice_number = $plausible_invoice_number;
+		} else {
+			$invoice_number = ExportInvoice::create_in_dk( $order );
+		}
 
 		if ( is_string( $invoice_number ) ) {
 			$order->add_order_note(

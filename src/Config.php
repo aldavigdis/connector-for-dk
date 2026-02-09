@@ -30,6 +30,8 @@ class Config {
 		'0'  => 'vsk0',
 	);
 
+	const DEFAULT_INVOICE_REFERENCE_PREFIX = 'WC-';
+
 	const DEFAULT_KENNITALA                      = '0000000000';
 	const DEFAULT_INTERNATIONAL_KENNITALA        = 'E000000000';
 	const DEFAULT_INTERNATIONAL_KENNITALA_PREFIX = 'E';
@@ -1091,5 +1093,18 @@ class Config {
 	 */
 	public static function get_defer_invoicing_to_cron(): bool {
 		return (bool) self::get_option( 'defer_invoicing_to_cron', true );
+	}
+
+	/**
+	 * Get the invoice reference prefix
+	 *
+	 * The prefix is used for the reference attribute when creating invoices in
+	 * dk and is also used for fetching dk invoices from a WooCommerce order.
+	 */
+	public static function get_invoice_reference_prefix(): string {
+		return (string) self::get_option(
+			'invoice_reference_prefix',
+			self::DEFAULT_INVOICE_REFERENCE_PREFIX
+		);
 	}
 }

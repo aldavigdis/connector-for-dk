@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'The API key is provided by DK for use with the dkPlus API. Do not share this key with anyone.',
+							'The API key is provided by dk for use with the dkPlus API. Do not share this key with anyone.',
 							'connector-for-dk'
 						)
 						?>

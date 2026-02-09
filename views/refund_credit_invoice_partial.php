@@ -39,7 +39,7 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 	<div class="buttons">
 		<button
 			class="update button button-small button-secondary"
-			title="<?php esc_html_e( 'Update the credit invoice number reference without generating a new credit invoice in DK', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Update the credit invoice number reference without generating a new credit invoice in dk', 'connector-for-dk' ); ?>"
 			<?php echo empty( $credit_invoice_number ) ? 'disabled' : ''; ?>
 			data-refund-id="<?php echo esc_attr( $refund->get_id() ); ?>"
 		>
@@ -55,11 +55,11 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 		</button>
 		<button
 			class="make-dk-invoice button button-small button-primary"
-			title="<?php esc_html_e( 'Generate a new credit invoice for this order in DK', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Generate a new credit invoice for this order in dk', 'connector-for-dk' ); ?>"
 			<?php echo empty( $credit_invoice_number ) ? '' : 'disabled'; ?>
 			data-refund-id="<?php echo esc_attr( $refund->get_id() ); ?>"
 		>
-			<?php esc_html_e( 'Create in DK', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Create in dk', 'connector-for-dk' ); ?>
 		</button>
 		<img
 			class="loader hidden"
@@ -76,7 +76,7 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 		echo sprintf(
 			// Translators: %1$s an %2$s stand for opening and closing <strong> tags.
 			esc_html__(
-				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Connector for DK. You can manually create an invoice in DK and reference it here.',
+				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Connector for dk. You can manually create an invoice in dk and reference it here.',
 				'connector-for-dk'
 			),
 			'<strong>',

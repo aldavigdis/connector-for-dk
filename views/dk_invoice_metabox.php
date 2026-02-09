@@ -48,7 +48,7 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 		<button
 			id="connector-for-dk-invoice-metabox-invoice-number-update-button"
 			class="button button-small button-secondary"
-			title="<?php esc_html_e( 'Update the invoice number reference without generating a new invoice in DK', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Update the invoice number reference without generating a new invoice in dk', 'connector-for-dk' ); ?>"
 			<?php echo empty( $invoice_number ) ? 'disabled' : ''; ?>
 		>
 			<?php esc_html_e( 'Update', 'connector-for-dk' ); ?>
@@ -65,10 +65,10 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 		<button
 			id="connector-for-dk-invoice-metabox-make-dk-invoice-button"
 			class="button button-small button-primary"
-			title="<?php esc_html_e( 'Generate a new invoice for this order in DK', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Generate a new invoice for this order in dk', 'connector-for-dk' ); ?>"
 			<?php echo empty( $invoice_number ) ? '' : 'disabled'; ?>
 		>
-			<?php esc_html_e( 'Create in DK', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Create in dk', 'connector-for-dk' ); ?>
 		</button>
 		<?php endif ?>
 		<img
@@ -85,14 +85,14 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 			class="infotext ok hidden"
 		>
 			<span class="dashicons dashicons-yes"></span>
-			<?php esc_html_e( 'Invoice has been created in DK.', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Invoice has been created in dk.', 'connector-for-dk' ); ?>
 		</p>
 		<p
 			id="connector-for-dk-invoice-metabox-creation-error"
 			class="infotext error hidden"
 		>
 			<span class="dashicons dashicons-no"></span>
-			<?php esc_html_e( 'Unable to create invoice in DK.', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Unable to create invoice in dk.', 'connector-for-dk' ); ?>
 		</p>
 		<p
 			id="connector-for-dk-invoice-metabox-number-assigned-message"
@@ -113,7 +113,7 @@ $credit_invoice_number = OrderHelper::get_credit_invoice_number( $wc_order );
 			class="infotext error hidden"
 		>
 			<span class="dashicons dashicons-no"></span>
-			<?php esc_html_e( 'Invoice not found in DK.', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Invoice not found in dk.', 'connector-for-dk' ); ?>
 		</p>
 	</div>
 </div>

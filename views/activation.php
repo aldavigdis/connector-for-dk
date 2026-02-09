@@ -34,7 +34,7 @@ if ( ! empty( $encrypted_key ) ) {
 		class="type-form"
 		novalidate
 	>
-		<h1><?php esc_html_e( 'Activate Connector for DK', 'connector-for-dk' ); ?></h1>
+		<h1><?php esc_html_e( 'Activate Connector for dk', 'connector-for-dk' ); ?></h1>
 
 		<section class="section">
 			<h2><?php esc_html_e( 'Activation Code', 'connector-for-dk' ); ?></h2>
@@ -91,7 +91,7 @@ if ( ! empty( $encrypted_key ) ) {
 					<tbody>
 						<tr id="connector_for_dk_license_product_row">
 							<th scope="row" class="column-title column-primary">
-								<?php esc_attr_e( 'Connector For DK Edition', 'connector-for-dk' ); ?>
+								<?php esc_attr_e( 'Edition', 'connector-for-dk' ); ?>
 							</th>
 							<td class="value">
 								<span class="pill">

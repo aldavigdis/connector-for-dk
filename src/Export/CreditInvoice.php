@@ -13,7 +13,6 @@ use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
 use WP_Error;
 use WC_Order;
 use WC_Order_Item_Product;
-use RoundingMode as PHPRoundingMode;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
 /**
@@ -131,7 +130,7 @@ class CreditInvoice {
 						)->abs()
 					)->toFloat(),
 					$decimals,
-					PHPRoundingMode::HalfEven
+					PHP_ROUND_HALF_UP
 				);
 
 				$order_line_item = array(
@@ -193,7 +192,7 @@ class CreditInvoice {
 					$fee->get_total_tax()
 				)->abs()->toFloat(),
 				$decimals,
-				PHPRoundingMode::HalfEven
+				PHP_ROUND_HALF_UP
 			);
 
 			$order_props['Lines'][] = apply_filters(
@@ -221,7 +220,7 @@ class CreditInvoice {
 					)->abs()
 				)->abs()->toFloat(),
 				$decimals,
-				PHPRoundingMode::HalfEven
+				PHP_ROUND_HALF_UP
 			);
 
 			$order_line_item = array(

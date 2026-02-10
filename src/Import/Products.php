@@ -20,7 +20,6 @@ use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
 use WC_Product_Variable;
-use RoundingMode as PHPRoundingMode;
 
 /**
  * The Products import class
@@ -637,19 +636,19 @@ class Products {
 			$price = round(
 				$price_with_tax,
 				$decimals,
-				PHPRoundingMode::HalfAwayFromZero
+				PHP_ROUND_HALF_UP
 			);
 
 			if ( isset( $price_2_with_tax, $price_3_with_tax ) ) {
 				$price_2 = round(
 					$price_2_with_tax,
 					$decimals,
-					PHPRoundingMode::HalfAwayFromZero
+					PHP_ROUND_HALF_UP
 				);
 				$price_3 = round(
 					$price_3_with_tax,
 					$decimals,
-					PHPRoundingMode::HalfAwayFromZero
+					PHP_ROUND_HALF_UP
 				);
 			}
 
@@ -665,19 +664,19 @@ class Products {
 			$price = round(
 				$price_before_tax,
 				$decimals,
-				PHPRoundingMode::HalfAwayFromZero
+				PHP_ROUND_HALF_UP
 			);
 
 			if ( isset( $price_2_before_tax, $price_3_before_tax ) ) {
 				$price_2 = round(
 					$price_2_before_tax,
 					$decimals,
-					PHPRoundingMode::HalfAwayFromZero
+					PHP_ROUND_HALF_UP
 				);
 				$price_3 = round(
 					$price_3_before_tax,
 					$decimals,
-					PHPRoundingMode::HalfAwayFromZero
+					PHP_ROUND_HALF_UP
 				);
 			}
 

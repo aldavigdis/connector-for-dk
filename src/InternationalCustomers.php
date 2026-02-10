@@ -24,7 +24,7 @@ class InternationalCustomers {
 		add_action(
 			'connector_for_dk_end_of_customers_section',
 			array( __CLASS__, 'add_international_customers_to_admin' ),
-			10,
+			5,
 			0
 		);
 

@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-02-10 07:28+0000\n"
+"PO-Revision-Date: 2026-02-10 12:01+0000\n"
 "Last-Translator: \n"
-"Language-Team: Icelandic\n"
+"Language-Team: Íslenska\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
@@ -435,21 +435,16 @@ msgid "Connector for dk 15 minute interval"
 msgstr "Tengill fyrir dk, 15 mínútna lykkja"
 
 #: views/admin_sections/customers_sync.php:35
-#| msgid ""
-#| "Connector for DK can keep registered customers' addresses, email "
-#| "addresses and phone numbers in sync with DK. This requires the customer "
-#| "to be registered as a user and to have the Kennitala field set to a value "
-#| "that corresponds with the relevant DK customer record."
 msgid ""
-"Connector for dk can keep registered customers' addresses, email addresses "
-"and phone numbers in sync with dk. This requires the customer to be "
-"registered as a user and to have the Kennitala field set to a value that "
+"Connector for dk can keep registered customers' discounts, addresses, email "
+"addresses and phone numbers in sync with dk. This requires the customer to "
+"be registered as a user and to have the Kennitala field set to a value that "
 "corresponds with the relevant dk customer record."
 msgstr ""
-"Tengill fyrir dk getur haldið heimilisföngum, tölvupóstföngum og símanúmerum "
-"viðskiptavina samstilltum við dk. Þetta krefst þess að viðskiptavinurinn sé "
-"skráður sem notandi og með kennitölu stillta á sama gildi og samsvarandi "
-"skuldunaut í dk."
+" Tengill fyrir dk getur haldið afsláttarkjörum. heimilisföngum, "
+"tölvupóstföngum og símanúmerum viðskiptavina samstilltum við dk. Þetta "
+"krefst þess að viðskiptavinurinn sé skráður sem notandi og með kennitölu "
+"stillta á sama gildi og samsvarandi skuldunaut í dk. "
 
 #: views/admin_with_errors.php:74
 #| msgid ""
@@ -528,10 +523,6 @@ msgstr "Líðandi mánuður + 20 dagar"
 msgid "Customer Discount"
 msgstr "Afsláttur viðskiptavinar"
 
-#: views/admin_sections/customers_discounts.php:15
-msgid "Customer Discounts and Price Groups"
-msgstr "Afslættir og verðhópar viðskiptavina"
-
 #: views/user_discount_information.php:11
 msgid "Customer Price Group and Discount"
 msgstr "Verðhópur og afsláttur viðskiptavinar"
@@ -588,7 +579,7 @@ msgstr "Þetta er líklega þróunar-, prufu-, eða raunprófunarumhverfi 👷�
 msgid "Disable the Kennitala field in the Iceland Post plugin"
 msgstr "Slökktu á kennitölureitnum í viðbótinni frá Íslandspósti"
 
-#: src/CustomerDiscounts.php:195
+#: src/CustomerDiscounts.php:188
 msgid "Discount"
 msgstr "Afsláttur"
 
@@ -744,11 +735,6 @@ msgstr "Gjald"
 #: src/CustomerSync.php:129
 msgid "Fetch"
 msgstr "Sækja"
-
-#: views/admin_sections/customers_discounts.php:31
-#| msgid "Fetch Customer Discount and Price Group Data from DK"
-msgid "Fetch Customer Discount and Price Group Data from dk"
-msgstr "Sækja afsláttarkjör og verðhópa viðskiptavina frá dk"
 
 #: src/CustomerSync.php:126
 msgid "Fetch from DK"
@@ -924,26 +910,6 @@ msgstr ""
 "Ef það er kveikt á þessu, þá er nýr skuldunautur stofnaður í dk fyrir hvern "
 "nýjan viðskiptavin sem gerir pöntun og gefur upp kennitölu sem ekki er þegar "
 "skráð í dk."
-
-#: views/admin_sections/customers_discounts.php:39
-#| msgid ""
-#| "If this is enabled, information on customer discounts and price groups "
-#| "are fetched from DK on an hourly basis based on each customer's Kennitala."
-#| " Customer prices are only available to logged-in and registered users "
-#| "with the Kennitala attribute set to one that equals the relevant "
-#| "Kennitala or Customer Number in DK."
-msgid ""
-"If this is enabled, information on customer discounts and price groups are "
-"fetched from dk on an hourly basis based on each customer's Kennitala. "
-"Customer prices are only available to logged-in and registered users with "
-"the Kennitala attribute set to one that equals the relevant Kennitala or "
-"Customer Number in dk."
-msgstr ""
-"Ef það er kveikt á þessu, þá eru upplýsingar um fasta afslætti fyrir "
-"viðskiptavini og verðhópa sóttar úr dk á klukkutíma fresti, eftir kennitölu "
-"hvers og eins. Sérverð fyrir viðskiptavini eru einöngu aðgengileg fyrir "
-"innskráða notendur sem skráðir eru í WooCommerce, með kennitölu stillta á "
-"kennitölu þess skuldunatar í dk sem gögnin eru sótt fyrir."
 
 #: views/admin_sections/invoices.php:74
 msgid ""
@@ -1300,7 +1266,7 @@ msgstr "Póstkrafa (POST)"
 msgid "Price (%s)"
 msgstr "Verð (%s)"
 
-#: src/CustomerDiscounts.php:191 views/user_discount_information.php:18
+#: src/CustomerDiscounts.php:184 views/user_discount_information.php:18
 msgid "Price Group"
 msgstr "Verðhópur"
 
@@ -1342,7 +1308,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/CustomerDiscounts.php:632
+#: src/CustomerDiscounts.php:617
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -1893,6 +1859,6 @@ msgstr "Reikningurinn þinn frá %1$s"
 msgid "Your License"
 msgstr "Þitt leyfi"
 
-#: src/CustomerDiscounts.php:636
+#: src/CustomerDiscounts.php:621
 msgid "Your Price:"
 msgstr "Þitt verð:"

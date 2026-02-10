@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p>
 					<?php
 					esc_html_e(
-						"Connector for dk can keep registered customers' addresses, email addresses and phone numbers in sync with dk. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant dk customer record.",
+						"Connector for dk can keep registered customers' discounts, addresses, email addresses and phone numbers in sync with dk. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant dk customer record.",
 						'connector-for-dk'
 					);
 					?>

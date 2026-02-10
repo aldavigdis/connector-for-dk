@@ -103,13 +103,6 @@ class CustomerDiscounts {
 		);
 
 		add_action(
-			'connector_for_dk_end_of_customers_section',
-			array( __CLASS__, 'render_in_admin' ),
-			10,
-			0
-		);
-
-		add_action(
 			'connector_for_dk_after_update_meta_data',
 			array( __CLASS__, 'import_user_discount_and_price_group' ),
 			10,
@@ -365,14 +358,6 @@ class CustomerDiscounts {
 				$current_price_range['max']
 			)
 		);
-	}
-
-	/**
-	 * Render form fields in the admin page
-	 */
-	public static function render_in_admin(): void {
-		$view_path = '/views/admin_sections/customers_discounts.php';
-		require dirname( __DIR__ ) . $view_path;
 	}
 
 	/**

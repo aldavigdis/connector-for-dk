@@ -12,7 +12,6 @@ use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product_Variation;
-use RoundingMode as PHPRoundingMode;
 
 /**
  * The Order Meta class
@@ -95,7 +94,7 @@ class OrderMeta {
 							$item->get_quantity()
 						)->toFloat(),
 						2,
-						PHPRoundingMode::HalfAwayFromZero
+						PHP_ROUND_HALF_UP
 					)
 				);
 				$item->set_total(
@@ -120,7 +119,7 @@ class OrderMeta {
 							$item->get_quantity()
 						)->toFloat(),
 						2,
-						PHPRoundingMode::HalfAwayFromZero
+						PHP_ROUND_HALF_UP
 					)
 				);
 			} else {
@@ -132,7 +131,7 @@ class OrderMeta {
 							$item->get_quantity()
 						)->toFloat(),
 						2,
-						PHPRoundingMode::HalfAwayFromZero
+						PHP_ROUND_HALF_UP
 					)
 				);
 
@@ -144,7 +143,7 @@ class OrderMeta {
 							$item->get_quantity()
 						)->toFloat(),
 						2,
-						PHPRoundingMode::HalfAwayFromZero
+						PHP_ROUND_HALF_UP
 					)
 				);
 			}

@@ -15,7 +15,6 @@ use WC_Order;
 use WC_Order_Item_Product;
 use WC_Product;
 use WP_Error;
-use RoundingMode as PHPRoundingMode;
 
 /**
  * The Order Export class
@@ -222,7 +221,7 @@ class Order {
 						$item->get_quantity()
 					)->toFloat(),
 					$decimals,
-					PHPRoundingMode::HalfEven
+					PHP_ROUND_HALF_UP
 				),
 				$item
 			);
@@ -230,7 +229,7 @@ class Order {
 			$rounded_price = round(
 				$subtotal,
 				$decimals,
-				PHPRoundingMode::HalfEven
+				PHP_ROUND_HALF_UP
 			);
 
 			$order_line_item = array(
@@ -289,7 +288,7 @@ class Order {
 					$fee->get_total_tax()
 				)->toFloat(),
 				$decimals,
-				PHPRoundingMode::HalfEven
+				PHP_ROUND_HALF_UP
 			);
 
 			$order_props['Lines'][] = apply_filters(
@@ -316,7 +315,7 @@ class Order {
 						$shipping_method->get_total_tax()
 					)->toFloat(),
 					$decimals,
-					PHPRoundingMode::HalfEven
+					PHP_ROUND_HALF_UP
 				);
 
 				$order_props['Lines'][] = apply_filters(

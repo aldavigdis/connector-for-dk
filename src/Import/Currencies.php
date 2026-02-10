@@ -22,12 +22,6 @@ class Currencies {
 	 * Fetches all the currency rates from DK
 	 */
 	public static function save_all_from_dk(): void {
-		if ( defined( '1984_DK_WOO_DOING_SYNC' ) ) {
-			return;
-		}
-
-		define( '1984_DK_WOO_DOING_SYNC', true );
-
 		$json_objects = self::get_all_from_dk();
 
 		foreach ( $json_objects as $c ) {

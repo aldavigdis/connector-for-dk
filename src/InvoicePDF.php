@@ -229,7 +229,7 @@ class InvoicePDF {
 	/**
 	 * Clean the PDF directory
 	 *
-	 * Removes all PDFs that are older than 1 hour. This is run hourly using
+	 * Removes all PDFs that are older than 1 week. This is run weekly using
 	 * wp-cron.
 	 */
 	public static function clean_directory(): void {
@@ -252,7 +252,7 @@ class InvoicePDF {
 				continue;
 			}
 
-			if ( $wp_filesystem->mtime( $path ) < time() - HOUR_IN_SECONDS ) {
+			if ( $wp_filesystem->mtime( $path ) < time() - WEEK_IN_SECONDS ) {
 				$wp_filesystem->delete( $path );
 			}
 		}

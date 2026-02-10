@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							"The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a DK customer record called ‘Various Customers’ etc.",
+							"The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a dk customer record called ‘Various Customers’ etc.",
 							'connector-for-dk'
 						)
 						?>
@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'The ledger code is used for new customer records when they are created in DK.',
+							'The ledger code is used for new customer records when they are created in dk.',
 							'connector-for-dk'
 						);
 						?>

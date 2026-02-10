@@ -31,7 +31,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 			<?php
 			echo esc_html(
 				__(
-					"DK's own ‘Product Variations’ feature is required to add or remove product variations that originate in DK.",
+					"dk's own ‘Product Variations’ feature is required to add or remove product variations that originate in dk.",
 					'connector-for-dk'
 				)
 			);

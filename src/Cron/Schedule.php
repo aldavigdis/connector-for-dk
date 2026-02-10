@@ -15,8 +15,36 @@ class Schedule {
 	 */
 	public function __construct() {
 		add_action(
-			'connector_for_dk_hourly',
-			array( 'AldaVigdis\ConnectorForDK\Cron\Hourly', 'run' ),
+			'connector_for_dk_get_clean_pdfs',
+			array( 'AldaVigdis\ConnectorForDK\Cron\CleanPDFs', 'run' ),
+			10,
+			0
+		);
+
+		add_action(
+			'connector_for_dk_get_currencies',
+			array( 'AldaVigdis\ConnectorForDK\Cron\GetCurrencies', 'run' ),
+			10,
+			0
+		);
+
+		add_action(
+			'connector_for_dk_get_customers',
+			array( 'AldaVigdis\ConnectorForDK\Cron\GetCustomers', 'run' ),
+			10,
+			0
+		);
+
+		add_action(
+			'connector_for_dk_get_products',
+			array( 'AldaVigdis\ConnectorForDK\Cron\GetProducts', 'run' ),
+			10,
+			0
+		);
+
+		add_action(
+			'connector_for_dk_get_sales_payments',
+			array( 'AldaVigdis\ConnectorForDK\Cron\GetSalesPayments', 'run' ),
 			10,
 			0
 		);
@@ -62,7 +90,15 @@ class Schedule {
 	 * Activate scheduled events for the plugin
 	 */
 	public static function activate(): void {
-		wp_schedule_event( time(), 'hourly', 'connector_for_dk_hourly' );
+		wp_schedule_event( time(), 'weekly', 'connector_for_dk_clean_pdfs' );
+
+		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_currencies' );
+
+		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_customers' );
+
+		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_products' );
+
+		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_sales_payments' );
 
 		wp_schedule_event(
 			time(),
@@ -75,7 +111,11 @@ class Schedule {
 	 * Deactivate scheduled events for the plugin
 	 */
 	public static function deactivate(): void {
-		wp_clear_scheduled_hook( 'connector_for_dk_every_minute' );
+		wp_clear_scheduled_hook( 'connector_for_dk_clean_pdfs' );
+		wp_clear_scheduled_hook( 'connector_for_dk_get_currencies' );
+		wp_clear_scheduled_hook( 'connector_for_dk_get_customers' );
+		wp_clear_scheduled_hook( 'connector_for_dk_get_products' );
+		wp_clear_scheduled_hook( 'connector_for_dk_get_sales_payents' );
 		wp_clear_scheduled_hook( 'connector_for_dk_hourly' );
 		wp_clear_scheduled_hook( 'connector_for_dk_post_invoices' );
 	}

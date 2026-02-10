@@ -69,10 +69,6 @@ class Customers {
 	 * Save all customers from DK
 	 */
 	public static function save_all_from_dk(): void {
-		if ( ! defined( '1984_DK_WOO_DOING_SYNC' ) ) {
-			define( '1984_DK_WOO_DOING_SYNC', true );
-		}
-
 		$dk_customers = self::get_all_from_dk();
 
 		$local_customers = self::get_local_customers_with_kennitala();

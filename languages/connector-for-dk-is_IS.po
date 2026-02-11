@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-02-11 14:24+0000\n"
+"PO-Revision-Date: 2026-02-11 15:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.1; wp-6.9; php-8.4.16\n"
+"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.4.16\n"
 "X-Domain: connector-for-dk"
 
 #. The sprintf tags represent opening and closing hyperlinks.
@@ -730,7 +730,7 @@ msgstr "Kveikt"
 
 #: src/Admin.php:317
 msgid "Error: See order notes for details"
-msgstr "Villa: Skoðaðu "
+msgstr "Villa: Sjá nánar í athugasemdum"
 
 #: src/Export/CreditInvoice.php:202 src/Export/Order.php:298
 msgid "Fee"

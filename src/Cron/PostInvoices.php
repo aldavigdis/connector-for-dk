@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Cron;
 
 use AldaVigdis\ConnectorForDK\OrderStatus;
+use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
 use WC_Order;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
@@ -42,6 +43,16 @@ class PostInvoices {
 
 			if ( $order instanceof OrderRefund ) {
 				continue;
+			}
+
+			if ( OrderHelper::exhausted_auto_invoicing_attempts( $order ) ) {
+				continue;
+			}
+
+			$attempts = $order->get_meta( 'connector_for_dk_invoice_attempts' );
+
+			if ( empty( $attempts ) ) {
+				OrderStatus::maybe_send_invoice( $order, true );
 			}
 
 			OrderStatus::maybe_send_invoice( $order, false );

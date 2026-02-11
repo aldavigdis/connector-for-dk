@@ -311,6 +311,14 @@ class Admin {
 				return;
 			}
 
+			if ( OrderHelper::exhausted_auto_invoicing_attempts( $wc_order ) ) {
+				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
+				echo '<span class="invoice_error">';
+				esc_html_e( 'Error: See order notes for details', 'connector-for-dk' );
+				echo '</span>';
+				return;
+			}
+
 			echo '<span class="dashicons dashicons-marker pending"></span> ';
 			echo '<span class="pending">';
 			esc_html_e( 'Pending...', 'connector-for-dk' );

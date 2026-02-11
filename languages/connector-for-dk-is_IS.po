@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-02-10 12:01+0000\n"
+"PO-Revision-Date: 2026-02-11 14:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -137,13 +137,13 @@ msgstr ""
 "reikningsins er %1$s."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:704
+#: src/Admin.php:712
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:716
+#: src/Admin.php:724
 #, php-format
 #| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
@@ -171,13 +171,13 @@ msgstr ""
 "innihaldið bæði bókstafi og tölustafi."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:626
+#: src/Admin.php:634
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:638
+#: src/Admin.php:646
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
@@ -235,7 +235,7 @@ msgstr ""
 "Tölvupóstur sem innihélt #%1$s sem innihélt kreditreikninginnn á PDF-formi "
 "var sendur til viðskiptavinarins í DK."
 
-#: src/OrderStatus.php:260 src/Rest/OrderDKInvoice.php:154
+#: src/OrderStatus.php:255 src/Rest/OrderDKInvoice.php:154
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer "
 "via DK."
@@ -243,7 +243,7 @@ msgstr ""
 "Tölvupóstur sem innihélt reikninginn á PDF-formi var sendur til "
 "viðskiptavinarins í gegn um DK."
 
-#: src/OrderStatus.php:143
+#: src/OrderStatus.php:141
 msgid ""
 "An invoice could not be automatically generated as the country indicated in "
 "the order's address does not match with the relevant DK customer record."
@@ -251,7 +251,7 @@ msgstr ""
 "Ekki var hægt að búa til reikning sjálfkrafa því landið sem var tekið fram í "
 "heimilisfangi stemmir ekki við skráningu viðskiptavinarins í DK."
 
-#: src/OrderStatus.php:127
+#: src/OrderStatus.php:126
 msgid ""
 "An invoice could not be automatically generated as the customer's account is "
 "blocked in DK."
@@ -259,11 +259,11 @@ msgstr ""
 "Ekki var hægt að búa til reikning sjálfkrafa því lokað er fyrir viðskipti "
 "við skuldunautinn í DK."
 
-#: src/OrderStatus.php:296
+#: src/OrderStatus.php:291
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr "Ekki var hægt að útbúa reikning í DK út af óþekktri villu."
 
-#: src/OrderStatus.php:173 src/Rest/OrderDKInvoice.php:89
+#: src/OrderStatus.php:169 src/Rest/OrderDKInvoice.php:89
 msgid ""
 "An invoice could not be created in DK for this order as it was created "
 "before Connector for DK was activated."
@@ -298,7 +298,7 @@ msgstr ""
 "fyrir viðskiptavininn í DK."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/OrderStatus.php:249 src/Rest/OrderDKInvoice.php:143
+#: src/OrderStatus.php:244 src/Rest/OrderDKInvoice.php:143
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -315,7 +315,7 @@ msgstr ""
 "Reikningur var ekki búinn til sjálfkrafa því viðskiptavinurinn sló inn "
 "kennitölu."
 
-#: src/OrderStatus.php:160
+#: src/OrderStatus.php:157
 #| msgid ""
 #| "An invoice was not created as the customer did not enter a kennitala."
 msgid ""
@@ -325,7 +325,7 @@ msgstr ""
 "Reikningur var ekki búinn til sjálfkrafa því viðskiptavinurinn sló ekki inn "
 "kennitölu."
 
-#: src/OrderStatus.php:190
+#: src/OrderStatus.php:186
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for customers not registered as debtors in DK."
@@ -333,7 +333,7 @@ msgstr ""
 "Reikningur var útbúinn í DK til því þú hefur ákveðið að útbúa þá ekki "
 "sjálfkrafa fyrir viðskiptavini sem ekki eru skráðir sem skuldunautar í DK."
 
-#: src/OrderStatus.php:225
+#: src/OrderStatus.php:220
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for international orders."
@@ -422,7 +422,7 @@ msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
 #. Name of the plugin
-#: src/Admin.php:439 src/Admin.php:440
+#: src/Admin.php:447 src/Admin.php:448
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
@@ -430,7 +430,7 @@ msgstr "Tengill fyrir DK"
 msgid "Connector for dk"
 msgstr "Tengill fyrir dk"
 
-#: src/Cron/Schedule.php:52
+#: src/Cron/Schedule.php:80
 msgid "Connector for dk 15 minute interval"
 msgstr "Tengill fyrir dk, 15 mínútna lykkja"
 
@@ -728,7 +728,11 @@ msgstr "Kveiktu á ‚HPOS‘"
 msgid "Enabled"
 msgstr "Kveikt"
 
-#: src/Export/CreditInvoice.php:203 src/Export/Order.php:299
+#: src/Admin.php:317
+msgid "Error: See order notes for details"
+msgstr "Villa: Skoðaðu "
+
+#: src/Export/CreditInvoice.php:202 src/Export/Order.php:298
 msgid "Fee"
 msgstr "Gjald"
 
@@ -1056,7 +1060,7 @@ msgstr ""
 "eftir því hvort viðskiptavinur gefur upp kennitölu en einnig er hægt að "
 "kveikja á reit fyrir kennitölu,"
 
-#: src/OrderStatus.php:209
+#: src/OrderStatus.php:204
 msgid ""
 "Invoicing for international orders is not available in this version of "
 "Connector for DK."
@@ -1074,7 +1078,7 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins sem innihélt "
 "kreditreikning fyrir endurgreiðslu #%1$s sem PDF-viðhengi"
 
-#: src/OrderStatus.php:267 src/Rest/OrderDKInvoice.php:161
+#: src/OrderStatus.php:262 src/Rest/OrderDKInvoice.php:161
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -1192,12 +1196,12 @@ msgstr "Greiðslumáti í dk"
 msgid "Payment Terms in dk"
 msgstr "Greiðsluskilmálar í dk"
 
-#: src/Admin.php:316
+#: src/Admin.php:324
 msgid "Pending..."
 msgstr "Í bið..."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:688
+#: src/Admin.php:696
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -1207,7 +1211,7 @@ msgstr ""
 "í DK áður en þú heldur áfram."
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:549
+#: src/Admin.php:557
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -1217,7 +1221,7 @@ msgstr ""
 "þú vistar."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:614
+#: src/Admin.php:622
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1366,7 +1370,7 @@ msgstr "Settu upp greiðslugáttir í WooCommerce"
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
 msgstr "Settu inn skattþrep fyrir 24%, 11% and 0% VSK."
 
-#: src/Admin.php:449 src/Admin.php:450
+#: src/Admin.php:457 src/Admin.php:458
 msgid "Settings"
 msgstr "Stillingar"
 
@@ -1394,7 +1398,7 @@ msgstr ""
 "uppfærslur o.fl. um leið og þú %1$sslærð inn leyfiskóða%2$s. Áskriftir er "
 "hægt að fá á %3$stengillpro.is%4$s."
 
-#: src/Export/CreditInvoice.php:229 src/Export/Order.php:326
+#: src/Export/CreditInvoice.php:228 src/Export/Order.php:325
 msgid "Shipping"
 msgstr "Sendingar"
 
@@ -1499,13 +1503,13 @@ msgid "The dkPlus API key is missing."
 msgstr "API-lykil fyrir DK vantar"
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:565
+#: src/Admin.php:573
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:577
+#: src/Admin.php:585
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK"
@@ -1666,7 +1670,7 @@ msgstr ""
 msgid "Unable to create invoice in dk."
 msgstr "Gat ekki gert reikning í dk."
 
-#: src/OrderStatus.php:288
+#: src/OrderStatus.php:283
 #| msgid "Unable to create an invoice in DK: "
 msgid "Unable to create invoice in DK: "
 msgstr "Gat ekki gert reikning í DK:"
@@ -1850,7 +1854,7 @@ msgid "Your Connector for DK license will expire soon! 🫣"
 msgstr "Áskriftin fyrir Tengil fyrir DK er við það að renna út! 🫣"
 
 #. The %1$s is a placeholder for the site's title.
-#: src/Export/CreditInvoice.php:279 src/Export/Invoice.php:132
+#: src/Export/CreditInvoice.php:278 src/Export/Invoice.php:132
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr "Reikningurinn þinn frá %1$s"

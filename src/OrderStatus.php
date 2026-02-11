@@ -113,7 +113,6 @@ class OrderStatus {
 					)
 				);
 			}
-
 			return;
 		}
 
@@ -130,7 +129,6 @@ class OrderStatus {
 						)
 					);
 				}
-
 				return;
 			}
 
@@ -146,7 +144,6 @@ class OrderStatus {
 						)
 					);
 				}
-
 				return;
 			}
 		}
@@ -163,7 +160,6 @@ class OrderStatus {
 					)
 				);
 			}
-
 			return;
 		}
 
@@ -193,7 +189,6 @@ class OrderStatus {
 					)
 				);
 			}
-
 			return;
 		}
 

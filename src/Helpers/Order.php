@@ -14,6 +14,8 @@ use WC_Order;
  * The Order Helper class
  */
 class Order {
+	const MAX_AUTO_INVOICING_ATTEMPTS = 16;
+
 	/**
 	 * Check if an order can be invoiced in DK
 	 *
@@ -232,5 +234,23 @@ class Order {
 	 */
 	public static function is_international( WC_Order $wc_order ): bool {
 		return ! self::is_domestic( $wc_order );
+	}
+
+	/**
+	 * Check if an order has exceeded the maximum number of automatic invoicing attempts
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order to check.
+	 */
+	public static function exhausted_auto_invoicing_attempts(
+		WC_Order $wc_order
+	): bool {
+		if (
+			(int) $wc_order->get_meta( 'connector_for_dk_invoice_attempts' ) <
+			self::MAX_AUTO_INVOICING_ATTEMPTS
+		) {
+			return false;
+		}
+
+		return true;
 	}
 }

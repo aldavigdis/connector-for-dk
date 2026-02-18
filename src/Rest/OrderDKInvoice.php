@@ -96,6 +96,20 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 		}
 
 		if (
+			! Config::get_use_default_sku_if_sku_is_missing() &&
+			OrderHelper::has_empty_sku( $wc_order )
+		) {
+			$wc_order->add_order_note(
+				__(
+					'An invoice could not be created in dk for this order because one or more item does not have a SKU.',
+					'connector-for-dk'
+				)
+			);
+
+			return new WP_REST_Response( status: 400 );
+		}
+
+		if (
 			is_object( $dk_customer ) &&
 			! in_array( OrderHelper::get_kennitala( $wc_order ), $default_kennitala, true )
 		) {

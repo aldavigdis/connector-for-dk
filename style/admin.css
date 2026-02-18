@@ -64,6 +64,10 @@
 	min-height: calc(100vh - 100px);
 }
 
+#connector-for-dk-wrap table.hidden {
+	display: none;
+}
+
 #connector-for-dk-wrap .next-step-section {
 	margin: 2em;
 	margin-right: 4em;

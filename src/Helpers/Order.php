@@ -9,12 +9,13 @@ use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 use WC_Customer;
 use WC_Order;
+use WC_Order_Item_Product;
 
 /**
  * The Order Helper class
  */
 class Order {
-	const MAX_AUTO_INVOICING_ATTEMPTS = 16;
+	const MAX_AUTO_INVOICING_ATTEMPTS = 8;
 
 	/**
 	 * Check if an order can be invoiced in DK
@@ -32,6 +33,31 @@ class Order {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Check if an order has a product with no SKU set
+	 *
+	 * @param WC_Order $wc_order The WooCommerce order.
+	 */
+	public static function has_empty_sku( WC_Order $wc_order ): bool {
+		foreach ( $wc_order->get_items( 'line_item' ) as $item ) {
+			if ( ! $item instanceof WC_Order_Item_Product ) {
+				continue;
+			}
+
+			$product = $item->get_product();
+
+			if ( ! $product ) {
+				return true;
+			}
+
+			if ( empty( $product->get_sku() ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

@@ -1107,4 +1107,14 @@ class Config {
 			self::DEFAULT_INVOICE_REFERENCE_PREFIX
 		);
 	}
+
+	/**
+	 * Get wether to use a "default SKU" when generating an invoice and a product SKU is missing
+	 */
+	public static function get_use_default_sku_if_sku_is_missing(): bool {
+		return (bool) self::get_option(
+			'use_default_sku_if_sku_is_missing',
+			true
+		);
+	}
 }

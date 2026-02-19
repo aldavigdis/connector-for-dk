@@ -177,6 +177,22 @@ class OrderStatus {
 		}
 
 		if (
+			! Config::get_use_default_sku_if_sku_is_missing() &&
+			OrderHelper::has_empty_sku( $order )
+		) {
+			if ( $set_notes ) {
+				$order->add_order_note(
+					__(
+						'An invoice could not be created in dk for this order because one or more item does not have a SKU.',
+						'connector-for-dk'
+					)
+				);
+			}
+
+			return;
+		}
+
+		if (
 			! OrderHelper::kennitala_is_default( $order ) &&
 			! Config::get_create_invoice_for_customers_not_in_dk() &&
 			! ExportCustomer::is_in_dk( $kennitala )

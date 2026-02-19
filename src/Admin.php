@@ -38,6 +38,8 @@ class Admin {
 		'customers',
 	);
 
+	const PAST_ORDER_LIMIT = 4 * HOUR_IN_SECONDS;
+
 	/**
 	 * Constructor for the Admin interface class
 	 *
@@ -298,6 +300,7 @@ class Admin {
 		}
 		if ( $column_name === 'dk_invoice_id' ) {
 			$invoice_number = OrderHelper::get_invoice_number( $wc_order );
+			$the_past       = gmdate( 'r', time() - self::PAST_ORDER_LIMIT );
 
 			if ( empty( $wc_order->get_meta( 'connector_for_dk_version' ) ) ) {
 				return;
@@ -311,7 +314,10 @@ class Admin {
 				return;
 			}
 
-			if ( OrderHelper::exhausted_auto_invoicing_attempts( $wc_order ) ) {
+			if (
+				OrderHelper::exhausted_auto_invoicing_attempts( $wc_order ) ||
+				$wc_order->get_date_created()->getTimestamp() < $the_past
+			) {
 				echo '<span class="dashicons dashicons-no invoice_error"></span> ';
 				echo '<span class="invoice_error">';
 				esc_html_e( 'Error: See order notes for details', 'connector-for-dk' );

@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-11 14:15+0000\n"
+"POT-Creation-Date: 2026-02-19 10:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: connector-for-dk\n"
@@ -62,11 +62,11 @@ msgstr ""
 msgid "(None)"
 msgstr ""
 
-#: views/admin_sections/default_skus.php:74
+#: views/admin_sections/default_skus.php:104
 msgid "0% VAT"
 msgstr ""
 
-#: views/admin_sections/default_skus.php:54
+#: views/admin_sections/default_skus.php:84
 msgid "11% VAT"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "20 Day Payment Deadline (D20)"
 msgstr ""
 
-#: views/admin_sections/default_skus.php:34
+#: views/admin_sections/default_skus.php:64
 msgid "24% VAT"
 msgstr ""
 
@@ -109,13 +109,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:712
+#: src/Admin.php:718
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:724
+#: src/Admin.php:730
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
@@ -138,13 +138,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:634
+#: src/Admin.php:640
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:646
+#: src/Admin.php:652
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -198,7 +198,7 @@ msgid ""
 "was sent to the customer via DK."
 msgstr ""
 
-#: src/OrderStatus.php:255 src/Rest/OrderDKInvoice.php:154
+#: src/OrderStatus.php:271 src/Rest/OrderDKInvoice.php:168
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer "
 "via DK."
@@ -216,7 +216,7 @@ msgid ""
 "blocked in DK."
 msgstr ""
 
-#: src/OrderStatus.php:291
+#: src/OrderStatus.php:307
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr ""
 
@@ -224,6 +224,12 @@ msgstr ""
 msgid ""
 "An invoice could not be created in DK for this order as it was created "
 "before Connector for DK was activated."
+msgstr ""
+
+#: src/OrderStatus.php:185 src/Rest/OrderDKInvoice.php:103
+msgid ""
+"An invoice could not be created in dk for this order because one or more "
+"item does not have a SKU."
 msgstr ""
 
 #. %1$s stands for the WooCommerce order return ID.
@@ -234,20 +240,20 @@ msgid ""
 "not match with the relevant DK customer record."
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:115
+#: src/Rest/OrderDKInvoice.php:129
 msgid ""
 "An invoice could not be created in for this order as the country indicated "
 "in the order's address does not match with the relevant DK customer record."
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:104
+#: src/Rest/OrderDKInvoice.php:118
 msgid ""
 "An invoice could not be created in for this order as the DK customer record "
 "is labelled as blocked."
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/OrderStatus.php:244 src/Rest/OrderDKInvoice.php:143
+#: src/OrderStatus.php:260 src/Rest/OrderDKInvoice.php:157
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -265,13 +271,13 @@ msgid ""
 "kennitala."
 msgstr ""
 
-#: src/OrderStatus.php:186
+#: src/OrderStatus.php:202
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for customers not registered as debtors in DK."
 msgstr ""
 
-#: src/OrderStatus.php:220
+#: src/OrderStatus.php:236
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for international orders."
@@ -336,12 +342,12 @@ msgstr ""
 msgid "Cheque Payment (TGR)"
 msgstr ""
 
-#: src/Admin.php:232
+#: src/Admin.php:234
 msgid "Community Support"
 msgstr ""
 
 #. Name of the plugin
-#: src/Admin.php:447 src/Admin.php:448
+#: src/Admin.php:453 src/Admin.php:454
 msgid "Connector for DK"
 msgstr ""
 
@@ -499,7 +505,7 @@ msgstr ""
 msgid "DK could not create a credit invoice for refund #%1$s due to an error."
 msgstr ""
 
-#: src/Rest/OrderDKInvoice.php:132
+#: src/Rest/OrderDKInvoice.php:146
 msgid "DK could not create an invoice due to an error."
 msgstr ""
 
@@ -509,7 +515,7 @@ msgid ""
 "your WooCommerce store below."
 msgstr ""
 
-#: src/Admin.php:243 src/Admin.php:252 src/Admin.php:280
+#: src/Admin.php:245 src/Admin.php:254 src/Admin.php:282
 msgid "DK Invoice"
 msgstr ""
 
@@ -593,7 +599,7 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin.php:317
+#: src/Admin.php:323
 msgid "Error: See order notes for details"
 msgstr ""
 
@@ -742,8 +748,8 @@ msgstr ""
 msgid ""
 "In cases where you would like to manually enter your products into "
 "WooCommerce without entering a SKU and do not wish to use the product "
-"management system in dk to maintain stock counts, Connector for dk needs to "
-"match them with a dk product code in order for an invoice to be generated."
+"management system in dk to maintain stock counts, Connector for dk can match "
+"them with a dk product code in order for an invoice to be generated."
 msgstr ""
 
 #: views/admin_sections/products.php:26
@@ -829,7 +835,7 @@ msgid ""
 "kennitala and a kennitala field can be enabled as well."
 msgstr ""
 
-#: src/OrderStatus.php:204
+#: src/OrderStatus.php:220
 msgid ""
 "Invoicing for international orders is not available in this version of "
 "Connector for DK."
@@ -843,7 +849,7 @@ msgid ""
 "invoice for refund #%1$s as a PDF attachment."
 msgstr ""
 
-#: src/OrderStatus.php:262 src/Rest/OrderDKInvoice.php:161
+#: src/OrderStatus.php:278 src/Rest/OrderDKInvoice.php:175
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -950,12 +956,12 @@ msgstr ""
 msgid "Payment Terms in dk"
 msgstr ""
 
-#: src/Admin.php:324
+#: src/Admin.php:330
 msgid "Pending..."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:696
+#: src/Admin.php:702
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -963,7 +969,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:557
+#: src/Admin.php:563
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -971,7 +977,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:622
+#: src/Admin.php:628
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1097,7 +1103,7 @@ msgstr ""
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
 msgstr ""
 
-#: src/Admin.php:457 src/Admin.php:458
+#: src/Admin.php:463 src/Admin.php:464
 msgid "Settings"
 msgstr ""
 
@@ -1200,13 +1206,13 @@ msgid "The dkPlus API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:573
+#: src/Admin.php:579
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:585
+#: src/Admin.php:591
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
@@ -1273,7 +1279,7 @@ msgid ""
 "order."
 msgstr ""
 
-#: src/Admin.php:173
+#: src/Admin.php:175
 msgid ""
 "This plugin is developed, maintained and supported on goodwill basis, "
 "without any warranty or guarantees as per the GPLv3 license. As the plugin "
@@ -1307,7 +1313,7 @@ msgstr ""
 msgid "Unable to create invoice in dk."
 msgstr ""
 
-#: src/OrderStatus.php:283
+#: src/OrderStatus.php:299
 msgid "Unable to create invoice in DK: "
 msgstr ""
 
@@ -1352,6 +1358,10 @@ msgstr ""
 #: views/dk_connection_product_panel.php:145
 #, php-format
 msgid "Use Default (Currently ‘%1$s’)"
+msgstr ""
+
+#: views/admin_sections/default_skus.php:44
+msgid "Use default SKU if product SKU is missing"
 msgstr ""
 
 #: views/admin_sections/authentication.php:42

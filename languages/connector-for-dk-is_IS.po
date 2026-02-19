@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-02-11 15:23+0000\n"
+"PO-Revision-Date: 2026-02-19 10:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -84,11 +84,11 @@ msgstr "%2$sKennitalan%4$s %1$s%5$s verður skráð á þessa pöntun.%3$s"
 msgid "(None)"
 msgstr "(Ekkert)"
 
-#: views/admin_sections/default_skus.php:74
+#: views/admin_sections/default_skus.php:104
 msgid "0% VAT"
 msgstr "0% VSK"
 
-#: views/admin_sections/default_skus.php:54
+#: views/admin_sections/default_skus.php:84
 msgid "11% VAT"
 msgstr "11% VSK"
 
@@ -100,7 +100,7 @@ msgstr "15 daga greiðslufrestur"
 msgid "20 Day Payment Deadline (D20)"
 msgstr "20 daga greiðslufrestur"
 
-#: views/admin_sections/default_skus.php:34
+#: views/admin_sections/default_skus.php:64
 msgid "24% VAT"
 msgstr "24% VSK"
 
@@ -137,13 +137,13 @@ msgstr ""
 "reikningsins er %1$s."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:712
+#: src/Admin.php:718
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:724
+#: src/Admin.php:730
 #, php-format
 #| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
@@ -171,13 +171,13 @@ msgstr ""
 "innihaldið bæði bókstafi og tölustafi."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:634
+#: src/Admin.php:640
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:646
+#: src/Admin.php:652
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
@@ -235,7 +235,7 @@ msgstr ""
 "Tölvupóstur sem innihélt #%1$s sem innihélt kreditreikninginnn á PDF-formi "
 "var sendur til viðskiptavinarins í DK."
 
-#: src/OrderStatus.php:255 src/Rest/OrderDKInvoice.php:154
+#: src/OrderStatus.php:271 src/Rest/OrderDKInvoice.php:168
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer "
 "via DK."
@@ -259,7 +259,7 @@ msgstr ""
 "Ekki var hægt að búa til reikning sjálfkrafa því lokað er fyrir viðskipti "
 "við skuldunautinn í DK."
 
-#: src/OrderStatus.php:291
+#: src/OrderStatus.php:307
 msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr "Ekki var hægt að útbúa reikning í DK út af óþekktri villu."
 
@@ -271,6 +271,14 @@ msgstr ""
 "Ekki var hægt að útbúa reikning í DK því þessi pöntun var gerð áður en "
 "kveikt var á Tengli fyrir DK."
 
+#: src/OrderStatus.php:185 src/Rest/OrderDKInvoice.php:103
+msgid ""
+"An invoice could not be created in dk for this order because one or more "
+"item does not have a SKU."
+msgstr ""
+"Ekki var hægt að útbúa reikning í dk fyrir þessa pöntun því ein eða fleiri "
+"vara er ekki með vörunúmer skráð."
+
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:122
 #, php-format
@@ -281,7 +289,7 @@ msgstr ""
 "Ekki var hægt að útbúa reikning fyrir endurgreiðslu #%1$s því landið sem "
 "tekið var fram í heimilisfangi passar ekki við skráningu skuldunautar í DK."
 
-#: src/Rest/OrderDKInvoice.php:115
+#: src/Rest/OrderDKInvoice.php:129
 msgid ""
 "An invoice could not be created in for this order as the country indicated "
 "in the order's address does not match with the relevant DK customer record."
@@ -289,7 +297,7 @@ msgstr ""
 "Ekki var hægt að útbúa reikning fyrir þessa pöntun því landið sem tekið var "
 "fram í heimilisfangi stemmir ekki við skráningu skuldunautar í DK."
 
-#: src/Rest/OrderDKInvoice.php:104
+#: src/Rest/OrderDKInvoice.php:118
 msgid ""
 "An invoice could not be created in for this order as the DK customer record "
 "is labelled as blocked."
@@ -298,7 +306,7 @@ msgstr ""
 "fyrir viðskiptavininn í DK."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
-#: src/OrderStatus.php:244 src/Rest/OrderDKInvoice.php:143
+#: src/OrderStatus.php:260 src/Rest/OrderDKInvoice.php:157
 #, php-format
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
@@ -325,7 +333,7 @@ msgstr ""
 "Reikningur var ekki búinn til sjálfkrafa því viðskiptavinurinn sló ekki inn "
 "kennitölu."
 
-#: src/OrderStatus.php:186
+#: src/OrderStatus.php:202
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for customers not registered as debtors in DK."
@@ -333,7 +341,7 @@ msgstr ""
 "Reikningur var útbúinn í DK til því þú hefur ákveðið að útbúa þá ekki "
 "sjálfkrafa fyrir viðskiptavini sem ekki eru skráðir sem skuldunautar í DK."
 
-#: src/OrderStatus.php:220
+#: src/OrderStatus.php:236
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for international orders."
@@ -417,12 +425,12 @@ msgstr "Staðgreitt (STGR)"
 msgid "Cheque Payment (TGR)"
 msgstr "Tékkagreiðsla (TGR)"
 
-#: src/Admin.php:232
+#: src/Admin.php:234
 msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
 #. Name of the plugin
-#: src/Admin.php:447 src/Admin.php:448
+#: src/Admin.php:453 src/Admin.php:454
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
@@ -600,7 +608,7 @@ msgid "DK could not create a credit invoice for refund #%1$s due to an error."
 msgstr ""
 "DK gat ekki búið til kreditreikning fyrir endurgreiðslu #%1$s vegna villu."
 
-#: src/Rest/OrderDKInvoice.php:132
+#: src/Rest/OrderDKInvoice.php:146
 msgid "DK could not create an invoice due to an error."
 msgstr "DK gat ekki búið til reikning vegna villu."
 
@@ -615,7 +623,7 @@ msgstr ""
 "Í dk er hægt að loka fyrir viðskipti við ákveðna viðskiptavini. Það er hægt "
 "að opna fyrir þetta í WooCommerce-versluninni þinni hér fyrir neðan."
 
-#: src/Admin.php:243 src/Admin.php:252 src/Admin.php:280
+#: src/Admin.php:245 src/Admin.php:254 src/Admin.php:282
 msgid "DK Invoice"
 msgstr "Reikningur í DK"
 
@@ -728,7 +736,7 @@ msgstr "Kveiktu á ‚HPOS‘"
 msgid "Enabled"
 msgstr "Kveikt"
 
-#: src/Admin.php:317
+#: src/Admin.php:323
 msgid "Error: See order notes for details"
 msgstr "Villa: Sjá nánar í athugasemdum"
 
@@ -940,19 +948,19 @@ msgstr ""
 #| msgid ""
 #| "In cases where you would like to manually enter your products into "
 #| "WooCommerce without entering a SKU and do not wish to use the product "
-#| "management system in DK to maintain stock counts, Connector for DK needs "
-#| "to match them with a DK product code in order for an invoice to be "
+#| "management system in dk to maintain stock counts, Connector for dk needs "
+#| "to match them with a dk product code in order for an invoice to be "
 #| "generated."
 msgid ""
 "In cases where you would like to manually enter your products into "
 "WooCommerce without entering a SKU and do not wish to use the product "
-"management system in dk to maintain stock counts, Connector for dk needs to "
-"match them with a dk product code in order for an invoice to be generated."
+"management system in dk to maintain stock counts, Connector for dk can match "
+"them with a dk product code in order for an invoice to be generated."
 msgstr ""
-"Í tilfelum þar sem þú ert til í að skrá vörur handvirkt inn í WooCommerce án "
-"þess að slá inn SKU og vilt ekki nota vörurstjórnun í dk til að halda utan "
-"um fjölda á lager, þá þarf Tengill fyrir dk að ná að stemma vörurnar við "
-"samsvarandi vörunúmer í dk svo hægt sé að útbúa reikning."
+"Í tilfelum þar sem þú vilt skrá vörur handvirkt inn í WooCommerce án þess að "
+"slá inn SKU og vilt ekki nota vörurstjórnun í dk til að halda utan um fjölda "
+"á lager, þá getur Tengill fyrir dk stemmt vörurnar við samsvarandi vörunúmer "
+"í dk svo hægt sé að útbúa reikning."
 
 #: views/admin_sections/products.php:26
 msgid ""
@@ -1060,7 +1068,7 @@ msgstr ""
 "eftir því hvort viðskiptavinur gefur upp kennitölu en einnig er hægt að "
 "kveikja á reit fyrir kennitölu,"
 
-#: src/OrderStatus.php:204
+#: src/OrderStatus.php:220
 msgid ""
 "Invoicing for international orders is not available in this version of "
 "Connector for DK."
@@ -1078,7 +1086,7 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins sem innihélt "
 "kreditreikning fyrir endurgreiðslu #%1$s sem PDF-viðhengi"
 
-#: src/OrderStatus.php:262 src/Rest/OrderDKInvoice.php:161
+#: src/OrderStatus.php:278 src/Rest/OrderDKInvoice.php:175
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
@@ -1196,12 +1204,12 @@ msgstr "Greiðslumáti í dk"
 msgid "Payment Terms in dk"
 msgstr "Greiðsluskilmálar í dk"
 
-#: src/Admin.php:324
+#: src/Admin.php:330
 msgid "Pending..."
 msgstr "Í bið..."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:696
+#: src/Admin.php:702
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -1211,7 +1219,7 @@ msgstr ""
 "í DK áður en þú heldur áfram."
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:557
+#: src/Admin.php:563
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -1221,7 +1229,7 @@ msgstr ""
 "þú vistar."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:622
+#: src/Admin.php:628
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1370,7 +1378,7 @@ msgstr "Settu upp greiðslugáttir í WooCommerce"
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
 msgstr "Settu inn skattþrep fyrir 24%, 11% and 0% VSK."
 
-#: src/Admin.php:457 src/Admin.php:458
+#: src/Admin.php:463 src/Admin.php:464
 msgid "Settings"
 msgstr "Stillingar"
 
@@ -1503,13 +1511,13 @@ msgid "The dkPlus API key is missing."
 msgstr "API-lykil fyrir DK vantar"
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:573
+#: src/Admin.php:579
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:585
+#: src/Admin.php:591
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK"
@@ -1621,7 +1629,7 @@ msgstr ""
 "Þessi skilaboð eru sýnd þegar viðskiptavinur sem er lokað fyrir reynir að "
 "klára pöntun."
 
-#: src/Admin.php:173
+#: src/Admin.php:175
 msgid ""
 "This plugin is developed, maintained and supported on goodwill basis, "
 "without any warranty or guarantees as per the GPLv3 license. As the plugin "
@@ -1670,7 +1678,7 @@ msgstr ""
 msgid "Unable to create invoice in dk."
 msgstr "Gat ekki gert reikning í dk."
 
-#: src/OrderStatus.php:283
+#: src/OrderStatus.php:299
 #| msgid "Unable to create an invoice in DK: "
 msgid "Unable to create invoice in DK: "
 msgstr "Gat ekki gert reikning í DK:"
@@ -1722,6 +1730,10 @@ msgstr "Uppfæra tilvísun í númer reiknings án þess að búa nýjan til í 
 #, php-format
 msgid "Use Default (Currently ‘%1$s’)"
 msgstr "Nota sjálfgefna stillingu (er núna ‚%1$s‘)"
+
+#: views/admin_sections/default_skus.php:44
+msgid "Use default SKU if product SKU is missing"
+msgstr "Nota sjálfgefið vörunúmer ef vörunúmer vantar"
 
 #: views/admin_sections/authentication.php:42
 msgid "Valid"

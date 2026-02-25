@@ -99,6 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								name="product_category_sync"
 								type="checkbox"
 								<?php echo esc_attr( Config::get_product_category_sync() ? 'checked' : '' ); ?>
+								data-master-checkbox="product-categories"
 							/>
 							<label for="product_category_sync_field">
 								<?php esc_html_e( 'Update Product Category', 'connector-for-dk' ); ?>

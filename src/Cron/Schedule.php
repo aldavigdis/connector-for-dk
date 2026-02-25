@@ -15,7 +15,7 @@ class Schedule {
 	 */
 	public function __construct() {
 		add_action(
-			'connector_for_dk_get_clean_pdfs',
+			'connector_for_dk_clean_pdfs',
 			array( 'AldaVigdis\ConnectorForDK\Cron\CleanPDFs', 'run' ),
 			10,
 			0
@@ -115,7 +115,7 @@ class Schedule {
 		wp_clear_scheduled_hook( 'connector_for_dk_get_currencies' );
 		wp_clear_scheduled_hook( 'connector_for_dk_get_customers' );
 		wp_clear_scheduled_hook( 'connector_for_dk_get_products' );
-		wp_clear_scheduled_hook( 'connector_for_dk_get_sales_payents' );
+		wp_clear_scheduled_hook( 'connector_for_dk_get_sales_payments' );
 		wp_clear_scheduled_hook( 'connector_for_dk_hourly' );
 		wp_clear_scheduled_hook( 'connector_for_dk_post_invoices' );
 	}

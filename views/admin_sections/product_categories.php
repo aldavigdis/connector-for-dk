@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\ProductCategories;
 use AldaVigdis\ConnectorForDK\Import\ProductGroups as ImportProductGroups;
 
@@ -10,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
+
+<div class="<?php echo esc_attr( Config::get_product_category_sync() ? '' : 'hidden' ); ?>" data-sub-checkboxes="product-categories">
 
 <hr />
 
@@ -57,3 +60,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endforeach ?>
 	</tbody>
 </table>
+
+</div>

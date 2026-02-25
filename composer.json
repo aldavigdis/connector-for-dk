@@ -1,6 +1,6 @@
 {
     "name": "aldavigdis/connector-for-dk",
-    "version": "0.6.6",
+    "version": "0.6.7",
     "type": "wordpress-plugin",
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0",
@@ -10,7 +10,7 @@
         "psy/psysh": "^0.12.0",
         "yoast/phpunit-polyfills": "^2.0",
         "aldavigdis/wp-tests-strapon": "^0.1",
-        "woocommerce/woocommerce": "10.2.2",
+        "woocommerce/woocommerce": "10.5.2",
         "woocommerce/wc-smooth-generator": "1.2.2"
     },
     "require": {
@@ -25,9 +25,9 @@
             "type": "package",
             "package": {
                 "name": "woocommerce/woocommerce",
-                "version": "10.2.2",
+                "version": "10.5.2",
                 "dist": {
-                    "url": "https://github.com/woocommerce/woocommerce/releases/download/10.2.2/woocommerce.zip",
+                    "url": "https://github.com/woocommerce/woocommerce/releases/download/10.5.2/woocommerce.zip",
                     "type": "zip"
                 }
             }

@@ -315,12 +315,14 @@ class Admin {
 			}
 
 			if ( $wc_order->get_date_created()->getTimestamp() < $the_past ) {
-				echo '<span class="dashicons dashicons-marker pending"></span> ';
-				echo '<span class="pending">';
-				esc_html_e( 'Pending…', 'connector-for-dk' );
-				echo '</span>';
 				return;
 			}
+
+			echo '<span class="dashicons dashicons-marker pending"></span> ';
+			echo '<span class="pending">';
+			esc_html_e( 'Pending…', 'connector-for-dk' );
+			echo '</span>';
+			return;
 		}
 	}
 

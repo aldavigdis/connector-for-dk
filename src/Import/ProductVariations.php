@@ -187,7 +187,7 @@ class ProductVariations {
 			0
 		);
 
-		$variations_transient = get_transient(
+		$variations_transient = get_option(
 			'connector_for_dk_variations',
 			false
 		);
@@ -202,10 +202,14 @@ class ProductVariations {
 		$variations_value = self::get_variations_from_dk();
 
 		if ( is_array( $variations_value ) ) {
-			set_transient(
+			update_option(
 				'connector_for_dk_variations',
-				$variations_value,
-				self::TRANSIENT_EXPIRY
+				$variations_value
+			);
+
+			update_option(
+				'connector_for_dk_variations_updated',
+				time()
 			);
 
 			return $variations_value;

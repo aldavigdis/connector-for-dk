@@ -44,6 +44,7 @@ class Loader {
 			new Metaboxes();
 			new OrderStatus();
 			new ProductCategories();
+			new ProductQuantityFilters();
 			new Cron\Schedule();
 			new Rest\Settings();
 			new Rest\OrderDKCreditInvoice();

@@ -545,8 +545,8 @@ class Product {
 			if ( Config::get_use_attribute_value_description() ) {
 				$value_description = self::attribute_value_description(
 					$variation,
-					$label,
-					$value
+					(string) $label,
+					(string) $value
 				);
 			} else {
 				$value_description = $label;

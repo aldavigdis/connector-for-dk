@@ -55,7 +55,7 @@ $wc_product = wc_get_product();
 						value="<?php echo esc_attr( $option ); ?>"
 						<?php echo key_exists( $key, $wc_product->get_default_attributes() ) ? esc_attr( $wc_product->get_default_attributes()[ $key ] ) : ''; ?>
 					>
-						<?php echo Config::get_use_attribute_value_description() ? esc_html( ProductHelper::attribute_value_description( $wc_product, $key, $option ) ) : esc_html( $option ); ?>
+						<?php echo Config::get_use_attribute_value_description() ? esc_html( ProductHelper::attribute_value_description( $wc_product, (string) $key, (string) $option ) ) : esc_html( $option ); ?>
 					</option>
 					<?php endforeach ?>
 				</select>

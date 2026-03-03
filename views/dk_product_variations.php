@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use WC_Product_Variable;
+use WC_Product_Variation;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,12 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Get the product via conventional means.
 $wc_product = wc_get_product();
 
-// Use the WC_Product_Variable class to make sure our development environment
-// understands that we are dealing with a variable product and enables syntax
-// highlihting for instances of that class.
-$wc_variable_product = new WC_Product_Variable( $wc_product );
-
 ?>
+
+<?php if ( $wc_product instanceof WC_Product_Variable ) : ?>
 
 <div id="dk_variations_tab" class="panel hidden">
 	<?php wp_nonce_field( 'connector_for_dk_variations', 'connector_for_dk_variations_nonce' ); ?>
@@ -54,7 +53,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 					<?php foreach ( $attribute->get_options() as $option ) : ?>
 					<option
 						value="<?php echo esc_attr( $option ); ?>"
-						<?php selected( $option === $wc_product->get_default_attributes()[ $key ] ); ?>
+						<?php echo key_exists( $key, $wc_product->get_default_attributes() ) ? esc_attr( $wc_product->get_default_attributes()[ $key ] ) : ''; ?>
 					>
 						<?php echo Config::get_use_attribute_value_description() ? esc_html( ProductHelper::attribute_value_description( $wc_product, $key, $option ) ) : esc_html( $option ); ?>
 					</option>
@@ -66,7 +65,7 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 	</div>
 
 	<div class="dk-variations">
-		<?php foreach ( $wc_variable_product->get_children() as $variation_id ) : ?>
+		<?php foreach ( $wc_product->get_children() as $variation_id ) : ?>
 			<?php $variation = new WC_Product_Variation( $variation_id ); ?>
 			<div
 				id="dk-variation-<?php echo esc_attr( $variation_id ); ?>"
@@ -389,3 +388,5 @@ $wc_variable_product = new WC_Product_Variable( $wc_product );
 		<?php endforeach ?>
 	</div>
 </div>
+
+<?php endif ?>

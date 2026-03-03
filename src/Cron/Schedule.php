@@ -56,6 +56,13 @@ class Schedule {
 			0
 		);
 
+		add_action(
+			'connector_for_dk_get_product_variations',
+			array( 'AldaVigdis\ConnectorForDK\Cron\GetProductVariations', 'run' ),
+			10,
+			0
+		);
+
 		add_filter(
 			'cron_schedules',
 			array( __CLASS__, 'add_15_minute_schedule' ),
@@ -90,15 +97,41 @@ class Schedule {
 	 * Activate scheduled events for the plugin
 	 */
 	public static function activate(): void {
-		wp_schedule_event( time(), 'weekly', 'connector_for_dk_clean_pdfs' );
+		wp_schedule_event(
+			time(),
+			'weekly',
+			'connector_for_dk_clean_pdfs'
+		);
 
-		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_currencies' );
+		wp_schedule_event(
+			time(),
+			'hourly',
+			'connector_for_dk_get_currencies'
+		);
 
-		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_customers' );
+		wp_schedule_event(
+			time(),
+			'hourly',
+			'connector_for_dk_get_customers'
+		);
 
-		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_products' );
+		wp_schedule_event(
+			time(),
+			'hourly',
+			'connector_for_dk_get_products'
+		);
 
-		wp_schedule_event( time(), 'hourly', 'connector_for_dk_get_sales_payments' );
+		wp_schedule_event(
+			time(),
+			'hourly',
+			'connector_for_dk_get_sales_payments'
+		);
+
+		wp_schedule_event(
+			time(),
+			'hourly',
+			'connector_for_dk_get_product_variations'
+		);
 
 		wp_schedule_event(
 			time(),
@@ -117,6 +150,7 @@ class Schedule {
 		wp_clear_scheduled_hook( 'connector_for_dk_get_products' );
 		wp_clear_scheduled_hook( 'connector_for_dk_get_sales_payments' );
 		wp_clear_scheduled_hook( 'connector_for_dk_hourly' );
+		wp_clear_scheduled_hook( 'connector_for_dk_get_product_variations' );
 		wp_clear_scheduled_hook( 'connector_for_dk_post_invoices' );
 	}
 }

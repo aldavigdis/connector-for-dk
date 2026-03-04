@@ -6,6 +6,11 @@ namespace AldaVigdis\ConnectorForDK;
 
 use WC_Product;
 
+/**
+ * The Product Quantity Filters class
+ *
+ * Handles the initial and minimum amount of units for a product.
+ */
 class ProductQuantityFilters {
 	/**
 	 * The contstructor

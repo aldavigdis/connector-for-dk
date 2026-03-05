@@ -39,7 +39,7 @@ class Products {
 		'UnitPrice3WithTax,TaxPercent,AllowNegativeInventiry,ExtraDesc1,' .
 		'ExtraDesc2,ShowItemInWebShop,Inactive,Deleted,PropositionDateTo,' .
 		'PropositionDateFrom,CurrencyCode,CurrencyPrices,IsVariation,' .
-		'Warehouses,Group';
+		'Warehouses,Group,DefaultSaleQuantity';
 
 	/**
 	 * Save all products from DK
@@ -277,6 +277,13 @@ class Products {
 
 		$wc_product->set_sku( $json_object->ItemCode );
 
+		if ( property_exists( $json_object, 'DefaultSaleQuantity' ) ) {
+			$wc_product->update_meta_data(
+				'connector_for_dk_default_sale_qty',
+				floatval( $json_object->DefaultSaleQuantity )
+			);
+		}
+
 		if ( ! $json_object->ShowItemInWebShop ) {
 			$wc_product->set_status( 'Draft' );
 		}
@@ -464,6 +471,13 @@ class Products {
 			$wc_product->update_meta_data( 'connector_for_dk_origin', 'product' );
 			$wc_product->update_meta_data( 'connector_for_dk_variant_code', '' );
 			$wc_product->update_meta_data( 'connector_for_dk_variations', '' );
+		}
+
+		if ( property_exists( $json_object, 'DefaultSaleQuantity' ) ) {
+			$wc_product->update_meta_data(
+				'connector_for_dk_default_sale_qty',
+				floatval( $json_object->DefaultSaleQuantity )
+			);
 		}
 
 		if ( $json_object->ShowItemInWebShop ) {

@@ -49,12 +49,39 @@ class Products {
 	public static function save_all_from_dk(): void {
 		$json_objects = self::get_all_from_dk();
 
+		$saved_product_ids = array();
+
 		if ( is_array( $json_objects ) ) {
 			foreach ( $json_objects as $json_object ) {
-				self::save_from_dk(
+				$saved_id = self::save_from_dk(
 					$json_object->ItemCode,
 					$json_object
 				);
+
+				if ( $saved_id ) {
+					$saved_product_ids[] = $saved_id;
+				}
+			}
+		}
+
+		/**
+		 * If we don't import non-web products, we need to check here which
+		 * products were not imported in the previous step and delete them if we
+		 * want to delete inactive products.
+		 */
+		if (
+			config::get_delete_inactive_products() &&
+			! Config::get_import_nonweb_products()
+		) {
+			$product_ids_not_updated = wc_get_products(
+				array(
+					'return'  => 'ids',
+					'exclude' => $saved_product_ids,
+				)
+			);
+
+			foreach ( $product_ids_not_updated as $product_id ) {
+				wp_delete_post( $product_id );
 			}
 		}
 	}

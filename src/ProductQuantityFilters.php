@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK;
 
+use AldaVigdis\ConnectorForDK\Config;
 use WC_Product;
 
 /**
@@ -16,18 +17,29 @@ class ProductQuantityFilters {
 	 * The contstructor
 	 */
 	public function __construct() {
-		add_filter(
-			'woocommerce_quantity_input_min',
-			array( __CLASS__, 'filter_min_purchase_quantity' ),
-			10,
-			2
-		);
+		if ( Config::get_use_default_product_quantity_as_minimum() ) {
+			add_filter(
+				'woocommerce_quantity_input_min',
+				array( __CLASS__, 'filter_min_purchase_quantity' ),
+				10,
+				2
+			);
+		}
 
-		add_filter(
-			'woocommerce_quantity_input_step',
-			array( __CLASS__, 'filter_min_purchase_quantity' ),
-			10,
-			2
+		if ( Config::get_use_default_product_quantity_as_multiplier() ) {
+			add_filter(
+				'woocommerce_quantity_input_step',
+				array( __CLASS__, 'filter_min_purchase_quantity' ),
+				10,
+				2
+			);
+		}
+
+		add_action(
+			'connector_for_dk_end_of_products_section',
+			array( __CLASS__, 'add_to_admin' ),
+			20,
+			0
 		);
 	}
 
@@ -42,7 +54,7 @@ class ProductQuantityFilters {
 		WC_Product $product
 	): int|float {
 		$meta_value = (float) $product->get_meta(
-			'connector_for_dk_default_sale_qty'
+			'connector_for_dk_default_quantity'
 		);
 
 		if ( $meta_value < 1.0 ) {
@@ -58,5 +70,10 @@ class ProductQuantityFilters {
 		}
 
 		return $quantity;
+	}
+
+	public static function add_to_admin(): void {
+		$view_path = '/views/admin_sections/product_item_quantity.php';
+		require dirname( __DIR__ ) . $view_path;
 	}
 }

@@ -306,7 +306,7 @@ class Products {
 
 		if ( property_exists( $json_object, 'DefaultSaleQuantity' ) ) {
 			$wc_product->update_meta_data(
-				'connector_for_dk_default_sale_qty',
+				'connector_for_dk_default_quantity',
 				floatval( $json_object->DefaultSaleQuantity )
 			);
 		}
@@ -502,7 +502,7 @@ class Products {
 
 		if ( property_exists( $json_object, 'DefaultSaleQuantity' ) ) {
 			$wc_product->update_meta_data(
-				'connector_for_dk_default_sale_qty',
+				'connector_for_dk_default_quantity',
 				floatval( $json_object->DefaultSaleQuantity )
 			);
 		}

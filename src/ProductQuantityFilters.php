@@ -72,6 +72,9 @@ class ProductQuantityFilters {
 		return $quantity;
 	}
 
+	/**
+	 * Render options in the admin page
+	 */
 	public static function add_to_admin(): void {
 		$view_path = '/views/admin_sections/product_item_quantity.php';
 		require dirname( __DIR__ ) . $view_path;

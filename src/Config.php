@@ -1117,4 +1117,32 @@ class Config {
 			true
 		);
 	}
+
+	/**
+	 * Get wether to use the "default product quantity" from DK as the minimum
+	 * order quantity for a product
+	 *
+	 * This is used when we want to make sure that a customer can't order less
+	 * than the default amount set in dk.
+	 */
+	public static function get_use_default_product_quantity_as_minimum(): bool {
+		return (bool) self::get_option(
+			'use_default_product_quantity_as_minimum',
+			true
+		);
+	}
+
+	/**
+	 * Get wether to use the default product quantity as multiplier
+	 *
+	 * When set to true, this makes sure that a customer can only order integer
+	 * multipliers of the default quantity. For example, if the minimum quantity
+	 * is 16, then 16, 32, 48, 64, 80 retail units are valid.
+	 */
+	public static function get_use_default_product_quantity_as_multiplier(): bool {
+		return (bool) self::get_option(
+			'use_default_product_quantity_as_multiplier',
+			true
+		);
+	}
 }

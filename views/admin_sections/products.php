@@ -161,6 +161,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<th scope="row" class="column-title column-primary">
 				</th>
 				<td>
+					<fieldset>
+						<legend><?php esc_html_e( 'Source of Product Variations', 'connector-for-dk' ); ?></legend>
+						<div>
+							<input
+								id="product_variation_source_variations_field"
+								type="radio"
+								name="product_variation_source"
+							/>
+							<label for="product_variation_source_variations_field"><?php esc_html_e( 'Variations', 'connector-for-dk' ); ?></label>
+						</div>
+						<div>
+							<input
+								id="product_variation_source_barcodes_field"
+								type="radio"
+								name="product_variation_source"
+							/>
+							<label for="product_variation_source_barcodes_field"><?php esc_html_e( 'Barcodes', 'connector-for-dk' ); ?></label>
+						</div>
+						<div>
+							<input
+								id="product_variation_source_automatic_field"
+								type="radio"
+								name="product_variation_source"
+							/>
+							<label for="product_variation_source_automatic_field"><?php esc_html_e( 'Automatic (use variations directly for products without barcodes)', 'connector-for-dk' ); ?></label>
+						</div>
+					</fieldset>
+					<p class="description">
+						<?php
+						esc_html_e(
+							'Connector for dk can fetch both plain product variations and product barcodes from dk. The difference between the two is that EAN-13 and ITF-14 barcodes can be used for defining a quantity value per product or product variation.',
+							'connector-for-dk'
+						);
+						?>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" class="column-title column-primary">
+				</th>
+				<td>
 					<input
 						id="use_attribute_description_label_field"
 						name="use_attribute_description"

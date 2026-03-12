@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-02-19 10:30+0000\n"
+"PO-Revision-Date: 2026-03-12 20:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr "%2$sKennitalan%4$s %1$s%5$s verður skráð á þessa pöntun.%3$s"
 
-#: views/dk_product_variations.php:53
+#: views/dk_product_variations.php:52
 msgid "(None)"
 msgstr "(Ekkert)"
 
@@ -137,13 +137,13 @@ msgstr ""
 "reikningsins er %1$s."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:718
+#: src/Admin.php:711
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:730
+#: src/Admin.php:723
 #, php-format
 #| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
@@ -171,13 +171,13 @@ msgstr ""
 "innihaldið bæði bókstafi og tölustafi."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:640
+#: src/Admin.php:633
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:652
+#: src/Admin.php:645
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
@@ -217,11 +217,11 @@ msgstr "Færa greiðslulínu á reikninga"
 msgid "Alda Vigdis"
 msgstr "Alda Vigdís"
 
-#: views/dk_product_variations.php:312
+#: views/dk_product_variations.php:311
 msgid "Allow backorders"
 msgstr "Leyfa neikvæða lagerstöðu"
 
-#: views/dk_product_variations.php:298
+#: views/dk_product_variations.php:297
 msgid "Allow backorders, but notify customer"
 msgstr "Leyfa neikvæða lagerstöðu, en láta viðskiptavin vita"
 
@@ -380,7 +380,7 @@ msgstr ""
 msgid "Authentication"
 msgstr "Auðkenning"
 
-#: views/dk_product_variations.php:272
+#: views/dk_product_variations.php:271
 msgid "Backorders"
 msgstr "Neikvæð lagerstaða"
 
@@ -392,7 +392,7 @@ msgstr "Innheimtuþjónusta banka (IB)"
 msgid "Bank Transfer (BM)"
 msgstr "Bankamillifærsla (BM)"
 
-#: views/admin_sections/product_categories.php:22
+#: views/admin_sections/product_categories.php:25
 #| msgid ""
 #| "Below, you can pair up each product group from DK with an equivalent "
 #| "category in WooCommerce. One WooCommerce category may be chosen for each "
@@ -430,7 +430,7 @@ msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
 #. Name of the plugin
-#: src/Admin.php:453 src/Admin.php:454
+#: src/Admin.php:446 src/Admin.php:447
 msgid "Connector for DK"
 msgstr "Tengill fyrir DK"
 
@@ -438,7 +438,7 @@ msgstr "Tengill fyrir DK"
 msgid "Connector for dk"
 msgstr "Tengill fyrir dk"
 
-#: src/Cron/Schedule.php:80
+#: src/Cron/Schedule.php:87
 msgid "Connector for dk 15 minute interval"
 msgstr "Tengill fyrir dk, 15 mínútna lykkja"
 
@@ -506,7 +506,7 @@ msgstr "Búa sjálfkrafa til reikninga fyrir pantanir með kennitölu"
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr "Búa til reikninga sjálfkrafa fyrir pantanir án kennitölu"
 
-#: views/admin_sections/products.php:115
+#: views/admin_sections/products.php:116
 msgid "Create new products in WooCommerce if they don't exist"
 msgstr "Búa til nýjar vörur í WooCommerce ef þær eru ekki til"
 
@@ -543,7 +543,7 @@ msgstr "Viðskiptavinir"
 msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr "Viðskiptavinir þurfa að biðja um að fá kennitölu á reikninga"
 
-#: views/dk_product_variations.php:43
+#: views/dk_product_variations.php:42
 msgid "Default Attributes"
 msgstr "Sjálfgefin eigindi"
 
@@ -567,7 +567,7 @@ msgstr "Númer sjálfgefins sölumanns"
 msgid "Defer invoice generation to a background task"
 msgstr "Vísa reikningagerð í bakgrunnsferli"
 
-#: views/admin_sections/products.php:126
+#: views/admin_sections/products.php:127
 #| msgid ""
 #| "Delete products from WooCommerce if labelled as inactive or deleted in DK"
 msgid ""
@@ -575,7 +575,7 @@ msgid ""
 msgstr ""
 "Eyða vörum úr WooCommerce ef þær eru óvirkar eða þeim hefur verið eytt úr dk"
 
-#: views/dk_product_variations.php:324
+#: views/dk_product_variations.php:323
 msgid "Description"
 msgstr "Lýsing"
 
@@ -591,12 +591,12 @@ msgstr "Slökktu á kennitölureitnum í viðbótinni frá Íslandspósti"
 msgid "Discount"
 msgstr "Afsláttur"
 
-#: views/admin_sections/products.php:170
+#: views/admin_sections/products.php:171
 #| msgid "Display the Attribute Label Description from DK"
 msgid "Display the Attribute Label Description from dk"
 msgstr "Sýna lýsingu nafns eiginleika vöruafbrigða úr dk"
 
-#: views/admin_sections/products.php:193
+#: views/admin_sections/products.php:194
 #| msgid "Display the Attribute Value Description from DK"
 msgid "Display the Attribute Value Description from dk"
 msgstr "Sýna lýsingu eiginleika vöruafbrigða úr dk"
@@ -669,7 +669,7 @@ msgstr ""
 msgid "DK Variations"
 msgstr "Vöruafbrigði úr DK"
 
-#: views/dk_product_variations.php:33
+#: views/dk_product_variations.php:32
 #| msgid ""
 #| "DK's own ‘Product Variations’ feature is required to add or remove "
 #| "product variations that originate in DK."
@@ -684,7 +684,7 @@ msgstr ""
 msgid "dkPlus API Key"
 msgstr "API-lykill fyrir dkPlus"
 
-#: views/dk_product_variations.php:284
+#: views/dk_product_variations.php:283
 msgid "Do not allow backorders"
 msgstr "Ekki leyfa neikvæða lagerstöðu"
 
@@ -702,7 +702,7 @@ msgstr ""
 "Ertu ekki með Tengil Basic eða Pro? — Þú getur keypt og endurnýjað leyfi á "
 "%1$stengillpro.is%2$s."
 
-#: views/dk_product_variations.php:355
+#: views/dk_product_variations.php:354
 msgid "Downloadable"
 msgstr "Hægt að hlaða niður"
 
@@ -732,13 +732,9 @@ msgstr "Kveikja á kennitölureit í afgreiðsluformi"
 msgid "Enable ‘HPOS’ Order Storage"
 msgstr "Kveiktu á ‚HPOS‘"
 
-#: views/dk_product_variations.php:342
+#: views/dk_product_variations.php:341
 msgid "Enabled"
 msgstr "Kveikt"
-
-#: src/Admin.php:323
-msgid "Error: See order notes for details"
-msgstr "Villa: Sjá nánar í athugasemdum"
 
 #: src/Export/CreditInvoice.php:202 src/Export/Order.php:298
 msgid "Fee"
@@ -832,7 +828,7 @@ msgstr ""
 "viðskiptavina sjálfkrafa eftir afgreiðslu. Þetta notar tölvupóststillingar í "
 "dk, sem krefst þess að þær séu réttar."
 
-#: views/admin_sections/products.php:174
+#: views/admin_sections/products.php:175
 #| msgid ""
 #| "If enabled, the code for attribute labels will be replaced with the "
 #| "attribute description from DK. Disable this if you only need the "
@@ -846,7 +842,7 @@ msgstr ""
 "vöruafbrigðis skipt út fyrir fulla lýsingu úr dk. Slökktu á þessu ef þú vilt "
 "bara nota kóða fyrir lýsingu vöruafbrigðis."
 
-#: views/admin_sections/products.php:197
+#: views/admin_sections/products.php:198
 #| msgid ""
 #| "If enabled, the code for attribute values will be replaced with the "
 #| "attribute description from DK. Disable this if you only need the "
@@ -859,6 +855,14 @@ msgstr ""
 "Ef það er kveikt á þessu, þá er kóðanum fyrir eiginleika vöruafbrigða skipt "
 "út fyrir fulla lýsingu úr dk. Slökktu á þessu ef þú vilt bara nota kóða "
 "fyrir eiginleika vöruafbrigða."
+
+#: views/admin_sections/product_item_quantity.php:36
+msgid ""
+"If this enabled, the default sales quantity for each product as set in dk "
+"will be used as the minimum quantity for the product in WooCommerce."
+msgstr ""
+"Ef það er kveikt á þessu, þá er sjálfgefið sölumagn fyrir hverja vöru notað "
+"sem lágmarks sölumagn fyrir vörur í WooCommerce."
 
 #: views/dk_connection_product_panel.php:119
 #| msgid ""
@@ -923,6 +927,16 @@ msgstr ""
 "nýjan viðskiptavin sem gerir pöntun og gefur upp kennitölu sem ekki er þegar "
 "skráð í dk."
 
+#: views/admin_sections/product_item_quantity.php:59
+msgid ""
+"If this is enabled, default quantity will be used as a multiplier. This "
+"means that if the default quantity is 8, then the product can be ordered in "
+"quantities of 8, 16, 32, 64 etc."
+msgstr ""
+"Ef það er kveikt á þessu, þá er sjálfgefið sölumagn notað sem margfeldi. Það "
+"þýðir ef sölumagnið er 8, þá er hægt að panta 8, 16, 24 eða 32 sölueiningar "
+"o.s.frv."
+
 #: views/admin_sections/invoices.php:74
 msgid ""
 "If this is enabled, orders without a kennitala will be assigned the ‘Default "
@@ -939,7 +953,7 @@ msgstr ""
 "Ef kvekt er á þessu, þá er skylda að fylla út kennitölureitinn til að klára "
 "afgreiðsluferli í vefverslun."
 
-#: views/admin_sections/products.php:137
+#: views/admin_sections/products.php:138
 msgid "Import products not labelled as ‘for online store’ as drafts"
 msgstr ""
 "Flytja inn vörur sem eru ekki merktar sem ‚sýnilegt í vefverslun‘ sem drög"
@@ -1094,6 +1108,10 @@ msgstr ""
 "Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
 "PDF-viðhengi"
 
+#: views/admin_sections/product_item_quantity.php:16
+msgid "Item Quantity"
+msgstr "Sjálfgefið sölumagn"
+
 #: src/CustomerSync.php:120 src/KennitalaField.php:184
 #: src/KennitalaField.php:327 src/KennitalaField.php:384
 #: src/KennitalaField.php:534 src/KennitalaField.php:725
@@ -1136,7 +1154,7 @@ msgstr "Leyfi gildir frá"
 msgid "Make Kennitala Field Mandatory"
 msgstr "Gera kennitölureit að skyldu"
 
-#: views/dk_product_variations.php:376
+#: views/dk_product_variations.php:375
 msgid "Menu Order"
 msgstr "Röð í valmynd"
 
@@ -1163,11 +1181,11 @@ msgstr "Þarf að vera tölusett"
 msgid "No"
 msgstr "Nei"
 
-#: views/dk_product_variations.php:193
+#: views/dk_product_variations.php:192
 msgid "On sale from"
 msgstr "Á útsölu frá"
 
-#: views/dk_product_variations.php:210
+#: views/dk_product_variations.php:209
 msgid "On sale to"
 msgstr "Á útsölu til"
 
@@ -1182,11 +1200,11 @@ msgstr ""
 "Að öðru leiti er Tengill fyrir dk samhæfður viðbótinni frá Íslandspósti þar "
 "sem kennitölur eru vistaðar á sama hátt."
 
-#: views/dk_product_variations.php:232
+#: views/dk_product_variations.php:231
 msgid "Override inventory"
 msgstr "Hundsa lagerstöðu"
 
-#: views/dk_product_variations.php:136
+#: views/dk_product_variations.php:135
 msgid "Override price for this product variation"
 msgstr "Yfirskrifa verð fyrir þetta vöruafbrigði"
 
@@ -1204,12 +1222,13 @@ msgstr "Greiðslumáti í dk"
 msgid "Payment Terms in dk"
 msgstr "Greiðsluskilmálar í dk"
 
-#: src/Admin.php:330
-msgid "Pending..."
+#: src/Admin.php:323
+#| msgid "Pending..."
+msgid "Pending…"
 msgstr "Í bið..."
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:702
+#: src/Admin.php:695
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -1219,7 +1238,7 @@ msgstr ""
 "í DK áður en þú heldur áfram."
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:563
+#: src/Admin.php:556
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -1229,7 +1248,7 @@ msgstr ""
 "þú vistar."
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:628
+#: src/Admin.php:621
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1273,7 +1292,7 @@ msgid "Postal COD (POST)"
 msgstr "Póstkrafa (POST)"
 
 #. The %s is the currency symbol for WooCommerce.
-#: views/dk_product_variations.php:151
+#: views/dk_product_variations.php:150
 #, php-format
 msgid "Price (%s)"
 msgstr "Verð (%s)"
@@ -1282,7 +1301,7 @@ msgstr "Verð (%s)"
 msgid "Price Group"
 msgstr "Verðhópur"
 
-#: views/admin_sections/product_categories.php:17
+#: views/admin_sections/product_categories.php:20
 msgid "Product Categories"
 msgstr "Vöruflokkar"
 
@@ -1316,7 +1335,7 @@ msgstr ""
 "Vörur sem koma inn frá dk eru paraðar við rétt VSK-þrep en það krefst þess "
 "að það sé til staðar í WooCommerce."
 
-#: views/dk_product_variations.php:260
+#: views/dk_product_variations.php:259
 msgid "Quantity"
 msgstr "Fjöldi"
 
@@ -1324,11 +1343,11 @@ msgstr "Fjöldi"
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
-#: views/dk_product_variations.php:106
+#: views/dk_product_variations.php:105
 msgid "Remove Image"
 msgstr "Fjarlægja mynd"
 
-#: views/dk_product_variations.php:92
+#: views/dk_product_variations.php:91
 msgid "Replace Image"
 msgstr "Skipta út mynd"
 
@@ -1341,7 +1360,7 @@ msgid "Request an Invoice with Kennitala (optional)"
 msgstr "Biðja um reikning með kennitölu (valfrjálst)"
 
 #. The %s is the currency symbol for WooCommerce.
-#: views/dk_product_variations.php:173
+#: views/dk_product_variations.php:172
 #, php-format
 msgid "Sale Price (%s)"
 msgstr "Útsöluverð (%s)"
@@ -1362,7 +1381,7 @@ msgstr "Senda reikninga sjálfkrafa í tölvupósti"
 msgid "Service SKUs"
 msgstr "Vörunúmer fyrir þjónustu"
 
-#: views/dk_product_variations.php:250
+#: views/dk_product_variations.php:249
 msgid "Set stock quantity"
 msgstr "Setja inn fjölda á lager"
 
@@ -1378,7 +1397,7 @@ msgstr "Settu upp greiðslugáttir í WooCommerce"
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
 msgstr "Settu inn skattþrep fyrir 24%, 11% and 0% VSK."
 
-#: src/Admin.php:463 src/Admin.php:464
+#: src/Admin.php:456 src/Admin.php:457
 msgid "Settings"
 msgstr "Stillingar"
 
@@ -1511,13 +1530,13 @@ msgid "The dkPlus API key is missing."
 msgstr "API-lykil fyrir DK vantar"
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:579
+#: src/Admin.php:572
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst í DK."
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:591
+#: src/Admin.php:584
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK"
@@ -1687,7 +1706,7 @@ msgstr "Gat ekki gert reikning í DK:"
 msgid "Update"
 msgstr "Uppfæra"
 
-#: views/admin_sections/products.php:104
+#: views/admin_sections/products.php:105
 msgid "Update Product Category"
 msgstr "Uppfæra vöruflokk"
 
@@ -1731,24 +1750,32 @@ msgstr "Uppfæra tilvísun í númer reiknings án þess að búa nýjan til í 
 msgid "Use Default (Currently ‘%1$s’)"
 msgstr "Nota sjálfgefna stillingu (er núna ‚%1$s‘)"
 
+#: views/admin_sections/product_item_quantity.php:32
+msgid "Use default quantity as the minimum"
+msgstr "Nota sjálfgefið sölumagn sem lágmark"
+
 #: views/admin_sections/default_skus.php:44
 msgid "Use default SKU if product SKU is missing"
 msgstr "Nota sjálfgefið vörunúmer ef vörunúmer vantar"
+
+#: views/admin_sections/product_item_quantity.php:55
+msgid "Use the default quantity as a multiplier"
+msgstr "Nota sjálfgefið sölumagn sem margfeldi"
 
 #: views/admin_sections/authentication.php:42
 msgid "Valid"
 msgstr "Gilt"
 
 #. The %d is the variation ID.
-#: views/dk_product_variations.php:82
+#: views/dk_product_variations.php:81
 msgid "Variation #%d"
 msgstr "Vöruafbrigði #%d"
 
-#: views/admin_sections/products.php:148
+#: views/admin_sections/products.php:149
 msgid "Variations and Attributes"
 msgstr "Afbrigði og eiginleikar"
 
-#: views/dk_product_variations.php:368
+#: views/dk_product_variations.php:367
 msgid "Virtual"
 msgstr "Sýndarvara"
 
@@ -1800,7 +1827,7 @@ msgstr ""
 "er 320 stafa runa af stöfum, tölum og táknum. Límdu hann í reitinn hér fyrir "
 "neðan til að virkja leyfið."
 
-#: views/admin_sections/products.php:151
+#: views/admin_sections/products.php:152
 #| msgid ""
 #| "While the variation and attribute codes from DK are used internally, "
 #| "their values can be displayed as the descriptions that are set for each "

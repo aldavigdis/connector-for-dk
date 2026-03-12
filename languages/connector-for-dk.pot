@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-19 10:27+0000\n"
+"POT-Creation-Date: 2026-03-12 20:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: connector-for-dk\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr ""
 
-#: views/dk_product_variations.php:53
+#: views/dk_product_variations.php:52
 msgid "(None)"
 msgstr ""
 
@@ -109,13 +109,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:718
+#: src/Admin.php:711
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:730
+#: src/Admin.php:723
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
@@ -138,13 +138,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:640
+#: src/Admin.php:633
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:652
+#: src/Admin.php:645
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -182,11 +182,11 @@ msgstr ""
 msgid "Alda Vigdis"
 msgstr ""
 
-#: views/dk_product_variations.php:312
+#: views/dk_product_variations.php:311
 msgid "Allow backorders"
 msgstr ""
 
-#: views/dk_product_variations.php:298
+#: views/dk_product_variations.php:297
 msgid "Allow backorders, but notify customer"
 msgstr ""
 
@@ -303,7 +303,7 @@ msgstr ""
 msgid "Authentication"
 msgstr ""
 
-#: views/dk_product_variations.php:272
+#: views/dk_product_variations.php:271
 msgid "Backorders"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Bank Transfer (BM)"
 msgstr ""
 
-#: views/admin_sections/product_categories.php:22
+#: views/admin_sections/product_categories.php:25
 msgid ""
 "Below, you can pair up each product group from dk with an equivalent "
 "category in WooCommerce. One WooCommerce category may be chosen for each dk "
@@ -347,7 +347,7 @@ msgid "Community Support"
 msgstr ""
 
 #. Name of the plugin
-#: src/Admin.php:453 src/Admin.php:454
+#: src/Admin.php:446 src/Admin.php:447
 msgid "Connector for DK"
 msgstr ""
 
@@ -355,7 +355,7 @@ msgstr ""
 msgid "Connector for dk"
 msgstr ""
 
-#: src/Cron/Schedule.php:80
+#: src/Cron/Schedule.php:87
 msgid "Connector for dk 15 minute interval"
 msgstr ""
 
@@ -410,7 +410,7 @@ msgstr ""
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr ""
 
-#: views/admin_sections/products.php:115
+#: views/admin_sections/products.php:116
 msgid "Create new products in WooCommerce if they don't exist"
 msgstr ""
 
@@ -446,7 +446,7 @@ msgstr ""
 msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr ""
 
-#: views/dk_product_variations.php:43
+#: views/dk_product_variations.php:42
 msgid "Default Attributes"
 msgstr ""
 
@@ -470,12 +470,12 @@ msgstr ""
 msgid "Defer invoice generation to a background task"
 msgstr ""
 
-#: views/admin_sections/products.php:126
+#: views/admin_sections/products.php:127
 msgid ""
 "Delete products from WooCommerce if labelled as inactive or deleted in dk"
 msgstr ""
 
-#: views/dk_product_variations.php:324
+#: views/dk_product_variations.php:323
 msgid "Description"
 msgstr ""
 
@@ -491,11 +491,11 @@ msgstr ""
 msgid "Discount"
 msgstr ""
 
-#: views/admin_sections/products.php:170
+#: views/admin_sections/products.php:171
 msgid "Display the Attribute Label Description from dk"
 msgstr ""
 
-#: views/admin_sections/products.php:193
+#: views/admin_sections/products.php:194
 msgid "Display the Attribute Value Description from dk"
 msgstr ""
 
@@ -546,7 +546,7 @@ msgstr ""
 msgid "DK Variations"
 msgstr ""
 
-#: views/dk_product_variations.php:33
+#: views/dk_product_variations.php:32
 msgid ""
 "dk's own ‘Product Variations’ feature is required to add or remove product "
 "variations that originate in dk."
@@ -556,7 +556,7 @@ msgstr ""
 msgid "dkPlus API Key"
 msgstr ""
 
-#: views/dk_product_variations.php:284
+#: views/dk_product_variations.php:283
 msgid "Do not allow backorders"
 msgstr ""
 
@@ -572,7 +572,7 @@ msgid ""
 "licenses at %1$stengillpro.is%2$s."
 msgstr ""
 
-#: views/dk_product_variations.php:355
+#: views/dk_product_variations.php:354
 msgid "Downloadable"
 msgstr ""
 
@@ -595,12 +595,8 @@ msgstr ""
 msgid "Enable ‘HPOS’ Order Storage"
 msgstr ""
 
-#: views/dk_product_variations.php:342
+#: views/dk_product_variations.php:341
 msgid "Enabled"
-msgstr ""
-
-#: src/Admin.php:323
-msgid "Error: See order notes for details"
 msgstr ""
 
 #: src/Export/CreditInvoice.php:202 src/Export/Order.php:298
@@ -679,18 +675,24 @@ msgid ""
 "to work."
 msgstr ""
 
-#: views/admin_sections/products.php:174
+#: views/admin_sections/products.php:175
 msgid ""
 "If enabled, the code for attribute labels will be replaced with the "
 "attribute description from dk. Disable this if you only need the attribute "
 "label code."
 msgstr ""
 
-#: views/admin_sections/products.php:197
+#: views/admin_sections/products.php:198
 msgid ""
 "If enabled, the code for attribute values will be replaced with the "
 "attribute description from dk. Disable this if you only need the attribute "
 "value code."
+msgstr ""
+
+#: views/admin_sections/product_item_quantity.php:36
+msgid ""
+"If this enabled, the default sales quantity for each product as set in dk "
+"will be used as the minimum quantity for the product in WooCommerce."
 msgstr ""
 
 #: views/dk_connection_product_panel.php:119
@@ -728,6 +730,13 @@ msgid ""
 "already."
 msgstr ""
 
+#: views/admin_sections/product_item_quantity.php:59
+msgid ""
+"If this is enabled, default quantity will be used as a multiplier. This "
+"means that if the default quantity is 8, then the product can be ordered in "
+"quantities of 8, 16, 32, 64 etc."
+msgstr ""
+
 #: views/admin_sections/invoices.php:74
 msgid ""
 "If this is enabled, orders without a kennitala will be assigned the ‘Default "
@@ -740,7 +749,7 @@ msgid ""
 "checkout process."
 msgstr ""
 
-#: views/admin_sections/products.php:137
+#: views/admin_sections/products.php:138
 msgid "Import products not labelled as ‘for online store’ as drafts"
 msgstr ""
 
@@ -855,6 +864,10 @@ msgid ""
 "as a PDF attachment."
 msgstr ""
 
+#: views/admin_sections/product_item_quantity.php:16
+msgid "Item Quantity"
+msgstr ""
+
 #: src/CustomerSync.php:120 src/KennitalaField.php:184
 #: src/KennitalaField.php:327 src/KennitalaField.php:384
 #: src/KennitalaField.php:534 src/KennitalaField.php:725
@@ -897,7 +910,7 @@ msgstr ""
 msgid "Make Kennitala Field Mandatory"
 msgstr ""
 
-#: views/dk_product_variations.php:376
+#: views/dk_product_variations.php:375
 msgid "Menu Order"
 msgstr ""
 
@@ -922,11 +935,11 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: views/dk_product_variations.php:193
+#: views/dk_product_variations.php:192
 msgid "On sale from"
 msgstr ""
 
-#: views/dk_product_variations.php:210
+#: views/dk_product_variations.php:209
 msgid "On sale to"
 msgstr ""
 
@@ -936,11 +949,11 @@ msgid ""
 "saves the kennitala in the same way."
 msgstr ""
 
-#: views/dk_product_variations.php:232
+#: views/dk_product_variations.php:231
 msgid "Override inventory"
 msgstr ""
 
-#: views/dk_product_variations.php:136
+#: views/dk_product_variations.php:135
 msgid "Override price for this product variation"
 msgstr ""
 
@@ -956,12 +969,12 @@ msgstr ""
 msgid "Payment Terms in dk"
 msgstr ""
 
-#: src/Admin.php:330
-msgid "Pending..."
+#: src/Admin.php:323
+msgid "Pending…"
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:702
+#: src/Admin.php:695
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -969,7 +982,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:563
+#: src/Admin.php:556
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -977,7 +990,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:628
+#: src/Admin.php:621
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1008,7 +1021,7 @@ msgid "Postal COD (POST)"
 msgstr ""
 
 #. The %s is the currency symbol for WooCommerce.
-#: views/dk_product_variations.php:151
+#: views/dk_product_variations.php:150
 #, php-format
 msgid "Price (%s)"
 msgstr ""
@@ -1017,7 +1030,7 @@ msgstr ""
 msgid "Price Group"
 msgstr ""
 
-#: views/admin_sections/product_categories.php:17
+#: views/admin_sections/product_categories.php:20
 msgid "Product Categories"
 msgstr ""
 
@@ -1041,7 +1054,7 @@ msgid ""
 "requires the relevant rate to be present in WooCommerce."
 msgstr ""
 
-#: views/dk_product_variations.php:260
+#: views/dk_product_variations.php:259
 msgid "Quantity"
 msgstr ""
 
@@ -1049,11 +1062,11 @@ msgstr ""
 msgid "Regular Price:"
 msgstr ""
 
-#: views/dk_product_variations.php:106
+#: views/dk_product_variations.php:105
 msgid "Remove Image"
 msgstr ""
 
-#: views/dk_product_variations.php:92
+#: views/dk_product_variations.php:91
 msgid "Replace Image"
 msgstr ""
 
@@ -1066,7 +1079,7 @@ msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
 #. The %s is the currency symbol for WooCommerce.
-#: views/dk_product_variations.php:173
+#: views/dk_product_variations.php:172
 #, php-format
 msgid "Sale Price (%s)"
 msgstr ""
@@ -1087,7 +1100,7 @@ msgstr ""
 msgid "Service SKUs"
 msgstr ""
 
-#: views/dk_product_variations.php:250
+#: views/dk_product_variations.php:249
 msgid "Set stock quantity"
 msgstr ""
 
@@ -1103,7 +1116,7 @@ msgstr ""
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
 msgstr ""
 
-#: src/Admin.php:463 src/Admin.php:464
+#: src/Admin.php:456 src/Admin.php:457
 msgid "Settings"
 msgstr ""
 
@@ -1206,13 +1219,13 @@ msgid "The dkPlus API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:579
+#: src/Admin.php:572
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:591
+#: src/Admin.php:584
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
@@ -1321,7 +1334,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: views/admin_sections/products.php:104
+#: views/admin_sections/products.php:105
 msgid "Update Product Category"
 msgstr ""
 
@@ -1360,8 +1373,16 @@ msgstr ""
 msgid "Use Default (Currently ‘%1$s’)"
 msgstr ""
 
+#: views/admin_sections/product_item_quantity.php:32
+msgid "Use default quantity as the minimum"
+msgstr ""
+
 #: views/admin_sections/default_skus.php:44
 msgid "Use default SKU if product SKU is missing"
+msgstr ""
+
+#: views/admin_sections/product_item_quantity.php:55
+msgid "Use the default quantity as a multiplier"
 msgstr ""
 
 #: views/admin_sections/authentication.php:42
@@ -1369,15 +1390,15 @@ msgid "Valid"
 msgstr ""
 
 #. The %d is the variation ID.
-#: views/dk_product_variations.php:82
+#: views/dk_product_variations.php:81
 msgid "Variation #%d"
 msgstr ""
 
-#: views/admin_sections/products.php:148
+#: views/admin_sections/products.php:149
 msgid "Variations and Attributes"
 msgstr ""
 
-#: views/dk_product_variations.php:368
+#: views/dk_product_variations.php:367
 msgid "Virtual"
 msgstr ""
 
@@ -1417,7 +1438,7 @@ msgid ""
 "Paste it into the field below to activate your license."
 msgstr ""
 
-#: views/admin_sections/products.php:151
+#: views/admin_sections/products.php:152
 msgid ""
 "While the variation and attribute codes from dk are used internally, their "
 "values can be displayed as the descriptions that are set for each of them in "

@@ -65,88 +65,34 @@ class OrderMeta {
 				continue;
 			}
 
-			$product = $item->get_product();
+			$variation_id = $item->get_variation_id();
+
+			if ( $variation_id !== 0 ) {
+				$product = wc_get_product( $variation_id );
+			} else {
+				$product = $item->get_product();
+			}
 
 			if ( ! $product ) {
 				continue;
 			}
 
-			if ( $order->get_prices_include_tax() ) {
-				$item->set_subtotal(
-					(string) round(
-						BigDecimal::of(
-							BigDecimal::of(
-								$product->get_regular_price()
-							)->dividedBy(
-								BigDecimal::of( 1 )->plus(
-									BigDecimal::of(
-										ProductHelper::tax_rate( $product )
-									)->dividedBy(
-										100,
-										24,
-										RoundingMode::HALF_CEILING
-									)
-								),
-								24,
-								RoundingMode::HALF_CEILING
-							)
-						)->multipliedBy(
-							$item->get_quantity()
-						)->toFloat(),
-						2,
-						PHP_ROUND_HALF_UP
+			$item->set_subtotal(
+				(string) BigDecimal::of(
+					wc_get_price_excluding_tax(
+						$product,
+						array(
+							'price' => ProductHelper::get_group_price(
+								$product,
+								$customer,
+								$order->get_prices_include_tax()
+							),
+						)
 					)
-				);
-				$item->set_total(
-					(string) round(
-						BigDecimal::of(
-							BigDecimal::of(
-								$product->get_price()
-							)->dividedBy(
-								BigDecimal::of( 1 )->plus(
-									BigDecimal::of(
-										ProductHelper::tax_rate( $product )
-									)->dividedBy(
-										100,
-										24,
-										RoundingMode::HALF_CEILING
-									)
-								),
-								24,
-								RoundingMode::HALF_CEILING
-							)
-						)->multipliedBy(
-							$item->get_quantity()
-						)->toFloat(),
-						2,
-						PHP_ROUND_HALF_UP
-					)
-				);
-			} else {
-				$item->set_subtotal(
-					(string) round(
-						BigDecimal::of(
-							$product->get_regular_price()
-						)->multipliedBy(
-							$item->get_quantity()
-						)->toFloat(),
-						2,
-						PHP_ROUND_HALF_UP
-					)
-				);
-
-				$item->set_total(
-					(string) round(
-						BigDecimal::of(
-							$product->get_price()
-						)->multipliedBy(
-							$item->get_quantity()
-						)->toFloat(),
-						2,
-						PHP_ROUND_HALF_UP
-					)
-				);
-			}
+				)->multipliedBy(
+					$item->get_quantity()
+				)->toFloat()
+			);
 
 			if ( $product instanceof WC_Product_Variation ) {
 				$parent = wc_get_product( $product->get_parent_id() );

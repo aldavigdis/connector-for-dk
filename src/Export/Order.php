@@ -137,7 +137,7 @@ class Order {
 		WC_Order $wc_order,
 		bool $include_lines = true
 	): array|false {
-		$decimals  = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+		$decimals  = 24;
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 
@@ -221,7 +221,7 @@ class Order {
 						$item->get_quantity()
 					)->toFloat(),
 					$decimals,
-					PHP_ROUND_HALF_UP
+					PHP_ROUND_HALF_DOWN
 				),
 				$item
 			);

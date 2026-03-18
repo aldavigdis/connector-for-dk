@@ -39,7 +39,8 @@ class Products {
 		'UnitPrice3WithTax,TaxPercent,AllowNegativeInventiry,ExtraDesc1,' .
 		'ExtraDesc2,ShowItemInWebShop,Inactive,Deleted,PropositionDateTo,' .
 		'PropositionDateFrom,CurrencyCode,CurrencyPrices,IsVariation,' .
-		'Warehouses,Group,DefaultSaleQuantity';
+		'Warehouses,Group,DefaultSaleQuantity,AllowDiscount,Discount,' .
+		'DiscountQuantity,MaxDiscountAllowed';
 
 	/**
 	 * Save all products from DK
@@ -415,9 +416,79 @@ class Products {
 			$current_date_and_time->format( 'U' )
 		);
 
+		self::update_discount_from_json( $json_object, $wc_product );
+
 		$wc_product->save();
 
 		return $wc_product;
+	}
+
+	private static function update_discount_from_json(
+		stdClass $json_object,
+		WC_Product $wc_product
+	): void {
+		if (
+			property_exists( $json_object, 'AllowDiscount' ) &&
+			$json_object->AllowDiscount === true
+		) {
+			$wc_product->update_meta_data(
+				'connector_for_dk_allow_discount',
+				'1'
+			);
+
+			if ( property_exists( $json_object, 'Discount' ) ) {
+				$wc_product->update_meta_data(
+					'connector_for_dk_discount',
+					(string) $json_object->Discount
+				);
+			} else {
+				$wc_product->update_meta_data(
+					'connector_for_dk_discount',
+					'0'
+				);
+			}
+
+			if ( property_exists( $json_object, 'DiscountQuantity' ) ) {
+				$wc_product->update_meta_data(
+					'connector_for_dk_discount_quantity',
+					(string) $json_object->DiscountQuantity
+				);
+			} else {
+				$wc_product->update_meta_data(
+					'connector_for_dk_discount_quantity',
+					'0'
+				);
+			}
+
+			if ( property_exists( $json_object, 'MaxDiscountAllowed' ) ) {
+				$wc_product->update_meta_data(
+					'connector_for_dk_max_discount',
+					(string) $json_object->MaxDiscountAllowed
+				);
+			} else {
+				$wc_product->update_meta_data(
+					'connector_for_dk_max_discount',
+					'0'
+				);
+			}
+		} else {
+			$wc_product->update_meta_data(
+				'connector_for_dk_allow_discount',
+				'0'
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_discount',
+				'0'
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_discount_quantity',
+				'0'
+			);
+			$wc_product->update_meta_data(
+				'connector_for_dk_max_discount',
+				'0'
+			);
+		}
 	}
 
 	/**
@@ -611,6 +682,8 @@ class Products {
 			$wc_product->set_stock_quantity( $quantity->stock_quantity );
 			$wc_product->set_backorders( $quantity->backorders );
 		}
+
+		self::update_discount_from_json( $json_object, $wc_product );
 
 		$current_date_and_time = new DateTime();
 

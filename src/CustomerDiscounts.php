@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use stdClass;
 use WC_Customer;
@@ -13,6 +14,7 @@ use WC_Order_Item_Product;
 use WC_Product;
 use WC_Product_Variable;
 use WP_User;
+use WC_Cart;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -141,6 +143,13 @@ class CustomerDiscounts {
 			'edit_user_profile',
 			array( __CLASS__, 'display_discount_information_in_user_editor' ),
 			10,
+			1
+		);
+
+		add_action(
+			'woocommerce_before_calculate_totals',
+			array( __CLASS__, 'set_product_discounts_in_cart' ),
+			20,
 			1
 		);
 	}
@@ -291,6 +300,10 @@ class CustomerDiscounts {
 		string $price,
 		WC_Product $product
 	): string {
+		if ( ! ProductHelper::get_allow_discount( $product ) ) {
+			return $price;
+		}
+
 		if ( $product instanceof WC_Product_Variable ) {
 			return self::get_price_html_for_variable_product( $price, $product );
 		}
@@ -332,31 +345,36 @@ class CustomerDiscounts {
 		$regular_price_range = ProductHelper::get_customer_variable_price_range(
 			$product,
 			$customer,
-			false
+			'group_price'
 		);
 
 		$current_price_range = ProductHelper::get_customer_variable_price_range(
 			$product,
 			$customer,
-			true
+			'customer_price'
 		);
 
-		if (
-			$regular_price_range['min'] === $current_price_range['min'] &&
-			$regular_price_range['max'] === $current_price_range['max']
-		) {
-			return $price;
+		if ( $regular_price_range['min'] === $regular_price_range['max'] ) {
+			$regular_price_range_string = wc_price( $regular_price_range['min'] );
+		} else {
+			$regular_price_range_string = wc_format_price_range(
+				$regular_price_range['min'],
+				$regular_price_range['max']
+			);
+		}
+
+		if ( $current_price_range['min'] === $current_price_range['max'] ) {
+			$current_price_range_string = wc_price( $current_price_range['min'] );
+		} else {
+			$current_price_range_string = wc_format_price_range(
+				$current_price_range['min'],
+				$current_price_range['max']
+			);
 		}
 
 		return self::format(
-			wc_format_price_range(
-				$regular_price_range['min'],
-				$regular_price_range['max']
-			),
-			wc_format_price_range(
-				$current_price_range['min'],
-				$current_price_range['max']
-			)
+			$regular_price_range_string,
+			$current_price_range_string
 		);
 	}
 
@@ -443,7 +461,8 @@ class CustomerDiscounts {
 		$original_price = $cart_item['data']->get_regular_price( 'edit' );
 
 		$discounted_price = self::get_current_customer_price(
-			$cart_item['data']
+			$cart_item['data'],
+			(float) $cart_item['data']->get_quantity()
 		);
 
 		if ( $discounted_price === $original_price ) {
@@ -570,10 +589,11 @@ class CustomerDiscounts {
 	 * @param WC_Product $product The product.
 	 */
 	public static function get_current_customer_price(
-		WC_Product $product
+		WC_Product $product,
+		int|float $quantity = 1.0
 	): string {
 		if ( is_admin() ) {
-			return ( $product->get_price( 'edit' ) );
+			return ( $product->get_regular_price( 'edit' ) );
 		}
 
 		if ( $product->is_on_sale( 'edit' ) ) {
@@ -582,13 +602,16 @@ class CustomerDiscounts {
 
 		$customer_id = get_current_user_id();
 
-		if ( $customer_id === 0 ) {
-			return $product->get_price( 'edit' );
-		}
-
 		$customer = new WC_Customer( $customer_id );
 
-		return ProductHelper::get_customer_price( $product, $customer );
+		$incl_tax = CustomerHelper::is_domestic( $customer );
+
+		return ProductHelper::get_customer_price(
+			$product,
+			$customer,
+			$quantity,
+			$incl_tax
+		);
 	}
 
 	/**
@@ -628,5 +651,53 @@ class CustomerDiscounts {
 			$regular_price,
 			$customer_price
 		);
+	}
+
+	public static function set_product_discounts_in_cart( WC_Cart $cart ) {
+		$customer = new WC_Customer( get_current_user_id() );
+
+		foreach ( $cart->get_cart_contents() as $cart_item ) {
+			if ( ! is_array( $cart_item ) ) {
+				continue;
+			}
+
+			if ( $cart_item['variation_id'] > 0 ) {
+				$product = wc_get_product( $cart_item['variation_id'] );
+			} else {
+				$product = $cart_item['data'];
+			}
+
+			if ( ! ProductHelper::get_allow_discount( $product ) ) {
+				continue;
+			}
+
+			$discount_quantity = ProductHelper::get_discount_quantity(
+				$product
+			);
+
+			if ( $cart_item['quantity'] < $discount_quantity ) {
+				continue;
+			}
+
+			$customer_price = (float) self::get_current_customer_price(
+				$product,
+				$cart_item['quantity']
+			);
+
+			$regular_price = (float) ProductHelper::get_group_price( $product, $customer, true );
+
+			$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+
+			if (
+				round( $customer_price, $decimals, PHP_ROUND_HALF_UP ) ===
+				round( $regular_price, $decimals, PHP_ROUND_HALF_UP )
+			) {
+				continue;
+			}
+
+			$cart_item['data']->set_sale_price(
+				(string) $customer_price
+			);
+		}
 	}
 }

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Helpers;
 
 use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
@@ -589,7 +590,9 @@ class Product {
 	 *                       established but the request was rejected, WC_Error
 	 *                       if there was a connection error.
 	 */
-	public static function is_in_dk( WC_Product|string $wc_product ): bool|WP_Error {
+	public static function is_in_dk(
+		WC_Product|string $wc_product
+	): bool|WP_Error {
 		if ( is_string( $wc_product ) ) {
 			$sku = $wc_product;
 		} else {
@@ -626,15 +629,13 @@ class Product {
 	 */
 	public static function get_customer_price(
 		WC_Product $product,
-		WC_Customer $customer
+		WC_Customer $customer,
+		float $quantity = 0.0,
+		bool|null $incl_tax = true
 	): string {
-		$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
-
-		$discount_meta = floatval(
-			$customer->get_meta( 'connector_for_dk_discount' )
-		);
-
-		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
+		if ( is_null( $incl_tax ) ) {
+			$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
+		}
 
 		$group_price = self::get_group_price( $product, $customer, $incl_tax );
 
@@ -642,7 +643,13 @@ class Product {
 			$group_price = '0';
 		}
 
-		$multiplier = BigDecimal::of( $discount_meta )->dividedBy(
+		$multiplier = BigDecimal::of(
+			self::get_customer_product_discount(
+				$product,
+				$customer,
+				$quantity
+			)
+		)->dividedBy(
 			100,
 			24,
 			RoundingMode::HALF_CEILING
@@ -654,7 +661,7 @@ class Product {
 
 		return (string) round(
 			$discounted_price->toFloat(),
-			$decimals,
+			(int) get_option( 'woocommerce_price_num_decimals', 0 ),
 			PHP_ROUND_HALF_UP
 		);
 	}
@@ -671,31 +678,88 @@ class Product {
 		WC_Customer $customer,
 		bool $including_tax = true,
 	): string {
-		$group = (string) $customer->get_meta(
-			'connector_for_dk_price_group',
-			true,
-			'edit'
-		);
-
-		if ( $group === '0' ) {
-			$group = '1';
+		if (
+			(bool) (int) $product->get_meta(
+				'connector_for_dk_variable_price_override'
+			)
+		) {
+			return $product->get_price( 'edit' );
 		}
 
-		if ( $including_tax ) {
-			$price_key = "connector_for_dk_price_{$group}";
-		} else {
-			$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
-		}
+		if ( $customer->get_id() > 0 ) {
+			$group = (string) $customer->get_meta(
+				'connector_for_dk_price_group',
+				true,
+				'edit'
+			);
 
-		if ( in_array( $group, array( '2', '3' ), true ) ) {
-			$group_price = $product->get_meta( $price_key, true, 'edit' );
+			if ( $group === '0' ) {
+				$group = '1';
+			}
 
-			if ( ! empty( $group_price ) ) {
-				return $group_price;
+			if ( $including_tax ) {
+				$price_key = "connector_for_dk_price_{$group}";
+			} else {
+				$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
+			}
+
+			if ( in_array( $group, array( '2', '3' ), true ) ) {
+				$group_price = $product->get_meta( $price_key, true, 'edit' );
+
+				if ( ! empty( $group_price ) ) {
+					return $group_price;
+				}
 			}
 		}
 
-		return $product->get_price( 'edit' );
+		if ( $including_tax ) {
+			if ( get_option( 'woocommerce_tax_display_shop' ) !== 'incl' ) {
+				return (string) wc_get_price_excluding_tax(
+					$product,
+					array(
+						'price' => $product->get_price( 'edit' ),
+					)
+				);
+			}
+			return $product->get_price( 'edit' );
+		}
+
+		return (string) wc_get_price_including_tax(
+			$product,
+			array(
+				'price' => $product->get_price( 'edit' ),
+			)
+		);
+	}
+
+	public static function regular_price_before_tax(
+		WC_Product $product,
+		int|float $quantity = 1,
+	): string {
+		return (string) BigDecimal::of(
+			wc_get_price_excluding_tax(
+				$product,
+				array(
+					'qty'   => $quantity,
+					'price' => $product->get_regular_price( 'edit' ),
+				)
+			)
+		)->toFloat();
+	}
+
+	public static function regular_price_after_tax(
+		WC_Product $product,
+		int|float $quantity = 1
+	): string {
+		return (string) BigDecimal::of(
+			wc_get_price_including_tax(
+				$product,
+				array(
+					'qty'   => $quantity,
+					'price' => $product->get_regular_price( 'edit' ),
+				)
+			)
+		)->toFloat();
 	}
 
 	/**
@@ -711,42 +775,226 @@ class Product {
 	public static function get_customer_variable_price_range(
 		WC_Product_Variable $product,
 		WC_Customer $customer,
-		bool $apply_discount = true,
 		string $kind = 'regular_price'
 	): array {
-		$discount_meta = floatval(
-			$customer->get_meta( 'connector_for_dk_discount' )
-		);
+		$prices = self::get_variation_prices( $product, $customer );
 
-		$prices = $product->get_variation_prices( false );
+		if ( get_option( 'woocommerce_tax_display_shop' ) === 'incl' ) {
+			$min_price = (float) wc_get_price_including_tax(
+				$product,
+				array( 'price' => current( $prices[ $kind ] ) )
+			);
 
-		$min_price = (float) current( $prices[ $kind ] );
-		$max_price = (float) end( $prices[ $kind ] );
+			$max_price = (float) wc_get_price_including_tax(
+				$product,
+				array( 'price' => end( $prices[ $kind ] ) )
+			);
+		} else {
+			$min_price = (float) wc_get_price_excluding_tax(
+				$product,
+				array( 'price' => current( $prices[ $kind ] ) )
+			);
 
-		if ( $apply_discount === false ) {
-			return array(
-				'min' => (string) $min_price,
-				'max' => (string) $max_price,
+			$max_price = (float) wc_get_price_excluding_tax(
+				$product,
+				array( 'price' => end( $prices[ $kind ] ) )
 			);
 		}
 
-		$multiplier = BigDecimal::of(
-			$discount_meta
+		return array(
+			'min' => (string) $min_price,
+			'max' => (string) $max_price,
+		);
+	}
+
+	public static function get_variation_prices(
+		WC_Product_Variable $product,
+		WC_Customer $customer
+	): array {
+		$incl_tax = ( get_option( 'woocommerce_tax_display_shop' ) === 'incl' );
+
+		$prices = array(
+			'price'          => array(),
+			'regular_price'  => array(),
+			'sale_price'     => array(),
+			'group_price'    => array(),
+			'customer_price' => array(),
+		);
+
+		foreach ( $product->get_available_variations( 'objects' ) as $v ) {
+			$id = $v->get_id();
+
+			$prices['price'][ $id ]         = $v->get_price( 'edit' );
+			$prices['regular_price'][ $id ] = $v->get_regular_price( 'edit' );
+			$prices['sale_price'][ $id ]    = $v->get_sale_price( 'edit' );
+
+			$prices['group_price'][ $id ] = self::get_group_price(
+				$v,
+				$customer,
+				$incl_tax
+			);
+
+			$prices['customer_price'][ $id ] = self::get_customer_price(
+				$v,
+				$customer,
+				1,
+				$incl_tax
+			);
+		}
+
+		return $prices;
+	}
+
+	public static function get_allow_discount(
+		WC_Product $product
+	): bool {
+		if ( $product->get_parent_id() > 0 ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			return self::get_allow_discount( $parent );
+		}
+
+		return boolval(
+			$product->get_meta( 'connector_for_dk_allow_discount' )
+		);
+	}
+
+	public static function get_discount_quantity(
+		WC_Product $product
+	): string {
+		if ( $product->get_parent_id() > 0 ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			return self::get_discount_quantity( $parent );
+		}
+
+		return (string) (float) $product->get_meta( 'connector_for_dk_discount_quantity' );
+	}
+
+	public static function get_discount(
+		WC_Product $product
+	): string {
+		if ( self::has_price_override( $product ) ) {
+			return '0.0';
+		}
+
+		if ( $product->get_parent_id() > 0 ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			return self::get_discount( $parent );
+		}
+
+		return $product->get_meta( 'connector_for_dk_discount' );
+	}
+
+	public static function get_max_discount(
+		WC_Product $product
+	): string {
+		if ( $product->get_parent_id() > 0 ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			return self::get_max_discount( $parent );
+		}
+
+		return $product->get_meta( 'connector_for_dk_max_discount' );
+	}
+
+	public static function get_product_discount(
+		WC_Product $product
+	): string {
+		if ( self::has_price_override( $product ) ) {
+			return '0.0';
+		}
+
+		if ( $product->get_parent_id() > 0 ) {
+			$parent = wc_get_product( $product->get_parent_id() );
+			return self::get_product_discount( $parent );
+		}
+
+		$discount     = self::get_discount( $product );
+		$max_discount = self::get_max_discount( $product );
+
+		if (
+			( floatval( $max_discount ) !== 0.0 ) &&
+			( floatval( $discount ) > floatval( $max_discount ) )
+		) {
+			return $max_discount;
+		}
+
+		return $discount;
+	}
+
+	public static function get_product_discount_amount(
+		WC_Product $product
+	): string {
+		$multiplier = self::get_product_discount_multiplier( $product );
+
+		if ( (float) $multiplier === 1.0 ) {
+			return (string) 0.0;
+		}
+
+		return (string) round(
+			BigDecimal::of(
+				$product->get_regular_price( 'edit' )
+			)->multipliedBy(
+				$multiplier
+			)->toFloat(),
+			2,
+			PHP_ROUND_HALF_UP
+		);
+	}
+
+	public static function get_product_discount_multiplier(
+		WC_Product $product
+	): string {
+		$percentage = self::get_product_discount( $product );
+
+		if ( floatval( $percentage ) === 0.0 ) {
+			return '1.0';
+		}
+
+		return (string) BigDecimal::of(
+			$percentage
 		)->dividedBy(
 			100,
 			24,
 			RoundingMode::HALF_CEILING
-		);
+		)->toFloat();
+	}
 
-		$min_discount = $multiplier->multipliedBy( $min_price );
-		$max_discount = $multiplier->multipliedBy( $max_price );
+	public static function get_customer_product_discount(
+		WC_Product $product,
+		WC_Customer $customer,
+		float|int $quantity = 0.0
+	): string {
+		if ( self::has_price_override( $product ) ) {
+			return '0.0';
+		}
 
-		$min = BigDecimal::of( $min_price )->minus( $min_discount )->toFloat();
-		$max = BigDecimal::of( $max_price )->minus( $max_discount )->toFloat();
+		$customer_discount = CustomerHelper::get_dk_discount( $customer );
+		$product_discount  = self::get_discount( $product );
+		$max_discount      = self::get_max_discount( $product );
+		$discount_quantity = self::get_discount_quantity( $product );
 
-		return array(
-			'min' => (string) $min,
-			'max' => (string) $max,
+		if ( (
+			(float) $customer_discount === 0.0 ) &&
+			( $quantity < (float) $discount_quantity )
+		) {
+			return '0.0';
+		}
+
+		if ( floatval( $customer_discount > $product_discount ) ) {
+			$discount = $customer_discount;
+		} else {
+			$discount = $product_discount;
+		}
+
+		if ( floatval( $discount ) > floatval( $max_discount ) ) {
+			return (string) (float) $max_discount;
+		}
+
+		return (string) (float) $discount;
+	}
+
+	public static function has_price_override( WC_Product $product ): bool {
+		return (bool) (int) (
+			$product->get_meta( 'connector_for_dk_variable_price_override' )
 		);
 	}
 }

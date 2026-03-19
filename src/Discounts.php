@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer's discounts and special prices are not indicated on generated DK
  * invoices.
  */
-class CustomerDiscounts {
+class Discounts {
 	/**
 	 * The constructor
 	 */

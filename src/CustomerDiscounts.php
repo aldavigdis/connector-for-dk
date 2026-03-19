@@ -584,9 +584,13 @@ class CustomerDiscounts {
 	}
 
 	/**
-	 * Get the currently logged-in customer's price, with discount
+	 * Get current user's product price
+	 *
+	 * Get the currently logged-in customer's unit price for a product, with
+	 * product and customer's discount applied.
 	 *
 	 * @param WC_Product $product The product.
+	 * @param int|float  $quantity The quantity, used for getting the unit price, with mass discount.
 	 */
 	public static function get_current_customer_price(
 		WC_Product $product,
@@ -653,7 +657,18 @@ class CustomerDiscounts {
 		);
 	}
 
-	public static function set_product_discounts_in_cart( WC_Cart $cart ) {
+	/**
+	 * Indicate product discounts in the WooCommerce cart
+	 *
+	 * Goes through the cart and faciliates displaying the original price and
+	 * discounted price for discounted products. This is used both for customer
+	 * discounts and product discounts.
+	 *
+	 * @param WC_Cart $cart The WooCommerce cart object.
+	 */
+	public static function set_product_discounts_in_cart(
+		WC_Cart $cart
+	): void {
 		$customer = new WC_Customer( get_current_user_id() );
 
 		foreach ( $cart->get_cart_contents() as $cart_item ) {

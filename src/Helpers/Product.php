@@ -622,16 +622,21 @@ class Product {
 	}
 
 	/**
-	 * Get customer's price for a product, with discount
+	 * Get customer's unit price for a product, with discount
+	 *
+	 * The quantity parameter is used for calculating discount and is not used
+	 * as a multiplier.
 	 *
 	 * @param WC_Product  $product The product.
 	 * @param WC_Customer $customer The customer.
+	 * @param float|int   $quantity The quantity.
+	 * @param bool|null   $incl_tax wether or not to include tax in the price.
 	 */
 	public static function get_customer_price(
 		WC_Product $product,
 		WC_Customer $customer,
-		float $quantity = 0.0,
-		bool|null $incl_tax = true
+		float|int $quantity = 0.0,
+		bool|null $incl_tax = null
 	): string {
 		if ( is_null( $incl_tax ) ) {
 			$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
@@ -732,6 +737,17 @@ class Product {
 		);
 	}
 
+	/**
+	 * Get a product's regular price before VAT
+	 *
+	 * This assumes that the regular price as returned by
+	 * `$product->get_regular_price( 'edit' )` is the full price after tax.
+	 *
+	 * @param WC_Product $product The product (or variant) to check.
+	 * @param int|float  $quantity The quantity (used as a multiplier).
+	 *
+	 * @return string A string representation of the price.
+	 */
 	public static function regular_price_before_tax(
 		WC_Product $product,
 		int|float $quantity = 1,
@@ -747,6 +763,17 @@ class Product {
 		)->toFloat();
 	}
 
+	/**
+	 * Get a product's regular price after tax
+	 *
+	 * This assumes that the regular price as returned by
+	 * `$product->get_regular_price( 'edit' )` is the full price before tax.
+	 *
+	 * @param WC_Product $product The product (or variant) to check.
+	 * @param int|float  $quantity The quantity (used as a multiplier).
+	 *
+	 * @return string A string representation of the price.
+	 */
 	public static function regular_price_after_tax(
 		WC_Product $product,
 		int|float $quantity = 1
@@ -767,7 +794,6 @@ class Product {
 	 *
 	 * @param WC_Product_Variable $product The product.
 	 * @param WC_Customer         $customer The customer.
-	 * @param bool                $apply_discount Wether to apply discounts.
 	 * @param string              $kind 'regular_price', 'sale_price' or 'price'.
 	 *
 	 * @return array{min: string, max: string} An array containing the price range as strings.
@@ -807,6 +833,15 @@ class Product {
 		);
 	}
 
+	/**
+	 * Get the prices of a variable product
+	 *
+	 * This fetches an array containing the price, regular price, sale price,
+	 * group price and customer price
+	 *
+	 * @param WC_Product_Variable $product The variable product.
+	 * @param WC_Customer         $customer The customer to check prices for.
+	 */
 	public static function get_variation_prices(
 		WC_Product_Variable $product,
 		WC_Customer $customer
@@ -845,6 +880,14 @@ class Product {
 		return $prices;
 	}
 
+	/**
+	 * Get wether discount is allowed for a product
+	 *
+	 * If we are dealing with a product variation, we check the parent product
+	 * instead.
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 */
 	public static function get_allow_discount(
 		WC_Product $product
 	): bool {
@@ -853,11 +896,16 @@ class Product {
 			return self::get_allow_discount( $parent );
 		}
 
-		return boolval(
-			$product->get_meta( 'connector_for_dk_allow_discount' )
+		return (bool) (int) $product->get_meta(
+			'connector_for_dk_allow_discount'
 		);
 	}
 
+	/**
+	 * Get the minimum quantity for a product discount
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 */
 	public static function get_discount_quantity(
 		WC_Product $product
 	): string {
@@ -866,9 +914,24 @@ class Product {
 			return self::get_discount_quantity( $parent );
 		}
 
-		return (string) (float) $product->get_meta( 'connector_for_dk_discount_quantity' );
+		return (string) (float) $product->get_meta(
+			'connector_for_dk_discount_quantity'
+		);
 	}
 
+	/**
+	 * Get the discount percentage set for a product
+	 *
+	 * If we are dealing with a product variant, we check first if it has a
+	 * price override, resulting in no discount, and if not, we refer to its
+	 * parent for the discount.
+	 *
+	 * Note that this does not check for the maximum allowed discount.
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 *
+	 * @return string A string representation of the discount percentage.
+	 */
 	public static function get_discount(
 		WC_Product $product
 	): string {
@@ -884,6 +947,15 @@ class Product {
 		return $product->get_meta( 'connector_for_dk_discount' );
 	}
 
+	/**
+	 * Get the maximum discount for a product
+	 *
+	 * If we are dealing with a product variation, then we refer to its parent.
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 *
+	 * @return string A string representation of the discount percentage.
+	 */
 	public static function get_max_discount(
 		WC_Product $product
 	): string {
@@ -895,6 +967,13 @@ class Product {
 		return $product->get_meta( 'connector_for_dk_max_discount' );
 	}
 
+	/**
+	 * Get product discount, accounting for maximum discount
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 *
+	 * @return string A string representation of the discount percentage.
+	 */
 	public static function get_product_discount(
 		WC_Product $product
 	): string {
@@ -920,44 +999,15 @@ class Product {
 		return $discount;
 	}
 
-	public static function get_product_discount_amount(
-		WC_Product $product
-	): string {
-		$multiplier = self::get_product_discount_multiplier( $product );
-
-		if ( (float) $multiplier === 1.0 ) {
-			return (string) 0.0;
-		}
-
-		return (string) round(
-			BigDecimal::of(
-				$product->get_regular_price( 'edit' )
-			)->multipliedBy(
-				$multiplier
-			)->toFloat(),
-			2,
-			PHP_ROUND_HALF_UP
-		);
-	}
-
-	public static function get_product_discount_multiplier(
-		WC_Product $product
-	): string {
-		$percentage = self::get_product_discount( $product );
-
-		if ( floatval( $percentage ) === 0.0 ) {
-			return '1.0';
-		}
-
-		return (string) BigDecimal::of(
-			$percentage
-		)->dividedBy(
-			100,
-			24,
-			RoundingMode::HALF_CEILING
-		)->toFloat();
-	}
-
+	/**
+	 * Get product discount as it applies to a customer
+	 *
+	 * Note that the `$quantity` parameter is not used as a multiplier.
+	 *
+	 * @param WC_Product  $product The WooCommerce product.
+	 * @param WC_Customer $customer The WooCommerce customer.
+	 * @param float|int   $quantity The quantity to base the discount on.
+	 */
 	public static function get_customer_product_discount(
 		WC_Product $product,
 		WC_Customer $customer,
@@ -992,6 +1042,11 @@ class Product {
 		return (string) (float) $discount;
 	}
 
+	/**
+	 * Check if a product has price override
+	 *
+	 * @param WC_Product $product The WooCommerce product.
+	 */
 	public static function has_price_override( WC_Product $product ): bool {
 		return (bool) (int) (
 			$product->get_meta( 'connector_for_dk_variable_price_override' )

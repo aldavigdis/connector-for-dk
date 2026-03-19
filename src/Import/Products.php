@@ -423,6 +423,12 @@ class Products {
 		return $wc_product;
 	}
 
+	/**
+	 * Update product discount
+	 *
+	 * @param stdClass   $json_object The JSON product object as it comes from the dk API.
+	 * @param WC_Product $wc_product The WooCommerce product.
+	 */
 	private static function update_discount_from_json(
 		stdClass $json_object,
 		WC_Product $wc_product

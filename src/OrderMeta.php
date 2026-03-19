@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use WC_Customer;

@@ -21,10 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The Customer Discount Class
+ * The Discount Class
  *
- * Replaces the prices used by WooCommerce using the customer's DK discount and
- * price group.
+ * Ammends the default prices used by WooCommerce using the customer's dk
+ * discount and price group, and facilitates the use of product discounts
+ * from dk.
  *
  * If a price is based on a price group, the customer's discount gets applied.
  *
@@ -32,11 +33,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * that if the customer's discounted price would be 1000 ISK but the sale price
  * is 2000 ISK, the sale price is still used. Discounts also do not compound
  * with sale prices.
- *
- * Customer's discounts and special prices are not indicated on generated DK
- * invoices.
  */
 class Discounts {
+	const INDICATOR_CSS_CLASSES = array(
+		'connector-for-dk-discount',
+		'has-font-size',
+		'has-medium-font-size',
+	);
+
 	/**
 	 * The constructor
 	 */
@@ -44,6 +48,13 @@ class Discounts {
 		add_filter(
 			'woocommerce_get_price_html',
 			array( __CLASS__, 'get_price_html' ),
+			10,
+			2
+		);
+
+		add_filter(
+			'woocommerce_get_price_html',
+			array( __CLASS__, 'add_quantity_discount_to_price_display' ),
 			10,
 			2
 		);
@@ -699,7 +710,11 @@ class Discounts {
 				$cart_item['quantity']
 			);
 
-			$regular_price = (float) ProductHelper::get_group_price( $product, $customer, true );
+			$regular_price = (float) ProductHelper::get_group_price(
+				$product,
+				$customer,
+				true
+			);
 
 			$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
 
@@ -714,5 +729,84 @@ class Discounts {
 				(string) $customer_price
 			);
 		}
+	}
+
+	public static function add_quantity_discount_to_price_display(
+		string $price,
+		WC_Product $product
+	): string {
+		$customer = new WC_Customer( get_current_user_id() );
+
+		$text = self::quantity_discount_indicator_text( $product, $customer );
+
+		if ( empty( $text ) ) {
+			return $price;
+		}
+
+		$css_class = implode(
+			' ',
+			apply_filters(
+				'connector_for_dk_discount_indicator_css_classes',
+				self::INDICATOR_CSS_CLASSES
+			)
+		);
+
+		$html_element = apply_filters(
+			'connector_for_dk_discount_indicator_html',
+			"<p class=\"$css_class\">$text</p>",
+			$price,
+			$css_class,
+			$text
+		);
+
+		return "$price\n$html_element";
+	}
+
+	/**
+	 * The quantity discount indicator text
+	 *
+	 * Returns the contents of the quantity discount indicator displayed below a
+	 * product's price if it has a minimum required quantity for a discount to
+	 * apply.
+	 */
+	public static function quantity_discount_indicator_text(
+		WC_Product $product,
+		WC_Customer $customer
+	): string {
+		if ( ProductHelper::has_price_override( $product ) ) {
+			return '';
+		}
+
+		if ( ! ProductHelper::get_allow_discount( $product ) ) {
+			return '';
+		}
+
+		$customer_discount = CustomerHelper::get_dk_discount( $customer );
+		$product_discount  = ProductHelper::get_discount( $product );
+
+		if ( (float) $customer_discount > (float) $product_discount ) {
+			return '';
+		}
+
+		$discount_quantity = ProductHelper::get_discount_quantity( $product );
+
+		if (
+			(float) $product_discount === 0.0 ||
+			(float) $discount_quantity === 0.0
+		) {
+			return '';
+		}
+
+		return apply_filters(
+			'connector_for_dk_discount_indicator_text',
+			sprintf(
+				// Translators: %1$d is the percentage and %2$d is the minimum number of items for a discount.
+				__( '%1$d%% discount for %2$d or more', 'connector-for-dk' ),
+				$product_discount,
+				$discount_quantity
+			),
+			$product_discount,
+			$discount_quantity
+		);
 	}
 }

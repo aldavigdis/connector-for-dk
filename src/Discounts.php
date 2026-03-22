@@ -316,11 +316,17 @@ class Discounts {
 		}
 
 		if ( $product instanceof WC_Product_Variable ) {
-			return self::get_price_html_for_variable_product( $price, $product );
+			return self::get_price_html_for_variable_product(
+				$price,
+				$product
+			);
 		}
 
+		$customer = new WC_Customer( get_current_user_id() );
+
+		$regular_price = ProductHelper::get_group_price( $product, $customer );
+
 		if ( $product->is_on_sale( 'edit' ) ) {
-			$regular_price  = $product->get_regular_price( 'edit' );
 			$customer_price = $product->get_sale_price( 'edit' );
 
 			return wc_format_sale_price(
@@ -328,7 +334,6 @@ class Discounts {
 				wc_price( $customer_price )
 			);
 		} else {
-			$regular_price  = self::get_product_group_price( $product );
 			$customer_price = self::get_current_customer_price( $product );
 		}
 

@@ -676,19 +676,19 @@ class Product {
 	 *
 	 * @param WC_Product  $product The product.
 	 * @param WC_Customer $customer The customer.
-	 * @param bool        $including_tax wether to include VAT in the price.
+	 * @param null|bool   $including_tax wether to include VAT in the price.
 	 */
 	public static function get_group_price(
 		WC_Product $product,
 		WC_Customer $customer,
-		bool $including_tax = true,
+		null|bool $including_tax = true,
 	): string {
 		if (
 			(bool) (int) $product->get_meta(
 				'connector_for_dk_variable_price_override'
 			)
 		) {
-			return $product->get_price( 'edit' );
+			return $product->get_regular_price( 'edit' );
 		}
 
 		if ( $customer->get_id() > 0 ) {
@@ -717,16 +717,13 @@ class Product {
 			}
 		}
 
-		if ( $including_tax ) {
-			if ( get_option( 'woocommerce_tax_display_shop' ) !== 'incl' ) {
-				return (string) wc_get_price_excluding_tax(
-					$product,
-					array(
-						'price' => $product->get_price( 'edit' ),
-					)
-				);
-			}
-			return $product->get_price( 'edit' );
+		if ( get_option( 'woocommerce_tax_display_shop' ) !== 'incl' ) {
+			return (string) wc_get_price_excluding_tax(
+				$product,
+				array(
+					'price' => $product->get_price( 'edit' ),
+				)
+			);
 		}
 
 		return (string) wc_get_price_including_tax(
@@ -865,15 +862,12 @@ class Product {
 
 			$prices['group_price'][ $id ] = self::get_group_price(
 				$v,
-				$customer,
-				$incl_tax
+				$customer
 			);
 
 			$prices['customer_price'][ $id ] = self::get_customer_price(
 				$v,
-				$customer,
-				1,
-				$incl_tax
+				$customer
 			);
 		}
 

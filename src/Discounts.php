@@ -731,6 +731,15 @@ class Discounts {
 		}
 	}
 
+	/**
+	 * Add the quantity discount indicator to the price display
+	 *
+	 * Used for hooking into woocommerce_get_price_html and appends the relevant
+	 * HTML element to the price display block.
+	 *
+	 * @param string     $price The oirignal price string.
+	 * @param WC_Product $product The product.
+	 */
 	public static function add_quantity_discount_to_price_display(
 		string $price,
 		WC_Product $product
@@ -768,6 +777,9 @@ class Discounts {
 	 * Returns the contents of the quantity discount indicator displayed below a
 	 * product's price if it has a minimum required quantity for a discount to
 	 * apply.
+	 *
+	 * @param WC_Product  $product The product on display.
+	 * @param WC_Customer $customer The customer the price is relevant to.
 	 */
 	public static function quantity_discount_indicator_text(
 		WC_Product $product,

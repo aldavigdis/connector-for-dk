@@ -717,21 +717,7 @@ class Product {
 			}
 		}
 
-		if ( get_option( 'woocommerce_tax_display_shop' ) !== 'incl' ) {
-			return (string) wc_get_price_excluding_tax(
-				$product,
-				array(
-					'price' => $product->get_price( 'edit' ),
-				)
-			);
-		}
-
-		return (string) wc_get_price_including_tax(
-			$product,
-			array(
-				'price' => $product->get_price( 'edit' ),
-			)
-		);
+		return $product->get_regular_price( 'edit' );
 	}
 
 	/**
@@ -843,8 +829,6 @@ class Product {
 		WC_Product_Variable $product,
 		WC_Customer $customer
 	): array {
-		$incl_tax = ( get_option( 'woocommerce_tax_display_shop' ) === 'incl' );
-
 		$prices = array(
 			'price'          => array(),
 			'regular_price'  => array(),

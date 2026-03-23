@@ -728,9 +728,9 @@ class Products {
 		);
 
 		if ( $store_currency === $dk_currency ) {
-			$price_before_tax      = $json_object->UnitPrice1;
-			$price_with_tax        = $json_object->UnitPrice1WithTax;
-			$sale_price_before_tax = $json_object->PropositionPrice;
+			$price_before_tax    = $json_object->UnitPrice1;
+			$price_with_tax      = $json_object->UnitPrice1WithTax;
+			$sale_price_with_tax = $json_object->PropositionPrice;
 
 			if (
 				property_exists( $json_object, 'UnitPrice2' ) &&
@@ -768,11 +768,8 @@ class Products {
 				);
 			}
 
-			if ( $sale_price_before_tax > 0 ) {
-				$sale_price = self::calculate_price_after_tax(
-					$sale_price_before_tax,
-					$json_object->TaxPercent
-				);
+			if ( $sale_price_with_tax > 0 ) {
+				$sale_price = $sale_price_with_tax;
 			} else {
 				$sale_price = '';
 			}
@@ -796,8 +793,11 @@ class Products {
 				);
 			}
 
-			if ( $sale_price_before_tax > 0 ) {
-				$sale_price = $sale_price_before_tax;
+			if ( $sale_price_with_tax > 0 ) {
+				$sale_price = self::calculate_price_before_tax(
+					$sale_price_with_tax,
+					$json_object->TaxPercent
+				);
 			} else {
 				$sale_price = '';
 			}
@@ -820,14 +820,13 @@ class Products {
 		}
 
 		$price_array = array(
-			'price'                 => $price,
-			'price_before_tax'      => $price_before_tax,
-			'sale_price'            => $sale_price,
-			'sale_price_before_tax' => $sale_price_before_tax,
-			'date_on_sale_from'     => $date_on_sale_from,
-			'date_on_sale_to'       => $date_on_sale_to,
-			'currency'              => $dk_currency,
-			'tax_class'             => $tax_class,
+			'price'             => $price,
+			'price_before_tax'  => $price_before_tax,
+			'sale_price'        => $sale_price,
+			'date_on_sale_from' => $date_on_sale_from,
+			'date_on_sale_to'   => $date_on_sale_to,
+			'currency'          => $dk_currency,
+			'tax_class'         => $tax_class,
 		);
 
 		if ( isset( $price_2, $price_3 ) ) {
@@ -868,6 +867,39 @@ class Products {
 			$price_before_tax
 		)->multipliedBy(
 			$tax_fraction->plus( 1 )
+		)->toFloat();
+	}
+
+	/**
+	 * Calculate a "before tax" price
+	 *
+	 * @param float|int $price_after_tax The original price, after tax.
+	 * @param float     $tax_rate The tax rate percentage.
+	 *
+	 * @return float The "before tax" price as a float.
+	 */
+	public static function calculate_price_before_tax(
+		float $price_after_tax,
+		float $tax_rate
+	): float {
+		if ( $tax_rate === 0 ) {
+			return (float) $price_after_tax;
+		}
+
+		$tax_percentage = BigDecimal::of( $tax_rate );
+
+		$tax_fraction = $tax_percentage->dividedBy(
+			100,
+			24,
+			roundingMode: RoundingMode::HALF_CEILING
+		);
+
+		return BigDecimal::of(
+			$price_after_tax
+		)->dividedBy(
+			BigDecimal::of( 1 )->plus( $tax_fraction ),
+			24,
+			RoundingMode::HALF_CEILING
 		)->toFloat();
 	}
 

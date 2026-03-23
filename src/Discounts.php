@@ -364,11 +364,19 @@ class Discounts {
 			'group_price'
 		);
 
-		$current_price_range = ProductHelper::get_customer_variable_price_range(
-			$product,
-			$customer,
-			'customer_price'
-		);
+		if ( $product->is_on_sale() ) {
+			$current_price_range = ProductHelper::get_customer_variable_price_range(
+				$product,
+				$customer,
+				'sale_price'
+			);
+		} else {
+			$current_price_range = ProductHelper::get_customer_variable_price_range(
+				$product,
+				$customer,
+				'customer_price'
+			);
+		}
 
 		if ( $regular_price_range['min'] === $regular_price_range['max'] ) {
 			$regular_price_range_string = wc_price( $regular_price_range['min'] );

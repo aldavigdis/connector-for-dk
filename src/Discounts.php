@@ -322,8 +322,13 @@ class Discounts {
 			);
 		}
 
+		$incl_tax      = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
 		$customer      = new WC_Customer( get_current_user_id() );
-		$regular_price = ProductHelper::get_group_price( $product, $customer );
+		$regular_price = ProductHelper::get_group_price(
+			$product,
+			$customer,
+			$incl_tax
+		);
 
 		if ( $product->is_on_sale( 'edit' ) ) {
 			$customer_price = $product->get_sale_price( 'edit' );
@@ -334,7 +339,12 @@ class Discounts {
 			);
 		}
 
-		$customer_price = self::get_current_customer_price( $product );
+		$customer_price = ProductHelper::get_customer_price(
+			$product,
+			$customer,
+			0,
+			$incl_tax
+		);
 
 		if ( $regular_price === $customer_price ) {
 			return wc_price( $customer_price );
@@ -356,25 +366,37 @@ class Discounts {
 		string $price,
 		WC_Product $product
 	): string {
+		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
 		$customer = new WC_Customer( get_current_user_id() );
+		$prices   = ProductHelper::get_variation_prices(
+			$product,
+			$customer,
+			$incl_tax
+		);
 
 		$regular_price_range = ProductHelper::get_customer_variable_price_range(
 			$product,
 			$customer,
-			'group_price'
+			'group_price',
+			$incl_tax,
+			$prices
 		);
 
 		if ( $product->is_on_sale() ) {
 			$current_price_range = ProductHelper::get_customer_variable_price_range(
 				$product,
 				$customer,
-				'sale_price'
+				'sale_price',
+				$incl_tax,
+				$prices
 			);
 		} else {
 			$current_price_range = ProductHelper::get_customer_variable_price_range(
 				$product,
 				$customer,
-				'customer_price'
+				'customer_price',
+				$incl_tax,
+				$prices
 			);
 		}
 

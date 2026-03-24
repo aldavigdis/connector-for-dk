@@ -711,7 +711,7 @@ class Product {
 			$group_price = $product->get_meta( $price_key, true, 'edit' );
 
 			if ( ! empty( $group_price ) ) {
-				return (string) $group_price;
+				return (string) round( (float) $group_price, wc_get_price_decimals(), PHP_ROUND_HALF_UP );
 			}
 		}
 
@@ -792,9 +792,17 @@ class Product {
 	public static function get_customer_variable_price_range(
 		WC_Product_Variable $product,
 		WC_Customer $customer,
-		string $kind = 'regular_price'
+		string $kind = 'regular_price',
+		bool $incl_tax = true,
+		false|array $prices = false
 	): array {
-		$prices = self::get_variation_prices( $product, $customer );
+		if ( ! $prices ) {
+			$prices = self::get_variation_prices(
+				$product,
+				$customer,
+				$incl_tax
+			);
+		}
 
 		$min_price = current( $prices[ $kind ] );
 		$max_price = end( $prices[ $kind ] );
@@ -816,7 +824,8 @@ class Product {
 	 */
 	public static function get_variation_prices(
 		WC_Product_Variable $product,
-		WC_Customer $customer
+		WC_Customer $customer,
+		bool $incl_tax = true
 	): array {
 		$prices = array(
 			'price'          => array(),
@@ -835,12 +844,15 @@ class Product {
 
 			$prices['group_price'][ $id ] = self::get_group_price(
 				$v,
-				$customer
+				$customer,
+				$incl_tax
 			);
 
 			$prices['customer_price'][ $id ] = self::get_customer_price(
 				$v,
-				$customer
+				$customer,
+				1,
+				$incl_tax
 			);
 		}
 

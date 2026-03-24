@@ -1004,16 +1004,19 @@ class Product {
 			(float) $customer_discount === 0.0 ) &&
 			( $quantity < (float) $discount_quantity )
 		) {
-			return '0.0';
+			return '0';
 		}
 
-		if ( floatval( $customer_discount > $product_discount ) ) {
+		if ( (float) $customer_discount > (float) $product_discount ) {
 			$discount = $customer_discount;
 		} else {
 			$discount = $product_discount;
 		}
 
-		if ( floatval( $discount ) > floatval( $max_discount ) ) {
+		if (
+			( (float) $discount > (float) $max_discount ) &&
+			( (float) $max_discount !== 0.0 )
+		) {
 			return (string) (float) $max_discount;
 		}
 

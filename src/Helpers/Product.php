@@ -688,36 +688,44 @@ class Product {
 				'connector_for_dk_variable_price_override'
 			)
 		) {
-			return $product->get_regular_price( 'edit' );
+			return (string) $product->get_regular_price( 'edit' );
 		}
 
-		if ( $customer->get_id() > 0 ) {
-			$group = (string) $customer->get_meta(
-				'connector_for_dk_price_group',
-				true,
-				'edit'
+		$group = (string) $customer->get_meta(
+			'connector_for_dk_price_group',
+			true,
+			'edit'
+		);
+
+		if ( $group === '0' || empty( $group ) ) {
+			$group = '1';
+		}
+
+		if ( $including_tax ) {
+			$price_key = "connector_for_dk_price_{$group}";
+		} else {
+			$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
+		}
+
+		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {
+			$group_price = $product->get_meta( $price_key, true, 'edit' );
+
+			if ( ! empty( $group_price ) ) {
+				return (string) $group_price;
+			}
+		}
+
+		if ( $including_tax ) {
+			return (string) wc_get_price_excluding_tax(
+				$product,
+				array( 'price' => $product->get_regular_price( 'edit' ) )
 			);
-
-			if ( $group === '0' ) {
-				$group = '1';
-			}
-
-			if ( $including_tax ) {
-				$price_key = "connector_for_dk_price_{$group}";
-			} else {
-				$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
-			}
-
-			if ( in_array( $group, array( '2', '3' ), true ) ) {
-				$group_price = $product->get_meta( $price_key, true, 'edit' );
-
-				if ( ! empty( $group_price ) ) {
-					return $group_price;
-				}
-			}
 		}
 
-		return $product->get_regular_price( 'edit' );
+		return (string) wc_get_price_including_tax(
+			$product,
+			array( 'price' => $product->get_regular_price( 'edit' ) )
+		);
 	}
 
 	/**
@@ -788,27 +796,8 @@ class Product {
 	): array {
 		$prices = self::get_variation_prices( $product, $customer );
 
-		if ( get_option( 'woocommerce_tax_display_shop' ) === 'incl' ) {
-			$min_price = (float) wc_get_price_including_tax(
-				$product,
-				array( 'price' => current( $prices[ $kind ] ) )
-			);
-
-			$max_price = (float) wc_get_price_including_tax(
-				$product,
-				array( 'price' => end( $prices[ $kind ] ) )
-			);
-		} else {
-			$min_price = (float) wc_get_price_excluding_tax(
-				$product,
-				array( 'price' => current( $prices[ $kind ] ) )
-			);
-
-			$max_price = (float) wc_get_price_excluding_tax(
-				$product,
-				array( 'price' => end( $prices[ $kind ] ) )
-			);
-		}
+		$min_price = current( $prices[ $kind ] );
+		$max_price = end( $prices[ $kind ] );
 
 		return array(
 			'min' => (string) $min_price,

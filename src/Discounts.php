@@ -322,8 +322,7 @@ class Discounts {
 			);
 		}
 
-		$customer = new WC_Customer( get_current_user_id() );
-
+		$customer      = new WC_Customer( get_current_user_id() );
 		$regular_price = ProductHelper::get_group_price( $product, $customer );
 
 		if ( $product->is_on_sale( 'edit' ) ) {
@@ -333,15 +332,18 @@ class Discounts {
 				wc_price( $regular_price ),
 				wc_price( $customer_price )
 			);
-		} else {
-			$customer_price = self::get_current_customer_price( $product );
 		}
+
+		$customer_price = self::get_current_customer_price( $product );
 
 		if ( $regular_price === $customer_price ) {
 			return wc_price( $customer_price );
 		}
 
-		return self::format( $regular_price, $customer_price );
+		return self::format(
+			$regular_price,
+			$customer_price
+		);
 	}
 
 	/**
@@ -354,9 +356,7 @@ class Discounts {
 		string $price,
 		WC_Product $product
 	): string {
-		$customer_id = get_current_user_id();
-
-		$customer = new WC_Customer( $customer_id );
+		$customer = new WC_Customer( get_current_user_id() );
 
 		$regular_price_range = ProductHelper::get_customer_variable_price_range(
 			$product,
@@ -628,17 +628,12 @@ class Discounts {
 			return $product->get_sale_price( 'edit' );
 		}
 
-		$customer_id = get_current_user_id();
-
-		$customer = new WC_Customer( $customer_id );
-
-		$incl_tax = CustomerHelper::is_domestic( $customer );
+		$customer = new WC_Customer( get_current_user_id() );
 
 		return ProductHelper::get_customer_price(
 			$product,
 			$customer,
-			$quantity,
-			$incl_tax
+			$quantity
 		);
 	}
 

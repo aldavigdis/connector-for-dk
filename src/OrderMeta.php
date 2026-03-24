@@ -77,20 +77,19 @@ class OrderMeta {
 			}
 
 			$item->set_subtotal(
-				(string) BigDecimal::of(
-					wc_get_price_excluding_tax(
-						$product,
-						array(
-							'price' => ProductHelper::get_group_price(
-								$product,
-								$customer,
-								$order->get_prices_include_tax()
-							),
+				(string) round(
+					BigDecimal::of(
+						ProductHelper::get_group_price(
+							$product,
+							$customer,
+							false
 						)
-					)
-				)->multipliedBy(
-					$item->get_quantity()
-				)->toFloat()
+					)->multipliedBy(
+						$item->get_quantity()
+					)->toFloat()
+				),
+				2,
+				PHP_ROUND_HALF_UP
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {
@@ -154,7 +153,9 @@ class OrderMeta {
 
 		$order->save_meta_data();
 
-		$order->calculate_totals();
+		$order->calculate_totals( true );
+
+		$order->save();
 	}
 
 	/**

@@ -137,7 +137,7 @@ class Order {
 		WC_Order $wc_order,
 		bool $include_lines = true
 	): array|false {
-		$decimals  = 24;
+		$decimals  = 2;
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 
@@ -187,10 +187,14 @@ class Order {
 			}
 
 			$subtotal = BigDecimal::of(
-				BigDecimal::of(
-					$item->get_subtotal()
-				)->plus(
-					$item->get_subtotal_tax()
+				round(
+					BigDecimal::of(
+						$item->get_subtotal()
+					)->plus(
+						$item->get_subtotal_tax()
+					)->toFloat(),
+					$decimals,
+					PHP_ROUND_HALF_UP
 				)
 			)->dividedBy(
 				$item->get_quantity(),
@@ -199,10 +203,14 @@ class Order {
 			)->toFloat();
 
 			$discounted_price = BigDecimal::of(
-				BigDecimal::of(
-					$item->get_total()
-				)->plus(
-					$item->get_total_tax()
+				round(
+					BigDecimal::of(
+						$item->get_total()
+					)->plus(
+						$item->get_total_tax()
+					)->toFloat(),
+					$decimals,
+					PHP_ROUND_HALF_UP
 				)
 			)->dividedBy(
 				$item->get_quantity(),

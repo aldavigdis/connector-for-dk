@@ -677,6 +677,9 @@ class Product {
 	 * @param WC_Product  $product The product.
 	 * @param WC_Customer $customer The customer.
 	 * @param null|bool   $including_tax wether to include VAT in the price.
+	 * @param null|int    $decimals The number of decimals in the amount.
+	 *                    Use null to use whatever wc_get_price_decimals()
+	 *                    outputs.
 	 */
 	public static function get_group_price(
 		WC_Product $product,

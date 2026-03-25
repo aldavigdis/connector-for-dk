@@ -682,6 +682,7 @@ class Product {
 		WC_Product $product,
 		WC_Customer $customer,
 		null|bool $including_tax = true,
+		null|int $decimals = null
 	): string {
 		if (
 			(bool) (int) $product->get_meta(
@@ -689,6 +690,10 @@ class Product {
 			)
 		) {
 			return (string) $product->get_regular_price( 'edit' );
+		}
+
+		if ( is_null( $decimals ) ) {
+			$decimals = wc_get_price_decimals();
 		}
 
 		$group = (string) $customer->get_meta(
@@ -711,7 +716,11 @@ class Product {
 			$group_price = $product->get_meta( $price_key, true, 'edit' );
 
 			if ( ! empty( $group_price ) ) {
-				return (string) round( (float) $group_price, wc_get_price_decimals(), PHP_ROUND_HALF_UP );
+				return (string) round(
+					(float) $group_price,
+					$decimals,
+					PHP_ROUND_HALF_UP
+				);
 			}
 		}
 

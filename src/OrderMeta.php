@@ -77,19 +77,16 @@ class OrderMeta {
 			}
 
 			$item->set_subtotal(
-				(string) round(
-					BigDecimal::of(
-						ProductHelper::get_group_price(
-							$product,
-							$customer,
-							false
-						)
-					)->multipliedBy(
-						$item->get_quantity()
-					)->toFloat()
-				),
-				2,
-				PHP_ROUND_HALF_UP
+				(string) BigDecimal::of(
+					ProductHelper::get_group_price(
+						$product,
+						$customer,
+						false,
+						wc_get_rounding_precision()
+					)
+				)->multipliedBy(
+					$item->get_quantity()
+				)->toFloat()
 			);
 
 			if ( $product instanceof WC_Product_Variation ) {

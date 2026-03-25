@@ -15,6 +15,8 @@ use WC_Product;
 use WC_Product_Variable;
 use WP_User;
 use WC_Cart;
+use WC_Order;
+use WC_Order_Item_Coupon;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -162,6 +164,13 @@ class Discounts {
 			array( __CLASS__, 'set_product_discounts_in_cart' ),
 			20,
 			1
+		);
+
+		add_action(
+			'woocommerce_order_after_calculate_totals',
+			array( __CLASS__, 'calculate_discount_totals_action' ),
+			20,
+			2
 		);
 	}
 
@@ -850,5 +859,162 @@ class Discounts {
 			$product_discount,
 			$discount_quantity
 		);
+	}
+
+	/**
+	 * Calculate discount totals for an order and save to the order
+	 *
+	 * This is an improved version of the logic in the
+	 * WC_Abstract_Order::calculate_totals method, which uses inprecise floating
+	 * point maths and impropper rounding to calculate discount totals, when
+	 * something like `BigDecimal` is a more appropriate tool for the job.
+	 *
+	 * In short, this prevents off-by-one errors in the discount calculations
+	 * and discrepencies between discounts as shown in the cart and order
+	 * confirmations, which are extremely common.
+	 *
+	 * @param WC_Order $order The order to recalculate discount totals for.
+	 *
+	 * @return object{success:bool,total:string,tax:string,grand_total:string}
+	 */
+	public static function calculate_discount_totals(
+		WC_Order $order
+	): object {
+		$discount_total     = BigDecimal::of( 0 );
+		$discount_total_tax = BigDecimal::of( 0 );
+
+		foreach ( $order->get_items() as $item ) {
+			if ( ! $item instanceof WC_Order_Item ) {
+				continue;
+			}
+
+			switch ( get_class( $item ) ) {
+				case 'WC_Order_Item_Product':
+					$totals = self::get_discounts_for_order_item_product(
+						$item
+					);
+					break;
+				case 'WC_Order_Item_Coupon':
+					$totals = self::get_discounts_for_order_item_coupon(
+						$item
+					);
+					break;
+				default:
+					$totals = (object) array(
+						'total' => '0',
+						'tax'   => '0',
+					);
+					break;
+			}
+
+			$discount_total     = $discount_total->plus( $totals->total );
+			$discount_total_tax = $discount_total_tax->plus( $totals->tax );
+		}
+
+		$grand_total = (string) round(
+			BigDecimal::of(
+				$discount_total
+			)->plus(
+				$discount_total_tax
+			)->toFloat(),
+			wc_get_price_decimals(),
+			PHP_ROUND_HALF_UP
+		);
+
+		$order->set_discount_total( (string) $discount_total );
+		$order->set_discount_tax( (string) $discount_total_tax );
+
+		return (object) array(
+			'success'     => $order->save(),
+			'total'       => (string) $discount_total,
+			'tax'         => (string) $discount_total_tax,
+			'grand_total' => (string) $grand_total,
+		);
+	}
+
+	/**
+	 * Get discounts for order item product
+	 *
+	 * @param WC_Order_Item_Product $item The item to check.
+	 *
+	 * @return object{total:string,tax:string,grand_total:string}
+	 */
+	public static function get_discounts_for_order_item_product(
+		WC_Order_Item_Product $item
+	): stdClass {
+		$discount_total = BigDecimal::of(
+			$item->get_subtotal()
+		)->minus(
+			$item->get_total()
+		);
+
+		$taxes = $item->get_taxes();
+
+		foreach ( $taxes['subtotal'] as $tax ) {
+			$discount_total_tax = BigDecimal::of( $tax );
+		}
+
+		foreach ( $taxes['total'] as $tax ) {
+			$discount_total_tax = $discount_total_tax->minus( $tax );
+		}
+
+		$grand_total = round(
+			BigDecimal::of(
+				$discount_total
+			)->plus(
+				$discount_total_tax
+			)->toFloat(),
+			wc_get_price_decimals(),
+			PHP_ROUND_HALF_UP
+		);
+
+		return (object) array(
+			'total'       => (string) $discount_total,
+			'tax'         => (string) $discount_total_tax,
+			'grand_total' => (string) $grand_total,
+		);
+	}
+
+	/**
+	 * Get discounts for an order coupon
+	 *
+	 * @param WC_Order_Item_Coupon $item The coupon item to check.
+	 *
+	 * @return object{total:string,tax:string,grand_total:string}
+	 */
+	private static function get_discounts_for_order_item_coupon(
+		WC_Order_Item_Coupon $item
+	): object {
+		$grand_total = round(
+			BigDecimal::of(
+				$item->get_discount()
+			)->plus(
+				$item->get_discount_tax()
+			)->toFloat(),
+			wc_get_price_decimals(),
+			PHP_ROUND_HALF_UP
+		);
+
+		return (object) array(
+			'total'       => $item->get_discount(),
+			'tax'         => $item->get_discount_tax(),
+			'grand_total' => (string) $grand_total,
+		);
+	}
+
+	/**
+	 * Calculate discount totals (action wrapper)
+	 *
+	 * This is a wrapper for `calculate_discount_totals` used for hooking into
+	 * `woocommerce_order_after_calculate_totals`.
+	 *
+	 * @param bool     $and_taxes Unused.
+	 * @param WC_Order $order The WooCommerce order.
+	 */
+	public static function calculate_discount_totals_action(
+		bool $and_taxes,
+		WC_Order $order
+	): object {
+		return self::calculate_discount_totals( $order );
 	}
 }

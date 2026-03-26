@@ -219,7 +219,7 @@ class Order {
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
-				RoundingMode::HALF_FLOOR
+				RoundingMode::HALF_CEILING
 			)->toFloat();
 
 			$discount = apply_filters(

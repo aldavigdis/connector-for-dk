@@ -137,7 +137,7 @@ class Order {
 		WC_Order $wc_order,
 		bool $include_lines = true
 	): array|false {
-		$decimals  = 2;
+		$decimals  = wc_get_price_decimals();
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 
@@ -186,16 +186,28 @@ class Order {
 				return false;
 			}
 
+			$full_subtotal = (string) round(
+				BigDecimal::of(
+					$item->get_subtotal()
+				)->plus(
+					$item->get_subtotal_tax()
+				)->toFloat(),
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
+			$full_total = (string) round(
+				BigDecimal::of(
+					$item->get_total()
+				)->plus(
+					$item->get_total_tax()
+				)->toFloat(),
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
 			$subtotal = BigDecimal::of(
-				round(
-					BigDecimal::of(
-						$item->get_subtotal()
-					)->plus(
-						$item->get_subtotal_tax()
-					)->toFloat(),
-					$decimals,
-					PHP_ROUND_HALF_UP
-				)
+				$full_subtotal
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
@@ -203,34 +215,22 @@ class Order {
 			)->toFloat();
 
 			$discounted_price = BigDecimal::of(
-				round(
-					BigDecimal::of(
-						$item->get_total()
-					)->plus(
-						$item->get_total_tax()
-					)->toFloat(),
-					$decimals,
-					PHP_ROUND_HALF_UP
-				)
+				$full_total,
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
-				RoundingMode::HALF_CEILING
+				RoundingMode::HALF_FLOOR
 			)->toFloat();
 
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
-				round(
-					BigDecimal::of(
-						$subtotal
-					)->minus(
-						$discounted_price
-					)->multipliedBy(
-						$item->get_quantity()
-					)->toFloat(),
-					$decimals,
-					PHP_ROUND_HALF_DOWN
-				),
+				BigDecimal::of(
+					$subtotal
+				)->minus(
+					$discounted_price
+				)->multipliedBy(
+					$item->get_quantity()
+				)->toFloat(),
 				$item
 			);
 

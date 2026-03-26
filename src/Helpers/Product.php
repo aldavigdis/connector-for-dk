@@ -741,58 +741,6 @@ class Product {
 	}
 
 	/**
-	 * Get a product's regular price before VAT
-	 *
-	 * This assumes that the regular price as returned by
-	 * `$product->get_regular_price( 'edit' )` is the full price after tax.
-	 *
-	 * @param WC_Product $product The product (or variant) to check.
-	 * @param int|float  $quantity The quantity (used as a multiplier).
-	 *
-	 * @return string A string representation of the price.
-	 */
-	public static function regular_price_before_tax(
-		WC_Product $product,
-		int|float $quantity = 1,
-	): string {
-		return (string) BigDecimal::of(
-			wc_get_price_excluding_tax(
-				$product,
-				array(
-					'qty'   => $quantity,
-					'price' => $product->get_regular_price( 'edit' ),
-				)
-			)
-		)->toFloat();
-	}
-
-	/**
-	 * Get a product's regular price after tax
-	 *
-	 * This assumes that the regular price as returned by
-	 * `$product->get_regular_price( 'edit' )` is the full price before tax.
-	 *
-	 * @param WC_Product $product The product (or variant) to check.
-	 * @param int|float  $quantity The quantity (used as a multiplier).
-	 *
-	 * @return string A string representation of the price.
-	 */
-	public static function regular_price_after_tax(
-		WC_Product $product,
-		int|float $quantity = 1
-	): string {
-		return (string) BigDecimal::of(
-			wc_get_price_including_tax(
-				$product,
-				array(
-					'qty'   => $quantity,
-					'price' => $product->get_regular_price( 'edit' ),
-				)
-			)
-		)->toFloat();
-	}
-
-	/**
 	 * Get the price range of a variable product
 	 *
 	 * @param WC_Product_Variable $product The product.

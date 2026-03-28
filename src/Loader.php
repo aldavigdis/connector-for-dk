@@ -32,8 +32,8 @@ class Loader {
 			new BlockedCustomers();
 			new CreditInvoices();
 			new CustomerContacts();
-			new CustomerDiscounts();
 			new CustomerSync();
+			new Discounts();
 			new DefaultSKUs();
 			new FetchCustomer();
 			new ProductAttributeFilters();

@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p class="description">
 						<?php
 						esc_html_e(
-							'If this is enabled, default quantity will be used as a multiplier. This means that if the default quantity is 8, then the product can be ordered in quantities of 8, 16, 32, 64 etc.',
+							'If this is enabled, default quantity will be used as a multiplier. This means that if the default quantity is 8, then the product can be ordered in quantities of 8, 16, 24, 32 etc.',
 							'connector-for-dk'
 						);
 						?>

@@ -137,7 +137,7 @@ class Order {
 		WC_Order $wc_order,
 		bool $include_lines = true
 	): array|false {
-		$decimals  = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+		$decimals  = wc_get_price_decimals();
 		$kennitala = OrderHelper::get_kennitala( $wc_order );
 		$customer  = new WC_Customer( $wc_order->get_customer_id() );
 
@@ -186,12 +186,28 @@ class Order {
 				return false;
 			}
 
-			$subtotal = BigDecimal::of(
+			$full_subtotal = (string) round(
 				BigDecimal::of(
 					$item->get_subtotal()
 				)->plus(
 					$item->get_subtotal_tax()
-				)
+				)->toFloat(),
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
+			$full_total = (string) round(
+				BigDecimal::of(
+					$item->get_total()
+				)->plus(
+					$item->get_total_tax()
+				)->toFloat(),
+				$decimals,
+				PHP_ROUND_HALF_UP
+			);
+
+			$subtotal = BigDecimal::of(
+				$full_subtotal
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
@@ -199,11 +215,7 @@ class Order {
 			)->toFloat();
 
 			$discounted_price = BigDecimal::of(
-				BigDecimal::of(
-					$item->get_total()
-				)->plus(
-					$item->get_total_tax()
-				)
+				$full_total,
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
@@ -212,17 +224,13 @@ class Order {
 
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
-				round(
-					BigDecimal::of(
-						$subtotal
-					)->minus(
-						$discounted_price
-					)->multipliedBy(
-						$item->get_quantity()
-					)->toFloat(),
-					$decimals,
-					PHP_ROUND_HALF_UP
-				),
+				BigDecimal::of(
+					$subtotal
+				)->minus(
+					$discounted_price
+				)->multipliedBy(
+					$item->get_quantity()
+				)->toFloat(),
 				$item
 			);
 

@@ -130,4 +130,25 @@ class Customer {
 
 		return $group;
 	}
+
+	/**
+	 * Get the customer's discount as set in dk
+	 *
+	 * @param WC_Customer $customer The WooCommerce customer.
+	 *
+	 * @return string A strin representation of the discount percentage.
+	 */
+	public static function get_dk_discount( WC_Customer $customer ): string {
+		$discount = (string) $customer->get_meta(
+			'connector_for_dk_discount',
+			true,
+			'edit'
+		);
+
+		if ( empty( $discount ) ) {
+			return '0';
+		}
+
+		return $discount;
+	}
 }

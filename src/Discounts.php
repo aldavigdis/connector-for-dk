@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
 use stdClass;
 use WC_Customer;
@@ -13,16 +14,20 @@ use WC_Order_Item_Product;
 use WC_Product;
 use WC_Product_Variable;
 use WP_User;
+use WC_Cart;
+use WC_Order;
+use WC_Order_Item_Coupon;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * The Customer Discount Class
+ * The Discount Class
  *
- * Replaces the prices used by WooCommerce using the customer's DK discount and
- * price group.
+ * Ammends the default prices used by WooCommerce using the customer's dk
+ * discount and price group, and facilitates the use of product discounts
+ * from dk.
  *
  * If a price is based on a price group, the customer's discount gets applied.
  *
@@ -30,11 +35,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * that if the customer's discounted price would be 1000 ISK but the sale price
  * is 2000 ISK, the sale price is still used. Discounts also do not compound
  * with sale prices.
- *
- * Customer's discounts and special prices are not indicated on generated DK
- * invoices.
  */
-class CustomerDiscounts {
+class Discounts {
+	const INDICATOR_CSS_CLASSES = array(
+		'connector-for-dk-discount',
+		'has-font-size',
+		'has-medium-font-size',
+	);
+
 	/**
 	 * The constructor
 	 */
@@ -42,6 +50,13 @@ class CustomerDiscounts {
 		add_filter(
 			'woocommerce_get_price_html',
 			array( __CLASS__, 'get_price_html' ),
+			10,
+			2
+		);
+
+		add_filter(
+			'woocommerce_get_price_html',
+			array( __CLASS__, 'add_quantity_discount_to_price_display' ),
 			10,
 			2
 		);
@@ -142,6 +157,20 @@ class CustomerDiscounts {
 			array( __CLASS__, 'display_discount_information_in_user_editor' ),
 			10,
 			1
+		);
+
+		add_action(
+			'woocommerce_before_calculate_totals',
+			array( __CLASS__, 'set_product_discounts_in_cart' ),
+			20,
+			1
+		);
+
+		add_action(
+			'woocommerce_order_after_calculate_totals',
+			array( __CLASS__, 'calculate_discount_totals_action' ),
+			20,
+			2
 		);
 	}
 
@@ -291,28 +320,49 @@ class CustomerDiscounts {
 		string $price,
 		WC_Product $product
 	): string {
-		if ( $product instanceof WC_Product_Variable ) {
-			return self::get_price_html_for_variable_product( $price, $product );
+		if ( ! ProductHelper::get_allow_discount( $product ) ) {
+			return $price;
 		}
 
+		if ( $product instanceof WC_Product_Variable ) {
+			return self::get_price_html_for_variable_product(
+				$price,
+				$product
+			);
+		}
+
+		$incl_tax      = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+		$customer      = new WC_Customer( get_current_user_id() );
+		$regular_price = ProductHelper::get_group_price(
+			$product,
+			$customer,
+			$incl_tax
+		);
+
 		if ( $product->is_on_sale( 'edit' ) ) {
-			$regular_price  = $product->get_regular_price( 'edit' );
 			$customer_price = $product->get_sale_price( 'edit' );
 
 			return wc_format_sale_price(
 				wc_price( $regular_price ),
 				wc_price( $customer_price )
 			);
-		} else {
-			$regular_price  = self::get_product_group_price( $product );
-			$customer_price = self::get_current_customer_price( $product );
 		}
+
+		$customer_price = ProductHelper::get_customer_price(
+			$product,
+			$customer,
+			0,
+			$incl_tax
+		);
 
 		if ( $regular_price === $customer_price ) {
 			return wc_price( $customer_price );
 		}
 
-		return self::format( $regular_price, $customer_price );
+		return self::format(
+			$regular_price,
+			$customer_price
+		);
 	}
 
 	/**
@@ -325,38 +375,61 @@ class CustomerDiscounts {
 		string $price,
 		WC_Product $product
 	): string {
-		$customer_id = get_current_user_id();
-
-		$customer = new WC_Customer( $customer_id );
+		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
+		$customer = new WC_Customer( get_current_user_id() );
+		$prices   = ProductHelper::get_variation_prices(
+			$product,
+			$customer,
+			$incl_tax
+		);
 
 		$regular_price_range = ProductHelper::get_customer_variable_price_range(
 			$product,
 			$customer,
-			false
+			'group_price',
+			$incl_tax,
+			$prices
 		);
 
-		$current_price_range = ProductHelper::get_customer_variable_price_range(
-			$product,
-			$customer,
-			true
-		);
+		if ( $product->is_on_sale() ) {
+			$current_price_range = ProductHelper::get_customer_variable_price_range(
+				$product,
+				$customer,
+				'sale_price',
+				$incl_tax,
+				$prices
+			);
+		} else {
+			$current_price_range = ProductHelper::get_customer_variable_price_range(
+				$product,
+				$customer,
+				'customer_price',
+				$incl_tax,
+				$prices
+			);
+		}
 
-		if (
-			$regular_price_range['min'] === $current_price_range['min'] &&
-			$regular_price_range['max'] === $current_price_range['max']
-		) {
-			return $price;
+		if ( $regular_price_range['min'] === $regular_price_range['max'] ) {
+			$regular_price_range_string = wc_price( $regular_price_range['min'] );
+		} else {
+			$regular_price_range_string = wc_format_price_range(
+				$regular_price_range['min'],
+				$regular_price_range['max']
+			);
+		}
+
+		if ( $current_price_range['min'] === $current_price_range['max'] ) {
+			$current_price_range_string = wc_price( $current_price_range['min'] );
+		} else {
+			$current_price_range_string = wc_format_price_range(
+				$current_price_range['min'],
+				$current_price_range['max']
+			);
 		}
 
 		return self::format(
-			wc_format_price_range(
-				$regular_price_range['min'],
-				$regular_price_range['max']
-			),
-			wc_format_price_range(
-				$current_price_range['min'],
-				$current_price_range['max']
-			)
+			$regular_price_range_string,
+			$current_price_range_string
 		);
 	}
 
@@ -443,7 +516,8 @@ class CustomerDiscounts {
 		$original_price = $cart_item['data']->get_regular_price( 'edit' );
 
 		$discounted_price = self::get_current_customer_price(
-			$cart_item['data']
+			$cart_item['data'],
+			(float) $cart_item['data']->get_quantity()
 		);
 
 		if ( $discounted_price === $original_price ) {
@@ -565,30 +639,33 @@ class CustomerDiscounts {
 	}
 
 	/**
-	 * Get the currently logged-in customer's price, with discount
+	 * Get current user's product price
+	 *
+	 * Get the currently logged-in customer's unit price for a product, with
+	 * product and customer's discount applied.
 	 *
 	 * @param WC_Product $product The product.
+	 * @param int|float  $quantity The quantity, used for getting the unit price, with mass discount.
 	 */
 	public static function get_current_customer_price(
-		WC_Product $product
+		WC_Product $product,
+		int|float $quantity = 1.0
 	): string {
 		if ( is_admin() ) {
-			return ( $product->get_price( 'edit' ) );
+			return ( $product->get_regular_price( 'edit' ) );
 		}
 
 		if ( $product->is_on_sale( 'edit' ) ) {
 			return $product->get_sale_price( 'edit' );
 		}
 
-		$customer_id = get_current_user_id();
+		$customer = new WC_Customer( get_current_user_id() );
 
-		if ( $customer_id === 0 ) {
-			return $product->get_price( 'edit' );
-		}
-
-		$customer = new WC_Customer( $customer_id );
-
-		return ProductHelper::get_customer_price( $product, $customer );
+		return ProductHelper::get_customer_price(
+			$product,
+			$customer,
+			$quantity
+		);
 	}
 
 	/**
@@ -628,5 +705,316 @@ class CustomerDiscounts {
 			$regular_price,
 			$customer_price
 		);
+	}
+
+	/**
+	 * Indicate product discounts in the WooCommerce cart
+	 *
+	 * Goes through the cart and faciliates displaying the original price and
+	 * discounted price for discounted products. This is used both for customer
+	 * discounts and product discounts.
+	 *
+	 * @param WC_Cart $cart The WooCommerce cart object.
+	 */
+	public static function set_product_discounts_in_cart(
+		WC_Cart $cart
+	): void {
+		$customer = new WC_Customer( get_current_user_id() );
+
+		foreach ( $cart->get_cart_contents() as $cart_item ) {
+			if ( ! is_array( $cart_item ) ) {
+				continue;
+			}
+
+			if ( $cart_item['variation_id'] > 0 ) {
+				$product = wc_get_product( $cart_item['variation_id'] );
+			} else {
+				$product = $cart_item['data'];
+			}
+
+			if ( ! ProductHelper::get_allow_discount( $product ) ) {
+				continue;
+			}
+
+			$discount_quantity = ProductHelper::get_discount_quantity(
+				$product
+			);
+
+			if ( $cart_item['quantity'] < $discount_quantity ) {
+				continue;
+			}
+
+			$customer_price = (float) self::get_current_customer_price(
+				$product,
+				$cart_item['quantity']
+			);
+
+			$regular_price = (float) ProductHelper::get_group_price(
+				$product,
+				$customer,
+				true
+			);
+
+			$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+
+			if (
+				round( $customer_price, $decimals, PHP_ROUND_HALF_UP ) ===
+				round( $regular_price, $decimals, PHP_ROUND_HALF_UP )
+			) {
+				continue;
+			}
+
+			$cart_item['data']->set_sale_price(
+				(string) $customer_price
+			);
+		}
+	}
+
+	/**
+	 * Add the quantity discount indicator to the price display
+	 *
+	 * Used for hooking into woocommerce_get_price_html and appends the relevant
+	 * HTML element to the price display block.
+	 *
+	 * @param string     $price The oirignal price string.
+	 * @param WC_Product $product The product.
+	 */
+	public static function add_quantity_discount_to_price_display(
+		string $price,
+		WC_Product $product
+	): string {
+		$customer = new WC_Customer( get_current_user_id() );
+
+		$text = self::quantity_discount_indicator_text( $product, $customer );
+
+		if ( empty( $text ) ) {
+			return $price;
+		}
+
+		$css_class = implode(
+			' ',
+			apply_filters(
+				'connector_for_dk_discount_indicator_css_classes',
+				self::INDICATOR_CSS_CLASSES
+			)
+		);
+
+		$html_element = apply_filters(
+			'connector_for_dk_discount_indicator_html',
+			"<p class=\"$css_class\">$text</p>",
+			$price,
+			$css_class,
+			$text
+		);
+
+		return "$price\n$html_element";
+	}
+
+	/**
+	 * The quantity discount indicator text
+	 *
+	 * Returns the contents of the quantity discount indicator displayed below a
+	 * product's price if it has a minimum required quantity for a discount to
+	 * apply.
+	 *
+	 * @param WC_Product  $product The product on display.
+	 * @param WC_Customer $customer The customer the price is relevant to.
+	 */
+	public static function quantity_discount_indicator_text(
+		WC_Product $product,
+		WC_Customer $customer
+	): string {
+		if ( ProductHelper::has_price_override( $product ) ) {
+			return '';
+		}
+
+		if ( ! ProductHelper::get_allow_discount( $product ) ) {
+			return '';
+		}
+
+		$customer_discount = CustomerHelper::get_dk_discount( $customer );
+		$product_discount  = ProductHelper::get_discount( $product );
+
+		if ( (float) $customer_discount > (float) $product_discount ) {
+			return '';
+		}
+
+		$discount_quantity = ProductHelper::get_discount_quantity( $product );
+
+		if (
+			(float) $product_discount === 0.0 ||
+			(float) $discount_quantity === 0.0
+		) {
+			return '';
+		}
+
+		return apply_filters(
+			'connector_for_dk_discount_indicator_text',
+			sprintf(
+				// Translators: %1$d is the percentage and %2$d is the minimum number of items for a discount.
+				__( '%1$d%% discount for %2$d or more', 'connector-for-dk' ),
+				$product_discount,
+				$discount_quantity
+			),
+			$product_discount,
+			$discount_quantity
+		);
+	}
+
+	/**
+	 * Calculate discount totals for an order and save to the order
+	 *
+	 * This is an improved version of the logic in the
+	 * WC_Abstract_Order::calculate_totals method, which uses inprecise floating
+	 * point maths and impropper rounding to calculate discount totals, when
+	 * something like `BigDecimal` is a more appropriate tool for the job.
+	 *
+	 * In short, this prevents off-by-one errors in the discount calculations
+	 * and discrepencies between discounts as shown in the cart and order
+	 * confirmations, which are extremely common.
+	 *
+	 * @param WC_Order $order The order to recalculate discount totals for.
+	 *
+	 * @return object{success:bool,total:string,tax:string,grand_total:string}
+	 */
+	public static function calculate_discount_totals(
+		WC_Order $order
+	): object {
+		$discount_total     = BigDecimal::of( 0 );
+		$discount_total_tax = BigDecimal::of( 0 );
+
+		foreach ( $order->get_items() as $item ) {
+			if ( ! $item instanceof WC_Order_Item ) {
+				continue;
+			}
+
+			switch ( get_class( $item ) ) {
+				case 'WC_Order_Item_Product':
+					$totals = self::get_discounts_for_order_item_product(
+						$item
+					);
+					break;
+				case 'WC_Order_Item_Coupon':
+					$totals = self::get_discounts_for_order_item_coupon(
+						$item
+					);
+					break;
+				default:
+					$totals = (object) array(
+						'total' => '0',
+						'tax'   => '0',
+					);
+					break;
+			}
+
+			$discount_total     = $discount_total->plus( $totals->total );
+			$discount_total_tax = $discount_total_tax->plus( $totals->tax );
+		}
+
+		$grand_total = (string) round(
+			BigDecimal::of(
+				$discount_total
+			)->plus(
+				$discount_total_tax
+			)->toFloat(),
+			wc_get_price_decimals(),
+			PHP_ROUND_HALF_UP
+		);
+
+		$order->set_discount_total( (string) $discount_total );
+		$order->set_discount_tax( (string) $discount_total_tax );
+
+		return (object) array(
+			'success'     => $order->save(),
+			'total'       => (string) $discount_total,
+			'tax'         => (string) $discount_total_tax,
+			'grand_total' => (string) $grand_total,
+		);
+	}
+
+	/**
+	 * Get discounts for order item product
+	 *
+	 * @param WC_Order_Item_Product $item The item to check.
+	 *
+	 * @return object{total:string,tax:string,grand_total:string}
+	 */
+	public static function get_discounts_for_order_item_product(
+		WC_Order_Item_Product $item
+	): stdClass {
+		$discount_total = BigDecimal::of(
+			$item->get_subtotal()
+		)->minus(
+			$item->get_total()
+		);
+
+		$taxes = $item->get_taxes();
+
+		foreach ( $taxes['subtotal'] as $tax ) {
+			$discount_total_tax = BigDecimal::of( $tax );
+		}
+
+		foreach ( $taxes['total'] as $tax ) {
+			$discount_total_tax = $discount_total_tax->minus( $tax );
+		}
+
+		$grand_total = round(
+			BigDecimal::of(
+				$discount_total
+			)->plus(
+				$discount_total_tax
+			)->toFloat(),
+			wc_get_price_decimals(),
+			PHP_ROUND_HALF_UP
+		);
+
+		return (object) array(
+			'total'       => (string) $discount_total,
+			'tax'         => (string) $discount_total_tax,
+			'grand_total' => (string) $grand_total,
+		);
+	}
+
+	/**
+	 * Get discounts for an order coupon
+	 *
+	 * @param WC_Order_Item_Coupon $item The coupon item to check.
+	 *
+	 * @return object{total:string,tax:string,grand_total:string}
+	 */
+	private static function get_discounts_for_order_item_coupon(
+		WC_Order_Item_Coupon $item
+	): object {
+		$grand_total = round(
+			BigDecimal::of(
+				$item->get_discount()
+			)->plus(
+				$item->get_discount_tax()
+			)->toFloat(),
+			wc_get_price_decimals(),
+			PHP_ROUND_HALF_UP
+		);
+
+		return (object) array(
+			'total'       => $item->get_discount(),
+			'tax'         => $item->get_discount_tax(),
+			'grand_total' => (string) $grand_total,
+		);
+	}
+
+	/**
+	 * Calculate discount totals (action wrapper)
+	 *
+	 * This is a wrapper for `calculate_discount_totals` used for hooking into
+	 * `woocommerce_order_after_calculate_totals`.
+	 *
+	 * @param bool     $and_taxes Unused.
+	 * @param WC_Order $order The WooCommerce order.
+	 */
+	public static function calculate_discount_totals_action(
+		bool $and_taxes,
+		WC_Order $order
+	): object {
+		return self::calculate_discount_totals( $order );
 	}
 }

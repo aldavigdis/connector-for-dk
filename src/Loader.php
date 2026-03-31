@@ -10,7 +10,7 @@ use AldaVigdis\ConnectorForDK\Rest\FetchCustomer;
  * The Loader class
  *
  * This simply loads all our statically loaded classes based on the edition of
- * Connector for DK that is in use.
+ * Connector for dk that is in use.
  */
 class Loader {
 	/**

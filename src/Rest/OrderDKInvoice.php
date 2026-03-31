@@ -76,7 +76,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 		) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be created as invoicing for international orders is not available in this version of Connector for DK',
+					'An invoice could not be created as invoicing for international orders is not available in this version of Connector for dk',
 					'connector_for_dk'
 				)
 			);
@@ -87,7 +87,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(
 				__(
-					'An invoice could not be created in DK for this order as it was created before Connector for DK was activated.',
+					'An invoice could not be created in DK for this order as it was created before Connector for dk was activated.',
 					'connector-for-dk'
 				)
 			);

@@ -20,7 +20,7 @@ class Order {
 	/**
 	 * Check if an order can be invoiced in DK
 	 *
-	 * Checks if the order was created when Connector for DK was not installed
+	 * Checks if the order was created when Connector for dk was not installed
 	 * and if so, returns `false`
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.

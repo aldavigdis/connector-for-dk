@@ -443,8 +443,8 @@ class Admin {
 	 */
 	public static function add_menu_page(): void {
 		add_menu_page(
-			__( 'Connector for DK', 'connector-for-dk' ),
-			__( 'Connector for DK', 'connector-for-dk' ),
+			__( 'Connector for dk', 'connector-for-dk' ),
+			__( 'Connector for dk', 'connector-for-dk' ),
 			'manage_options',
 			'connector-for-dk',
 			array( __CLASS__, 'render_admin_page' ),

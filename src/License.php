@@ -57,8 +57,13 @@ class License {
 			return;
 		}
 
-		$encrypted_license     = Config::get_encrypted_license_key();
-		$decoded_license       = self::decode( $encrypted_license );
+		$encrypted_license = Config::get_encrypted_license_key();
+		$decoded_license   = self::decode( $encrypted_license );
+
+		if ( $decoded_license === false ) {
+			return;
+		}
+
 		$license_admin_url     = admin_url( 'admin.php?page=connector-for-dk-activation' );
 		$purchase_license_url  = 'https://tengillpro.is/product/askrift/';
 		$formatted_expiry_date = gmdate( get_option( 'date_format' ), $decoded_license->expires );

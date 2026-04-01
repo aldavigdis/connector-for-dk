@@ -36,6 +36,7 @@ class Admin {
 		'products',
 		'invoices',
 		'customers',
+		'webhooks',
 	);
 
 	const PAST_ORDER_LIMIT = 4 * HOUR_IN_SECONDS;

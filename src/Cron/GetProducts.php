@@ -26,7 +26,7 @@ class GetProducts {
 			return;
 		}
 
-		if ( ! Config::get_enable_downstream_product_sync() ) {
+		if ( Config::get_enable_downstream_product_sync() ) {
 			ImportProducts::save_all_from_dk();
 		}
 	}

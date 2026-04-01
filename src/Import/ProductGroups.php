@@ -92,7 +92,11 @@ class ProductGroups {
 		$groups = array();
 
 		foreach ( $result->data as $group ) {
-			$groups[ $group->Number ] = $group->Description;
+			if ( property_exists( $group, 'Description' ) ) {
+				$groups[ $group->Number ] = $group->Description;
+			} else {
+				$groups[ $group->Number ] = $group->Number;
+			}
 		}
 
 		return $groups;

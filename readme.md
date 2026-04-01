@@ -1,4 +1,4 @@
-# Connector for DK
+# Connector for dk
 
 <img alt="" src="/assets/icon.svg" width="128" height="128" />
 
@@ -10,7 +10,7 @@ This codebase originates as [an earlier work](https://github.com/1984hosting/198
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact the author directly via aldavigdis@aldavigdis.is or the WordPress Security Team instead.**
 
 > [!IMPORTANT]
-> This is a code repository used for the *development* of **Connector for DK**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
+> This is a code repository used for the *development* of **Connector for dk**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
 
 ## Developer Documentation
 
@@ -134,9 +134,9 @@ The main author can be contacted via aldavigdis@aldavigdis.is. She is available 
 
 This plugin is provided to you as free software under the GPLv3 license. Runtime dependencies are provided under the MIT and Apache licenses, which are compatible with the GPLv3.
 
-Connector for DK
+Connector for dk
 
-Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Connector for DK and WooCommerce
+Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Connector for dk and WooCommerce
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

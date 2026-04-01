@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Connector for DK
+ * Plugin Name: Connector for dk
  * Plugin URI: https://tengillpro.is/
  * Description: Sync your WooCommerce store with DK, including prices, inventory status and generate invoices for customers on checkout.
  * Version: 0.6.9

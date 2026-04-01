@@ -78,7 +78,7 @@ class License {
 			echo sprintf(
 				// Translators: The sprintf symbols are opening and closing <strong> tags.
 				esc_html__(
-					'While updates are disabled, %1$sConnector for DK%2$s features such as automatic invoice generation, customer sync and other features are currently enabled for development and testing purposes.',
+					'While updates are disabled, %1$sConnector for dk%2$s features such as automatic invoice generation, customer sync and other features are currently enabled for development and testing purposes.',
 					'connector-for-dk'
 				),
 				'<strong>',
@@ -104,7 +104,7 @@ class License {
 		if ( empty( $encrypted_license ) ) {
 			echo '<div class="notice notice-warning connector-for-dk-notice">';
 			echo '<h2>';
-			esc_html_e( 'Your Connector for DK license key has not been entered yet 🤔', 'connector-for-dk' );
+			esc_html_e( 'Your Connector for dk license key has not been entered yet 🤔', 'connector-for-dk' );
 			echo '</h2>';
 			echo '<p>';
 			echo sprintf(
@@ -125,7 +125,7 @@ class License {
 		if ( self::is_expired() ) {
 			echo '<div class="notice notice-error connector-for-dk-notice">';
 			echo '<h2>';
-			esc_html_e( 'Your Connector for DK license has expired! 😱', 'connector-for-dk' );
+			esc_html_e( 'Your Connector for dk license has expired! 😱', 'connector-for-dk' );
 			echo '</h2>';
 			echo '<p>';
 			echo sprintf(
@@ -144,7 +144,7 @@ class License {
 		if ( $decoded_license->expires - WEEK_IN_SECONDS < time() ) {
 			echo '<div class="notice notice-warning connector-for-dk-notice">';
 			echo '<h2>';
-			esc_html_e( 'Your Connector for DK license will expire soon! 🫣', 'connector-for-dk' );
+			esc_html_e( 'Your Connector for dk license will expire soon! 🫣', 'connector-for-dk' );
 			echo '</h2>';
 			echo '<p>';
 			echo sprintf(

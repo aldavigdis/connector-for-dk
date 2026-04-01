@@ -167,7 +167,7 @@ class OrderStatus {
 			if ( $set_notes ) {
 				$order->add_order_note(
 					__(
-						'An invoice could not be created in DK for this order as it was created before Connector for DK was activated.',
+						'An invoice could not be created in DK for this order as it was created before Connector for dk was activated.',
 						'connector-for-dk'
 					)
 				);
@@ -218,7 +218,7 @@ class OrderStatus {
 			if ( $set_notes ) {
 				$order->add_order_note(
 					__(
-						'Invoicing for international orders is not available in this version of Connector for DK.',
+						'Invoicing for international orders is not available in this version of Connector for dk.',
 						'connector-for-dk'
 					)
 				);

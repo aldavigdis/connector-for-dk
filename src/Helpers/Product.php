@@ -730,13 +730,13 @@ class Product {
 		if ( $including_tax ) {
 			return (string) wc_get_price_including_tax(
 				$product,
-				array( 'price' => $product->get_regular_price( 'edit' ) )
+				array( 'price' => $product->get_price( 'edit' ) )
 			);
 		}
 
 		return (string) wc_get_price_excluding_tax(
 			$product,
-			array( 'price' => $product->get_regular_price( 'edit' ) )
+			array( 'price' => $product->get_price( 'edit' ) )
 		);
 	}
 

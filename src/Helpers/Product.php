@@ -715,7 +715,7 @@ class Product {
 			$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
 		}
 
-		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {
+		if ( in_array( $group, array( '2', '3' ), true ) ) {
 			$group_price = $product->get_meta( $price_key, true, 'edit' );
 
 			if ( ! empty( $group_price ) ) {

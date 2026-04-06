@@ -9,11 +9,11 @@ use AldaVigdis\ConnectorForDK\License;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 
 /**
- * The "Get Products" cron job
+ * The "Create Products" cron job
  *
- * Gets and syncs product information from dk on an hourly basis.
+ * Gets products from dk on an hourly basis.
  */
-class GetProducts {
+class UpdateProducts {
 	/**
 	 * Run the cron job
 	 */
@@ -22,12 +22,23 @@ class GetProducts {
 			return;
 		}
 
-		if ( ! ( Config::get_dk_api_key() && Config::get_enable_cronjob() ) ) {
+		if (
+			! (
+				Config::get_dk_api_key() &&
+				Config::get_enable_cronjob() &&
+				Config::get_enable_downstream_product_sync()
+			)
+		) {
 			return;
 		}
 
 		if ( Config::get_enable_downstream_product_sync() ) {
-			ImportProducts::save_all_from_dk();
+			ImportProducts::update_current(
+				(int) apply_filters(
+					'connector_for_dk_update_current_quantity',
+					ImportProducts::DEFAULT_UPDATE_QUANTITY
+				)
+			);
 		}
 	}
 }

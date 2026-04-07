@@ -128,6 +128,7 @@ $import_stats = ImportProducts::get_create_stats();
 								<span class="pill">
 									<?php
 									echo sprintf(
+										// Translators: %1$d is for the number of products remaning to be synced, %2$d for the total number of products and %3$s and %3$s are openin and closing <strong> tags.
 										esc_html__(
 											'%3$s%1$d%4$s products remaining of %3$s%2$d%4$s total',
 											'connector-for-dk'
@@ -162,6 +163,7 @@ $import_stats = ImportProducts::get_create_stats();
 								<span class="pill">
 									<?php
 									echo sprintf(
+										// Translators: %1$d is for the numberof products to be deleted and %2$s and %3$s are opening and closing <strong> tags.
 										esc_html__(
 											'Preparing to delete %2$s%1$d%3$s products from WooCommerce',
 											'connector-for-dk'

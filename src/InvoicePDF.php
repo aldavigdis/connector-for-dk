@@ -243,6 +243,10 @@ class InvoicePDF {
 
 		$files = $wp_filesystem->dirlist( $directory_path, false, false );
 
+		if ( ! $files ) {
+			return;
+		}
+
 		foreach ( $files as $f ) {
 			$path = path_join( $directory_path, $f['name'] );
 			if ( ! $wp_filesystem->is_file( $path ) ) {

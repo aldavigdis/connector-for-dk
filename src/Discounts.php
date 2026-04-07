@@ -283,7 +283,16 @@ class Discounts {
 			return $product->get_sale_price( 'edit' );
 		}
 
-		return self::get_current_customer_price( $product );
+		$incl_tax = wc_prices_include_tax();
+
+		$customer = new WC_Customer( get_current_user_id() );
+
+		return ProductHelper::get_customer_price(
+			$product,
+			$customer,
+			1,
+			$incl_tax
+		);
 	}
 
 	/**
@@ -331,7 +340,7 @@ class Discounts {
 			);
 		}
 
-		$incl_tax      = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+		$incl_tax      = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
 		$customer      = new WC_Customer( get_current_user_id() );
 		$regular_price = ProductHelper::get_group_price(
 			$product,
@@ -513,7 +522,7 @@ class Discounts {
 		string $product_price,
 		array $cart_item
 	): string {
-		$original_price = $cart_item['data']->get_regular_price( 'edit' );
+		$original_price = $cart_item['data']->get_price( 'edit' );
 
 		$discounted_price = self::get_current_customer_price(
 			$cart_item['data'],
@@ -629,12 +638,10 @@ class Discounts {
 
 		$customer = new WC_Customer( $customer_id );
 
-		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
-
 		return ProductHelper::get_group_price(
 			$product,
 			$customer,
-			$incl_tax
+			wc_prices_include_tax()
 		);
 	}
 
@@ -645,11 +652,14 @@ class Discounts {
 	 * product and customer's discount applied.
 	 *
 	 * @param WC_Product $product The product.
-	 * @param int|float  $quantity The quantity, used for getting the unit price, with mass discount.
+	 * @param int|float  $quantity The quantity, used for getting the unit
+	 *                             price, with mass discount.
+	 * @param bool       $incl_tax Wether or not to include tax in the amount.
 	 */
 	public static function get_current_customer_price(
 		WC_Product $product,
-		int|float $quantity = 1.0
+		int|float $quantity = 1.0,
+		bool $incl_tax = false
 	): string {
 		if ( is_admin() ) {
 			return ( $product->get_regular_price( 'edit' ) );
@@ -664,7 +674,8 @@ class Discounts {
 		return ProductHelper::get_customer_price(
 			$product,
 			$customer,
-			$quantity
+			$quantity,
+			$incl_tax
 		);
 	}
 
@@ -720,8 +731,13 @@ class Discounts {
 		WC_Cart $cart
 	): void {
 		$customer = new WC_Customer( get_current_user_id() );
+		$incl_tax = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
 
 		foreach ( $cart->get_cart_contents() as $cart_item ) {
+			if ( ! $cart_item['data'] instanceof WC_Product ) {
+				continue;
+			}
+
 			if ( ! is_array( $cart_item ) ) {
 				continue;
 			}
@@ -746,23 +762,23 @@ class Discounts {
 
 			$customer_price = (float) self::get_current_customer_price(
 				$product,
-				$cart_item['quantity']
+				$cart_item['quantity'],
+				$incl_tax
 			);
 
 			$regular_price = (float) ProductHelper::get_group_price(
 				$product,
 				$customer,
-				true
+				$incl_tax,
 			);
 
-			$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+			$cart_item['data']->set_regular_price(
+				(string) $regular_price
+			);
 
-			if (
-				round( $customer_price, $decimals, PHP_ROUND_HALF_UP ) ===
-				round( $regular_price, $decimals, PHP_ROUND_HALF_UP )
-			) {
-				continue;
-			}
+			$cart_item['data']->set_price(
+				(string) $regular_price
+			);
 
 			$cart_item['data']->set_sale_price(
 				(string) $customer_price

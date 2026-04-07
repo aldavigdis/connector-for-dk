@@ -17,8 +17,6 @@ use WP_Error;
 class ProductGroups {
 	const API_PATH = '/ProductGroup/';
 
-	const INCLUDE_PROPERTIES = array( 'Number', 'Description' );
-
 	const TRANSIENT_EXPIRY = 60;
 
 	/**

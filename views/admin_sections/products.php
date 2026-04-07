@@ -3,10 +3,13 @@
 declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$import_stats = ImportProducts::get_create_stats();
 
 ?>
 
@@ -113,8 +116,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php echo esc_attr( Config::get_create_new_products() ? 'checked' : '' ); ?>
 							/>
 							<label for="create_new_products_field">
-								<?php esc_html_e( "Create new products in WooCommerce if they don't exist", 'connector-for-dk' ); ?>
+								<?php
+								esc_html_e(
+									"Create new products in WooCommerce if they don't exist",
+									'connector-for-dk'
+								);
+								?>
 							</label>
+							<?php if ( $import_stats->remaining > 0 ) : ?>
+							<p class="import-stats">
+								<span class="pill">
+									<?php
+									echo sprintf(
+										// Translators: %1$d is for the number of products remaning to be synced, %2$d for the total number of products and %3$s and %3$s are openin and closing <strong> tags.
+										esc_html__(
+											'%3$s%1$d%4$s products remaining of %3$s%2$d%4$s total',
+											'connector-for-dk'
+										),
+										esc_html( $import_stats->remaining ),
+										esc_html( $import_stats->total ),
+										'<strong>',
+										'</strong>'
+									);
+									?>
+								</span>
+							</p>
+							<?php endif ?>
 						</div>
 						<div>
 							<input
@@ -124,19 +151,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php echo esc_attr( Config::get_delete_inactive_products() ? 'checked' : '' ); ?>
 							/>
 							<label for="delete_inactive_products_field">
-								<?php esc_html_e( 'Delete products from WooCommerce if labelled as inactive or deleted in dk', 'connector-for-dk' ); ?>
+								<?php
+								esc_html_e(
+									'Delete products from WooCommerce if labelled as inactive or deleted in dk',
+									'connector-for-dk'
+								);
+								?>
 							</label>
-						</div>
-						<div>
-							<input
-								id="import_nonweb_products_field"
-								name="import_nonweb_products"
-								type="checkbox"
-								<?php echo esc_attr( Config::get_import_nonweb_products() ? 'checked' : '' ); ?>
-							/>
-							<label for="import_nonweb_products_field">
-								<?php esc_html_e( 'Import products not labelled as ‘for online store’ as drafts', 'connector-for-dk' ); ?>
-							</label>
+							<?php if ( $import_stats->to_delete > 0 ) : ?>
+							<p class="import-stats">
+								<span class="pill">
+									<?php
+									echo sprintf(
+										// Translators: %1$d is for the numberof products to be deleted and %2$s and %3$s are opening and closing <strong> tags.
+										esc_html__(
+											'Preparing to delete %2$s%1$d%3$s products from WooCommerce',
+											'connector-for-dk'
+										),
+										esc_html( $import_stats->to_delete ),
+										'<strong>',
+										'</strong>'
+									);
+									?>
+								</span>
+							</p>
+							<?php endif ?>
 						</div>
 					</fieldset>
 				</td>

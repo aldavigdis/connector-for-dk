@@ -191,6 +191,10 @@ SOFTWARE.
 	-->
 	<rule ref="Generic.ControlStructures.DisallowYodaConditions"></rule>
 
+	<rule ref="WordPress.WP.CronInterval">
+		<exclude name="WordPress.WP.CronInterval.CronSchedulesInterval" />
+	</rule>
+
 	<!--
 	Excluding the vendor direcotry because that's where 3rd party and generated
 	code resides.

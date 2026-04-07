@@ -715,7 +715,7 @@ class Product {
 			$price_key = 'connector_for_dk_price_' . $group . '_before_tax';
 		}
 
-		if ( in_array( $group, array( '1', '2', '3' ), true ) ) {
+		if ( in_array( $group, array( '2', '3' ), true ) ) {
 			$group_price = $product->get_meta( $price_key, true, 'edit' );
 
 			if ( ! empty( $group_price ) ) {
@@ -730,13 +730,13 @@ class Product {
 		if ( $including_tax ) {
 			return (string) wc_get_price_including_tax(
 				$product,
-				array( 'price' => $product->get_regular_price( 'edit' ) )
+				array( 'price' => $product->get_price( 'edit' ) )
 			);
 		}
 
 		return (string) wc_get_price_excluding_tax(
 			$product,
-			array( 'price' => $product->get_regular_price( 'edit' ) )
+			array( 'price' => $product->get_price( 'edit' ) )
 		);
 	}
 

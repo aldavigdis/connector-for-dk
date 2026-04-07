@@ -6,9 +6,11 @@ namespace AldaVigdis\ConnectorForDK\Rest;
 
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Currency;
+use AldaVigdis\ConnectorForDK\Cron\Schedule;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
 use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
+use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
 use AldaVigdis\ConnectorForDK\InvoicePDF;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
@@ -185,19 +187,27 @@ class Settings {
 			$rest_json
 		);
 
-		if (
-			property_exists( $rest_json, 'enable_downstream_product_sync' ) &&
-			$rest_json->enable_downstream_product_sync
-		) {
-			ImportProducts::save_all_from_dk();
+		InvoicePDF::create_directory_if_it_does_not_exist();
 
-			do_action(
-				'connector_for_dk_settings_after_import_product',
-				$rest_json
-			);
+		ImportProductVariations::get_variations_from_dk();
+
+		Schedule::deactivate();
+
+		if (
+			property_exists( $rest_json, 'enable_cronjob' ) &&
+			$rest_json->enable_cronjob
+		) {
+			Schedule::activate();
 		}
 
-		InvoicePDF::create_directory_if_it_does_not_exist();
+		if ( property_exists( $rest_json, 'create_new_products' ) ) {
+			ImportProducts::create_new_products_from_dk(
+				(int) apply_filters(
+					'connector_for_dk_new_products_quantity',
+					ImportProducts::DEFAULT_CREATE_QUANTITY
+				)
+			);
+		}
 
 		do_action(
 			'connector_for_dk_settings_end',

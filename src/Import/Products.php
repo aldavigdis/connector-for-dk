@@ -16,6 +16,7 @@ use DateTime;
 use stdClass;
 use WC_DateTime;
 use WC_Product;
+use WC_Product_Query;
 use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
@@ -33,14 +34,76 @@ class Products {
 	/**
 	 * The properties we get from the DK JSON API
 	 */
-	const INCLUDE_PROPERTIES = 'ItemCode,Description,PropositionPrice,' .
-		'UnitPrice1,UnitPrice1WithTax,Inactive,NetWeight,UnitVolume,' .
-		'TotalQuantityInWarehouse,UnitPrice2,UnitPrice3,UnitPrice2WithTax,' .
-		'UnitPrice3WithTax,TaxPercent,AllowNegativeInventiry,ExtraDesc1,' .
-		'ExtraDesc2,ShowItemInWebShop,Inactive,Deleted,PropositionDateTo,' .
-		'PropositionDateFrom,CurrencyCode,CurrencyPrices,IsVariation,' .
-		'Warehouses,Group,DefaultSaleQuantity,AllowDiscount,Discount,' .
-		'DiscountQuantity,MaxDiscountAllowed';
+	const INCLUDE_PROPERTIES = array(
+		'ItemCode',
+		'Description',
+		'PropositionPrice',
+		'UnitPrice1',
+		'UnitPrice1WithTax',
+		'Inactive',
+		'NetWeight',
+		'UnitVolume',
+		'TotalQuantityInWarehouse',
+		'UnitPrice2',
+		'UnitPrice3',
+		'UnitPrice2WithTax',
+		'UnitPrice3WithTax',
+		'TaxPercent',
+		'AllowNegativeInventiry',
+		'ExtraDesc1',
+		'ExtraDesc2',
+		'ShowItemInWebShop',
+		'Inactive',
+		'Deleted',
+		'PropositionDateTo',
+		'PropositionDateFrom',
+		'CurrencyCode',
+		'CurrencyPrices',
+		'IsVariation',
+		'Warehouses',
+		'Group',
+		'DefaultSaleQuantity',
+		'AllowDiscount',
+		'Discount',
+		'DiscountQuantity',
+		'MaxDiscountAllowed',
+	);
+
+	/**
+	 * The number of products to update per batch
+	 *
+	 * This can be filtered during the `connector_for_dk_update_products` cron
+	 * job, using the `connector_for_dk_new_products_quantity` filter.
+	 *
+	 * `UPDATE` calls in MySQL are generally less expensive than `INSERT` or
+	 * `DELETE`, so we can go with a much higher number here than for the other
+	 * calls.
+	 *
+	 * 256 product (plus product meta) `UPDATE`s every 15 minutes result in 1024
+	 * updates per hour and should result in processing times between 15 and 25
+	 * seconds per batch.
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Cron\UpdateProducts::run()
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::update_current()
+	 */
+	const DEFAULT_UPDATE_QUANTITY = 256;
+
+	/**
+	 * The number of products to create per batch
+	 *
+	 * This can be filtered during the `connector_for_dk_create_products` cron
+	 * job, using the `connector_for_dk_new_products_quantity` filter.
+	 *
+	 * 64 product creations every 5 minutes will result in 768 product `INSERT`
+	 * operations per hour and should safely with below the 30 second PHP
+	 * execution time limit.
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Cron\CreateProducts::run()
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::create_new_products_from_dk()
+	 */
+	const DEFAULT_CREATE_QUANTITY = 64;
+
+	const DEFAULT_DELETE_QUANTITY = 32;
 
 	/**
 	 * Save all products from DK
@@ -48,43 +111,286 @@ class Products {
 	 * This should be run at least nightly as a wp-cron job.
 	 */
 	public static function save_all_from_dk(): void {
-		$json_objects = self::get_all_from_dk();
+	}
 
-		$saved_product_ids = array();
+	/**
+	 * Get current products
+	 *
+	 * Gets an array of every WooCommerce product in order of when it was last
+	 * modified.
+	 *
+	 * @param int  $quantity How many products to fetch.
+	 *             (Defaults on `-1` to fetch all the products).
+	 *
+	 * @param bool $dk_products_only wether or not to fetch only products
+	 *             originating in dk.
+	 *
+	 * @return WC_Product[]
+	 */
+	public static function get_current(
+		int $quantity = -1,
+		bool $dk_products_only = true
+	): array {
+		$query_args = array(
+			'limit'   => $quantity,
+			'orderby' => 'modified',
+			'order'   => 'ASC',
+		);
 
-		if ( is_array( $json_objects ) ) {
-			foreach ( $json_objects as $json_object ) {
-				$saved_id = self::save_from_dk(
-					$json_object->ItemCode,
-					$json_object
-				);
+		if ( $dk_products_only ) {
+			$query_args = array_merge(
+				$query_args,
+				array(
+					'meta_key'     => 'connector_for_dk_last_downstream_sync',
+					'meta_compare' => 'EXISTS',
+				)
+			);
+		}
 
-				if ( $saved_id ) {
-					$saved_product_ids[] = $saved_id;
+		$query = new WC_Product_Query( $query_args );
+
+		return $query->get_products();
+	}
+
+	/**
+	 * Get current product SKUs from WooCommerce
+	 *
+	 * Used for facilitating product update and creation operations.
+	 *
+	 * @return string[]
+	 */
+	public static function get_current_skus(): array {
+		$skus_transient = get_transient(
+			'connector_for_dk_current_skus'
+		);
+
+		if ( $skus_transient ) {
+			return $skus_transient;
+		}
+
+		$products = self::get_current();
+		$skus     = array();
+
+		foreach ( $products as $p ) {
+			if ( ! $p instanceof WC_Product ) {
+				continue;
+			}
+
+			if ( empty( $p->get_sku() ) ) {
+				continue;
+			}
+
+			$skus[] = $p->get_sku();
+		}
+
+		set_transient(
+			'connector_for_dk_current_skus',
+			$skus,
+			HOUR_IN_SECONDS
+		);
+
+		return $skus;
+	}
+
+	/**
+	 * Update currently synced WooCommerce products from dk
+	 *
+	 * @param int $quantity The size of the batch to update. Use `-1` to update
+	 *                      all the products registered in WooCommerce.
+	 */
+	public static function update_current(
+		int $quantity = self::DEFAULT_UPDATE_QUANTITY
+	): void {
+		$dk_products      = self::get_all_from_dk();
+		$current_products = self::get_current( $quantity );
+
+		do_action(
+			'connector_for_dk_before_update_current',
+			$dk_products,
+			$current_products
+		);
+
+		foreach ( $current_products as $wc_product_key => $wc_product ) {
+			if ( ! $wc_product instanceof WC_Product ) {
+				unset( $current_products[ $wc_product_key ] );
+				continue;
+			}
+
+			$timestamp = (int) $wc_product->get_date_modified()->format( 'U' );
+
+			// Only update products that have not been updated in the past
+			// 60 minutes.
+			if ( $timestamp > time() - HOUR_IN_SECONDS ) {
+				unset( $current_products[ $wc_product_key ] );
+				continue;
+			}
+
+			foreach ( $dk_products as $dk_product_key => $dk_product ) {
+				if ( ! is_object( $dk_product ) ) {
+					unset( $json_objects[ $dk_product_key ] );
+					continue;
+				}
+
+				if ( $dk_product->ItemCode !== $wc_product->get_sku() ) {
+					continue;
+				}
+
+				if (
+					self::update_product_from_json(
+						$wc_product->get_id(),
+						$dk_product
+					)
+				) {
+					do_action(
+						'connector_for_dk_before_update_product',
+						$dk_product,
+						$wc_product
+					);
+
+					$updated_skus[]      = $dk_product->ItemCode;
+					$saved_product_ids[] = $wc_product->get_id();
+					unset( $current_products[ $wc_product_key ] );
+					unset( $dk_products[ $dk_product_key ] );
+
+					do_action(
+						'connector_for_dk_after_update_product',
+						$dk_product,
+						$wc_product
+					);
 				}
 			}
 		}
 
-		/**
-		 * If we don't import non-web products, we need to check here which
-		 * products were not imported in the previous step and delete them if we
-		 * want to delete inactive products.
-		 */
-		if (
-			config::get_delete_inactive_products() &&
-			! Config::get_import_nonweb_products()
-		) {
-			$product_ids_not_updated = wc_get_products(
-				array(
-					'return'  => 'ids',
-					'exclude' => $saved_product_ids,
-				)
-			);
+		do_action(
+			'connector_for_dk_after_update_current',
+			$dk_products,
+			$current_products
+		);
+	}
 
-			foreach ( $product_ids_not_updated as $product_id ) {
-				wp_delete_post( $product_id );
+	/**
+	 * Create new products based on the dk API response
+	 *
+	 * @param int $quantity The size of the batch of products to create.
+	 */
+	public static function create_new_products_from_dk(
+		int $quantity = self::DEFAULT_CREATE_QUANTITY
+	): void {
+		$current_skus = self::get_current_skus();
+		$dk_products  = self::get_all();
+
+		do_action(
+			'connector_for_dk_before_create_new_products',
+			$current_skus,
+			$dk_products
+		);
+
+		$i = 0;
+
+		foreach ( $dk_products as $dk_product ) {
+			if (
+				in_array( $dk_product->ItemCode, $current_skus, true ) ||
+				! is_object( $dk_product )
+			) {
+				continue;
+			}
+
+			$wc_product = self::json_to_new_product( $dk_product );
+
+			if ( $wc_product ) {
+				$i++;
+
+				$current_skus[] = $dk_product->ItemCode;
+
+				set_transient(
+					'connector_for_dk_current_skus',
+					$current_skus,
+					HOUR_IN_SECONDS
+				);
+
+				do_action(
+					'connector_for_dk_after_create_new_product',
+					$wc_product,
+					$dk_product
+				);
+
+				if ( $i >= $quantity ) {
+					break;
+				}
 			}
 		}
+
+		do_action(
+			'connector_for_dk_after_create_new_products',
+			$current_skus,
+			$dk_products
+		);
+	}
+
+	/**
+	 * Get an array of SKUs to delete
+	 *
+	 * This compares the SKUs of current products with what the dk API returns
+	 * and returns the difference between the two.
+	 *
+	 * @return string[]
+	 */
+	public static function get_skus_to_delete(): array {
+		$current_skus = self::get_current_skus();
+		$dk_skus      = self::get_skus_from_dk();
+
+		return array_diff( $current_skus, $dk_skus );
+	}
+
+	/**
+	 * Delete products that have been deleted from dk
+	 *
+	 * This removes products that have been identified as deleted from WooCommerce
+	 *
+	 * @param int $quantity The number of products for the batch.
+	 */
+	public static function delete_deleted_from_dk(
+		int $quantity = self::DEFAULT_DELETE_QUANTITY
+	): void {
+		$skus = self::get_skus_to_delete();
+
+		$i = 0;
+
+		foreach ( $skus as $sku ) {
+			$product_id = wc_get_product_id_by_sku( $sku );
+
+			if ( $product_id === 0 ) {
+				continue;
+			}
+
+			if ( $product_id !== 0 ) {
+				$product = wc_get_product( $product_id );
+
+				if ( $product->delete( true ) ) {
+					$i++;
+				}
+
+				if ( $i >= $quantity ) {
+					return;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Delete all products from WooCommerce
+	 *
+	 * This is mainly used for testing and debugging this class in a development
+	 * or test environment.
+	 */
+	public static function delete_all_products(): void {
+		$products = self::get_current();
+
+		foreach ( $products as $p ) {
+			$p->delete( true );
+		}
+
+		delete_transient( 'connector_for_dk_current_skus' );
 	}
 
 	/**
@@ -92,19 +398,14 @@ class Products {
 	 *
 	 * This fetches all the products from the DK API. It includes inactive and
 	 * deleted products as a means to label those properly in WooCommerce.
+	 *
+	 * @return false|WP_Error|object[]
 	 */
 	public static function get_all_from_dk(): false|WP_Error|array {
 		$api_request = new DKApiRequest();
 
-		$query_string = '?include=' . self::INCLUDE_PROPERTIES;
-
-		if ( ! Config::get_delete_inactive_products() ) {
-			$query_string .= '&inactive=false';
-		}
-
-		if ( ! Config::get_import_nonweb_products() ) {
-			$query_string .= '&onweb=true';
-		}
+		$query_string  = '?include=' . self::dk_request_include_properties();
+		$query_string .= '&inactive=false&onweb=true';
 
 		$result = $api_request->get_result(
 			self::API_PATH . $query_string,
@@ -119,6 +420,103 @@ class Products {
 		}
 
 		return (array) $result->data;
+	}
+
+	/**
+	 * Get the reqested dk product properties as a string
+	 *
+	 * This is used in the `include` query parameter when fetching the data from
+	 * the dk JSON API.
+	 */
+	public static function dk_request_include_properties(): string {
+		return implode( ',', self::INCLUDE_PROPERTIES );
+	}
+
+	/**
+	 * Get all products from dk (cached)
+	 *
+	 * This uses an hour-long chache to retain the product objects, so they are
+	 * not fetched each time. Use the `get_all_from_dk()` to bypass the cache.
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_all_from_dk()
+	 *
+	 * @return false|object[]
+	 */
+	public static function get_all(): false|array {
+		$updated = (int) get_option(
+			'connector_for_dk_dk_products_updated',
+			0
+		);
+
+		$transient = get_option(
+			'connector_for_dk_dk_products',
+			false
+		);
+
+		if (
+			is_array( $transient ) &&
+			( $updated > time() - HOUR_IN_SECONDS )
+		) {
+			return $transient;
+		}
+
+		$response = self::get_all_from_dk();
+
+		if ( ! is_array( $response ) ) {
+			return array();
+		}
+
+		update_option( 'connector_for_dk_dk_products', $response );
+		update_option( 'connector_for_dk_dk_products_count', count( $response ) );
+		update_option( 'connector_for_dk_dk_products_updated', time() );
+
+		return $response;
+	}
+
+	/**
+	 * Get product import and deletion stats
+	 *
+	 * @return object{current:int,to_delete:int,remaining:int,total:int}
+	 */
+	public static function get_create_stats(): object {
+		$dk_product_count = (int) get_option(
+			'connector_for_dk_dk_products_count',
+			0
+		);
+
+		$wc_product_count = (int) count( self::get_current_skus() );
+		$to_delete_count  = (int) count( self::get_skus_to_delete() );
+		$remaining_count  = (int) (
+			$dk_product_count - $wc_product_count - $to_delete_count
+		);
+
+		return (object) array(
+			'current'   => $wc_product_count,
+			'to_delete' => $to_delete_count,
+			'remaining' => $remaining_count,
+			'total'     => $dk_product_count,
+		);
+	}
+
+	/**
+	 * Get product SKUs as the come from the dk API
+	 *
+	 * @return false|string[]
+	 */
+	public static function get_skus_from_dk(): false|array {
+		$dk_products = self::get_all();
+
+		if ( ! is_array( $dk_products ) ) {
+			return false;
+		}
+
+		$skus = array();
+
+		foreach ( $dk_products as $p ) {
+			$skus[] = $p->ItemCode;
+		}
+
+		return $skus;
 	}
 
 	/**
@@ -252,13 +650,6 @@ class Products {
 		if (
 			mb_strtolower( Config::get_cost_sku() ) ===
 			mb_strtolower( $json_object->ItemCode )
-		) {
-			return false;
-		}
-
-		if (
-			! $json_object->ShowItemInWebShop &&
-			! Config::get_import_nonweb_products()
 		) {
 			return false;
 		}
@@ -501,7 +892,6 @@ class Products {
 	 * Update a product based on a JSON object coming from the DK API
 	 *
 	 * - If the product is marked as deleted in DK, it will be deleted in WooCommerce
-	 * - If the product is marked as inactive in DK, its status will be changed to `draft` in WooCommerce
 	 * - If the product is marked as active in DK and  ShowItemInWebShop` is `true`, its status will be changed to `publish`
 	 * - The product name will be updated from the `Description` attribute, if name sync is enabled.
 	 * - The product weight will be updated
@@ -530,13 +920,9 @@ class Products {
 			(
 				property_exists( $json_object, 'Deleted' ) &&
 				$json_object->Deleted
-			) ||
-			(
-				! Config::get_import_nonweb_products() &&
-				$json_object->ShowItemInWebShop === false
 			)
 		) {
-			wp_delete_post( $wc_product->get_id() );
+			$wc_product->delete( true );
 			return false;
 		}
 

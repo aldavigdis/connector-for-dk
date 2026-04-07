@@ -29,11 +29,6 @@ require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 new Loader();
 
-register_activation_hook(
-	__FILE__,
-	'AldaVigdis\ConnectorForDK\Cron\Schedule::activate'
-);
-
 register_deactivation_hook(
 	__FILE__,
 	'AldaVigdis\ConnectorForDK\Cron\Schedule::deactivate'

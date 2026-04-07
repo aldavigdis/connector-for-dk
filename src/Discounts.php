@@ -652,7 +652,9 @@ class Discounts {
 	 * product and customer's discount applied.
 	 *
 	 * @param WC_Product $product The product.
-	 * @param int|float  $quantity The quantity, used for getting the unit price, with mass discount.
+	 * @param int|float  $quantity The quantity, used for getting the unit
+	 *                             price, with mass discount.
+	 * @param bool       $incl_tax Wether or not to include tax in the amount.
 	 */
 	public static function get_current_customer_price(
 		WC_Product $product,

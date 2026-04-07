@@ -713,23 +713,6 @@ class Config {
 	}
 
 	/**
-	 * Get wether products that are not for online store should be imported as drafts
-	 */
-	public static function get_import_nonweb_products(): bool {
-		return (bool) self::get_option( 'import_nonweb_products', false );
-	}
-
-	/**
-	 * Set wether products that are not for online store should be imported as drafts
-	 *
-	 * @param bool $value True to enable non-web product import, false to
-	 *                    disalbe it.
-	 */
-	public static function set_import_nonweb_products( bool $value ): bool {
-		return self::update_option( 'import_nonweb_products', $value );
-	}
-
-	/**
 	 * Get wether to delete inactive products on sync
 	 */
 	public static function get_delete_inactive_products(): bool {

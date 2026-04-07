@@ -103,6 +103,8 @@ class Products {
 	 */
 	const DEFAULT_CREATE_QUANTITY = 64;
 
+	const DEFAULT_DELETE_QUANTITY = 32;
+
 	/**
 	 * Save all products from DK
 	 *
@@ -344,11 +346,17 @@ class Products {
 	 * Delete products that have been deleted from dk
 	 *
 	 * This removes products that have been identified as deleted from WooCommerce
+	 *
+	 * @param int $quantity The number of products for the batch.
 	 */
-	public static function delete_deleted_from_dk(): void {
+	public static function delete_deleted_from_dk(
+		int $quantity = self::DEFAULT_DELETE_QUANTITY
+	): void {
 		$skus = self::get_skus_to_delete();
 
-		foreach ( $skus as $key => $sku ) {
+		$i = 0;
+
+		foreach ( $skus as $sku ) {
 			$product_id = wc_get_product_id_by_sku( $sku );
 
 			if ( $product_id === 0 ) {
@@ -356,13 +364,14 @@ class Products {
 			}
 
 			if ( $product_id !== 0 ) {
-				$product   = wc_get_product( $product_id );
-				$last_sync = $product->get_meta(
-					'connector_for_dk_last_downstream_sync'
-				);
+				$product = wc_get_product( $product_id );
 
-				if ( ! empty( $last_sync ) ) {
-					$product->delete( true );
+				if ( $product->delete( true ) ) {
+					$i++;
+				}
+
+				if ( $i >= $quantity ) {
+					return;
 				}
 			}
 		}
@@ -458,9 +467,35 @@ class Products {
 		}
 
 		update_option( 'connector_for_dk_dk_products', $response );
+		update_option( 'connector_for_dk_dk_products_count', count( $response ) );
 		update_option( 'connector_for_dk_dk_products_updated', time() );
 
 		return $response;
+	}
+
+	/**
+	 * Get product import and deletion stats
+	 *
+	 * @return object{current:int,to_delete:int,remaining:int,total:int}
+	 */
+	public static function get_create_stats(): object {
+		$dk_product_count = (int) get_option(
+			'connector_for_dk_dk_products_count',
+			0
+		);
+
+		$wc_product_count = (int) count( self::get_current_skus() );
+		$to_delete_count  = (int) count( self::get_skus_to_delete() );
+		$remaining_count  = (int) (
+			$dk_product_count - $wc_product_count - $to_delete_count
+		);
+
+		return (object) array(
+			'current'   => $wc_product_count,
+			'to_delete' => $to_delete_count,
+			'remaining' => $remaining_count,
+			'total'     => $dk_product_count,
+		);
 	}
 
 	/**
@@ -615,13 +650,6 @@ class Products {
 		if (
 			mb_strtolower( Config::get_cost_sku() ) ===
 			mb_strtolower( $json_object->ItemCode )
-		) {
-			return false;
-		}
-
-		if (
-			! $json_object->ShowItemInWebShop &&
-			! Config::get_import_nonweb_products()
 		) {
 			return false;
 		}
@@ -864,7 +892,6 @@ class Products {
 	 * Update a product based on a JSON object coming from the DK API
 	 *
 	 * - If the product is marked as deleted in DK, it will be deleted in WooCommerce
-	 * - If the product is marked as inactive in DK, its status will be changed to `draft` in WooCommerce
 	 * - If the product is marked as active in DK and  ShowItemInWebShop` is `true`, its status will be changed to `publish`
 	 * - The product name will be updated from the `Description` attribute, if name sync is enabled.
 	 * - The product weight will be updated
@@ -893,13 +920,9 @@ class Products {
 			(
 				property_exists( $json_object, 'Deleted' ) &&
 				$json_object->Deleted
-			) ||
-			(
-				! Config::get_import_nonweb_products() &&
-				$json_object->ShowItemInWebShop === false
 			)
 		) {
-			wp_delete_post( $wc_product->get_id() );
+			$wc_product->delete( true );
 			return false;
 		}
 

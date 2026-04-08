@@ -639,8 +639,6 @@ table.woocommerce_order_items .group_price {
 
 .price-comparison-table .free, .price-comparison-table .pro { background-color: #f0f0f0; }
 
-.import-stats { margin-left: 2em; margin-bottom: 0.5em; }
-
 .price-comparison-table tbody .pill {
 	display: inline-block;
 	padding: 0.33em 0.5em;
@@ -727,18 +725,55 @@ a.activate-license.expired {
 }
 
 .import-stats {
-	margin-top: 0 !important;
-	margin-bottom: 0.5em !important;
+	display: flex;
+	align-items: center;
+	margin-top: 0.5em;
+	margin-bottom: 0.85em;
+	margin-left: calc( 16px + 0.5em );
+	margin-right: 5em;
 }
 
-.import-stats .pill {
-	display: inline-block;
-	padding: 0.33em 0.5em;
+.import-stats.hidden {
+	display: none;
+}
+
+.import-stats .progress_label {
+	line-height: 1em;
+	order: 1;
+	text-align: left;
+}
+
+.import-stats progress {
+	height: 0.8em;
+	width: 12em;
+	margin-right: 10px;
+	background-color: #fff;
+	border: 1px solid #8c8f94;
 	border-radius: 3px;
-	color: #fff;
-	font-weight: bold;
-	background-color: rgb(202, 128, 30);
-	border: 1px solid rgb(179, 72, 15);
+	box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.33);
+	order: 0;
+}
+
+.import-stats progress::-moz-progress-bar {
+	background-color: #2271b1;
+	box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.33);
+}
+
+.import-stats progress:not([value])::-moz-progress-bar {
+	background: repeating-linear-gradient(
+		90deg,
+		#f0f0f0,
+		#f0f0f0 10px,
+		rgba(34, 113, 177, 0.66) 10px,
+		rgba(34, 113, 177, 0.66) 20px
+	);
+	background-size: 600px;
+	animation: move-progress-stripes 5s linear infinite;
+}
+
+@keyframes move-progress-stripes {
+	from { background-position: 0 0; }
+	to { background-position: 60px 0; }
 }
 
 @media screen and (max-width: 1400px) {

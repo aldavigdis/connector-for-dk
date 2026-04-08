@@ -79,14 +79,10 @@ class Products {
 	 * `DELETE`, so we can go with a much higher number here than for the other
 	 * calls.
 	 *
-	 * 256 product (plus product meta) `UPDATE`s every 15 minutes result in 1024
-	 * updates per hour and should result in processing times between 15 and 25
-	 * seconds per batch.
-	 *
 	 * @see AldaVigdis\ConnectorForDK\Cron\UpdateProducts::run()
 	 * @see AldaVigdis\ConnectorForDK\Import\Products::update_current()
 	 */
-	const DEFAULT_UPDATE_QUANTITY = 256;
+	const DEFAULT_UPDATE_QUANTITY = 64;
 
 	/**
 	 * The number of products to create per batch
@@ -235,17 +231,21 @@ class Products {
 					continue;
 				}
 
-				if (
-					self::update_product_from_json(
-						$wc_product->get_id(),
-						$dk_product
-					)
-				) {
+				$updated_product = self::update_product_from_json(
+					$wc_product->get_id(),
+					$dk_product
+				);
+
+				if ( $updated_product ) {
 					do_action(
 						'connector_for_dk_before_update_product',
 						$dk_product,
 						$wc_product
 					);
+
+					$id = $updated_product->get_id();
+
+					$updated_product->save();
 
 					$updated_skus[]      = $dk_product->ItemCode;
 					$saved_product_ids[] = $wc_product->get_id();
@@ -484,9 +484,15 @@ class Products {
 			0
 		);
 
-		$wc_product_count = (int) count( self::get_current_skus() );
-		$to_delete_count  = (int) count( self::get_skus_to_delete() );
-		$remaining_count  = (int) (
+		$wc_product_count = (int) self::zerofy(
+			count( self::get_current_skus() )
+		);
+
+		$to_delete_count = (int) self::zerofy(
+			count( self::get_skus_to_delete() )
+		);
+
+		$remaining_count = (int) (
 			$dk_product_count - $wc_product_count - $to_delete_count
 		);
 
@@ -496,6 +502,19 @@ class Products {
 			'remaining' => $remaining_count,
 			'total'     => $dk_product_count,
 		);
+	}
+
+	/**
+	 * Round negative numbers to zero
+	 *
+	 * @param int|float $number The number to round to zero.
+	 */
+	private static function zerofy( int|float $number ): int|float {
+		if ( $number < 0 ) {
+			return 0;
+		}
+
+		return $number;
 	}
 
 	/**

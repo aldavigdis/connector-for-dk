@@ -118,30 +118,49 @@ $import_stats = ImportProducts::get_create_stats();
 							<label for="create_new_products_field">
 								<?php
 								esc_html_e(
-									"Create new products in WooCommerce if they don't exist",
+									'Import products',
 									'connector-for-dk'
 								);
 								?>
 							</label>
-							<?php if ( $import_stats->remaining > 0 ) : ?>
-							<p class="import-stats">
-								<span class="pill">
+							<div
+								class="import-stats <?php echo esc_attr( ( $import_stats->remaining > 0 && Config::get_create_new_products() && Config::get_enable_downstream_product_sync() ) ? '' : 'hidden' ); ?>"
+							>
+								<span
+									id="import_progress_bar_label"
+									class="progress_label"
+								>
 									<?php
 									echo sprintf(
-										// Translators: %1$d is for the number of products remaning to be synced, %2$d for the total number of products and %3$s and %3$s are openin and closing <strong> tags.
+										// Translators: %1$s is for the number of products imported, %2$s is the number of total products.
 										esc_html__(
-											'%3$s%1$d%4$s products remaining of %3$s%2$d%4$s total',
+											'Imported %1$s products of %2$s',
 											'connector-for-dk'
 										),
-										esc_html( $import_stats->remaining ),
-										esc_html( $import_stats->total ),
-										'<strong>',
-										'</strong>'
+										esc_html( number_format_i18n( (float) $import_stats->current ) ),
+										esc_html( number_format_i18n( (float) $import_stats->total ) ),
 									);
 									?>
 								</span>
-							</p>
-							<?php endif ?>
+								<progress
+									id="import_progress_bar"
+									value="<?php echo esc_attr( $import_stats->current ); ?>"
+									max="<?php echo esc_attr( $import_stats->total ); ?>"
+									aria-labelledby="import_progress_bar_label"
+								>
+									<?php
+									sprintf(
+										// Translators: %1$d is for the number of products remaning to be synced, %2$s for the total number of products and %3$s and %3$s are openin and closing <strong> tags.
+										esc_attr__(
+											'%1$s products remaining of %2$s',
+											'connector-for-dk'
+										),
+										esc_html( number_format_i18n( $import_stats->remaining ) ),
+										esc_html( number_format_i18n( $import_stats->total ) ),
+									);
+									?>
+								</progress>
+							</div>
 						</div>
 						<div>
 							<input
@@ -158,24 +177,36 @@ $import_stats = ImportProducts::get_create_stats();
 								);
 								?>
 							</label>
-							<?php if ( $import_stats->to_delete > 0 ) : ?>
-							<p class="import-stats">
-								<span class="pill">
+							<div
+								class="import-stats <?php echo esc_attr( $import_stats->to_delete > 0 ? '' : 'hidden' ); ?>"
+							>
+								<span
+									id="deletion_progress_bar_label"
+									class="progress_label"
+								>
 									<?php
 									echo sprintf(
-										// Translators: %1$d is for the numberof products to be deleted and %2$s and %3$s are opening and closing <strong> tags.
+										// Translators: %1$s is for the numberof products to be deleted.
 										esc_html__(
-											'Preparing to delete %2$s%1$d%3$s products from WooCommerce',
+											'Deleting %1$s products',
 											'connector-for-dk'
 										),
-										esc_html( $import_stats->to_delete ),
-										'<strong>',
-										'</strong>'
+										esc_html( number_format_i18n( $import_stats->to_delete ) ),
 									);
 									?>
 								</span>
-							</p>
-							<?php endif ?>
+								<progress
+									id="deletion_progress_bar"
+									aria-labelledby="deletion_progress_bar_label"
+								>
+									<?php
+									esc_html_e(
+										'Preparing to delete products from WooCommerce',
+										'connector-for-dk'
+									);
+									?>
+								</progress>
+							</div>
 						</div>
 					</fieldset>
 				</td>

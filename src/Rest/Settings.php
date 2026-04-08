@@ -200,7 +200,12 @@ class Settings {
 			Schedule::activate();
 		}
 
-		if ( property_exists( $rest_json, 'create_new_products' ) ) {
+		if (
+			property_exists( $rest_json, 'enable_downstream_product_sync' ) &&
+			property_exists( $rest_json, 'create_new_products' ) &&
+			$rest_json->enable_downstream_product_sync === true &&
+			$rest_json->create_new_products === true
+		) {
 			ImportProducts::create_new_products_from_dk(
 				(int) apply_filters(
 					'connector_for_dk_new_products_quantity',

@@ -1097,7 +1097,7 @@ class Config {
 	public static function get_use_default_sku_if_sku_is_missing(): bool {
 		return (bool) self::get_option(
 			'use_default_sku_if_sku_is_missing',
-			true
+			false
 		);
 	}
 

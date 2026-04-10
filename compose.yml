@@ -8,6 +8,7 @@ services:
     ports:
       - 80:80
     environment:
+      - WP_INSTALL_VERSION=7.0-RC2
       - REMOVE_CRAP_PLUGINS=true
       - WP_PLUGIN_INSTALL=woocommerce
       - WP_PLUGIN_ACTIVATE=--all

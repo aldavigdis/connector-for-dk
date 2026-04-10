@@ -39,6 +39,14 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.7.0 =
+* Displaying live import and deletion information with a progress bar on the admin page
+* Removing the "import as draft" feature
+* Changing the product update interval to 2 minutes from 5
+* Improving support for product discounts
+* Indicating support for WordPress 7.0
+* Various bug fixes and minor improvements
+
 = 0.6.9 =
 * Introducing product quantity filters
 * Enabling product deletion if non-web products are not fetched from dk

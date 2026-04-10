@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Connector for DK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-03-31 12:13+0000\n"
+"PO-Revision-Date: 2026-04-10 21:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -16,10 +16,17 @@ msgstr ""
 "X-Domain: connector-for-dk"
 
 #. %1$d is the percentage and %2$d is the minimum number of items for a discount.
-#: src/Discounts.php:855
+#: src/Discounts.php:871
 #, php-format
 msgid "%1$d%% discount for %2$d or more"
 msgstr "%1$d%% afsláttur fyrir %2$d eða fleiri"
+
+#. %1$s is for the number of products imported, %2$s is the number of total products and %2$s is the singular or plural, dative form of "product".
+#. %1$s is for the number of products imported, %2$s is the number of total products. %3$s is the singular or plural dative form of "product".
+#: src/Rest/PostImportStats.php:54 views/admin_sections/products.php:137
+#, php-format
+msgid "%1$s of %2$s %3$s imported"
+msgstr "%1$s af %2$s %3$s fluttar inn"
 
 #. The sprintf tags represent opening and closing hyperlinks.
 #: views/about.php:42
@@ -122,15 +129,18 @@ msgid ""
 "customer record is labelled as blocked."
 msgstr ""
 "Ekki var hægt að útbúa reikning fyrir endurgreiðslu #%1$s því lokað hefur "
-"verið fyrir viðskiptavininn í DK."
+"verið fyrir viðskiptavininn í dk."
 
 #: src/Rest/OrderDKCreditInvoice.php:90
+#| msgid ""
+#| "A credit invoice could not be created in DK for this order as it was "
+#| "created before Connector for DK was activated."
 msgid ""
 "A credit invoice could not be created in DK for this order as it was created "
-"before Connector for DK was activated."
+"before Connector for dk was activated."
 msgstr ""
 "Ekki var hægt að útbúa kreditreikning í DK því þessi pöntun var gerð áður en "
-"kveikt var á Tengli fyrir DK."
+"kveikt var á Tengli fyrir dk."
 
 #. %1$s is a placeholder for the invoice number generated in DK and %2$s for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:154
@@ -146,14 +156,14 @@ msgstr ""
 #: src/Admin.php:711
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
-msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í DK."
+msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í dk."
 
 #. The %s stands for the kennitala.
 #: src/Admin.php:723
 #, php-format
 #| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
-msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í DK."
+msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í dk."
 
 #: src/Import/SalesPayments.php:186
 msgid "A or B Giro Request (ABG)"
@@ -270,12 +280,15 @@ msgid "An invoice could not be created in DK due to an unhandled error."
 msgstr "Ekki var hægt að útbúa reikning í DK út af óþekktri villu."
 
 #: src/OrderStatus.php:169 src/Rest/OrderDKInvoice.php:89
+#| msgid ""
+#| "An invoice could not be created in DK for this order as it was created "
+#| "before Connector for DK was activated."
 msgid ""
 "An invoice could not be created in DK for this order as it was created "
-"before Connector for DK was activated."
+"before Connector for dk was activated."
 msgstr ""
-"Ekki var hægt að útbúa reikning í DK því þessi pöntun var gerð áður en "
-"kveikt var á Tengli fyrir DK."
+"Ekki var hægt að útbúa reikning í dk því þessi pöntun var gerð áður en "
+"kveikt var á Tengli fyrir dk."
 
 #: src/OrderStatus.php:185 src/Rest/OrderDKInvoice.php:103
 msgid ""
@@ -436,17 +449,18 @@ msgid "Community Support"
 msgstr "Aðstoð fyrir opnum tjöldum"
 
 #. Name of the plugin
-#: src/Admin.php:446 src/Admin.php:447
-msgid "Connector for DK"
-msgstr "Tengill fyrir DK"
-
-#: views/admin.php:35 views/about.php:17
+#: src/Admin.php:446 src/Admin.php:447 views/admin.php:35 views/about.php:17
 msgid "Connector for dk"
 msgstr "Tengill fyrir dk"
 
-#: src/Cron/Schedule.php:87
+#: src/Cron/Schedule.php:107
 msgid "Connector for dk 15 minute interval"
 msgstr "Tengill fyrir dk, 15 mínútna lykkja"
+
+#: src/Cron/Schedule.php:128
+#| msgid "Connector for dk 5 minute interval"
+msgid "Connector for dk 2 minute interval"
+msgstr "Tengill fyrir dk, 2 mínútna lykkja"
 
 #: views/admin_sections/customers_sync.php:35
 msgid ""
@@ -477,7 +491,7 @@ msgstr ""
 "Tengill fyrir dk styður eingöngu vefverslanir sem hafa kveikt á ‚HPOS‘ (High "
 "Performance Order Storage)."
 
-#: src/License.php:219
+#: src/License.php:224
 msgid "Connector Pro for DK"
 msgstr "Tengill Pro fyrir DK"
 
@@ -512,10 +526,6 @@ msgstr "Búa sjálfkrafa til reikninga fyrir pantanir með kennitölu"
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
 msgstr "Búa til reikninga sjálfkrafa fyrir pantanir án kennitölu"
 
-#: views/admin_sections/products.php:116
-msgid "Create new products in WooCommerce if they don't exist"
-msgstr "Búa til nýjar vörur í WooCommerce ef þær eru ekki til"
-
 #: views/refund_credit_invoice_partial.php:27
 msgid "Credit Invoice Number"
 msgstr "Númer kreditreiknings"
@@ -549,6 +559,14 @@ msgstr "Viðskiptavinir"
 msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr "Viðskiptavinir þurfa að biðja um að fá kennitölu á reikninga"
 
+#: src/Rest/PostImportStats.php:60 src/Rest/PostImportStats.php:76
+#: views/admin_sections/products.php:152 views/admin_sections/products.php:208
+msgctxt "dative"
+msgid "product"
+msgid_plural "products"
+msgstr[0] "vöru"
+msgstr[1] "vörum"
+
 #: views/dk_product_variations.php:42
 msgid "Default Attributes"
 msgstr "Sjálfgefin eigindi"
@@ -573,7 +591,7 @@ msgstr "Númer sjálfgefins sölumanns"
 msgid "Defer invoice generation to a background task"
 msgstr "Vísa reikningagerð í bakgrunnsferli"
 
-#: views/admin_sections/products.php:127
+#: views/admin_sections/products.php:181
 #| msgid ""
 #| "Delete products from WooCommerce if labelled as inactive or deleted in DK"
 msgid ""
@@ -581,11 +599,18 @@ msgid ""
 msgstr ""
 "Eyða vörum úr WooCommerce ef þær eru óvirkar eða þeim hefur verið eytt úr dk"
 
+#. %1$s is for the numberof products to be deleted and %2$s is the singular or plural dative form of the word "product".
+#. %1$s is for the numberof products to be deleted. %2$s is the singular or plural dative form of "products".
+#: src/Rest/PostImportStats.php:71 views/admin_sections/products.php:198
+#, php-format
+msgid "Deleting %1$s %2$s"
+msgstr "Eyði %1$s %2$s"
+
 #: views/dk_product_variations.php:323
 msgid "Description"
 msgstr "Lýsing"
 
-#: src/License.php:75
+#: src/License.php:80
 msgid "Development, testing or staging environment detected 👷‍♀️"
 msgstr "Þetta er líklega þróunar-, prufu-, eða raunprófunarumhverfi 👷‍♀️"
 
@@ -597,12 +622,12 @@ msgstr "Slökktu á kennitölureitnum í viðbótinni frá Íslandspósti"
 msgid "Discount"
 msgstr "Afsláttur"
 
-#: views/admin_sections/products.php:171
+#: views/admin_sections/products.php:256
 #| msgid "Display the Attribute Label Description from DK"
 msgid "Display the Attribute Label Description from dk"
 msgstr "Sýna lýsingu nafns eiginleika vöruafbrigða úr dk"
 
-#: views/admin_sections/products.php:194
+#: views/admin_sections/products.php:279
 #| msgid "Display the Attribute Value Description from DK"
 msgid "Display the Attribute Value Description from dk"
 msgstr "Sýna lýsingu eiginleika vöruafbrigða úr dk"
@@ -754,7 +779,7 @@ msgstr "Sækja"
 msgid "Fetch from DK"
 msgstr "Sækja frá DK"
 
-#: views/admin_sections/products.php:46
+#: views/admin_sections/products.php:49
 #| msgid "Fetch Product Data from DK"
 msgid "Fetch Product Data from dk"
 msgstr "Sækja gögn um vörur frá dk"
@@ -776,7 +801,7 @@ msgstr ""
 "stillingasíðu þess notanda."
 
 #. Sprintf symbols 1 and 2 are opening and closing <strong> tags and 3 and 4 are the hyperlink to tengillpro.is.
-#: src/License.php:91
+#: src/License.php:96
 #, php-format
 msgid ""
 "For production sites, licenses are sold on a %1$sper-domain basis only%2$s "
@@ -834,7 +859,7 @@ msgstr ""
 "viðskiptavina sjálfkrafa eftir afgreiðslu. Þetta notar tölvupóststillingar í "
 "dk, sem krefst þess að þær séu réttar."
 
-#: views/admin_sections/products.php:175
+#: views/admin_sections/products.php:260
 #| msgid ""
 #| "If enabled, the code for attribute labels will be replaced with the "
 #| "attribute description from DK. Disable this if you only need the "
@@ -848,7 +873,7 @@ msgstr ""
 "vöruafbrigðis skipt út fyrir fulla lýsingu úr dk. Slökktu á þessu ef þú vilt "
 "bara nota kóða fyrir lýsingu vöruafbrigðis."
 
-#: views/admin_sections/products.php:198
+#: views/admin_sections/products.php:283
 #| msgid ""
 #| "If enabled, the code for attribute values will be replaced with the "
 #| "attribute description from DK. Disable this if you only need the "
@@ -963,10 +988,9 @@ msgstr ""
 "Ef kvekt er á þessu, þá er skylda að fylla út kennitölureitinn til að klára "
 "afgreiðsluferli í vefverslun."
 
-#: views/admin_sections/products.php:138
-msgid "Import products not labelled as ‘for online store’ as drafts"
-msgstr ""
-"Flytja inn vörur sem eru ekki merktar sem ‚sýnilegt í vefverslun‘ sem drög"
+#: views/admin_sections/products.php:120
+msgid "Import products"
+msgstr "Flytja inn vörur"
 
 #: views/admin_sections/default_skus.php:22
 #| msgid ""
@@ -986,7 +1010,7 @@ msgstr ""
 "á lager, þá getur Tengill fyrir dk stemmt vörurnar við samsvarandi vörunúmer "
 "í dk svo hægt sé að útbúa reikning."
 
-#: views/admin_sections/products.php:26
+#: views/admin_sections/products.php:29
 msgid ""
 "In this section, you can enable and fine-tune your product sync settings. "
 "For example, if you do not want to overwrite the prices or names of your "
@@ -1093,12 +1117,15 @@ msgstr ""
 "kveikja á reit fyrir kennitölu,"
 
 #: src/OrderStatus.php:220
+#| msgid ""
+#| "Invoicing for international orders is not available in this version of "
+#| "Connector for DK."
 msgid ""
 "Invoicing for international orders is not available in this version of "
-"Connector for DK."
+"Connector for dk."
 msgstr ""
 "Reikningar fyrir erlendar pantanir eru ekki fáanlegar í þessari útgáfu af "
-"Tengli fyrir DK."
+"Tengli fyrir dk."
 
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:179
@@ -1315,11 +1342,11 @@ msgstr "Verðhópur"
 msgid "Product Categories"
 msgstr "Vöruflokkar"
 
-#: views/admin_sections/products.php:15
+#: views/admin_sections/products.php:18
 msgid "Product Sync"
 msgstr "Samstilling á vörum"
 
-#: views/admin_sections/products.php:18
+#: views/admin_sections/products.php:21
 #| msgid ""
 #| "Product sync and invoice generation are based on matching a product's DK "
 #| "Product Code with its SKU in WooCommerce."
@@ -1330,7 +1357,7 @@ msgstr ""
 "Samstilling á vörum og reikningagerð byggjast á því að stemma saman "
 "vörunúmer úr dk og SKU í WooCommerce."
 
-#: views/admin_sections/products.php:14
+#: views/admin_sections/products.php:17
 msgid "Products"
 msgstr "Vörur"
 
@@ -1349,7 +1376,7 @@ msgstr ""
 msgid "Quantity"
 msgstr "Fjöldi"
 
-#: src/Discounts.php:694
+#: src/Discounts.php:705
 msgid "Regular Price:"
 msgstr "Venjulegt verð:"
 
@@ -1412,7 +1439,7 @@ msgid "Settings"
 msgstr "Stillingar"
 
 #. The sprintf tags are for opening and closing links to tengillpro.is.
-#: src/License.php:133
+#: src/License.php:138
 #, php-format
 msgid ""
 "Settings, automatic invoice generation, customer sync, updates and other "
@@ -1424,7 +1451,7 @@ msgstr ""
 "tengillpro.is%2$s."
 
 #. sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
-#: src/License.php:112
+#: src/License.php:117
 #, php-format
 msgid ""
 "Settings, automatic invoice generation, customer sync, updates and other "
@@ -1691,7 +1718,7 @@ msgstr ""
 "takmarkað við ákveðið lén í raunumhverfi (e. production)"
 
 #. %1$s and %2$s are for opening and closing <strong> tags, %3$s and %4$s are opening and closing links to tengillpro.is and %5$s is the expiry date.
-#: src/License.php:152
+#: src/License.php:157
 #, php-format
 msgid ""
 "To keep your settings, automatic invoice generation, customer sync, updates "
@@ -1716,23 +1743,23 @@ msgstr "Gat ekki gert reikning í DK:"
 msgid "Update"
 msgstr "Uppfæra"
 
-#: views/admin_sections/products.php:105
+#: views/admin_sections/products.php:108
 msgid "Update Product Category"
 msgstr "Uppfæra vöruflokk"
 
-#: views/admin_sections/products.php:93
+#: views/admin_sections/products.php:96
 msgid "Update Product Description"
 msgstr "Uppfæra vörulýsingar"
 
-#: views/admin_sections/products.php:82
+#: views/admin_sections/products.php:85
 msgid "Update Product Names"
 msgstr "Uppfæra vöruheiti"
 
-#: views/admin_sections/products.php:60
+#: views/admin_sections/products.php:63
 msgid "Update Product Prices"
 msgstr "Uppfæra vöruverð"
 
-#: views/admin_sections/products.php:71
+#: views/admin_sections/products.php:74
 msgid "Update Stock Status"
 msgstr "Uppfæra lagerstöðu"
 
@@ -1781,7 +1808,7 @@ msgstr "Gilt"
 msgid "Variation #%d"
 msgstr "Vöruafbrigði #%d"
 
-#: views/admin_sections/products.php:149
+#: views/admin_sections/products.php:234
 msgid "Variations and Attributes"
 msgstr "Afbrigði og eiginleikar"
 
@@ -1805,7 +1832,7 @@ msgstr "Skoða Github-síðuna fyrir viðbótina"
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr "Skoða umsagnir fyrir þessa viðbót á WordPress.org"
 
-#: src/Config.php:1013
+#: src/Config.php:996
 msgid ""
 "We are unable to check out your order. Please contact us for more "
 "information."
@@ -1837,7 +1864,7 @@ msgstr ""
 "er 320 stafa runa af stöfum, tölum og táknum. Límdu hann í reitinn hér fyrir "
 "neðan til að virkja leyfið."
 
-#: views/admin_sections/products.php:152
+#: views/admin_sections/products.php:237
 #| msgid ""
 #| "While the variation and attribute codes from DK are used internally, "
 #| "their values can be displayed as the descriptions that are set for each "
@@ -1855,15 +1882,19 @@ msgstr ""
 "vöruafbrigði."
 
 #. The sprintf symbols are opening and closing <strong> tags.
-#: src/License.php:80
+#: src/License.php:85
 #, php-format
+#| msgid ""
+#| "While updates are disabled, %1$sConnector for DK%2$s features such as "
+#| "automatic invoice generation, customer sync and other features are "
+#| "currently enabled for development and testing purposes."
 msgid ""
-"While updates are disabled, %1$sConnector for DK%2$s features such as "
+"While updates are disabled, %1$sConnector for dk%2$s features such as "
 "automatic invoice generation, customer sync and other features are currently "
 "enabled for development and testing purposes."
 msgstr ""
 "Þó svo að slökkt sé á uppfærslum, þá eru möguleikar úr %1$sTengli fyrir "
-"DK%2$s á borð við sjálfvirka reikningagerð, samstillingu viðskiptavina o.fl. "
+"dk%2$s á borð við sjálfvirka reikningagerð, samstillingu viðskiptavina o.fl. "
 "aðgengilegt fyrir forritun og prófanir."
 
 #: src/Rest/OrderInvoicePdf.php:55
@@ -1890,17 +1921,20 @@ msgstr ""
 "Þú þarft að slökkva á kennitölureitnum úr viðbótinni frá Íslandspósti þar "
 "sem við viljum ekki hafa tvo kennitölureiti í afgreiðsluforminu."
 
-#: src/License.php:128
-msgid "Your Connector for DK license has expired! 😱"
-msgstr "Áskriftin fyrir Tengil fyrir DK rann út! 😱"
+#: src/License.php:133
+#| msgid "Your Connector for DK license has expired! 😱"
+msgid "Your Connector for dk license has expired! 😱"
+msgstr "Áskriftin fyrir Tengil fyrir dk rann út! 😱"
 
-#: src/License.php:107
-msgid "Your Connector for DK license key has not been entered yet 🤔"
-msgstr "Þú hefur ekki enn slegið leyfiskóða fyrir Tengil fyrir DK 🤔"
+#: src/License.php:112
+#| msgid "Your Connector for DK license key has not been entered yet 🤔"
+msgid "Your Connector for dk license key has not been entered yet 🤔"
+msgstr "Þú hefur ekki enn slegið leyfiskóða fyrir Tengil fyrir dk 🤔"
 
-#: src/License.php:147
-msgid "Your Connector for DK license will expire soon! 🫣"
-msgstr "Áskriftin fyrir Tengil fyrir DK er við það að renna út! 🫣"
+#: src/License.php:152
+#| msgid "Your Connector for DK license will expire soon! 🫣"
+msgid "Your Connector for dk license will expire soon! 🫣"
+msgstr "Áskriftin fyrir Tengil fyrir dk er við það að renna út! 🫣"
 
 #. The %1$s is a placeholder for the site's title.
 #: src/Export/CreditInvoice.php:278 src/Export/Invoice.php:132
@@ -1912,6 +1946,6 @@ msgstr "Reikningurinn þinn frá %1$s"
 msgid "Your License"
 msgstr "Þitt leyfi"
 
-#: src/Discounts.php:698
+#: src/Discounts.php:709
 msgid "Your Price:"
 msgstr "Þitt verð:"

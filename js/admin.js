@@ -185,6 +185,73 @@ class ConnectorForDK {
 			}
 		)
 	}
+
+	static async getImportStats() {
+		const response = await fetch(
+			wpApiSettings.root + 'ConnectorForDK/v1/product_import_stats',
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json;charset=UTF-8',
+					'X-WP-Nonce': wpApiSettings.nonce,
+				}
+			}
+		);
+
+		if ( response.ok ) {
+			const json = await response.json();
+
+			const importContainer   = ConnectorForDK.importStatsContainer();
+			const importProgressBar = ConnectorForDK.importProgressBar();
+			const importBarLabel    = ConnectorForDK.importProgressBarLabel();
+
+			const deleteContainer = ConnectorForDK.deleteStatsContainer();
+			const deleteBarLabel  = ConnectorForDK.deleteProgressBarLabel();
+
+			importProgressBar.setAttribute( 'value', json['wc_products'] );
+			importProgressBar.setAttribute( 'max', json['total'] );
+			importBarLabel.innerText = json['import_h'];
+
+			if ( json['remaining'] > 0 ) {
+				importContainer.classList.remove( 'hidden' );
+			} else {
+				importContainer.classList.add( 'hidden' );
+			}
+
+			deleteBarLabel.innerText = json['to_delete_h'];
+
+			if ( json['to_delete'] > 0 ) {
+				deleteContainer.classList.remove( 'hiden' );
+			} else {
+				deleteContainer.classList.add( 'hidden' );
+			}
+		}
+	}
+
+	static setGetImportStatsInterval() {
+		setInterval( this.getImportStats, 10_000, [] );
+	}
+
+	static importStatsContainer() {
+		return document.getElementById( 'import_stats' );
+	}
+
+	static importProgressBar() {
+		return document.getElementById( 'import_progress_bar' );
+	}
+
+	static importProgressBarLabel() {
+		return document.getElementById( 'import_progress_bar_label' );
+	}
+
+	static deleteStatsContainer() {
+		return document.getElementById( 'delete_stats' );
+	}
+
+	static deleteProgressBarLabel() {
+		return document.getElementById( 'deletion_progress_bar_label' );
+	}
+
 }
 
 window.addEventListener(
@@ -198,6 +265,8 @@ window.addEventListener(
 				);
 
 				ConnectorForDK.assignClickToMasterCheckboxes();
+
+				ConnectorForDK.setGetImportStatsInterval();
 			}
 		}
 	}

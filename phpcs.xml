@@ -195,6 +195,10 @@ SOFTWARE.
 		<exclude name="WordPress.WP.CronInterval.CronSchedulesInterval" />
 	</rule>
 
+	<rule ref="Generic.CodeAnalysis">
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found" />
+	</rule>
+
 	<!--
 	Excluding the vendor direcotry because that's where 3rd party and generated
 	code resides.

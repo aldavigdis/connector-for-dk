@@ -47,6 +47,7 @@ class Loader {
 			new ProductQuantityFilters();
 			new Cron\Schedule();
 			new Rest\Settings();
+			new Rest\GetImportStats();
 			new Rest\OrderDKCreditInvoice();
 			new Rest\OrderDKInvoice();
 			new Rest\OrderInvoiceNumber();

@@ -476,13 +476,10 @@ class Products {
 	/**
 	 * Get product import and deletion stats
 	 *
-	 * @return object{current:int,to_delete:int,remaining:int,total:int}
+	 * @return object{wc_products:int,dk_products:int,to_delete:int,remaining:int,total:int}
 	 */
 	public static function get_create_stats(): object {
-		$dk_product_count = (int) get_option(
-			'connector_for_dk_dk_products_count',
-			0
-		);
+		$dk_product_count = count( self::get_all() );
 
 		$wc_product_count = (int) self::zerofy(
 			count( self::get_current_skus() )
@@ -492,15 +489,18 @@ class Products {
 			count( self::get_skus_to_delete() )
 		);
 
-		$remaining_count = (int) (
+		$remaining_count = self::zerofy(
 			$dk_product_count - $wc_product_count - $to_delete_count
 		);
 
+		$total = $dk_product_count + $to_delete_count;
+
 		return (object) array(
-			'current'   => $wc_product_count,
-			'to_delete' => $to_delete_count,
-			'remaining' => $remaining_count,
-			'total'     => $dk_product_count,
+			'wc_products' => $wc_product_count,
+			'dk_products' => $dk_product_count,
+			'to_delete'   => $to_delete_count,
+			'remaining'   => $remaining_count,
+			'total'       => $total,
 		);
 	}
 

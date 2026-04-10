@@ -124,6 +124,7 @@ $import_stats = ImportProducts::get_create_stats();
 								?>
 							</label>
 							<div
+								id="import_stats"
 								class="import-stats <?php echo esc_attr( ( $import_stats->remaining > 0 && Config::get_create_new_products() && Config::get_enable_downstream_product_sync() ) ? '' : 'hidden' ); ?>"
 							>
 								<span
@@ -132,33 +133,39 @@ $import_stats = ImportProducts::get_create_stats();
 								>
 									<?php
 									echo sprintf(
-										// Translators: %1$s is for the number of products imported, %2$s is the number of total products.
+										// Translators: %1$s is for the number of products imported, %2$s is the number of total products. %3$s is the singular or plural dative form of "product".
 										esc_html__(
-											'Imported %1$s products of %2$s',
+											'%1$s of %2$s %3$s imported',
 											'connector-for-dk'
 										),
-										esc_html( number_format_i18n( (float) $import_stats->current ) ),
-										esc_html( number_format_i18n( (float) $import_stats->total ) ),
+										esc_html(
+											number_format_i18n(
+												(float) $import_stats->wc_products
+											)
+										),
+										esc_html(
+											number_format_i18n(
+												(float) $import_stats->total
+											)
+										),
+										esc_html(
+											_nx(
+												'product',
+												'products',
+												(int) $import_stats->total,
+												'dative',
+												'connector-for-dk'
+											)
+										),
 									);
 									?>
 								</span>
 								<progress
 									id="import_progress_bar"
-									value="<?php echo esc_attr( $import_stats->current ); ?>"
+									value="<?php echo esc_attr( $import_stats->wc_products ); ?>"
 									max="<?php echo esc_attr( $import_stats->total ); ?>"
 									aria-labelledby="import_progress_bar_label"
 								>
-									<?php
-									sprintf(
-										// Translators: %1$d is for the number of products remaning to be synced, %2$s for the total number of products and %3$s and %3$s are openin and closing <strong> tags.
-										esc_attr__(
-											'%1$s products remaining of %2$s',
-											'connector-for-dk'
-										),
-										esc_html( number_format_i18n( $import_stats->remaining ) ),
-										esc_html( number_format_i18n( $import_stats->total ) ),
-									);
-									?>
 								</progress>
 							</div>
 						</div>
@@ -178,6 +185,7 @@ $import_stats = ImportProducts::get_create_stats();
 								?>
 							</label>
 							<div
+								id="delete_stats"
 								class="import-stats <?php echo esc_attr( $import_stats->to_delete > 0 ? '' : 'hidden' ); ?>"
 							>
 								<span
@@ -186,12 +194,25 @@ $import_stats = ImportProducts::get_create_stats();
 								>
 									<?php
 									echo sprintf(
-										// Translators: %1$s is for the numberof products to be deleted.
+										// Translators: %1$s is for the numberof products to be deleted. %2$s is the singular or plural dative form of "products".
 										esc_html__(
-											'Deleting %1$s products',
+											'Deleting %1$s %2$s',
 											'connector-for-dk'
 										),
-										esc_html( number_format_i18n( $import_stats->to_delete ) ),
+										esc_html(
+											number_format_i18n(
+												$import_stats->to_delete
+											)
+										),
+										esc_html(
+											_nx(
+												'product',
+												'products',
+												(int) $import_stats->total,
+												'dative',
+												'connector-for-dk'
+											)
+										),
 									);
 									?>
 								</span>
@@ -199,12 +220,6 @@ $import_stats = ImportProducts::get_create_stats();
 									id="deletion_progress_bar"
 									aria-labelledby="deletion_progress_bar_label"
 								>
-									<?php
-									esc_html_e(
-										'Preparing to delete products from WooCommerce',
-										'connector-for-dk'
-									);
-									?>
 								</progress>
 							</div>
 						</div>

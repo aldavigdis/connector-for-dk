@@ -90,9 +90,9 @@ class Products {
 	 * This can be filtered during the `connector_for_dk_create_products` cron
 	 * job, using the `connector_for_dk_new_products_quantity` filter.
 	 *
-	 * 64 product creations every 5 minutes will result in 768 product `INSERT`
+	 * 64 product creations every 2 minutes will result in 1920 product `INSERT`
 	 * operations per hour and should safely with below the 30 second PHP
-	 * execution time limit.
+	 * execution time limit per wp-cron run.
 	 *
 	 * @see AldaVigdis\ConnectorForDK\Cron\CreateProducts::run()
 	 * @see AldaVigdis\ConnectorForDK\Import\Products::create_new_products_from_dk()
@@ -390,6 +390,10 @@ class Products {
 			$p->delete( true );
 		}
 
+		delete_transient( 'connector_for_dk_current_skus' );
+		delete_option( 'connector_for_dk_dk_products' );
+		delete_option( 'connector_for_dk_dk_products_updated' );
+		delete_option( 'connector_for_dk_dk_products_count' );
 		delete_transient( 'connector_for_dk_current_skus' );
 	}
 

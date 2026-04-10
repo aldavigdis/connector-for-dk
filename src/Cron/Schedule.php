@@ -118,15 +118,15 @@ class Schedule {
 	 *
 	 * @param array $cron_schedules The wp-cron schedules to filter.
 	 *
-	 * @return array The schedules, with `connector_for_dk_5_minutes` added.
+	 * @return array The schedules, with `connector_for_dk_2_minutes` added.
 	 */
 	public static function add_5_minute_schedule(
 		array $cron_schedules
 	): array {
-		$cron_schedules['connector_for_dk_5_minutes'] = array(
-			'interval' => 5 * MINUTE_IN_SECONDS,
+		$cron_schedules['connector_for_dk_2_minutes'] = array(
+			'interval' => 2 * MINUTE_IN_SECONDS,
 			'display'  => __(
-				'Connector for dk 5 minute interval',
+				'Connector for dk 2 minute interval',
 				'connector-for-dk'
 			),
 		);
@@ -158,13 +158,13 @@ class Schedule {
 
 		wp_schedule_event(
 			time(),
-			'connector_for_dk_5_minutes',
+			'connector_for_dk_2_minutes',
 			'connector_for_dk_create_products'
 		);
 
 		wp_schedule_event(
-			time() + ( 17 * MINUTE_IN_SECONDS ),
-			'connector_for_dk_5_minutes',
+			time() + ( 67 * MINUTE_IN_SECONDS ),
+			'connector_for_dk_2_minutes',
 			'connector_for_dk_update_products'
 		);
 

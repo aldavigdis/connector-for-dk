@@ -1,37 +1,85 @@
 class ConnectorForDK {
+	/**
+	 * The settings form
+	 * @returns {HTMLFormElement|null}
+	 */
 	static settingsForm() {
 		return document.querySelector( '#connector-for-dk-settings-form' );
 	}
+
+	/**
+	 * The settings error indicator
+	 * @returns {HTMLDivElement|null}
+	 */
 	static settingsErrorIndicator() {
 		return document.querySelector( '#connector-for-dk-settings-error' );
 	}
+
+	/**
+	 * The settings submission spinner/loader
+	 * @returns {HTMLImageElement|null}
+	 */
 	static settingsLoader() {
 		return document.querySelector( '#connector-for-dk-settings-loader' );
 	}
+
+	/**
+	 * The settings submit button
+	 * @returns {HTMLInputElement|null}
+	 */
 	static settingsSubmit() {
 		return document.querySelector( '#connector-for-dk-settings-submit' );
 	}
+
+	/**
+	 * The table rows containing payment methods
+	 * @returns {NodeListOf<HTMLTableRowElement>}
+	 */
 	static rowElements() {
 		return document.querySelectorAll(
 			'#payment-gateway-id-map-table tbody tr[data-gateway-id]'
 		);
 	}
+
+	/**
+	 * The category table row elements
+	 * @returns {NodeListOf<HTMLTableRowElement>}
+	 */
 	static categoryRows() {
 		return document.querySelectorAll(
 			'#dk-product-categories-table tbody tr[data-dk-product-group]'
 		);
 	}
+
+	/**
+	 * The "add line" checkboxes
+	 * @returns {NodeListOf<HTMLInputElement>}
+	 */
 	static paymentAddLineCheckboxes() {
 		return document.querySelectorAll(
 			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_payment_line]'
 		);
 	}
+
+	/**
+	 * The "add credit line" checkboxes
+	 * @returns {NodeListOf<HTMLInputElement>}
+	 */
 	static paymentAddCreditLineCheckboxes() {
 		return document.querySelectorAll(
 			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_credit_payment_line]'
 		);
 	}
 
+	/**
+	 * The settings form submission event handler
+	 *
+	 * Processes, validates and submits the settings form data using the
+	 * `postSettingsData` method.
+	 *
+	 * @param {Event} event The event.
+	 * @returns {Boolean}
+	 */
 	static onSettingsFormSubmit(event) {
 		event.preventDefault();
 
@@ -137,9 +185,16 @@ class ConnectorForDK {
 			);
 
 			ConnectorForDK.postSettingsData( formDataObject );
+
+			return true;
 		}
 	}
 
+	/**
+	 * Post the settings data
+	 *
+	 * @param {Object} formDataObject The form data to submit.
+	 */
 	static async postSettingsData(formDataObject) {
 		const response = await fetch(
 			wpApiSettings.root + 'ConnectorForDK/v1/settings',
@@ -162,6 +217,11 @@ class ConnectorForDK {
 		}
 	}
 
+	/**
+	 * Assign click events for master checkboxes
+	 *
+	 * Master checkboxes enable or disable checkbox groups.
+	 */
 	static assignClickToMasterCheckboxes() {
 		const checkboxes = document.querySelectorAll(
 			'[data-master-checkbox]'
@@ -186,6 +246,9 @@ class ConnectorForDK {
 		)
 	}
 
+	/**
+	 * Get product import and deletion stats from the REST API.
+	 */
 	static async getImportStats() {
 		const response = await fetch(
 			wpApiSettings.root + 'ConnectorForDK/v1/product_import_stats',
@@ -201,53 +264,83 @@ class ConnectorForDK {
 		if ( response.ok ) {
 			const json = await response.json();
 
-			const importContainer   = ConnectorForDK.importStatsContainer();
-			const importProgressBar = ConnectorForDK.importProgressBar();
-			const importBarLabel    = ConnectorForDK.importProgressBarLabel();
+			const importContainer = ConnectorForDK.importStatsContainer();
 
-			const deleteContainer = ConnectorForDK.deleteStatsContainer();
-			const deleteBarLabel  = ConnectorForDK.deleteProgressBarLabel();
+			if ( importContainer ) {
+				const importProgressBar = ConnectorForDK.importProgressBar();
+				const importBarLabel    = ConnectorForDK.importProgressBarLabel();
 
-			importProgressBar.setAttribute( 'value', json['wc_products'] );
-			importProgressBar.setAttribute( 'max', json['total'] );
-			importBarLabel.innerText = json['import_h'];
+				importProgressBar.setAttribute( 'value', json['wc_products'] );
+				importProgressBar.setAttribute( 'max', json['total'] );
+				importBarLabel.innerText = json['import_h'];
 
-			if ( json['remaining'] > 0 ) {
-				importContainer.classList.remove( 'hidden' );
-			} else {
-				importContainer.classList.add( 'hidden' );
+				if ( json['remaining'] > 0 ) {
+					importContainer.classList.remove( 'hidden' );
+				} else {
+					importContainer.classList.add( 'hidden' );
+				}
 			}
 
-			deleteBarLabel.innerText = json['to_delete_h'];
+			const deleteContainer = ConnectorForDK.deleteStatsContainer();
 
-			if ( json['to_delete'] > 0 ) {
-				deleteContainer.classList.remove( 'hiden' );
-			} else {
-				deleteContainer.classList.add( 'hidden' );
+			if ( deleteContainer ) {
+				const deleteBarLabel  = ConnectorForDK.deleteProgressBarLabel();
+
+				deleteBarLabel.innerText = json['to_delete_h'];
+
+				if ( json['to_delete'] > 0 ) {
+					deleteContainer.classList.remove( 'hiden' );
+				} else {
+					deleteContainer.classList.add( 'hidden' );
+				}
 			}
 		}
 	}
 
+	/**
+	 * Set the 20 second fetch interval for import stats
+	 * @returns {Number} The interval ID.
+	 */
 	static setGetImportStatsInterval() {
-		setInterval( this.getImportStats, 10_000, [] );
+		return setInterval( this.getImportStats, 20_000, [] );
 	}
 
+	/**
+	 * The import stats container div
+	 * @returns {HTMLDivElement|null}
+	 */
 	static importStatsContainer() {
 		return document.getElementById( 'import_stats' );
 	}
 
+	/**
+	 * The import progress bar
+	 * @returns {HTMLProgressElement|null}
+	 */
 	static importProgressBar() {
 		return document.getElementById( 'import_progress_bar' );
 	}
 
+	/**
+	 * The label element for the product import progress bar
+	 * @returns {HTMLSpanElement|null}
+	 */
 	static importProgressBarLabel() {
 		return document.getElementById( 'import_progress_bar_label' );
 	}
 
+	/**
+	 * The container div for the deletion stats
+	 * @returns {HTMLDivElement|null}
+	 */
 	static deleteStatsContainer() {
 		return document.getElementById( 'delete_stats' );
 	}
 
+	/**
+	 * The label element for the "delete" progress bar
+	 * @returns {HTMLSpanElement|null}
+	 */
 	static deleteProgressBarLabel() {
 		return document.getElementById( 'deletion_progress_bar_label' );
 	}

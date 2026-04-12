@@ -833,14 +833,17 @@ class Product {
 	public static function get_allow_discount(
 		WC_Product $product
 	): bool {
-		if ( $product->get_parent_id() > 0 ) {
+		$meta_key = 'connector_for_dk_allow_discount';
+
+		if (
+			empty( $product->get_meta( $meta_key ) ) &&
+			$product->get_parent_id() > 0
+		) {
 			$parent = wc_get_product( $product->get_parent_id() );
 			return self::get_allow_discount( $parent );
 		}
 
-		return (bool) (int) $product->get_meta(
-			'connector_for_dk_allow_discount'
-		);
+		return (bool) (int) $product->get_meta( $meta_key );
 	}
 
 	/**
@@ -851,14 +854,17 @@ class Product {
 	public static function get_discount_quantity(
 		WC_Product $product
 	): string {
-		if ( $product->get_parent_id() > 0 ) {
+		$meta_key = 'connector_for_dk_discount_quantity';
+
+		if (
+			empty( $product->get_meta( $meta_key ) ) &&
+			$product->get_parent_id() > 0
+		) {
 			$parent = wc_get_product( $product->get_parent_id() );
 			return self::get_discount_quantity( $parent );
 		}
 
-		return (string) (float) $product->get_meta(
-			'connector_for_dk_discount_quantity'
-		);
+		return (string) (float) $product->get_meta( $meta_key );
 	}
 
 	/**
@@ -877,16 +883,21 @@ class Product {
 	public static function get_discount(
 		WC_Product $product
 	): string {
+		$meta_key = 'connector_for_dk_discount';
+
 		if ( self::has_price_override( $product ) ) {
 			return '0.0';
 		}
 
-		if ( $product->get_parent_id() > 0 ) {
+		if (
+			empty( $product->get_meta( $meta_key ) ) &&
+			$product->get_parent_id() > 0
+		) {
 			$parent = wc_get_product( $product->get_parent_id() );
 			return self::get_discount( $parent );
 		}
 
-		return $product->get_meta( 'connector_for_dk_discount' );
+		return $product->get_meta( $meta_key );
 	}
 
 	/**

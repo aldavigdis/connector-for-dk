@@ -123,6 +123,7 @@ $import_stats = ImportProducts::get_create_stats();
 								);
 								?>
 							</label>
+							<?php if ( Config::get_enable_cronjob() ) : ?>
 							<div
 								id="import_stats"
 								class="import-stats <?php echo esc_attr( ( $import_stats->remaining > 0 && Config::get_create_new_products() && Config::get_enable_downstream_product_sync() ) ? '' : 'hidden' ); ?>"
@@ -168,6 +169,7 @@ $import_stats = ImportProducts::get_create_stats();
 								>
 								</progress>
 							</div>
+							<?php endif ?>
 						</div>
 						<div>
 							<input
@@ -184,9 +186,10 @@ $import_stats = ImportProducts::get_create_stats();
 								);
 								?>
 							</label>
+							<?php if ( Config::get_enable_cronjob() ) : ?>
 							<div
 								id="delete_stats"
-								class="import-stats <?php echo esc_attr( $import_stats->to_delete > 0 ? '' : 'hidden' ); ?>"
+								class="import-stats <?php echo esc_attr( $import_stats->to_delete > 0 && Config::get_delete_inactive_products() ? '' : 'hidden' ); ?>"
 							>
 								<span
 									id="deletion_progress_bar_label"
@@ -222,6 +225,7 @@ $import_stats = ImportProducts::get_create_stats();
 								>
 								</progress>
 							</div>
+							<?php endif ?>
 						</div>
 					</fieldset>
 				</td>

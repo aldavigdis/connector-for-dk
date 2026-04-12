@@ -129,6 +129,11 @@ class Products {
 	): array {
 		$query_args = array(
 			'limit'   => $quantity,
+			'type'    => array(
+				'simple',
+				'variable',
+				'variation',
+			),
 			'orderby' => 'modified',
 			'order'   => 'ASC',
 		);
@@ -156,18 +161,14 @@ class Products {
 	 * @return string[]
 	 */
 	public static function get_current_skus(): array {
-		$skus_transient = get_transient(
-			'connector_for_dk_current_skus'
-		);
-
-		if ( $skus_transient ) {
-			return $skus_transient;
-		}
-
-		$products = self::get_current();
+		$products = self::get_current( -1, false );
 		$skus     = array();
 
 		foreach ( $products as $p ) {
+			if ( in_array( $p->get_sku(), $skus, true ) ) {
+				continue;
+			}
+
 			if ( ! $p instanceof WC_Product ) {
 				continue;
 			}
@@ -176,14 +177,8 @@ class Products {
 				continue;
 			}
 
-			$skus[] = $p->get_sku();
+			$skus[] = strtolower( $p->get_sku() );
 		}
-
-		set_transient(
-			'connector_for_dk_current_skus',
-			$skus,
-			HOUR_IN_SECONDS
-		);
 
 		return $skus;
 	}
@@ -198,7 +193,7 @@ class Products {
 		int $quantity = self::DEFAULT_UPDATE_QUANTITY
 	): void {
 		$dk_products      = self::get_all_from_dk();
-		$current_products = self::get_current( $quantity );
+		$current_products = self::get_current( $quantity, false );
 
 		do_action(
 			'connector_for_dk_before_update_current',
@@ -223,11 +218,11 @@ class Products {
 
 			foreach ( $dk_products as $dk_product_key => $dk_product ) {
 				if ( ! is_object( $dk_product ) ) {
-					unset( $json_objects[ $dk_product_key ] );
+					unset( $dk_products[ $dk_product_key ] );
 					continue;
 				}
 
-				if ( $dk_product->ItemCode !== $wc_product->get_sku() ) {
+				if ( strtolower( $dk_product->ItemCode ) !== strtolower( $wc_product->get_sku() ) ) {
 					continue;
 				}
 
@@ -289,8 +284,10 @@ class Products {
 
 		foreach ( $dk_products as $dk_product ) {
 			if (
-				in_array( $dk_product->ItemCode, $current_skus, true ) ||
-				! is_object( $dk_product )
+				! is_object( $dk_product ) ||
+				empty( $dk_product->ItemCode ) ||
+				in_array( strtolower( $dk_product->ItemCode ), $current_skus, true ) ||
+				wc_get_product_id_by_sku( $dk_product->ItemCode ) !== 0
 			) {
 				continue;
 			}
@@ -338,8 +335,36 @@ class Products {
 	public static function get_skus_to_delete(): array {
 		$current_skus = self::get_current_skus();
 		$dk_skus      = self::get_skus_from_dk();
+		$private_skus = self::get_private_skus();
 
-		return array_diff( $current_skus, $dk_skus );
+		return array_diff( $current_skus, $dk_skus, $private_skus );
+	}
+
+	/**
+	 * Get an array of SKUs of products marked as "private"
+	 *
+	 * @return string[]
+	 */
+	public static function get_private_skus(): array {
+		$query = new WC_Product_Query(
+			array(
+				'limit'  => -1,
+				'status' => 'private',
+				'type'   => array( 'simple', 'variable', 'variation' ),
+			)
+		);
+
+		$skus = array();
+
+		foreach ( $query->get_products() as $product ) {
+			if ( ! $product instanceof WC_Product ) {
+				continue;
+			}
+
+			$skus[] = $product->get_sku();
+		}
+
+		return $skus;
 	}
 
 	/**
@@ -365,6 +390,13 @@ class Products {
 
 			if ( $product_id !== 0 ) {
 				$product = wc_get_product( $product_id );
+
+				// "Hide" products that are set up as variations instead of
+				// deleting them completely.
+				if ( $product instanceof WC_Product_Variation ) {
+					$product->set_status( 'private' );
+					continue;
+				}
 
 				if ( $product->delete( true ) ) {
 					$i++;
@@ -394,7 +426,6 @@ class Products {
 		delete_option( 'connector_for_dk_dk_products' );
 		delete_option( 'connector_for_dk_dk_products_updated' );
 		delete_option( 'connector_for_dk_dk_products_count' );
-		delete_transient( 'connector_for_dk_current_skus' );
 	}
 
 	/**
@@ -493,11 +524,11 @@ class Products {
 			count( self::get_skus_to_delete() )
 		);
 
+		$total = $dk_product_count - $to_delete_count;
+
 		$remaining_count = self::zerofy(
 			$dk_product_count - $wc_product_count - $to_delete_count
 		);
-
-		$total = $dk_product_count + $to_delete_count;
 
 		return (object) array(
 			'wc_products' => $wc_product_count,
@@ -705,11 +736,9 @@ class Products {
 				'connector_for_dk_variations',
 				$merged_variations
 			);
-			$wc_product->save();
 		} else {
 			$wc_product = wc_get_product_object( 'simple' );
 			$wc_product->update_meta_data( 'connector_for_dk_origin', 'product' );
-			$wc_product->save();
 		}
 
 		$wc_product->update_meta_data(
@@ -954,7 +983,16 @@ class Products {
 			wp_json_encode( $json_object, JSON_PRETTY_PRINT )
 		);
 
-		if ( $json_object->IsVariation ) {
+		/**
+		 * Products from dk may be in the WooCommerce database as product
+		 * variations, so we only want to perform the variation sync when a
+		 * product is both a dk variation product and also a WooCommerce
+		 * variable product.
+		 */
+		if (
+			$json_object->IsVariation &&
+			$wc_product instanceof WC_Product_Variable
+		) {
 			$variant_code = ProductVariations::get_product_variant_code_by_sku(
 				$json_object->ItemCode
 			);
@@ -1005,7 +1043,8 @@ class Products {
 
 		if (
 			property_exists( $json_object, 'Group' ) &&
-			Config::get_product_category_sync()
+			Config::get_product_category_sync() &&
+			! $wc_product instanceof WC_Product_Variation
 		) {
 			$wc_product->set_category_ids(
 				array(

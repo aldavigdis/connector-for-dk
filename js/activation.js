@@ -1,30 +1,60 @@
 class ConnectorForDKActivation {
+	/**
+	 * The activation code textarea
+	 *
+	 * @returns {HTMLTextAreaElement|null}
+	 */
 	static activationCodeField() {
 		return document.getElementById( 'connector_for_dk_activation_code_field' );
 	}
 
+	/**
+	 * The activation code submit button
+	 *
+	 * @returns {HTMLInputElement|null}
+	 */
 	static activationCodeSubmit() {
 		return document.getElementById( 'connector-for-dk-settings-submit' );
 	}
 
+	/**
+	 * The paragraph element that contains the validation error
+	 *
+	 * @returns {HTMLParagraphElement|null}
+	 */
 	static validationErrorParagraph() {
 		return document.querySelector(
 			'#connector_for_dk_license_validation_error_container .validation-error'
 		);
 	}
 
+	/**
+	 * The container div for the license information
+	 *
+	 * @returns {HTMLDivElement|null}
+	 */
 	static containerDiv() {
 		return document.getElementById(
 			'connector_for_dk_license_info_table_container'
 		);
 	}
 
+	/**
+	 * The container div for the "don't have a license?" indocator
+	 *
+	 * @returns {HTMLDivElement|null}
+	 */
 	static licenseIndicator() {
 		return document.getElementById(
 			'connector_for_dk_dont_have_license_indicator'
 		);
 	}
 
+	/**
+	 * Post the license code to the WordPress REST API
+	 *
+	 * @param {String} activationCode The activation code.
+	 */
 	static async postCodeToAPI(activationCode) {
 		const response = await fetch(
 			wpApiSettings.root + 'ConnectorForDK/v1/check_license',
@@ -54,12 +84,26 @@ class ConnectorForDKActivation {
 		}
 	}
 
+	/**
+	 * Display validation error
+	 */
 	static onValidationError() {
 		this.containerDiv().classList.add( 'hidden' );
 		this.validationErrorParagraph().classList.remove( 'hidden' );
 		this.licenseIndicator().classList.remove( 'hidden' );
 	}
 
+	/**
+	 * Populate the license section with information
+	 *
+	 * @param {String} edition The Connector for dk edition.
+	 * @param {String} uuid The UUID of the license.
+	 * @param {Number} validFrom The Unix timestamp for the start of the license period.
+	 * @param {Number} expires The Unix timestamp for the end of the license period.
+	 * @param {String} domain The domain name the license is assigned to.
+	 * @param {Boolean} domainMatches If the domain name matches or or.
+	 * @param {Boolean} devDomain If the domain is a valid development domain.
+	 */
 	static populateLicenseSection(
 		edition,
 		uuid,
@@ -107,10 +151,23 @@ class ConnectorForDKActivation {
 		}
 	}
 
+	/**
+	 * Format an "information pill"
+	 *
+	 * @param {String} innerText The inner text of the pill.
+	 * @param {String} pillClass The CSS class for the pill.
+	 * @returns String
+	 */
 	static formatPill( innerText, pillClass = '' ) {
 		return '<span class="pill ' + pillClass + '">' + innerText + '</span>';
 	}
 
+	/**
+	 * Get the CSS class for the "expired date" pill
+	 *
+	 * @param {Number} expires The Unix timestamp of the date of expiry.
+	 * @returns String 'error' on an expired license, 'valid' on a valid license and 'warn' when it's just about to expire.
+	 */
 	static expiredDatePillClass( expires ) {
 		if ( expires < Math.floor( Date.now() / 1000 ) ) {
 			return 'error';
@@ -123,6 +180,12 @@ class ConnectorForDKActivation {
 		return 'valid'
 	}
 
+	/**
+	 * Convert boolean true to 'valid' and false to 'error'
+	 *
+	 * @param {Boolean} value The boolean value to convert
+	 * @returns
+	 */
 	static boolToPillClass( value ) {
 		if ( ! value ) {
 			return 'error';

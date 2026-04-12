@@ -1,6 +1,7 @@
 class ConnectorForDKActivation {
 	/**
-	 *The activation code textarea
+	 * The activation code textarea
+	 *
 	 * @returns {HTMLTextAreaElement|null}
 	 */
 	static activationCodeField() {
@@ -9,6 +10,7 @@ class ConnectorForDKActivation {
 
 	/**
 	 * The activation code submit button
+	 *
 	 * @returns {HTMLInputElement|null}
 	 */
 	static activationCodeSubmit() {
@@ -17,6 +19,7 @@ class ConnectorForDKActivation {
 
 	/**
 	 * The paragraph element that contains the validation error
+	 *
 	 * @returns {HTMLParagraphElement|null}
 	 */
 	static validationErrorParagraph() {
@@ -27,6 +30,7 @@ class ConnectorForDKActivation {
 
 	/**
 	 * The container div for the license information
+	 *
 	 * @returns {HTMLDivElement|null}
 	 */
 	static containerDiv() {
@@ -37,6 +41,7 @@ class ConnectorForDKActivation {
 
 	/**
 	 * The container div for the "don't have a license?" indocator
+	 *
 	 * @returns {HTMLDivElement|null}
 	 */
 	static licenseIndicator() {
@@ -47,6 +52,7 @@ class ConnectorForDKActivation {
 
 	/**
 	 * Post the license code to the WordPress REST API
+	 *
 	 * @param {String} activationCode The activation code.
 	 */
 	static async postCodeToAPI(activationCode) {

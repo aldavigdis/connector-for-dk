@@ -1,6 +1,7 @@
 class ConnectorForDK {
 	/**
 	 * The settings form
+	 *
 	 * @returns {HTMLFormElement|null}
 	 */
 	static settingsForm() {
@@ -9,6 +10,7 @@ class ConnectorForDK {
 
 	/**
 	 * The settings error indicator
+	 *
 	 * @returns {HTMLDivElement|null}
 	 */
 	static settingsErrorIndicator() {
@@ -17,6 +19,7 @@ class ConnectorForDK {
 
 	/**
 	 * The settings submission spinner/loader
+	 *
 	 * @returns {HTMLImageElement|null}
 	 */
 	static settingsLoader() {
@@ -25,6 +28,7 @@ class ConnectorForDK {
 
 	/**
 	 * The settings submit button
+	 *
 	 * @returns {HTMLInputElement|null}
 	 */
 	static settingsSubmit() {
@@ -33,6 +37,7 @@ class ConnectorForDK {
 
 	/**
 	 * The table rows containing payment methods
+	 *
 	 * @returns {NodeListOf<HTMLTableRowElement>}
 	 */
 	static rowElements() {
@@ -43,6 +48,7 @@ class ConnectorForDK {
 
 	/**
 	 * The category table row elements
+	 *
 	 * @returns {NodeListOf<HTMLTableRowElement>}
 	 */
 	static categoryRows() {
@@ -53,6 +59,7 @@ class ConnectorForDK {
 
 	/**
 	 * The "add line" checkboxes
+	 *
 	 * @returns {NodeListOf<HTMLInputElement>}
 	 */
 	static paymentAddLineCheckboxes() {
@@ -63,6 +70,7 @@ class ConnectorForDK {
 
 	/**
 	 * The "add credit line" checkboxes
+	 *
 	 * @returns {NodeListOf<HTMLInputElement>}
 	 */
 	static paymentAddCreditLineCheckboxes() {
@@ -284,7 +292,7 @@ class ConnectorForDK {
 			const deleteContainer = ConnectorForDK.deleteStatsContainer();
 
 			if ( deleteContainer ) {
-				const deleteBarLabel  = ConnectorForDK.deleteProgressBarLabel();
+				const deleteBarLabel = ConnectorForDK.deleteProgressBarLabel();
 
 				deleteBarLabel.innerText = json['to_delete_h'];
 
@@ -299,6 +307,7 @@ class ConnectorForDK {
 
 	/**
 	 * Set the 20 second fetch interval for import stats
+	 *
 	 * @returns {Number} The interval ID.
 	 */
 	static setGetImportStatsInterval() {
@@ -307,6 +316,7 @@ class ConnectorForDK {
 
 	/**
 	 * The import stats container div
+	 *
 	 * @returns {HTMLDivElement|null}
 	 */
 	static importStatsContainer() {
@@ -315,6 +325,7 @@ class ConnectorForDK {
 
 	/**
 	 * The import progress bar
+	 *
 	 * @returns {HTMLProgressElement|null}
 	 */
 	static importProgressBar() {
@@ -323,6 +334,7 @@ class ConnectorForDK {
 
 	/**
 	 * The label element for the product import progress bar
+	 *
 	 * @returns {HTMLSpanElement|null}
 	 */
 	static importProgressBarLabel() {
@@ -331,6 +343,7 @@ class ConnectorForDK {
 
 	/**
 	 * The container div for the deletion stats
+	 *
 	 * @returns {HTMLDivElement|null}
 	 */
 	static deleteStatsContainer() {
@@ -339,6 +352,7 @@ class ConnectorForDK {
 
 	/**
 	 * The label element for the "delete" progress bar
+	 *
 	 * @returns {HTMLSpanElement|null}
 	 */
 	static deleteProgressBarLabel() {

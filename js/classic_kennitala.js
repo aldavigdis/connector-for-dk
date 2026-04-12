@@ -1,6 +1,7 @@
 class ConnectorForDKClassicKennitalaField {
 	/**
 	 * The kennitala field
+	 *
 	 * @returns {HTMLElement|null}
 	 */
 	static classicKennitalaField() {
@@ -11,6 +12,7 @@ class ConnectorForDKClassicKennitalaField {
 
 	/**
 	 * The container for the kennitala field
+	 *
 	 * @returns {HTMLElement|null}
 	 */
 	static classicKennitalaFieldRow() {

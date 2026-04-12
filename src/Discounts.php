@@ -522,11 +522,14 @@ class Discounts {
 		string $product_price,
 		array $cart_item
 	): string {
+		$incl_tax = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+
 		$original_price = $cart_item['data']->get_price( 'edit' );
 
 		$discounted_price = self::get_current_customer_price(
 			$cart_item['data'],
-			(float) $cart_item['data']->get_quantity()
+			(float) $cart_item['quantity'],
+			$incl_tax
 		);
 
 		if ( $discounted_price === $original_price ) {
@@ -552,14 +555,17 @@ class Discounts {
 		string $product_subtotal,
 		array $cart_item
 	): string {
+		$incl_tax = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+
 		$original_price = $cart_item['data']->get_regular_price( 'edit' );
 
 		$discounted_price = self::get_current_customer_price(
-			$cart_item['data']
+			product: $cart_item['data'],
+			incl_tax: $incl_tax
 		);
 
 		if ( $discounted_price === $original_price ) {
-			return $original_price;
+			return $product_subtotal;
 		}
 
 		$original_subtotal = (string) BigDecimal::of(

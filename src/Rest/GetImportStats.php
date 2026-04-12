@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK\Rest;
 
+use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
 
 use WP_REST_Request;
@@ -88,6 +89,12 @@ class GetImportStats {
 			),
 		);
 
+		if ( Config::get_delete_inactive_products() ) {
+			$to_delete = $stats->to_delete;
+		} else {
+			$to_delete = 0;
+		}
+
 		return new WP_REST_Response(
 			array(
 				'wc_products' => $stats->wc_products,
@@ -95,7 +102,7 @@ class GetImportStats {
 				'remaining'   => $stats->remaining,
 				'total'       => $stats->total,
 				'import_h'    => $import_h,
-				'to_delete'   => $stats->to_delete,
+				'to_delete'   => $to_delete,
 				'to_delete_h' => $delete_h,
 			),
 			200

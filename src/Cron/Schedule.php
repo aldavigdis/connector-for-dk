@@ -163,7 +163,7 @@ class Schedule {
 		);
 
 		wp_schedule_event(
-			time() + ( 67 * MINUTE_IN_SECONDS ),
+			time() + ( 17 * MINUTE_IN_SECONDS ),
 			'connector_for_dk_2_minutes',
 			'connector_for_dk_update_products'
 		);

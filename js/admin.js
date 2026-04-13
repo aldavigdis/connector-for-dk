@@ -278,8 +278,8 @@ class ConnectorForDK {
 				const importProgressBar = ConnectorForDK.importProgressBar();
 				const importBarLabel    = ConnectorForDK.importProgressBarLabel();
 
-				importProgressBar.setAttribute( 'value', json['wc_products'] );
-				importProgressBar.setAttribute( 'max', json['total'] - json['remaining'] );
+				importProgressBar.setAttribute( 'value', json['total'] - json['remaining'] );
+				importProgressBar.setAttribute( 'max', json['total'] );
 				importBarLabel.innerText = json['import_h'];
 
 				if ( json['remaining'] > 0 ) {

@@ -114,6 +114,17 @@ class Products {
 	)
 	SQL;
 
+	const GET_CURRENT_SKUS_QUERY = <<<'SQL'
+	SELECT wp_postmeta.meta_value as id FROM wp_posts
+	INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id )
+	WHERE 1 = 1
+	AND (wp_postmeta.meta_key = '_sku')
+	AND (
+		( wp_posts.post_type = 'product' ) OR
+		( wp_posts.post_type = 'product_variation' )
+	)
+	SQL;
+
 	/**
 	 * Get the number of current products
 	 */
@@ -220,23 +231,14 @@ class Products {
 	 * @return string[]
 	 */
 	public static function get_current_skus(): array {
-		$products = self::get_current();
-		$skus     = array();
+		global $wpdb;
+		//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( self::GET_CURRENT_SKUS_QUERY );
 
-		foreach ( $products as $p ) {
-			if ( in_array( $p->get_sku(), $skus, true ) ) {
-				continue;
-			}
+		$skus = array();
 
-			if ( ! $p instanceof WC_Product ) {
-				continue;
-			}
-
-			if ( empty( $p->get_sku() ) ) {
-				continue;
-			}
-
-			$skus[] = strtolower( $p->get_sku() );
+		foreach ( $results as $r ) {
+			$skus[] = $r->id;
 		}
 
 		return $skus;
@@ -579,17 +581,17 @@ class Products {
 	 */
 	public static function get_create_stats(): object {
 		$dk_product_count = count( self::get_skus_from_dk() );
-
 		$wc_product_count = self::get_current_count();
+		$to_delete_count  = count( self::get_skus_to_delete() );
 
 		$remaining_count = self::zerofy(
-			$dk_product_count - $wc_product_count
+			$dk_product_count - $wc_product_count - $to_delete_count
 		);
 
 		return (object) array(
 			'wc_products' => $wc_product_count,
 			'dk_products' => $dk_product_count,
-			'to_delete'   => 0,
+			'to_delete'   => $to_delete_count,
 			'remaining'   => $remaining_count,
 			'total'       => $dk_product_count,
 		);

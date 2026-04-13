@@ -104,10 +104,11 @@ class Products {
 	const DEFAULT_DELETE_QUANTITY = 32;
 
 	const COUNT_CURRENT_QUERY = <<<'SQL'
-	SELECT COUNT(*) as count FROM wp_posts
-	INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id )
-	WHERE 1 = 1
-	AND (wp_postmeta.meta_key = '_sku')
+	SELECT COUNT(*) as count
+	FROM wp_posts
+	INNER JOIN wp_postmeta
+	ON ( wp_posts.ID = wp_postmeta.post_id )
+	AND (wp_postmeta.meta_key = 'connector_for_dk_last_downstream_sync')
 	AND (
 		( wp_posts.post_type = 'product' ) OR
 		( wp_posts.post_type = 'product_variation' )
@@ -115,9 +116,10 @@ class Products {
 	SQL;
 
 	const GET_CURRENT_SKUS_QUERY = <<<'SQL'
-	SELECT wp_postmeta.meta_value as id FROM wp_posts
-	INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id )
-	WHERE 1 = 1
+	SELECT wp_postmeta.meta_value as id
+	FROM wp_posts
+	INNER JOIN wp_postmeta
+	ON ( wp_posts.ID = wp_postmeta.post_id )
 	AND (wp_postmeta.meta_key = '_sku')
 	AND (
 		( wp_posts.post_type = 'product' ) OR

@@ -278,7 +278,7 @@ class ConnectorForDK {
 				const importProgressBar = ConnectorForDK.importProgressBar();
 				const importBarLabel    = ConnectorForDK.importProgressBarLabel();
 
-				importProgressBar.setAttribute( 'value', json['wc_products'] );
+				importProgressBar.setAttribute( 'value', json['total'] - json['remaining'] );
 				importProgressBar.setAttribute( 'max', json['total'] );
 				importBarLabel.innerText = json['import_h'];
 
@@ -311,6 +311,7 @@ class ConnectorForDK {
 	 * @returns {Number} The interval ID.
 	 */
 	static setGetImportStatsInterval() {
+		this.getImportStats();
 		return setInterval( this.getImportStats, 20_000, [] );
 	}
 

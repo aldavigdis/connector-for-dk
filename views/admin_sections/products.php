@@ -141,7 +141,7 @@ $import_stats = ImportProducts::get_create_stats();
 										),
 										esc_html(
 											number_format_i18n(
-												(float) $import_stats->wc_products
+												(float) $import_stats->total - $import_stats->remaining
 											)
 										),
 										esc_html(
@@ -163,7 +163,7 @@ $import_stats = ImportProducts::get_create_stats();
 								</span>
 								<progress
 									id="import_progress_bar"
-									value="<?php echo esc_attr( $import_stats->wc_products ); ?>"
+									value="<?php echo esc_attr( $import_stats->total - $import_stats->remaining ); ?>"
 									max="<?php echo esc_attr( $import_stats->total ); ?>"
 									aria-labelledby="import_progress_bar_label"
 								>

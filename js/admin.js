@@ -278,7 +278,7 @@ class ConnectorForDK {
 				const importProgressBar = ConnectorForDK.importProgressBar();
 				const importBarLabel    = ConnectorForDK.importProgressBarLabel();
 
-				importProgressBar.setAttribute( 'value', json['wc_products'] );
+				importProgressBar.setAttribute( 'value', json['total'] - json['remaining'] );
 				importProgressBar.setAttribute( 'max', json['total'] );
 				importBarLabel.innerText = json['import_h'];
 
@@ -286,20 +286,6 @@ class ConnectorForDK {
 					importContainer.classList.remove( 'hidden' );
 				} else {
 					importContainer.classList.add( 'hidden' );
-				}
-			}
-
-			const deleteContainer = ConnectorForDK.deleteStatsContainer();
-
-			if ( deleteContainer ) {
-				const deleteBarLabel = ConnectorForDK.deleteProgressBarLabel();
-
-				deleteBarLabel.innerText = json['to_delete_h'];
-
-				if ( json['to_delete'] > 0 ) {
-					deleteContainer.classList.remove( 'hiden' );
-				} else {
-					deleteContainer.classList.add( 'hidden' );
 				}
 			}
 		}
@@ -311,7 +297,8 @@ class ConnectorForDK {
 	 * @returns {Number} The interval ID.
 	 */
 	static setGetImportStatsInterval() {
-		return setInterval( this.getImportStats, 20_000, [] );
+		this.getImportStats();
+		return setInterval( this.getImportStats, 60_000, [] );
 	}
 
 	/**
@@ -340,25 +327,6 @@ class ConnectorForDK {
 	static importProgressBarLabel() {
 		return document.getElementById( 'import_progress_bar_label' );
 	}
-
-	/**
-	 * The container div for the deletion stats
-	 *
-	 * @returns {HTMLDivElement|null}
-	 */
-	static deleteStatsContainer() {
-		return document.getElementById( 'delete_stats' );
-	}
-
-	/**
-	 * The label element for the "delete" progress bar
-	 *
-	 * @returns {HTMLSpanElement|null}
-	 */
-	static deleteProgressBarLabel() {
-		return document.getElementById( 'deletion_progress_bar_label' );
-	}
-
 }
 
 window.addEventListener(

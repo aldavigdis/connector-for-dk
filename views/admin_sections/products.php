@@ -141,7 +141,7 @@ $import_stats = ImportProducts::get_create_stats();
 										),
 										esc_html(
 											number_format_i18n(
-												(float) $import_stats->wc_products
+												(float) $import_stats->total - $import_stats->remaining
 											)
 										),
 										esc_html(
@@ -163,7 +163,7 @@ $import_stats = ImportProducts::get_create_stats();
 								</span>
 								<progress
 									id="import_progress_bar"
-									value="<?php echo esc_attr( $import_stats->wc_products ); ?>"
+									value="<?php echo esc_attr( $import_stats->total - $import_stats->remaining ); ?>"
 									max="<?php echo esc_attr( $import_stats->total ); ?>"
 									aria-labelledby="import_progress_bar_label"
 								>
@@ -186,46 +186,6 @@ $import_stats = ImportProducts::get_create_stats();
 								);
 								?>
 							</label>
-							<?php if ( Config::get_enable_cronjob() ) : ?>
-							<div
-								id="delete_stats"
-								class="import-stats <?php echo esc_attr( $import_stats->to_delete > 0 && Config::get_delete_inactive_products() ? '' : 'hidden' ); ?>"
-							>
-								<span
-									id="deletion_progress_bar_label"
-									class="progress_label"
-								>
-									<?php
-									echo sprintf(
-										// Translators: %1$s is for the numberof products to be deleted. %2$s is the singular or plural dative form of "products".
-										esc_html__(
-											'Deleting %1$s %2$s',
-											'connector-for-dk'
-										),
-										esc_html(
-											number_format_i18n(
-												$import_stats->to_delete
-											)
-										),
-										esc_html(
-											_nx(
-												'product',
-												'products',
-												(int) $import_stats->total,
-												'dative',
-												'connector-for-dk'
-											)
-										),
-									);
-									?>
-								</span>
-								<progress
-									id="deletion_progress_bar"
-									aria-labelledby="deletion_progress_bar_label"
-								>
-								</progress>
-							</div>
-							<?php endif ?>
 						</div>
 					</fieldset>
 				</td>

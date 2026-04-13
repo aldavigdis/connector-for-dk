@@ -1,5 +1,5 @@
 === Connector for dk ===
-Stable tag: 0.7.0
+Stable tag: 0.7.1
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.8
@@ -39,6 +39,10 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.7.1 =
+* Fixing a crash in the cart
+* Fixing scaling issues by optimising database queries, so some actions take only a fraction of the time they took
+
 = 0.7.0 =
 * Displaying live import and deletion information with a progress bar on the admin page
 * Removing the "import as draft" feature

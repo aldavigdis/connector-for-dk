@@ -22,7 +22,6 @@ use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
 use WC_Product_Variable;
-use WP_Query;
 
 /**
  * The Products import class
@@ -127,6 +126,44 @@ class Products {
 	)
 	SQL;
 
+	const GET_CURRENT_IDS_TO_UPDATE_QUERY = <<<'SQL'
+	SELECT wp_posts.ID as id
+	FROM wp_posts
+	WHERE (
+		( wp_posts.post_type = 'product' ) OR
+		( wp_posts.post_type = 'product_variation' )
+	)
+	ORDER BY wp_posts.post_modified ASC
+	SQL;
+
+	/**
+	 * Get current product IDs in the order of when it was modified
+	 *
+	 * @param int $limit The number of IDs to fetch, negative value means no
+	 *            limit. Defaults to `32`.
+	 */
+	public static function get_ids_to_update(
+		int $limit = self::DEFAULT_UPDATE_QUANTITY
+	): array {
+		global $wpdb;
+		$query = self::GET_CURRENT_IDS_TO_UPDATE_QUERY;
+
+		if ( $limit > 0 ) {
+			$query .= "\nLIMIT 0,$limit";
+		}
+
+		//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $query );
+
+		$ids = array();
+
+		foreach ( $results as $r ) {
+			$ids[] = (int) $r->id;
+		}
+
+		return $ids;
+	}
+
 	/**
 	 * Get the number of current products
 	 */
@@ -138,65 +175,23 @@ class Products {
 		return (int) $result[0]->count;
 	}
 
-	 /**
-	  * Get the WP_Query to fetch current products
-	  *
-	  * @param bool $only_dk_products Only get products that originate in dk.
-	  */
-	public static function get_current_post_query(
-		bool $only_dk_products = false
-	): WP_Query {
-		$query_args = array(
-			'posts_per_page' => -1,
-			'fields'         => 'ids',
-			'post_type'      => array(
-				'product',
-				'product_variation',
-			),
-			'orderby'        => 'modified',
-			'order'          => 'ASC',
-			'meta_query'     => array(
-				array(
-					'key'     => '_sku',
-					'compare' => 'EXISTS',
-				),
-			),
-		);
-
-		if ( $only_dk_products ) {
-			$query_args['meta_query'][] = array(
-				'key'     => 'connector_for_dk_last_downstream_sync',
-				'compare' => 'EXISTS',
-			);
-		}
-
-		return new WP_Query( $query_args );
-	}
-
 	/**
 	 * Get current products
 	 *
 	 * Gets an array of every WooCommerce product in order of when it was last
 	 * modified.
 	 *
-	 * @param int  $quantity How many products to fetch.
-	 *             (Defaults on `-1` to fetch all the products).
-	 *
-	 * @param bool $only_dk_products Only get products that originate in dk.
+	 * @param int $quantity How many products to fetch.
+	 *            (Defaults on `-1` to fetch all the products).
 	 *
 	 * @return WC_Product[]
 	 */
 	public static function get_current(
 		int $quantity = -1,
-		bool $only_dk_products = false
 	): array {
-		$query = self::get_current_post_query( $only_dk_products );
-
 		$products = array();
 
-		$i = 0;
-
-		foreach ( $query->get_posts() as $product_id ) {
+		foreach ( self::get_ids_to_update( $quantity ) as $product_id ) {
 			$product = wc_get_product( $product_id );
 
 			if (
@@ -214,12 +209,6 @@ class Products {
 			}
 
 			$products[] = wc_get_product( $product_id );
-
-			$i++;
-
-			if ( $i === $quantity ) {
-				break;
-			}
 		}
 
 		return $products;

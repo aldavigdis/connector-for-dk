@@ -17,12 +17,10 @@ use stdClass;
 use WC_DateTime;
 use WC_Product;
 use WC_Product_Query;
-use WC_Product_Simple;
 use WP_Error;
 use WC_Tax;
 use WC_Product_Variation;
 use WC_Product_Variable;
-use WP_Query;
 
 /**
  * The Products import class
@@ -69,6 +67,8 @@ class Products {
 		'Discount',
 		'DiscountQuantity',
 		'MaxDiscountAllowed',
+		'ObjectDate',
+		'RecordModified',
 	);
 
 	/**
@@ -104,7 +104,7 @@ class Products {
 	const DEFAULT_DELETE_QUANTITY = 32;
 
 	const COUNT_CURRENT_QUERY = <<<'SQL'
-	SELECT COUNT(*) as count
+	SELECT COUNT(*) AS `count`
 	FROM wp_posts
 	INNER JOIN wp_postmeta
 	ON ( wp_posts.ID = wp_postmeta.post_id )
@@ -116,7 +116,7 @@ class Products {
 	SQL;
 
 	const GET_CURRENT_SKUS_QUERY = <<<'SQL'
-	SELECT wp_postmeta.meta_value as id
+	SELECT wp_postmeta.meta_value AS `sku`
 	FROM wp_posts
 	INNER JOIN wp_postmeta
 	ON ( wp_posts.ID = wp_postmeta.post_id )
@@ -126,6 +126,88 @@ class Products {
 		( wp_posts.post_type = 'product_variation' )
 	)
 	SQL;
+
+	const GET_BATCH_TO_UPDATE_QUERY = <<<'SQL'
+	SELECT
+		wp_posts.id AS id,
+		FROM_UNIXTIME( wp_postmeta.meta_value ) AS time_updated
+	FROM wp_posts
+	INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id
+	WHERE wp_posts.post_type IN ( 'product', 'product_variation' )
+		AND wp_postmeta.meta_key = 'connector_for_dk_last_downstream_sync'
+		AND wp_postmeta.meta_value < UNIX_TIMESTAMP() - 3600
+	UNION
+	SELECT wp_posts.id AS id,
+		wp_posts.post_modified AS time_updated
+	FROM wp_posts
+	INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id
+	WHERE wp_posts.post_type IN ( 'product', 'product_variation' )
+		AND wp_postmeta.meta_key = '_sku'
+		AND wp_posts.post_modified < FROM_UNIXTIME( UNIX_TIMESTAMP() - 3600 )
+		AND NOT EXISTS (
+			SELECT 1
+			FROM wp_postmeta pm
+			WHERE pm.post_id = wp_posts.id
+			AND pm.meta_key = 'connector_for_dk_last_downstream_sync'
+			AND pm.meta_value < UNIX_TIMESTAMP() - 3600
+		)
+	ORDER BY time_updated, id ASC
+	SQL;
+
+	/**
+	 * Get the IDs of the products to upate during text batch
+	 *
+	 * This gets used by `get_products_to_update()`.
+	 *
+	 * @param int $batch_size The size of the batch (defaults to `32`).
+	 *
+	 * @return int[]
+	 */
+	public static function get_product_ids_to_update(
+		int $batch_size = self::DEFAULT_UPDATE_QUANTITY
+	): array {
+		global $wpdb;
+		$query  = self::GET_BATCH_TO_UPDATE_QUERY;
+		$query .= "\nLIMIT 0,$batch_size";
+
+		return array_map(
+			function ( object $r ): int {
+				return (int) $r->id;
+			},
+			//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$wpdb->get_results( $query )
+		);
+	}
+
+	/**
+	 * Get the next batch of products to update
+	 *
+	 * @param int $batch_size The batch size (defaults to `32`).
+	 *
+	 * @return WC_Product[]
+	 */
+	public static function get_products_to_update(
+		int $batch_size = self::DEFAULT_UPDATE_QUANTITY
+	): array {
+		$ids = self::get_product_ids_to_update( $batch_size );
+
+		/*
+		The wc_get_products function will return every single product if we use
+		an empty array as the 'include' parameter, so we break off here instead,
+		if we have no product records to update.
+		 */
+		if ( empty( $ids ) ) {
+			return array();
+		}
+
+		return (array) wc_get_products(
+			array(
+				'limit'   => -1,
+				'types'   => array( 'simple', 'variable', 'variaiton' ),
+				'include' => $ids,
+			)
+		);
+	}
 
 	/**
 	 * Get the number of current products
@@ -138,93 +220,6 @@ class Products {
 		return (int) $result[0]->count;
 	}
 
-	 /**
-	  * Get the WP_Query to fetch current products
-	  *
-	  * @param bool $only_dk_products Only get products that originate in dk.
-	  */
-	public static function get_current_post_query(
-		bool $only_dk_products = false
-	): WP_Query {
-		$query_args = array(
-			'posts_per_page' => -1,
-			'fields'         => 'ids',
-			'post_type'      => array(
-				'product',
-				'product_variation',
-			),
-			'orderby'        => 'modified',
-			'order'          => 'ASC',
-			'meta_query'     => array(
-				array(
-					'key'     => '_sku',
-					'compare' => 'EXISTS',
-				),
-			),
-		);
-
-		if ( $only_dk_products ) {
-			$query_args['meta_query'][] = array(
-				'key'     => 'connector_for_dk_last_downstream_sync',
-				'compare' => 'EXISTS',
-			);
-		}
-
-		return new WP_Query( $query_args );
-	}
-
-	/**
-	 * Get current products
-	 *
-	 * Gets an array of every WooCommerce product in order of when it was last
-	 * modified.
-	 *
-	 * @param int  $quantity How many products to fetch.
-	 *             (Defaults on `-1` to fetch all the products).
-	 *
-	 * @param bool $only_dk_products Only get products that originate in dk.
-	 *
-	 * @return WC_Product[]
-	 */
-	public static function get_current(
-		int $quantity = -1,
-		bool $only_dk_products = false
-	): array {
-		$query = self::get_current_post_query( $only_dk_products );
-
-		$products = array();
-
-		$i = 0;
-
-		foreach ( $query->get_posts() as $product_id ) {
-			$product = wc_get_product( $product_id );
-
-			if (
-				! (
-					$product instanceof WC_Product_Simple ||
-					$product instanceof WC_Product_Variable ||
-					$product instanceof WC_Product_Variation
-				)
-			) {
-				continue;
-			}
-
-			if ( empty( $product->get_sku() ) ) {
-				continue;
-			}
-
-			$products[] = wc_get_product( $product_id );
-
-			$i++;
-
-			if ( $i === $quantity ) {
-				break;
-			}
-		}
-
-		return $products;
-	}
-
 	/**
 	 * Get current product SKUs from WooCommerce
 	 *
@@ -234,30 +229,26 @@ class Products {
 	 */
 	public static function get_current_skus(): array {
 		global $wpdb;
-		//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$results = $wpdb->get_results( self::GET_CURRENT_SKUS_QUERY );
-
-		$skus = array();
-
-		foreach ( $results as $r ) {
-			$skus[] = $r->id;
-		}
-
-		return $skus;
+		return array_map(
+			function ( object $r ): string {
+				return (string) $r->sku;
+			},
+			//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$wpdb->get_results( self::GET_CURRENT_SKUS_QUERY )
+		);
 	}
 
 	/**
 	 * Update currently synced WooCommerce products from dk
 	 *
-	 * @param int $quantity The size of the batch to update. Use `-1` to update
-	 *                      all the products registered in WooCommerce.
+	 * @param int $quantity The size of the batch to update.
 	 */
 	public static function update_current(
 		int $quantity = self::DEFAULT_UPDATE_QUANTITY
 	): void {
 		$dk_products      = self::get_all();
 		$dk_skus          = self::get_skus_from_dk();
-		$current_products = self::get_current( $quantity );
+		$current_products = self::get_products_to_update( $quantity );
 
 		do_action(
 			'connector_for_dk_before_update_current',
@@ -265,28 +256,12 @@ class Products {
 			$current_products
 		);
 
-		foreach ( $current_products as $wc_product_key => $wc_product ) {
-
-			if ( ! $wc_product instanceof WC_Product ) {
-				continue;
-			}
-
+		foreach ( $current_products as $wc_product ) {
 			if ( ! in_array( $wc_product->get_sku(), $dk_skus, true ) ) {
-				$wc_product->set_date_modified( time() );
-				$wc_product->save_meta_data();
-				$wc_product->save();
 				continue;
 			}
 
-			$timestamp = (int) $wc_product->get_date_modified()->format( 'U' );
-
-			// Only update products that have not been updated in the past
-			// 60 minutes.
-			if ( $timestamp > time() - HOUR_IN_SECONDS ) {
-				continue;
-			}
-
-			foreach ( $dk_products as $dk_product_key => $dk_product ) {
+			foreach ( $dk_products as $dk_product ) {
 				if ( ! is_object( $dk_product ) ) {
 					continue;
 				}
@@ -320,6 +295,12 @@ class Products {
 						$dk_product,
 						$wc_product
 					);
+				} else {
+					$wc_product->update_meta_data(
+						'connector_for_dk_last_downstream_sync',
+						time()
+					);
+					$wc_product->save_meta_data();
 				}
 			}
 		}
@@ -1205,8 +1186,6 @@ class Products {
 			'connector_for_dk_last_downstream_sync',
 			$current_date_and_time->format( 'U' )
 		);
-
-		$wc_product->set_date_modified( time() );
 
 		$wc_product->save_meta_data();
 

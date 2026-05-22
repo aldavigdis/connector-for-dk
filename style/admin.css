@@ -35,6 +35,7 @@
 
 .payment-line-checkbox {
 	margin-top: 0.5em;
+	display: block;
 }
 
 .payment-line-checkbox label {

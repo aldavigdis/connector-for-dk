@@ -7,7 +7,6 @@ namespace AldaVigdis\ConnectorForDK;
 use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use stdClass;
 use WC_Customer;
 use WC_Order_Item;
 use WC_Order_Item_Product;
@@ -468,11 +467,11 @@ class Discounts {
 	 * sync.
 	 *
 	 * @param WC_Customer $wc_customer The WooCommerce customer.
-	 * @param stdClass    $dk_customer An object representing the customer record in DK.
+	 * @param object      $dk_customer An object representing the customer record in DK.
 	 */
 	public static function import_user_discount_and_price_group(
 		WC_Customer $wc_customer,
-		stdClass $dk_customer
+		object $dk_customer
 	): void {
 		$wc_customer->update_meta_data(
 			'connector_for_dk_discount',
@@ -963,7 +962,7 @@ class Discounts {
 	 */
 	public static function get_discounts_for_order_item_product(
 		WC_Order_Item_Product $item
-	): stdClass {
+	): object {
 		$discount_total = BigDecimal::of(
 			$item->get_subtotal()
 		)->minus(
@@ -972,8 +971,10 @@ class Discounts {
 
 		$taxes = $item->get_taxes();
 
+		$discount_total_tax = BigDecimal::of( 0 );
+
 		foreach ( $taxes['subtotal'] as $tax ) {
-			$discount_total_tax = BigDecimal::of( $tax );
+			$discount_total_tax = $discount_total_tax->plus( $tax );
 		}
 
 		foreach ( $taxes['total'] as $tax ) {

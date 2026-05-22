@@ -62,8 +62,12 @@ class GetImportStats {
 				'%1$s of %2$s %3$s imported',
 				'connector-for-dk'
 			),
-			esc_html( number_format_i18n( (float) $stats->total - $stats->remaining ) ),
-			esc_html( number_format_i18n( (float) $stats->total ) ),
+			esc_html(
+				number_format_i18n( (float) $stats->total - $stats->remaining )
+			),
+			esc_html(
+				number_format_i18n( (float) $stats->total )
+			),
 			_nx(
 				'product',
 				'products',

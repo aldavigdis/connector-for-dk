@@ -6,7 +6,6 @@ namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Tuupola\Base85;
 use OpenSSLAsymmetricKey;
-use stdClass;
 
 /**
  * The License class
@@ -266,7 +265,7 @@ class License {
 	 */
 	public static function decode(
 		string $encrypted_license
-	): stdClass|false {
+	): object|false {
 		$base85           = new Base85();
 		$decrypted_string = '';
 
@@ -288,9 +287,9 @@ class License {
 	/**
 	 * Format a decoded license key
 	 *
-	 * @param stdClass $decoded_key An object representing the raw, decoded key.
+	 * @param object $decoded_key An object representing the raw, decoded key.
 	 *
-	 * @return stdClass{
+	 * @return object{
 	 *     'uuid': string,
 	 *     'product': string,
 	 *     'product_name': string,
@@ -301,8 +300,8 @@ class License {
 	 * }
 	 */
 	public static function format_decoded_key(
-		stdClass $decoded_key
-	): stdClass {
+		object $decoded_key
+	): object {
 		$site_domain = wp_parse_url( get_site_url(), PHP_URL_HOST );
 
 		$domain_matches = ( $site_domain === $decoded_key->attributes->domain );

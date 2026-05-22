@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK\Rest;
 
-use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
@@ -51,7 +50,7 @@ interface PostEndpointTemplate {
 	/**
 	 * Get the JSON schema as an object
 	 *
-	 * @return stdClass;
+	 * @return object;
 	 */
-	public static function get_schema(): stdClass;
+	public static function get_schema(): object;
 }

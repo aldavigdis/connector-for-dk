@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace AldaVigdis\ConnectorForDK\Rest;
 
-use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
@@ -131,7 +130,7 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 	/**
 	 * Get the request body JSON schema as an object
 	 */
-	public static function get_schema(): stdClass {
+	public static function get_schema(): object {
 		return (object) json_decode( self::json_schema() );
 	}
 

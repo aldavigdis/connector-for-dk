@@ -6,7 +6,6 @@ namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
 use AldaVigdis\ConnectorForDK\KennitalaField;
-use stdClass;
 
 /**
  * The Config class
@@ -49,13 +48,13 @@ class Config {
 	 *
 	 * Checks for the relevant WP option or constant and returns it.
 	 *
-	 * @param string                               $option the option to fetch.
-	 * @param string|int|float|array|stdClass|bool $default The default value.
+	 * @param string                             $option the option to fetch.
+	 * @param string|int|float|array|object|bool $default The default value.
 	 */
 	public static function get_option(
 		string $option,
-		string|int|float|array|stdClass|bool $default = false
-	): string|int|float|array|stdClass|bool {
+		string|int|float|array|object|bool $default = false
+	): string|int|float|array|object|bool {
 		$option_name   = self::PREFIX . $option;
 		$constant_name = strtoupper( $option_name );
 
@@ -72,12 +71,12 @@ class Config {
 	/**
 	 * Update a configuration value
 	 *
-	 * @param string                               $option The option to fetch.
-	 * @param string|int|float|array|stdClass|bool $value The value to set.
+	 * @param string                             $option The option to fetch.
+	 * @param string|int|float|array|object|bool $value The value to set.
 	 */
 	public static function update_option(
 		string $option,
-		string|int|float|array|stdClass|bool $value
+		string|int|float|array|object|bool $value
 	): bool {
 		delete_option( self::OLD_PREFIX . $option );
 
@@ -172,12 +171,12 @@ class Config {
 	 *                             empty properties. If false, it will return
 	 *                             false if no mapping is found.
 	 *
-	 * @return stdClass An object containing woo_id, dk_id and dk_name properties.
+	 * @return object An object containing woo_id, dk_id and dk_name properties.
 	 */
 	public static function get_payment_mapping(
 		string $woo_id,
 		bool $empty_object = true
-	): stdClass {
+	): object {
 		if ( $empty_object ) {
 			$default = (object) array(
 				'woo_id'          => '',

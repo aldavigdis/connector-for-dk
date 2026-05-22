@@ -6,7 +6,6 @@ namespace AldaVigdis\ConnectorForDK\Import;
 
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Config;
-use stdClass;
 use WP_Error;
 
 /**
@@ -262,7 +261,7 @@ class SalesPayments {
 	 *
 	 * Uses a transient to cache the results from the DK API for 24 hours.
 	 *
-	 * @return array<stdClass>
+	 * @return array<object>
 	 */
 	public static function get_methods(): array {
 		$methods_updated = get_option(
@@ -309,7 +308,7 @@ class SalesPayments {
 	/**
 	 * Get payment methods from the DK API, bypassing the transient cache
 	 *
-	 * @return array<stdClass>
+	 * @return array<object>
 	 */
 	public static function get_methods_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
@@ -336,7 +335,7 @@ class SalesPayments {
 	 *
 	 * @param int $id The DK payment method ID.
 	 */
-	public static function find_by_id( int $id ): stdClass|false {
+	public static function find_by_id( int $id ): object|false {
 		foreach ( self::get_methods() as $method ) {
 			if ( $id === $method->dk_id ) {
 				return $method;
@@ -352,7 +351,7 @@ class SalesPayments {
 	 * @param array $json_response The already-decoded JSON data as it comes
 	 *                             from the API.
 	 *
-	 * @return array<stdClass>
+	 * @return array<object>
 	 */
 	public static function convert_json_response_for_methods(
 		array $json_response

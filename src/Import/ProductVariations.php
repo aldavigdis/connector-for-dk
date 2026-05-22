@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Import;
 
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use stdClass;
 use WC_Product_Attribute;
 use WP_Error;
 
@@ -168,7 +167,7 @@ class ProductVariations {
 			$variation_code
 		);
 
-		if ( $result instanceof stdClass && $result->response_code === 200 ) {
+		if ( is_object( $result ) && $result->response_code === 200 ) {
 			return array_column( $result->data, 'ITEMCODE' );
 		}
 
@@ -249,7 +248,7 @@ class ProductVariations {
 	 *
 	 * @param string $code The attribute code.
 	 */
-	public static function get_attribute( string $code ): stdClass|false {
+	public static function get_attribute( string $code ): object|false {
 		$attribute_transient = get_transient(
 			'connector_for_dk_attribute_' . $code
 		);
@@ -280,7 +279,7 @@ class ProductVariations {
 	 */
 	public static function get_attribute_from_dk(
 		string $code
-	): stdClass|false {
+	): object|false {
 		$request = new DKApiRequest();
 
 		$result = $request->get_table_result(

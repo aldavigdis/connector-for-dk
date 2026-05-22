@@ -7,7 +7,6 @@ namespace AldaVigdis\ConnectorForDK\Import;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Customer;
 use WP_Error;
-use stdClass;
 
 /**
  * The customers importer class
@@ -31,7 +30,7 @@ class Customers {
 	public static function get_from_dk(
 		string $kennitala,
 		bool $cached = true
-	): stdClass|WP_Error|false {
+	): object|false {
 		if ( $cached ) {
 			$customer_transient = get_transient(
 				"connector_for_dk_customer_$kennitala"

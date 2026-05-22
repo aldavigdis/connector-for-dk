@@ -12,7 +12,6 @@ use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\Products;
 use WC_Payment_Gateways;
 use WC_Payment_Gateway;
-use stdClass;
 use WC_Order;
 use WP_Error;
 use Automattic\WooCommerce\Utilities\OrderUtil;
@@ -540,13 +539,13 @@ class Admin {
 	 *
 	 * @param string $sku The SKU to check for in DK.
 	 *
-	 * @return stdClass{
+	 * @return object{
 	 *     'text': string,
 	 *     'class': string,
 	 *     'dashicon': string
 	 * }
 	 */
-	public static function info_for_service_sku( string $sku ): stdClass {
+	public static function info_for_service_sku( string $sku ): object {
 		$transient_name  = "connector_for_dk_service_sku_{$sku}_is_in_dk";
 		$transient_value = boolval( get_transient( $transient_name ) );
 
@@ -608,13 +607,13 @@ class Admin {
 	 *
 	 * @param string $number The sales person number to check for in DK.
 	 *
-	 * @return stdClass{
+	 * @return object{
 	 *     'text': string,
 	 *     'class': string,
 	 *     'dashicon': string
 	 * }
 	 */
-	public static function info_for_sales_person( string $number ): stdClass {
+	public static function info_for_sales_person( string $number ): object {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			$text = sprintf(
 				// Translators: The %s stands for the relevant sales person number.
@@ -669,7 +668,7 @@ class Admin {
 	 *
 	 * @param string $type 'domestic' or 'international', defaults on domestic.
 	 *
-	 * @return stdClass{
+	 * @return object{
 	 *     'text': string,
 	 *     'class': string,
 	 *     'dashicon': string
@@ -677,12 +676,10 @@ class Admin {
 	 */
 	public static function info_for_default_kennitala(
 		string $type = 'domestic'
-	): stdClass {
+	): object {
 		if ( $type === 'domestic' ) {
 			$default_kennitala = Config::get_default_kennitala();
-		}
-
-		if ( $type === 'international' ) {
+		} else {
 			$default_kennitala = Config::get_default_international_kennitala();
 		}
 

@@ -13,7 +13,6 @@ use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
 use AldaVigdis\ConnectorForDK\ProductCategories;
 use DateTime;
-use stdClass;
 use WC_DateTime;
 use WC_Product;
 use WC_Product_Query;
@@ -617,18 +616,18 @@ class Products {
 	/**
 	 * Save a single product from DK as a WooCommerce product
 	 *
-	 * @param string        $sku The product SKU to fetch from DK.
-	 * @param stdClass|null $json_object The PHP representation of a JSON object
-	 *                                   form the DK Products endpoint. If not
-	 *                                   set or null, this will fetch the
-	 *                                   product from DK.
+	 * @param string      $sku The product SKU to fetch from DK.
+	 * @param object|null $json_object The PHP representation of a JSON object
+	 *                                 form the DK Products endpoint. If not
+	 *                                 set or null, this will fetch the
+	 *                                 product from DK.
 	 *
 	 * @return int|false The ID for the WooCommerce Product on success,
 	 *                   false on failure.
 	 */
 	public static function save_from_dk(
 		string $sku,
-		stdClass|null $json_object = null
+		object|null $json_object = null
 	): int|false {
 		if ( is_null( $json_object ) ) {
 			$json_object = self::get_from_dk( $sku );
@@ -655,14 +654,13 @@ class Products {
 	 *
 	 * @param string $sku The product SKU to fetch from the DK API.
 	 *
-	 * @return stdClass|WP_Error|false An object representing the JSON response
-	 *                                 from the DK API on success. WP_Error on
-	 *                                 connection error or false on error in the
-	 *                                 DK API.
+	 * @return object|false An object representing the JSON response from the DK
+	 *                      API on success. WP_Error on connection error, or
+	 *                      false on error in the DK API.
 	 */
 	public static function get_from_dk(
 		string $sku
-	): stdClass|WP_Error|false {
+	): object|false {
 		$api_request = new DKApiRequest();
 
 		$result = $api_request->get_result(
@@ -683,14 +681,14 @@ class Products {
 	/**
 	 * Convert a JSON object from the DK API to a WC_Product object
 	 *
-	 * @param stdClass $json_object A PHP object representation of a JSON object
-	 *                              in the DK API.
+	 * @param object $json_object A PHP object representation of a JSON object
+	 *                            in the DK API.
 	 *
 	 * @return WC_Product|false A WooCommerce product, or false if it should not
 	 *                          appear in the WooCommerce shop.
 	 */
 	public static function json_to_product(
-		stdClass $json_object
+		object $json_object
 	): WC_Product|false {
 		$product_id = wc_get_product_id_by_sku( $json_object->ItemCode );
 
@@ -716,13 +714,13 @@ class Products {
 	 * read in regardless of price sync, stock status sync or product name sync
 	 * are enabled.
 	 *
-	 * @param stdClass $json_object The JSON object from the DK API.
+	 * @param object $json_object The JSON object from the DK API.
 	 *
 	 * @return WC_Product|false The resulting WooCommerce product, or false on
 	 *                          failure or deletion.
 	 */
 	public static function json_to_new_product(
-		stdClass $json_object
+		object $json_object
 	): WC_Product|false {
 		if (
 			property_exists( $json_object, 'Deleted' ) &&
@@ -818,7 +816,7 @@ class Products {
 
 		$price = self::get_product_price_from_json( $json_object );
 
-		if ( $price instanceof stdClass ) {
+		if ( is_object( $price ) ) {
 			if ( $json_object->IsVariation ) {
 				$wc_product->set_price( $price->price );
 			}
@@ -867,7 +865,7 @@ class Products {
 			return false;
 		}
 
-		if ( $json_object->IsVariation ) {
+		if ( $json_object->IsVariation && isset( $merged_variations ) ) {
 			self::update_variations( $merged_variations, $wc_product );
 		}
 
@@ -910,11 +908,11 @@ class Products {
 	/**
 	 * Update product discount
 	 *
-	 * @param stdClass   $json_object The JSON product object as it comes from the dk API.
+	 * @param object     $json_object The JSON product object as it comes from the dk API.
 	 * @param WC_Product $wc_product The WooCommerce product.
 	 */
 	private static function update_discount_from_json(
-		stdClass $json_object,
+		object $json_object,
 		WC_Product $wc_product
 	): void {
 		if (
@@ -991,8 +989,8 @@ class Products {
 	 * - The product price, sale price and sale dates will be updated, if price sync is enabled
 	 * - Product quantity and stock status will be updated, if quantity sync is enabled
 	 *
-	 * @param int      $product_id The Post ID for the WooCommerce product to be updated.
-	 * @param stdClass $json_object An object representing the JSON object coming from the DK API.
+	 * @param int    $product_id The Post ID for the WooCommerce product to be updated.
+	 * @param object $json_object An object representing the JSON object coming from the DK API.
 	 *
 	 * @return WC_Product|false The WC_Product object that was updated on
 	 *                          success. False on failure or if the product is
@@ -1000,7 +998,7 @@ class Products {
 	 */
 	public static function update_product_from_json(
 		int $product_id,
-		stdClass $json_object
+		object $json_object
 	): WC_Product|false {
 		$wc_product = wc_get_product( $product_id );
 
@@ -1119,7 +1117,7 @@ class Products {
 		if ( ProductHelper::price_sync_enabled( $wc_product ) ) {
 			$price = self::get_product_price_from_json( $json_object );
 
-			if ( $price instanceof stdClass ) {
+			if ( is_object( $price ) ) {
 				if ( $json_object->IsVariation ) {
 					$wc_product->set_price( $price->price );
 				}
@@ -1197,19 +1195,19 @@ class Products {
 	/**
 	 * Get a product's prices from a DK API response
 	 *
-	 * @param stdClass $json_object A PHP object representing the JSON response
+	 * @param object $json_object A PHP object representing the JSON response
 	 *                              from the DK API.
 	 *
-	 * @return stdClass|false An object containing the properties
-	 *                        `price` (float or empty string),
-	 *                        `sale_price` (float or empty string),
-	 *                        `date_on_sale_from` (WC_DateTime or empty string)
-	 *                         and `date_on_sale_to` (WC_DateTime or empty
-	 *                         string) or false` on failure.
+	 * @return object|false An object containing the properties
+	 *                      `price` (float or empty string),
+	 *                      `sale_price` (float or empty string),
+	 *                      `date_on_sale_from` (WC_DateTime or empty string)
+	 *                      and `date_on_sale_to` (WC_DateTime or empty
+	 *                      string) or false` on failure.
 	 */
 	public static function get_product_price_from_json(
-		stdClass $json_object
-	): stdClass|false|WP_Error {
+		object $json_object
+	): object|false {
 		$decimals       = (int) get_option( 'woocommerce_price_num_decimals', 0 );
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = Config::get_dk_currency();
@@ -1401,7 +1399,7 @@ class Products {
 	 * This one checks if any manual `CurrencyPrices` have been set and if not
 	 * converts `UnitPrice1` into the local currency.
 	 *
-	 * @param stdClass $json_object A PHP object representing the JSON response
+	 * @param object $json_object A PHP object representing the JSON response
 	 *                              from the DK API.
 	 *
 	 * @return float|WP_Error A floating point representation of the local
@@ -1409,7 +1407,7 @@ class Products {
 	 *                        not be converted.
 	 */
 	public static function get_currency_price_from_json(
-		stdClass $json_object
+		object $json_object
 	): float|WP_Error {
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = Config::get_dk_currency();
@@ -1433,15 +1431,15 @@ class Products {
 	 * Get a product's quantity and stock information from a DK API response
 	 * object
 	 *
-	 * @param stdClass $json_object A PHP object representing the JSON response
-	 *                              from the DK API.
+	 * @param object $json_object A PHP object representing the JSON response
+	 *                            from the DK API.
 	 *
-	 * @return stdClass A PHP object containing the properties `stock_quantity`
-	 *                  and `backorders`.
+	 * @return object A PHP object containing the properties `stock_quantity`
+	 *                and `backorders`.
 	 */
 	public static function get_product_quantity_from_json(
-		stdClass $json_object
-	): stdClass {
+		object $json_object
+	): object {
 		$result = array();
 
 		$result['stock_quantity'] = $json_object->TotalQuantityInWarehouse;
@@ -1515,11 +1513,11 @@ class Products {
 	 *
 	 * The resulting array is then saved as product meta.
 	 *
-	 * @param stdClass $json_object The product JSON object.
-	 * @param string   $variant_code The product's variant code.
+	 * @param object $json_object The product JSON object.
+	 * @param string $variant_code The product's variant code.
 	 */
 	public static function merge_variations(
-		stdClass $json_object,
+		object $json_object,
 		string $variant_code
 	): array {
 		$attribute_names  = ProductVariations::get_variation_attribute_codes( $variant_code );
@@ -1559,12 +1557,12 @@ class Products {
 	/**
 	 * Compare a variation from DK product response with one from the product meta
 	 *
-	 * @param stdClass $dk_variation Variation as it comes from DK.
-	 * @param stdClass $saved_variation Variation as saved as product meta.
+	 * @param object $dk_variation Variation as it comes from DK.
+	 * @param object $saved_variation Variation as saved as product meta.
 	 */
 	public static function compare_variations(
-		stdClass $dk_variation,
-		stdClass $saved_variation
+		object $dk_variation,
+		object $saved_variation
 	): bool {
 		if (
 			property_exists( $dk_variation, 'Code' ) &&
@@ -1771,13 +1769,13 @@ class Products {
 	 * Match a variation from DK with one in WooCommerce
 	 *
 	 * @param WC_Product_Variable $wc_product The parent product of the WooCommerce variant.
-	 * @param stdClass            $variation_json_object The JSON object returned from the merge_variations function.
+	 * @param object              $variation_json_object The JSON object returned from the merge_variations function.
 	 *
 	 * @return int The ID of the variation if it exsists, 0 if not.
 	 */
 	public static function match_variation(
 		WC_Product_Variable $wc_product,
-		stdClass $variation_json_object
+		object $variation_json_object
 	): int {
 		foreach ( $wc_product->get_children() as $variation_id ) {
 			$variation = new WC_Product_Variation( $variation_id );
@@ -1811,13 +1809,13 @@ class Products {
 	/**
 	 * Get the total quantity of a variation form a product JSON response
 	 *
-	 * @param stdClass $json_object The product JSON response form DK.
-	 * @param array    $codes An array of objects representing the variation attribures to check for.
+	 * @param object $json_object The product JSON response form DK.
+	 * @param array  $codes An array of objects representing the variation attribures to check for.
 	 *
 	 * @return float The quanity, or 0.0 if no variation is found.
 	 */
 	public static function get_variation_quantity_from_json(
-		stdClass $json_object,
+		object $json_object,
 		array $codes,
 	): float {
 		$variations = self::merge_variations(

@@ -8,8 +8,6 @@ use AldaVigdis\ConnectorForDK\License;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Rest\PostEndpointTemplate;
 use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
-
-use stdClass;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
@@ -110,7 +108,7 @@ class CheckLicense implements PostEndpointTemplate {
 	/**
 	 * Get the request body JSON schema as an object
 	 */
-	public static function get_schema(): stdClass {
+	public static function get_schema(): object {
 		return (object) json_decode( self::json_schema() );
 	}
 

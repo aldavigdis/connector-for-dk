@@ -7,7 +7,6 @@ namespace AldaVigdis\ConnectorForDK\Export;
 use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use AldaVigdis\ConnectorForDK\Config;
 use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use stdClass;
 use WC_Customer;
 use WC_Order;
 use WP_Error;
@@ -258,11 +257,11 @@ class Customer {
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.
 	 *
-	 * @return stdClass An object representing the customer information for the order.
+	 * @return object An object representing the customer information for the order.
 	 */
 	public static function to_dk_customer_body_from_order(
 		WC_Order $wc_order
-	): stdClass {
+	): object {
 		$payment_mapping = Config::get_payment_mapping(
 			$wc_order->get_payment_method()
 		);

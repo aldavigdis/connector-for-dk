@@ -6,7 +6,6 @@ namespace AldaVigdis\ConnectorForDK;
 
 use AldaVigdis\ConnectorForDK\Admin;
 use AldaVigdis\ConnectorForDK\Config;
-use stdClass;
 use WC_Customer;
 
 /**
@@ -71,11 +70,11 @@ class CustomerSync {
 	 * This is run as an additional action during customer sync
 	 *
 	 * @param WC_Customer $wc_customer The WooCommerce customer.
-	 * @param stdClass    $dk_customer The DK customer object as it comes from the dkPlus API.
+	 * @param object      $dk_customer The DK customer object as it comes from the dkPlus API.
 	 */
 	public static function auto_sync_customer_meta(
 		WC_Customer $wc_customer,
-		stdClass $dk_customer
+		object $dk_customer
 	): void {
 		if ( property_exists( $dk_customer, 'Address1' ) ) {
 			$wc_customer->set_billing_address_1( $dk_customer->Address1 );
@@ -171,13 +170,13 @@ class CustomerSync {
 	 *
 	 * @param string $name The full name as it is sent to use from the dkPlus API.
 	 *
-	 * @return stdClass{
+	 * @return object{
 	 *     'first_name': string,
 	 *     'last_name': string,
 	 *     'company': string
 	 * }
 	 */
-	public static function split_name( string $name ): stdClass {
+	public static function split_name( string $name ): object {
 		$name_array_raw = explode( ' ', $name );
 
 		if (

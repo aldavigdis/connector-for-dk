@@ -9,8 +9,6 @@ use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_Error;
-
-use stdClass;
 use Exception;
 use WC_Customer;
 
@@ -188,11 +186,11 @@ class BlockedCustomers {
 	 * Hooks into `connector_for_dk_after_update_meta_data`.
 	 *
 	 * @param WC_Customer $wc_customer The WooCommerce customer.
-	 * @param stdClass    $dk_customer Object representing the DK customer as it comes from their API.
+	 * @param object      $dk_customer Object representing the DK customer as it comes from their API.
 	 */
 	public static function register_blocked_status(
 		WC_Customer $wc_customer,
-		stdClass $dk_customer
+		object $dk_customer
 	): void {
 		$wc_customer->update_meta_data(
 			'connector_for_dk_blocked',

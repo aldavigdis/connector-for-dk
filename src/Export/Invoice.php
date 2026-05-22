@@ -12,7 +12,6 @@ use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
 use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use stdClass;
 
 /**
  * The Invoice Export class
@@ -291,7 +290,7 @@ class Invoice {
 
 		usort(
 			$invoices,
-			function ( stdclass $a, stdClass $b ): int {
+			function ( object $a, object $b ): int {
 				$time_a = strtotime( $a->Created );
 				$time_b = strtotime( $b->Created );
 

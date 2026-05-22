@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace AldaVigdis\ConnectorForDK\Service;
 
 use AldaVigdis\ConnectorForDK\Config;
-use stdClass;
 use WP_Error;
 use WP_Http;
 
@@ -67,16 +66,15 @@ class DKApiRequest {
 	 * @param string    $path The internal path do the API resource.
 	 * @param float|int $timeout The timeout in seconds.
 	 *
-	 * @return WP_Error|stdClass An object containing a `data` attribute with
-	 *                           the JSON encoded response body and a
-	 *                           `response_code` attribute, with the numeric
-	 *                           HTTP response status as an integer, or WP_Error
-	 *                           on failure.
+	 * @return object An object containing a `data` attribute with the JSON
+	 *                encoded response body and a `response_code` attribute,
+	 *                with the numeric HTTP response status as an integer, or
+	 *                WP_Error on failure.
 	 */
 	public function get_result(
 		string $path,
 		float|int $timeout = self::GET_TIMEOUT
-	): WP_Error|stdClass {
+	): object {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
@@ -103,13 +101,18 @@ class DKApiRequest {
 	 * @param array  $fields The names of the fields to get.
 	 * @param string $key The key to use for filtering (i.e. WHERE $key = $keyvalue).
 	 * @param string $keyvalue They value to use for filtering.
+	 *
+	 * @return object An object containing a data attribute with the JSON
+	 *                encoded response body and a response_code attribute, with
+	 *                the numeric HTTP response status as an integer, or
+	 *                WP_Error on failure.
 	 */
 	public function get_table_result(
 		string $table,
 		array $fields,
 		?string $key = null,
 		?string $keyvalue = null
-	): WP_Error|stdClass {
+	): object {
 		$path = self::DK_API_URL . '/general/table/' . $table . '/records/';
 
 		$fields_string = implode( ',', $fields );
@@ -138,17 +141,16 @@ class DKApiRequest {
 	 * @param string $body   The request body.
 	 * @param string $method The HTTP method to use. Defaults to POST.
 	 *
-	 * @return WP_Error|stdClass An object containing a `data` attribute with
-	 *                           the JSON encoded response body and a
-	 *                           `response_code` attribute, with the numeric
-	 *                           HTTP response status as an integer, or WP_Error
-	 *                           on failure.
+	 * @return object An object containing a `data` attribute with the JSON
+	 *                encoded response body and a `response_code` attribute,
+	 *                with the numeric HTTP response status as an integer, or
+	 *                WP_Error on failure.
 	 */
 	public function request_result(
 		string $path,
 		string $body = '',
 		string $method = 'POST'
-	): WP_Error|stdClass {
+	): object {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
@@ -175,15 +177,14 @@ class DKApiRequest {
 	 *
 	 * @param array|WP_Error $request The WP_Http result.
 	 *
-	 * @return WP_Error|stdClass An object containing a `data` attribute with
-	 *                           the JSON encoded response body and a
-	 *                           `response_code` attribute, with the numeric
-	 *                           HTTP response status as an integer, or WP_Error
-	 *                           on failure.
+	 * @return object An object containing a `data` attribute with the JSON
+	 *                encoded response body and a `response_code` attribute,
+	 *                with the numeric HTTP response status as an integer,
+	 *                or WP_Error on failure.
 	 */
 	private function parse_wp_http_response(
 		array|WP_Error $request
-	): WP_Error|stdClass {
+	): object {
 		if ( $request instanceof WP_Error ) {
 			return $request;
 		}

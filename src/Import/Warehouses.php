@@ -41,7 +41,7 @@ class Warehouses {
 	/**
 	 * Get warehouses directly from DK
 	 */
-	public static function get_from_dk(): array {
+	public static function get_from_dk(): WP_Error|false|array {
 		$request = new DKApiRequest();
 		$result  = $request->get_result( self::API_PATH );
 

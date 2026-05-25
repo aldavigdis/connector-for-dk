@@ -32,6 +32,7 @@ class Loader {
 			new BlockedCustomers();
 			new CreditInvoices();
 			new CustomerContacts();
+			new CustomerPaymentTerms();
 			new CustomerSync();
 			new Discounts();
 			new DefaultSKUs();

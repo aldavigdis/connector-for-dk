@@ -32,6 +32,7 @@ $customer = new WC_Customer( $user_id );
 			<th><?php esc_html_e( 'Price Group', 'connector-for-dk' ); ?></th>
 			<td>
 				<input
+					class="small-text"
 					type="text"
 					value="<?php echo esc_html( $customer->get_meta( 'connector_for_dk_price_group' ) ); ?>"
 					disabled
@@ -42,6 +43,7 @@ $customer = new WC_Customer( $user_id );
 			<th><?php esc_html_e( 'Customer Discount', 'connector-for-dk' ); ?></th>
 			<td>
 				<input
+					class="small-text"
 					type="text"
 					value="<?php echo esc_html( $customer->get_meta( 'connector_for_dk_discount' ) ); ?>"
 					disabled

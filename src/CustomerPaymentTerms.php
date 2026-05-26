@@ -140,7 +140,7 @@ class CustomerPaymentTerms {
 		echo '<tr><th>';
 		echo esc_html_e( 'Payment term', 'connector-for-dk' );
 		echo '</th><td>';
-		echo '<input type="text" value="';
+		echo '<input class="small-text" type="text" value="';
 		echo esc_attr(
 			$customer->get_meta( 'connector_for_dk_default_payment_term' )
 		);

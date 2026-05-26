@@ -211,8 +211,19 @@ class Invoice {
 			);
 		}
 
-		$invoice_body['Mode'] = $payment_mapping->dk_mode;
-		$invoice_body['Term'] = $payment_mapping->dk_term;
+		$invoice_body['Mode'] = apply_filters(
+			'connector_for_dk_invoice_mode',
+			$payment_mapping->dk_mode,
+			$payment_mapping,
+			$wc_order
+		);
+
+		$invoice_body['Term'] = apply_filters(
+			'connector_for_dk_invoice_term',
+			$payment_mapping->dk_term,
+			$payment_mapping,
+			$wc_order
+		);
 
 		return $invoice_body;
 	}

@@ -64,7 +64,8 @@ class ConnectorForDK {
 	 */
 	static paymentAddLineCheckboxes() {
 		return document.querySelectorAll(
-			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_payment_line]'
+			'#payment-gateway-id-map-table tbody tr.payment-line-field ' +
+			'input[name=add_payment_line]'
 		);
 	}
 
@@ -75,7 +76,20 @@ class ConnectorForDK {
 	 */
 	static paymentAddCreditLineCheckboxes() {
 		return document.querySelectorAll(
-			'#payment-gateway-id-map-table tbody tr.payment-line-field input[name=add_credit_payment_line]'
+			'#payment-gateway-id-map-table tbody tr.payment-line-field ' +
+			'input[name=add_credit_payment_line]'
+		);
+	}
+
+	/**
+	 * The " Use logged-in customers' default payment terms" checkboxes
+	 *
+	 * @returns {NodeListOf<HTMLInputElement>}
+	 */
+	static paymentUseDefaultTermsCheckboxes() {
+		return document.querySelectorAll(
+			'#payment-gateway-id-map-table tbody tr.payment-line-field ' +
+			'input[name=use_default_payment_terms]'
 		);
 	}
 
@@ -112,12 +126,14 @@ class ConnectorForDK {
 
 			ConnectorForDK.postSettingsData( formDataObject );
 		} else {
-			let paymentIds              = formData.getAll( 'payment_id' );
-			let paymentModes            = formData.getAll( 'payment_mode' );
-			let paymentTerms            = formData.getAll( 'payment_term' );
-			let CategoryIds             = formData.getAll( 'category_id' );
-			let addLineCheckboxes       = ConnectorForDK.paymentAddLineCheckboxes();
-			let addCreditLineCheckboxes = ConnectorForDK.paymentAddCreditLineCheckboxes();
+			let paymentIds   = formData.getAll( 'payment_id' );
+			let paymentModes = formData.getAll( 'payment_mode' );
+			let paymentTerms = formData.getAll( 'payment_term' );
+			let CategoryIds  = formData.getAll( 'category_id' );
+
+			let addLineCheckboxes         = ConnectorForDK.paymentAddLineCheckboxes();
+			let addCreditLineCheckboxes   = ConnectorForDK.paymentAddCreditLineCheckboxes();
+			let useDefaultTermsCheckboxes = ConnectorForDK.paymentUseDefaultTermsCheckboxes();
 
 			let paymentMethods = [];
 			let paymentsLength = paymentIds.length;
@@ -130,18 +146,21 @@ class ConnectorForDK {
 				let addLine       = addLineCheckboxes[i].checked;
 				let addCreditLine = addCreditLineCheckboxes[i].checked
 
+				let useDefaultTerms = useDefaultTermsCheckboxes[i].checked
+
 				if (isNaN( dkId )) {
 					dkId = 0;
 				}
 
 				paymentMethods.push(
 					{
-						woo_id:   wooId,
-						dk_id:    dkId,
-						dk_mode:  dkMode,
-						dk_term:  dkTerm,
+						woo_id: wooId,
+						dk_id: dkId,
+						dk_mode: dkMode,
+						dk_term: dkTerm,
 						add_line: addLine,
 						add_credit_line: addCreditLine,
+						use_default_terms: useDefaultTerms,
 					}
 				);
 			}
@@ -178,7 +197,8 @@ class ConnectorForDK {
 					let disallowedInputs = [ 'add_payment_line', 'payment_id',
 											 'payment_mode', 'payment_term',
 											 'add_credit_payment_line',
-											 'category_id' ];
+											 'category_id',
+											 'use_default_payment_terms' ];
 					if ( ! disallowedInputs.includes( inputName ) ) {
 						if ( inputType === 'text' ) {
 							formDataObject[ inputName ] = inputValue.trim();

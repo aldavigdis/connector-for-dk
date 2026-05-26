@@ -21,9 +21,19 @@
                 "properties": {
                     "woo_id": { "type": "string" },
                     "dk_id": { "type": "number" },
-                    "dk_term": { "type": "string" }
+                    "dk_term": { "type": "string" },
+                    "add_line": { "type": "boolean" },
+                    "add_credit_line": { "type": "boolean" },
+                    "use_default_terms": { "type": "boolean" }
                 },
-                "required": ["woo_id", "dk_id" ]
+                "required": [
+                    "woo_id",
+                    "dk_id",
+                    "dk_term",
+                    "add_line",
+                    "add_credit_line",
+                    "use_default_terms"
+                ]
             }
         },
         "category_mappings": {

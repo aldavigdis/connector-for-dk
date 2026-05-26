@@ -132,6 +132,7 @@ class Config {
 	 * @param string $dk_term The payment term code from DK.
 	 * @param bool   $add_line Wether a payment line should be added to invoices.
 	 * @param bool   $add_credit_line Wether a payment line should be added to credit invoices.
+	 * @param bool   $use_default_terms Wether to use logged-in customers' default payment terms.
 	 *
 	 * @return bool True if the mapping is saved in the wp_options table, false if not.
 	 */
@@ -141,7 +142,8 @@ class Config {
 		string $dk_mode,
 		string $dk_term = '',
 		bool $add_line = true,
-		bool $add_credit_line = true
+		bool $add_credit_line = true,
+		bool $use_default_terms = false
 	): bool {
 		$dk_payment_method = ImportSalesPayments::find_by_id( $dk_id );
 
@@ -152,13 +154,14 @@ class Config {
 		return self::update_option(
 			'payment_method_' . $woo_id,
 			(object) array(
-				'woo_id'          => $woo_id,
-				'dk_id'           => $dk_payment_method->dk_id,
-				'dk_name'         => $dk_payment_method->dk_name,
-				'dk_mode'         => $dk_mode,
-				'dk_term'         => $dk_term,
-				'add_line'        => $add_line,
-				'add_credit_line' => $add_credit_line,
+				'woo_id'            => $woo_id,
+				'dk_id'             => $dk_payment_method->dk_id,
+				'dk_name'           => $dk_payment_method->dk_name,
+				'dk_mode'           => $dk_mode,
+				'dk_term'           => $dk_term,
+				'add_line'          => $add_line,
+				'add_credit_line'   => $add_credit_line,
+				'use_default_terms' => $use_default_terms,
 			)
 		);
 	}
@@ -179,13 +182,14 @@ class Config {
 	): object {
 		if ( $empty_object ) {
 			$default = (object) array(
-				'woo_id'          => '',
-				'dk_id'           => '',
-				'dk_name'         => '',
-				'dk_mode'         => '',
-				'dk_term'         => '',
-				'add_line'        => false,
-				'add_credit_line' => false,
+				'woo_id'            => '',
+				'dk_id'             => '',
+				'dk_name'           => '',
+				'dk_mode'           => '',
+				'dk_term'           => '',
+				'add_line'          => false,
+				'add_credit_line'   => false,
+				'use_default_terms' => false,
 			);
 		} else {
 			$default = false;
@@ -195,6 +199,10 @@ class Config {
 
 		if ( ! property_exists( $mapping, 'add_credit_line' ) ) {
 			$mapping->add_credit_line = false;
+		}
+
+		if ( ! property_exists( $mapping, 'use_default_terms' ) ) {
+			$mapping->use_default_terms = false;
 		}
 
 		return $mapping;

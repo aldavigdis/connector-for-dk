@@ -14,7 +14,7 @@ use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariation
  * This is the cron job that fetches product variations from dk. We need it as
  * we can't fetch it from the products endpoint.
  */
-class GetProductVariations {
+class GetProductVariations implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

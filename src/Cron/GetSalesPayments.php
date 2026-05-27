@@ -13,7 +13,7 @@ use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
  *
  * Fetches information about payment methods on an hourly basis.
  */
-class GetSalesPayments {
+class GetSalesPayments implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

@@ -13,7 +13,7 @@ use AldaVigdis\ConnectorForDK\InvoicePDF;
  *
  * Runs on weekly basis to clean old PDF invoices from the uploads directort.
  */
-class CleanPDFs {
+class CleanPDFs implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

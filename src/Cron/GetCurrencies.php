@@ -13,7 +13,7 @@ use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
  *
  * Fetches FOREX rates from dk on an hourly basis.
  */
-class GetCurrencies {
+class GetCurrencies implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

@@ -13,7 +13,7 @@ use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
  *
  * Gets and syncs customer records from dk on an hourly basis.
  */
-class GetCustomers {
+class GetCustomers implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

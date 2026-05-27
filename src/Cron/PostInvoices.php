@@ -15,7 +15,7 @@ use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
  * Attempts to generate invoices from the past 24 hours that do not have a dk
  * invoice number assigned yet.
  */
-class PostInvoices {
+class PostInvoices implements CronJobTemplate {
 	const GET_ORDERS_LIMIT = 10;
 	const PAST_ORDER_LIMIT = 4 * HOUR_IN_SECONDS;
 

@@ -13,7 +13,7 @@ use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
  *
  * Gets products from dk on an hourly basis.
  */
-class CreateProducts {
+class CreateProducts implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

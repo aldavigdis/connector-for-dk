@@ -13,7 +13,7 @@ use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
  *
  * Deletes products from dk if they have been removed or deactivated in dk
  */
-class DeleteProducts {
+class DeleteProducts implements CronJobTemplate {
 	/**
 	 * Run the cron job
 	 */

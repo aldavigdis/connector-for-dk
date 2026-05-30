@@ -16,8 +16,8 @@ use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
  * invoice number assigned yet.
  */
 class PostInvoices implements CronJobTemplate {
-	const GET_ORDERS_LIMIT = 10;
-	const PAST_ORDER_LIMIT = 4 * HOUR_IN_SECONDS;
+	const GET_ORDERS_LIMIT = 50;
+	const PAST_ORDER_LIMIT = 48 * HOUR_IN_SECONDS;
 
 	/**
 	 * Run hourly task

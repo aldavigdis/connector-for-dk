@@ -150,8 +150,6 @@ class Product {
 	/**
 	 * Get the tax rate for a product
 	 *
-	 * @throws WP_Exception If WooCommerce tax rates have not been initialised.
-	 *
 	 * @param WC_Product $wc_product The WooCommerce product.
 	 *
 	 * @return float A floating point representation of the tax rate percentage.
@@ -584,7 +582,7 @@ class Product {
 	 * Checks if a product record exsists in DK with a ProductCode attribute
 	 * that equals a WooCommerce product's SKU.
 	 *
-	 * @param WC_Product|sku $wc_product The WooCommerce product or its SKU.
+	 * @param WC_Product|string $wc_product The WooCommerce product or its SKU.
 	 *
 	 * @return bool|WP_Error True on success, false if connection was
 	 *                       established but the request was rejected, WC_Error

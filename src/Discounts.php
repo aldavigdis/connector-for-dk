@@ -341,11 +341,7 @@ class Discounts {
 
 		$incl_tax      = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
 		$customer      = new WC_Customer( get_current_user_id() );
-		$regular_price = ProductHelper::get_group_price(
-			$product,
-			$customer,
-			$incl_tax
-		);
+		$regular_price = $product->get_regular_price();
 
 		if ( $product->is_on_sale( 'edit' ) ) {
 			$customer_price = $product->get_sale_price( 'edit' );
@@ -771,11 +767,7 @@ class Discounts {
 				$incl_tax
 			);
 
-			$regular_price = (float) ProductHelper::get_group_price(
-				$product,
-				$customer,
-				$incl_tax,
-			);
+			$regular_price = (float) $product->get_regular_price( 'edit' );
 
 			$cart_item['data']->set_regular_price(
 				(string) $regular_price

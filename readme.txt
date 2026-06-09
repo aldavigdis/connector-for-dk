@@ -1,5 +1,5 @@
 === Connector for dk ===
-Stable tag: 0.7.2
+Stable tag: 0.7.3
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.8
@@ -39,6 +39,9 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.7.3 =
+* Fixing a bug that prevented before/after sale prices from displaying correctly
+
 = 0.7.2 =
 * Defining 7.0 as the target WordPress version
 * Extending automatic invoice generation to cover 48 hours instead of the past 4 hours

@@ -83,7 +83,7 @@ class Products {
 	 * @see AldaVigdis\ConnectorForDK\Cron\UpdateProducts::run()
 	 * @see AldaVigdis\ConnectorForDK\Import\Products::update_current()
 	 */
-	const DEFAULT_UPDATE_QUANTITY = 32;
+	const DEFAULT_UPDATE_QUANTITY = 64;
 
 	/**
 	 * The number of products to create per batch
@@ -100,8 +100,16 @@ class Products {
 	 */
 	const DEFAULT_CREATE_QUANTITY = 64;
 
+	/**
+	 * The number of products to update per batch
+	 */
 	const DEFAULT_DELETE_QUANTITY = 32;
 
+	/**
+	 * SQL query for counting the currently fetched products
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_current_count()
+	 */
 	const COUNT_CURRENT_QUERY = <<<'SQL'
 	SELECT COUNT(*) AS `count`
 	FROM wp_posts
@@ -114,6 +122,14 @@ class Products {
 	)
 	SQL;
 
+	/**
+	 * SQL query for getting current product SKUs
+	 *
+	 * This is done for cross-checking the database before creating new
+	 * products, if any.
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_current_skus()
+	 */
 	const GET_CURRENT_SKUS_QUERY = <<<'SQL'
 	SELECT wp_postmeta.meta_value AS `sku`
 	FROM wp_posts
@@ -126,69 +142,146 @@ class Products {
 	)
 	SQL;
 
+	/**
+	 * SQL query for getting products to update
+	 *
+	 * This gets suffixed with a LIMIT statement in the
+	 * `get_product_ids_to_update` function.
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_product_ids_to_update()
+	 */
 	const GET_BATCH_TO_UPDATE_QUERY = <<<'SQL'
-	SELECT
-		wp_posts.id AS id,
-		FROM_UNIXTIME( wp_postmeta.meta_value ) AS time_updated
+	SELECT wp_posts.id AS id,
+	  FROM_UNIXTIME( wp_postmeta.meta_value ) AS time_updated
 	FROM wp_posts
 	INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id
 	WHERE wp_posts.post_type IN ( 'product', 'product_variation' )
-		AND wp_postmeta.meta_key = 'connector_for_dk_last_downstream_sync'
-		AND wp_postmeta.meta_value < UNIX_TIMESTAMP() - 3600
+	AND wp_postmeta.meta_key = 'connector_for_dk_last_downstream_sync'
+	AND wp_postmeta.meta_value < UNIX_TIMESTAMP() - 3600
 	UNION
 	SELECT wp_posts.id AS id,
-		wp_posts.post_modified AS time_updated
+	  FROM_UNIXTIME( wp_postmeta.meta_value ) AS time_updated
 	FROM wp_posts
-	INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id
+	LEFT OUTER JOIN wp_postmeta
+	ON wp_postmeta.post_id = wp_posts.ID
+	AND wp_postmeta.meta_key = 'connector_for_dk_last_downstream_sync'
 	WHERE wp_posts.post_type IN ( 'product', 'product_variation' )
-		AND wp_postmeta.meta_key = '_sku'
-		AND wp_posts.post_modified < FROM_UNIXTIME( UNIX_TIMESTAMP() - 3600 )
-		AND NOT EXISTS (
-			SELECT 1
-			FROM wp_postmeta pm
-			WHERE pm.post_id = wp_posts.id
-			AND pm.meta_key = 'connector_for_dk_last_downstream_sync'
-			AND pm.meta_value < UNIX_TIMESTAMP() - 3600
-		)
+	AND wp_postmeta.post_id IS NULL
 	ORDER BY time_updated, id ASC
 	SQL;
+
+	/**
+	 * SQL query for getting IDs of products not in dk
+	 *
+	 * This fetches items with no SKU or SKUs not fetched from last request to
+	 * the dkPlus API /products endpoint.
+	 *
+	 * The %exclude_skus% gets replaced with the SKUs fetched and cahced from
+	 * the samt dkPlus API endpoint in the `get_product_ids_not_to_update`
+	 * function.
+	 *
+	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_product_ids_not_to_update()
+	 */
+	const GET_NOT_IN_DK_QUERY = <<<'SQL'
+	SELECT wp_posts.id AS id FROM wp_posts
+	INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id
+	WHERE wp_postmeta.meta_key = '_sku'
+	AND (
+		wp_postmeta.meta_value NOT IN ( %exclude_skus% )
+		OR wp_postmeta.meta_value = ''
+	)
+	SQL;
+
+	/**
+	 * Filter a SQL database query
+	 *
+	 * Replaces the `wp_` prefix with the WP table prefix for the current
+	 * WordPress installation if it has been set to another value than .
+	 *
+	 * This currently supports the wp_posts and wp_postmeta tables.
+	 *
+	 * @param string $query The SQL database query to filter.
+	 *
+	 * @return string A filtered query, with the wp_ prefix replaced for supported tables.
+	 */
+	public static function filter_query( string $query ): string {
+		global $wpdb;
+
+		$query = str_replace(
+			'wp_posts.',
+			$wpdb->prefix . 'posts.',
+			$query
+		);
+
+		$query = str_replace(
+			'wp_postmeta.',
+			$wpdb->prefix . 'postmeta.',
+			$query
+		);
+
+		return $query;
+	}
 
 	/**
 	 * Get the IDs of the products to upate during text batch
 	 *
 	 * This gets used by `get_products_to_update()`.
 	 *
-	 * @param int $batch_size The size of the batch (defaults to `32`).
-	 *
 	 * @return int[]
 	 */
-	public static function get_product_ids_to_update(
-		int $batch_size = self::DEFAULT_UPDATE_QUANTITY
-	): array {
+	public static function get_product_ids_to_update(): array {
 		global $wpdb;
-		$query  = self::GET_BATCH_TO_UPDATE_QUERY;
-		$query .= "\nLIMIT 0,$batch_size";
 
 		return array_map(
 			function ( object $r ): int {
 				return (int) $r->id;
 			},
-			//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-			$wpdb->get_results( $query )
+			$wpdb->get_results(
+				//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				self::filter_query( self::GET_BATCH_TO_UPDATE_QUERY )
+			)
+		);
+	}
+
+	/**
+	 * Get product IDs not to update
+	 *
+	 * Gets the database IDs of products that have not been fetched from the
+	 * last call to the dk products endpoint.
+	 *
+	 * @return int[]
+	 */
+	public static function get_product_ids_not_to_update(): array {
+		global $wpdb;
+
+		$query = str_replace(
+			'%exclude_skus%',
+			self::get_dk_skus_as_sql_array(),
+			self::GET_NOT_IN_DK_QUERY
+		);
+
+		return array_map(
+			function ( object $r ): int {
+				return (int) $r->id;
+			},
+			$wpdb->get_results(
+				//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				self::filter_query( $query )
+			)
 		);
 	}
 
 	/**
 	 * Get the next batch of products to update
 	 *
-	 * @param int $batch_size The batch size (defaults to `32`).
+	 * @param int $limit The max number of products to fetch from the database.
 	 *
 	 * @return WC_Product[]
 	 */
 	public static function get_products_to_update(
-		int $batch_size = self::DEFAULT_UPDATE_QUANTITY
+		int $limit = self::DEFAULT_UPDATE_QUANTITY
 	): array {
-		$ids = self::get_product_ids_to_update( $batch_size );
+		$ids = self::get_product_ids_to_update();
 
 		/*
 		The wc_get_products function will return every single product if we use
@@ -201,9 +294,10 @@ class Products {
 
 		return (array) wc_get_products(
 			array(
-				'limit'   => -1,
+				'limit'   => $limit,
 				'types'   => array( 'simple', 'variable', 'variaiton' ),
 				'include' => $ids,
+				'exclude' => self::get_product_ids_not_to_update(),
 			)
 		);
 	}
@@ -213,8 +307,10 @@ class Products {
 	 */
 	public static function get_current_count(): int {
 		global $wpdb;
-		//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$result = $wpdb->get_results( self::COUNT_CURRENT_QUERY );
+		$result = $wpdb->get_results(
+			//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			self::filter_query( self::COUNT_CURRENT_QUERY )
+		);
 
 		return (int) $result[0]->count;
 	}
@@ -232,8 +328,10 @@ class Products {
 			function ( object $r ): string {
 				return (string) $r->sku;
 			},
-			//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-			$wpdb->get_results( self::GET_CURRENT_SKUS_QUERY )
+			$wpdb->get_results(
+				//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				self::filter_query( self::GET_CURRENT_SKUS_QUERY )
+			)
 		);
 	}
 
@@ -294,12 +392,6 @@ class Products {
 						$dk_product,
 						$wc_product
 					);
-				} else {
-					$wc_product->update_meta_data(
-						'connector_for_dk_last_downstream_sync',
-						time()
-					);
-					$wc_product->save_meta_data();
 				}
 			}
 		}
@@ -607,10 +699,25 @@ class Products {
 		$skus = array();
 
 		foreach ( $dk_products as $p ) {
-			$skus[] = $p->ItemCode;
+			$skus[] = addslashes( $p->ItemCode );
 		}
 
 		return $skus;
+	}
+
+	/**
+	 * Get SKUs from dk as an SQL array formatted string
+	 *
+	 * @return string The SQL-formatted array.
+	 */
+	public static function get_dk_skus_as_sql_array(): string {
+		$dk_skus = self::get_skus_from_dk();
+
+		if ( ! $dk_skus ) {
+			return '';
+		}
+
+		return '\'' . implode( '\', \'', $dk_skus ) . '\'';
 	}
 
 	/**
@@ -1208,7 +1315,11 @@ class Products {
 	public static function get_product_price_from_json(
 		object $json_object
 	): object|false {
-		$decimals       = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+		$decimals = (int) get_option(
+			'woocommerce_price_num_decimals',
+			0
+		);
+
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = Config::get_dk_currency();
 
@@ -1520,7 +1631,9 @@ class Products {
 		object $json_object,
 		string $variant_code
 	): array {
-		$attribute_names  = ProductVariations::get_variation_attribute_codes( $variant_code );
+		$attribute_names  = ProductVariations::get_variation_attribute_codes(
+			$variant_code
+		);
 		$warehouses       = $json_object->Warehouses;
 		$variations_array = array();
 
@@ -1543,8 +1656,11 @@ class Products {
 				);
 
 				if ( property_exists( $v, 'Code2' ) ) {
-					$variation['attribute_2'] = mb_strtolower( $attribute_names[1] );
-					$variation['code_2']      = mb_strtolower( $v->Code2 );
+					$variation['attribute_2'] = mb_strtolower(
+						$attribute_names[1]
+					);
+
+					$variation['code_2'] = mb_strtolower( $v->Code2 );
 				}
 
 				$variations_array[] = (object) $variation;
@@ -1608,7 +1724,8 @@ class Products {
 			);
 
 			if ( property_exists( $v, 'code_2' ) ) {
-				$key                = sanitize_title( 'attribute_' . $v->attribute_2 );
+				$key = sanitize_title( 'attribute_' . $v->attribute_2 );
+
 				$attributes[ $key ] = $v->code_2;
 			}
 
@@ -1631,11 +1748,21 @@ class Products {
 				$price = $wc_product->get_meta( 'connector_for_dk_price' );
 
 				if ( is_object( $price ) ) {
-					$variation->set_regular_price( $price->price );
-					$variation->set_sale_price( $price->sale_price );
-					$variation->set_date_on_sale_from( $price->date_on_sale_from );
-					$variation->set_date_on_sale_to( $price->date_on_sale_to );
-					$variation->set_tax_class( $price->tax_class );
+					$variation->set_regular_price(
+						$price->price
+					);
+					$variation->set_sale_price(
+						$price->sale_price
+					);
+					$variation->set_date_on_sale_from(
+						$price->date_on_sale_from
+					);
+					$variation->set_date_on_sale_to(
+						$price->date_on_sale_to
+					);
+					$variation->set_tax_class(
+						$price->tax_class
+					);
 
 					$variation->update_meta_data(
 						'connector_for_dk_price_1',
@@ -1683,7 +1810,9 @@ class Products {
 					$wc_product->get_id() === $variation->get_parent_id()
 				) {
 					if ( $variation->get_menu_order() < 0 ) {
-						$variation->set_menu_order( intval( $i ) + $variation_count );
+						$variation->set_menu_order(
+							intval( $i ) + $variation_count
+						);
 					}
 
 					$variation->set_parent_id( $wc_product->get_id() );
@@ -1691,18 +1820,34 @@ class Products {
 					$variation->set_weight( $wc_product->get_weight() );
 					if ( ProductHelper::quantity_sync_enabled( $variation ) ) {
 						$variation->set_stock_quantity( $v->quantity );
-						$variation->set_manage_stock( $wc_product->get_manage_stock() );
-						$variation->set_backorders( $wc_product->get_backorders() );
+						$variation->set_manage_stock(
+							$wc_product->get_manage_stock()
+						);
+						$variation->set_backorders(
+							$wc_product->get_backorders()
+						);
 					}
 					if ( ProductHelper::price_sync_enabled( $variation ) ) {
-						$price = $wc_product->get_meta( 'connector_for_dk_price' );
+						$price = $wc_product->get_meta(
+							'connector_for_dk_price'
+						);
 
 						if ( is_object( $price ) ) {
-							$variation->set_regular_price( $price->price );
-							$variation->set_sale_price( $price->sale_price );
-							$variation->set_date_on_sale_from( $price->date_on_sale_from );
-							$variation->set_date_on_sale_to( $price->date_on_sale_to );
-							$variation->set_tax_class( $price->tax_class );
+							$variation->set_regular_price(
+								$price->price
+							);
+							$variation->set_sale_price(
+								$price->sale_price
+							);
+							$variation->set_date_on_sale_from(
+								$price->date_on_sale_from
+							);
+							$variation->set_date_on_sale_to(
+								$price->date_on_sale_to
+							);
+							$variation->set_tax_class(
+								$price->tax_class
+							);
 
 							$variation->update_meta_data(
 								'connector_for_dk_price_1',
@@ -1789,14 +1934,21 @@ class Products {
 				$variation_json_object->code_1 === $variation_values[0]
 			) {
 				if (
-					! property_exists( $variation_json_object, 'attribute_2' ) &&
-					! property_exists( $variation_json_object, 'code_2' )
+					! property_exists(
+						$variation_json_object,
+						'attribute_2'
+					) &&
+					! property_exists(
+						$variation_json_object,
+						'code_2'
+					)
 				) {
 					return $variation_id;
 				}
 
 				if (
-					$variation_json_object->attribute_2 === $variation_keys[1] &&
+					$variation_json_object->attribute_2 === $variation_keys[1]
+					&&
 					$variation_json_object->code_2 === $variation_values[1]
 				) {
 					return $variation_id;

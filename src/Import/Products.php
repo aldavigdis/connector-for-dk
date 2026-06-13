@@ -1315,7 +1315,11 @@ class Products {
 	public static function get_product_price_from_json(
 		object $json_object
 	): object|false {
-		$decimals       = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+		$decimals = (int) get_option(
+			'woocommerce_price_num_decimals',
+			0
+		);
+
 		$store_currency = get_woocommerce_currency();
 		$dk_currency    = Config::get_dk_currency();
 
@@ -1627,7 +1631,9 @@ class Products {
 		object $json_object,
 		string $variant_code
 	): array {
-		$attribute_names  = ProductVariations::get_variation_attribute_codes( $variant_code );
+		$attribute_names  = ProductVariations::get_variation_attribute_codes(
+			$variant_code
+		);
 		$warehouses       = $json_object->Warehouses;
 		$variations_array = array();
 
@@ -1650,8 +1656,11 @@ class Products {
 				);
 
 				if ( property_exists( $v, 'Code2' ) ) {
-					$variation['attribute_2'] = mb_strtolower( $attribute_names[1] );
-					$variation['code_2']      = mb_strtolower( $v->Code2 );
+					$variation['attribute_2'] = mb_strtolower(
+						$attribute_names[1]
+					);
+
+					$variation['code_2'] = mb_strtolower( $v->Code2 );
 				}
 
 				$variations_array[] = (object) $variation;
@@ -1715,7 +1724,8 @@ class Products {
 			);
 
 			if ( property_exists( $v, 'code_2' ) ) {
-				$key                = sanitize_title( 'attribute_' . $v->attribute_2 );
+				$key = sanitize_title( 'attribute_' . $v->attribute_2 );
+
 				$attributes[ $key ] = $v->code_2;
 			}
 
@@ -1738,11 +1748,21 @@ class Products {
 				$price = $wc_product->get_meta( 'connector_for_dk_price' );
 
 				if ( is_object( $price ) ) {
-					$variation->set_regular_price( $price->price );
-					$variation->set_sale_price( $price->sale_price );
-					$variation->set_date_on_sale_from( $price->date_on_sale_from );
-					$variation->set_date_on_sale_to( $price->date_on_sale_to );
-					$variation->set_tax_class( $price->tax_class );
+					$variation->set_regular_price(
+						$price->price
+					);
+					$variation->set_sale_price(
+						$price->sale_price
+					);
+					$variation->set_date_on_sale_from(
+						$price->date_on_sale_from
+					);
+					$variation->set_date_on_sale_to(
+						$price->date_on_sale_to
+					);
+					$variation->set_tax_class(
+						$price->tax_class
+					);
 
 					$variation->update_meta_data(
 						'connector_for_dk_price_1',
@@ -1790,7 +1810,9 @@ class Products {
 					$wc_product->get_id() === $variation->get_parent_id()
 				) {
 					if ( $variation->get_menu_order() < 0 ) {
-						$variation->set_menu_order( intval( $i ) + $variation_count );
+						$variation->set_menu_order(
+							intval( $i ) + $variation_count
+						);
 					}
 
 					$variation->set_parent_id( $wc_product->get_id() );
@@ -1798,18 +1820,34 @@ class Products {
 					$variation->set_weight( $wc_product->get_weight() );
 					if ( ProductHelper::quantity_sync_enabled( $variation ) ) {
 						$variation->set_stock_quantity( $v->quantity );
-						$variation->set_manage_stock( $wc_product->get_manage_stock() );
-						$variation->set_backorders( $wc_product->get_backorders() );
+						$variation->set_manage_stock(
+							$wc_product->get_manage_stock()
+						);
+						$variation->set_backorders(
+							$wc_product->get_backorders()
+						);
 					}
 					if ( ProductHelper::price_sync_enabled( $variation ) ) {
-						$price = $wc_product->get_meta( 'connector_for_dk_price' );
+						$price = $wc_product->get_meta(
+							'connector_for_dk_price'
+						);
 
 						if ( is_object( $price ) ) {
-							$variation->set_regular_price( $price->price );
-							$variation->set_sale_price( $price->sale_price );
-							$variation->set_date_on_sale_from( $price->date_on_sale_from );
-							$variation->set_date_on_sale_to( $price->date_on_sale_to );
-							$variation->set_tax_class( $price->tax_class );
+							$variation->set_regular_price(
+								$price->price
+							);
+							$variation->set_sale_price(
+								$price->sale_price
+							);
+							$variation->set_date_on_sale_from(
+								$price->date_on_sale_from
+							);
+							$variation->set_date_on_sale_to(
+								$price->date_on_sale_to
+							);
+							$variation->set_tax_class(
+								$price->tax_class
+							);
 
 							$variation->update_meta_data(
 								'connector_for_dk_price_1',
@@ -1896,14 +1934,21 @@ class Products {
 				$variation_json_object->code_1 === $variation_values[0]
 			) {
 				if (
-					! property_exists( $variation_json_object, 'attribute_2' ) &&
-					! property_exists( $variation_json_object, 'code_2' )
+					! property_exists(
+						$variation_json_object,
+						'attribute_2'
+					) &&
+					! property_exists(
+						$variation_json_object,
+						'code_2'
+					)
 				) {
 					return $variation_id;
 				}
 
 				if (
-					$variation_json_object->attribute_2 === $variation_keys[1] &&
+					$variation_json_object->attribute_2 === $variation_keys[1]
+					&&
 					$variation_json_object->code_2 === $variation_values[1]
 				) {
 					return $variation_id;

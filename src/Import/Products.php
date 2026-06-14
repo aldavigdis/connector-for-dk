@@ -154,7 +154,7 @@ class Products {
 	 */
 	const GET_BATCH_TO_UPDATE_QUERY = <<<'SQL'
 	SELECT wp_posts.id AS id,
-	FROM_UNIXTIME( wp_postmeta.meta_value ) AS time_updated
+	CAST( wp_postmeta.meta_value AS int ) AS time_updated
 	FROM wp_posts
 	INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id
 	WHERE wp_posts.post_type IN ( 'product', 'product_variation' )
@@ -162,7 +162,7 @@ class Products {
 	AND wp_postmeta.meta_value < UNIX_TIMESTAMP() - 3600
 	UNION
 	SELECT wp_posts.id AS id,
-	FROM_UNIXTIME( wp_postmeta.meta_value ) AS time_updated
+	CAST( wp_postmeta.meta_value AS int ) AS time_updated
 	FROM wp_posts
 	LEFT OUTER JOIN wp_postmeta ON wp_postmeta.post_id = wp_posts.ID
 	INNER JOIN wp_postmeta AS sku ON wp_posts.id = sku.post_id
@@ -172,7 +172,7 @@ class Products {
 	AND wp_postmeta.post_id IS NULL
 	EXCEPT (
 	SELECT wp_posts.id AS id,
-	NULL AS time_updated
+	0 AS time_updated
 	FROM wp_posts
 	LEFT OUTER JOIN wp_postmeta
 	ON wp_postmeta.post_id = wp_posts.ID
@@ -181,7 +181,7 @@ class Products {
 	AND wp_postmeta.post_id IS NULL
 	UNION
 	SELECT wp_posts.id AS id,
-	FROM_UNIXTIME( u.meta_value ) as time_updated
+	CAST( u.meta_value as int ) as time_updated
 	FROM wp_posts
 	INNER JOIN wp_postmeta
 	ON wp_posts.id = wp_postmeta.post_id

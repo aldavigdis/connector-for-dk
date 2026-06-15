@@ -304,13 +304,7 @@ class Discounts {
 
 		$incl_tax = wc_prices_include_tax();
 
-		if ( array_key_exists( 'connector_for_dk_current_customer', $GLOBALS ) ) {
-			$customer = $GLOBALS['connector_for_dk_current_customer'];
-		} else {
-			$customer = new WC_Customer( get_current_user_id() );
-
-			$GLOBALS['connector_for_dk_current_customer'] = $customer;
-		}
+		$customer = self::get_current_customer();
 
 		return ProductHelper::get_customer_price(
 			$product,

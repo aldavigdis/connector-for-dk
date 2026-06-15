@@ -174,6 +174,26 @@ class Discounts {
 	}
 
 	/**
+	 * Get the current customer
+	 *
+	 * @return WC_Customer The current customer.
+	 */
+	public static function get_current_customer(): WC_Customer {
+		if (
+			array_key_exists( 'connector_for_dk_current_customer', $GLOBALS ) &&
+			$GLOBALS['connector_for_dk_current_customer'] instanceof WC_Customer
+		) {
+			return $GLOBALS['connector_for_dk_current_customer'];
+		}
+
+		$customer = new WC_Customer( get_current_user_id() );
+
+		$GLOBALS['connector_for_dk_current_customer'] = $customer;
+
+		return $customer;
+	}
+
+	/**
 	 * Display information on a user's price group and discount in the user editor
 	 *
 	 * @param WP_User $profile_user The WP user who's profile is being edited.
@@ -283,7 +303,14 @@ class Discounts {
 		}
 
 		$incl_tax = wc_prices_include_tax();
-		$customer = new WC_Customer( get_current_user_id() );
+
+		if ( array_key_exists( 'connector_for_dk_current_customer', $GLOBALS ) ) {
+			$customer = $GLOBALS['connector_for_dk_current_customer'];
+		} else {
+			$customer = new WC_Customer( get_current_user_id() );
+
+			$GLOBALS['connector_for_dk_current_customer'] = $customer;
+		}
 
 		return ProductHelper::get_customer_price(
 			$product,
@@ -346,7 +373,8 @@ class Discounts {
 		}
 
 		$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
-		$customer = new WC_Customer( get_current_user_id() );
+
+		$customer = self::get_current_customer();
 
 		$regular_price = ProductHelper::get_group_price(
 			$product,
@@ -639,13 +667,11 @@ class Discounts {
 			return ( $product->get_price( 'edit' ) );
 		}
 
-		$customer_id = get_current_user_id();
+		$customer = self::get_current_customer();
 
-		if ( $customer_id === 0 ) {
+		if ( $customer->get_id() === 0 ) {
 			return $product->get_price( 'edit' );
 		}
-
-		$customer = new WC_Customer( $customer_id );
 
 		return ProductHelper::get_group_price(
 			$product,
@@ -678,7 +704,7 @@ class Discounts {
 			return $product->get_sale_price( 'edit' );
 		}
 
-		$customer = new WC_Customer( get_current_user_id() );
+		$customer = self::get_current_customer();
 
 		return ProductHelper::get_customer_price(
 			$product,
@@ -812,9 +838,11 @@ class Discounts {
 		string $price,
 		WC_Product $product
 	): string {
-		$customer = new WC_Customer( get_current_user_id() );
-
-		$text = self::quantity_discount_indicator_text( $product, $customer );
+		$customer = self::get_current_customer();
+		$text     = self::quantity_discount_indicator_text(
+			$product,
+			$customer
+		);
 
 		if ( empty( $text ) ) {
 			return $price;

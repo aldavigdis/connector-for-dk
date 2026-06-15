@@ -160,6 +160,7 @@ class Products {
 	WHERE wp_posts.post_type IN ( 'product', 'product_variation' )
 	AND wp_postmeta.meta_key = 'connector_for_dk_last_downstream_sync'
 	AND wp_postmeta.meta_value < UNIX_TIMESTAMP() - 3600
+	AND wp_posts.post_status != 'trash'
 	UNION
 	SELECT wp_posts.id AS id,
 	CAST( wp_postmeta.meta_value AS int ) AS time_updated

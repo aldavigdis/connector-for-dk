@@ -15,8 +15,7 @@ use AldaVigdis\ConnectorForDK\KennitalaField;
 class Config {
 	const DK_API_KEY_REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$';
 
-	const PREFIX     = 'connector_for_dk_';
-	const OLD_PREFIX = 'connector_for_dk_';
+	const PREFIX = 'connector_for_dk_';
 
 	const DEFAULT_SHIPPING_SKU = 'shipping';
 	const DEFAULT_COUPON_SKU   = 'coupon';
@@ -62,9 +61,16 @@ class Config {
 			return constant( $constant_name );
 		}
 
+		if ( array_key_exists( $option_name, $GLOBALS ) ) {
+			return $GLOBALS[ $option_name ];
+		}
+
+		$option_value            = get_option( $option_name, $default );
+		$GLOBALS[ $option_name ] = $option_value;
+
 		return apply_filters(
 			"connector_for_dk_get_option_$option_name",
-			get_option( self::PREFIX . $option, $default )
+			$option_value
 		);
 	}
 
@@ -78,13 +84,22 @@ class Config {
 		string $option,
 		string|int|float|array|object|bool $value
 	): bool {
-		delete_option( self::OLD_PREFIX . $option );
+		$option_name = self::PREFIX . $option;
 
-		if ( is_bool( $value ) ) {
-			return update_option( self::PREFIX . $option, strval( intval( $value ) ) );
+		if (
+			is_bool( $value ) &&
+			update_option( $option_name, strval( intval( $value ) ) )
+		) {
+			$GLOBALS[ $option_name ] = strval( intval( $value ) );
+			return true;
 		}
 
-		return update_option( self::PREFIX . $option, $value );
+		if ( update_option( $option_name, $value ) ) {
+			$GLOBALS[ $option_name ] = $value;
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

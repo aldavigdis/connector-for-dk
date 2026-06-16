@@ -215,6 +215,18 @@ class Settings {
 			);
 		}
 
+		if (
+			property_exists( $rest_json, 'enable_downstream_product_sync' ) &&
+			$rest_json->enable_downstream_product_sync === true
+		) {
+			ImportProducts::update_current(
+				(int) apply_filters(
+					'connector_for_dk_update_current_quantity',
+					ImportProducts::DEFAULT_UPDATE_QUANTITY
+				)
+			);
+		}
+
 		do_action(
 			'connector_for_dk_settings_end',
 			$rest_json

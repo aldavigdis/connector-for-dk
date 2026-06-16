@@ -1004,6 +1004,7 @@ class Products {
 		try {
 			$wc_product->save();
 		} catch ( Exception ) {
+			$wc_product->delete( true );
 			return false;
 		}
 

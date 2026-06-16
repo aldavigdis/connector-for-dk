@@ -13,6 +13,7 @@ use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
 use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
 use AldaVigdis\ConnectorForDK\ProductCategories;
 use DateTime;
+use Exception;
 use WC_DateTime;
 use WC_Product;
 use WC_Product_Query;
@@ -813,6 +814,10 @@ class Products {
 	public static function json_to_new_product(
 		object $json_object
 	): WC_Product|false {
+		if ( wc_get_product_id_by_sku( $json_object->ItemCode ) !== 0 ) {
+			return false;
+		}
+
 		if (
 			property_exists( $json_object, 'Deleted' ) &&
 			$json_object->Deleted
@@ -991,7 +996,16 @@ class Products {
 
 		self::update_discount_from_json( $json_object, $wc_product );
 
-		$wc_product->save();
+		// Sometimes, the WooCommerce Product Lookup table gets wonky or wp-cron
+		// attempts to sync the same product in parallel, which causes an
+		// exception in case the product is already saved according to the
+		// lookup table. In that case, we simply return false and keep
+		// processing other products.
+		try {
+			$wc_product->save();
+		} catch ( Exception ) {
+			return false;
+		}
 
 		return $wc_product;
 	}
@@ -1094,6 +1108,10 @@ class Products {
 		$wc_product = wc_get_product( $product_id );
 
 		if ( ! ( $wc_product instanceof WC_Product ) ) {
+			return false;
+		}
+
+		if ( $wc_product->get_id() === 0 ) {
 			return false;
 		}
 

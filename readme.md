@@ -27,6 +27,55 @@ We use Github actions as a continious integration process to automatically test 
 
 We generally assume that the most recent version of WooCommerce is in use and use that for testing across the supported PHP and WordPress versions. This is done using a test martrix in the Github CI process.
 
+### Filters and actions
+
+The plugin uses filters and actions for a many of the things that happen under the bonnet. They are not specifically documented here, but you can find them if you search the codebase for the `apply_filters` and `do_action` functions.
+
+You can employ this in your own plugins or in a file that you upload to `mu-plugins`. It is considered good practice and far simpler to use mu-plugins for modifying specific behaviour like this than to make a full-on traditional WordPress plugin for this purpose.
+
+#### Example filters
+
+Any configuration setting can be modified on runtime using the `connector_for_dk_get_option_$option_name` filter. This can be useful if you need to prevent some changes from being made using the wp-admin interface.
+
+If you would like to force the default SKU for product with 24% VAT to a certain value, you can do the following:
+
+```php
+<?php
+
+add_filter(
+	'connector_for_dk_get_option_sku_for_24_vat',
+	function (): string {
+		return '24vatsku';
+	},
+	10,
+	0
+);
+```
+
+You may want to limit some of the plugin's functionality in highly constrained and limited hosting environments or if your site is not performant enough to successfully run wp-cron jobs for any other reason. You can use filters is to scale down the number of products that get updated and created in WooCommerce from the default value of 64. (You can do this in the opposite direction if you have a super performant machine let the maximum execution time exceed the default 30 seconds.)
+
+```php
+<?php
+
+add_filter(
+	'connector_for_dk_update_current_quantity',
+	function (): int {
+		return 16;
+	},
+	10,
+	0
+);
+
+add_filter(
+	'connector_for_dk_new_products_quantity',
+	function (): int {
+		return 8;
+	},
+	10,
+	0
+);
+```
+
 ### Introduction and main concepts
 
 In the most simple terms this WordPress plugin syncs information between a WooCommerce store and the DK accounting software. It syncs product data, creates invoices for fulfilled orders and sync stock levels for products between the two.

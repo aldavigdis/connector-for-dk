@@ -636,6 +636,10 @@ class Product {
 		float|int $quantity = 0.0,
 		bool|null $incl_tax = null
 	): string {
+		if ( empty( $product->get_price( 'edit' ) ) ) {
+			return '';
+		}
+
 		if ( is_null( $incl_tax ) ) {
 			$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
 		}
@@ -723,6 +727,10 @@ class Product {
 					PHP_ROUND_HALF_UP
 				);
 			}
+		}
+
+		if ( empty( $product->get_price( 'edit' ) ) ) {
+			return '';
 		}
 
 		if ( $including_tax ) {

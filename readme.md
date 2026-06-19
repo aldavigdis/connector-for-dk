@@ -27,6 +27,19 @@ We use Github actions as a continious integration process to automatically test 
 
 We generally assume that the most recent version of WooCommerce is in use and use that for testing across the supported PHP and WordPress versions. This is done using a test martrix in the Github CI process.
 
+### Introduction and main concepts
+
+In the most simple terms this WordPress plugin syncs information between a WooCommerce store and the DK accounting software. It syncs product data, creates invoices for fulfilled orders and sync stock levels for products between the two.
+
+#### Two sources of truth
+
+* The WooCommerce store is the source of truth for product prices and availability towards the customer
+* The DK setup is the source of truth for accounting transactions
+
+This means that any price calculations and display, including customer-specific discounts done within WordPress or WooCommerce, facilitated by this plugin and should not require querying the dkPlus API each time a product price is calculated or displayed.
+
+While this does mean that prices only get updated on an hourly basis using wp-cron, it ensures that the product price displayed to the customer (shelf price) is the same as the ones that end up on the customer's invoice.
+
 ### Filters and actions
 
 The plugin uses filters and actions for a many of the things that happen under the bonnet. They are not specifically documented here, but you can find them if you search the codebase for the `apply_filters` and `do_action` functions.
@@ -75,19 +88,6 @@ add_filter(
 	0
 );
 ```
-
-### Introduction and main concepts
-
-In the most simple terms this WordPress plugin syncs information between a WooCommerce store and the DK accounting software. It syncs product data, creates invoices for fulfilled orders and sync stock levels for products between the two.
-
-#### Two sources of truth
-
-* The WooCommerce store is the source of truth for product prices and availability towards the customer
-* The DK setup is the source of truth for accounting transactions
-
-This means that any price calculations and display, including customer-specific discounts done within WordPress or WooCommerce, facilitated by this plugin and should not require querying the dkPlus API each time a product price is calculated or displayed.
-
-While this does mean that prices only get updated on an hourly basis using wp-cron, it ensures that the product price displayed to the customer (shelf price) is the same as the ones that end up on the customer's invoice.
 
 ### The DK API
 

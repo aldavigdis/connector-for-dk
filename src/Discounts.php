@@ -302,6 +302,10 @@ class Discounts {
 			return $product->get_sale_price( 'edit' );
 		}
 
+		if ( empty( $product->get_price( 'edit' ) ) ) {
+			return '';
+		}
+
 		$incl_tax = wc_prices_include_tax();
 
 		$customer = self::get_current_customer();

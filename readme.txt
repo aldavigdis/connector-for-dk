@@ -1,5 +1,5 @@
 === Connector for dk ===
-Stable tag: 0.7.7
+Stable tag: 0.7.8
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
 Requires at least: 6.8
@@ -39,6 +39,12 @@ Always back up your accounting records, site data and disable any plugin that ma
 7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
 
 == Changelog ==
+= 0.7.8 =
+* Documentation changes
+* Fixing Icelandic language strings
+* Making API key input invisible until the input field is focused
+* Changes to development tools
+
 = 0.7.7 =
 * Iproving the handling of products with no or empty price attribute, improving stability overall
 

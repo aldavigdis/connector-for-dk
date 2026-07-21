@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						id="connector-for-dk-key-input"
 						class="regular-text api-key-input"
 						name="api_key"
-						type="text"
+						type="password"
 						value="<?php echo esc_attr( Config::get_dk_api_key() ); ?>"
 						pattern="<?php echo esc_attr( Config::DK_API_KEY_REGEX ); ?>"
 						required

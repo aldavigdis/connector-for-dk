@@ -168,7 +168,7 @@
 	width: calc(60rem - 10px - 5em - 4rem);
 }
 
-#api-key-form-table input[type=text] {
+#api-key-form-table input[type=text], #api-key-form-table input[type=password] {
 	width: 100%;
 }
 

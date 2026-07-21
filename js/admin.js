@@ -380,6 +380,29 @@ class ConnectorForDK {
 		return document.getElementById( 'deletion_progress_bar_label' );
 	}
 
+	/**
+	 * The API key text input field
+	 *
+	 * @returns {HTMLInputElement|null}
+	 */
+	static apiKeyField() {
+		return document.getElementById( 'connector-for-dk-key-input' );
+	}
+
+	/**
+	 * Assign focus and blur events to the API key text input field
+	 */
+	static assignFocusToAPIKeyField() {
+		this.apiKeyField().addEventListener(
+			'focus',
+			() => { ConnectorForDK.apiKeyField().type = 'text' }
+		);
+
+		this.apiKeyField().addEventListener(
+			'blur',
+			() => { ConnectorForDK.apiKeyField().type = 'password' }
+		);
+	}
 }
 
 window.addEventListener(
@@ -395,6 +418,8 @@ window.addEventListener(
 				ConnectorForDK.assignClickToMasterCheckboxes();
 
 				ConnectorForDK.setGetImportStatsInterval();
+
+				ConnectorForDK.assignFocusToAPIKeyField();
 			}
 		}
 	}

@@ -51,6 +51,17 @@ $customer = new WC_Customer( $user_id );
 				%
 			</td>
 		</tr>
+		<tr>
+			<th><?php esc_html_e( 'Discount Group', 'connector-for-dk' ); ?></th>
+			<td>
+				<input
+					class="small-text"
+					type="text"
+					value="<?php echo esc_html( $customer->get_meta( 'connector_for_dk_group' ) ); ?>"
+					disabled
+				/>
+			</td>
+		</tr>
 		<?php
 		do_action(
 			'connector_for_dk_afte_customer_discount_information_rows',

@@ -200,7 +200,7 @@ class ConnectorForDK {
 											 'category_id',
 											 'use_default_payment_terms' ];
 					if ( ! disallowedInputs.includes( inputName ) ) {
-						if ( inputType === 'text' ) {
+						if ( [ 'text', 'password' ].includes( inputType ) ) {
 							formDataObject[ inputName ] = inputValue.trim();
 						}
 						if ( inputType === 'checkbox' ) {

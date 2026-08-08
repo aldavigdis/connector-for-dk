@@ -2,8 +2,8 @@
 Stable tag: 0.7.8
 Contributors: @aldavigdis
 Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
-Requires at least: 6.8
-Tested up to: 7.0
+Requires at least: 6.8.3
+Tested up to: 7.0.3
 Requires PHP: 8.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html

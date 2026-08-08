@@ -8,10 +8,12 @@ services:
     ports:
       - 80:80
     environment:
-      - WP_INSTALL_VERSION=7.0
+      - WP_INSTALL_VERSION=7.0.3
       - REMOVE_CRAP_PLUGINS=true
       - WP_PLUGIN_INSTALL=woocommerce
       - WP_PLUGIN_ACTIVATE=--all
+      - WP_SITE_DOMAIN=localhost
+      - WP_SITE_TITLE=Tengill Dev
   mariadb:
     image: mariadb
     restart: always

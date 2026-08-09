@@ -20,7 +20,7 @@ class License {
 	const ALLOWED_DEV_HOSTNAMES = array( 'localhost' );
 
 	const ALLOWED_HOSTNAME_PORTIONS = array(
-		'locl',
+		'local',
 		'dev',
 		'develop',
 		'staging',
@@ -28,7 +28,7 @@ class License {
 		'testing',
 		'prufa',
 		'wpenginepowered',
-		'1984.hosting',
+		'1984'
 	);
 
 	/**

@@ -11,6 +11,13 @@ use WC_Customer;
 use WC_DateTime;
 use WP_Error;
 
+/**
+ * Customer discount importer class
+ *
+ * Adds support for customer-specific product pricing.
+ *
+ * @package AldaVigdis\ConnectorForDK\Import
+ */
 class CustomerDiscounts {
 	const TRANSIENT_EXPIRY = 120 * MINUTE_IN_SECONDS;
 
@@ -47,7 +54,7 @@ class CustomerDiscounts {
 	 *
 	 * @return array<object> An array of objects as they arrive from the API.
 	 */
-	public static function get_all() {
+	public static function get_all(): array {
 		$dk_discounts_transient = get_option(
 			'connector_for_dk_customer_prices',
 			false
@@ -86,6 +93,9 @@ class CustomerDiscounts {
 		return array();
 	}
 
+	/**
+	 * Get all discounts from dk, bypassing the transient cache
+	 */
 	public static function get_all_from_dk(): array|WP_Error|false {
 		$request = new DKApiRequest();
 		$result  = $request->get_table_result( self::TABLE, self::FIELDS );
@@ -141,8 +151,14 @@ class CustomerDiscounts {
 		return $customer_prices;
 	}
 
+	/**
+	 * Save customer product prices
+	 *
+	 * Iterates through every WooCommerce customer/user with a kennitala and
+	 * assigns product prices to them.
+	 */
 	public static function save_customer_product_prices(): void {
-		$dk_discounts = self::get_all();
+		$dk_discounts            = self::get_all();
 		$customer_product_prices = self::parse_customer_product_prices(
 			$dk_discounts
 		);

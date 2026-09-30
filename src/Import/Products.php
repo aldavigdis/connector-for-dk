@@ -966,16 +966,24 @@ class Products {
 		}
 
 		if (
-			property_exists( $json_object, 'Group' ) &&
-			Config::get_product_category_sync()
+			property_exists( $json_object, 'Group' )
 		) {
-			$wc_product->set_category_ids(
-				array(
-					ProductCategories::woocommerce_category_for_group(
-						$json_object->Group
-					),
-				)
+			if ( Config::get_product_category_sync() ) {
+				$wc_product->set_category_ids(
+					array(
+						ProductCategories::woocommerce_category_for_group(
+							$json_object->Group
+						),
+					)
+				);
+			}
+
+			$wc_product->update_meta_data(
+				'connector_for_dk_group',
+				$json_object->Group
 			);
+		} else {
+			$wc_product->delete_meta_data( 'connector_for_dk_group' );
 		}
 
 		if ( Config::get_product_quantity_sync() ) {

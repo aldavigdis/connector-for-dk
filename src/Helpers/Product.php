@@ -636,12 +636,49 @@ class Product {
 		float|int $quantity = 0.0,
 		bool|null $incl_tax = null
 	): string {
+		$sku      = $product->get_sku();
+		$decimals = (int) get_option( 'woocommerce_price_num_decimals', 0 );
+
 		if ( empty( $product->get_price( 'edit' ) ) ) {
 			return '';
 		}
 
 		if ( is_null( $incl_tax ) ) {
 			$incl_tax = get_option( 'woocommerce_tax_display_shop' ) === 'incl';
+		}
+
+		$customer_prices = $customer->get_meta(
+			'connector_for_dk_customer_prices'
+		);
+
+		if (
+			is_array( $customer_prices ) &&
+			array_key_exists( $sku, $customer_prices )
+		) {
+			$price_obj = $customer_prices[ $sku ];
+			if (
+				property_exists( $price_obj, 'price' ) &&
+				property_exists( $price_obj, 'date_to' )
+			) {
+				$date_to = new WC_DateTime( $price_obj->date_to );
+				if ( $date_to->getTimestamp() > time() ) {
+					if ( $incl_tax ) {
+						return (string) round(
+							(float) wc_get_price_including_tax(
+								$product,
+								array( 'price' => $price_obj->price )
+							),
+							$decimals,
+							PHP_ROUND_HALF_UP
+						);
+					}
+					return (string) round(
+						(float) $price_obj->price,
+						$decimals,
+						PHP_ROUND_HALF_UP
+					);
+				}
+			}
 		}
 
 		$group_price = self::get_group_price( $product, $customer, $incl_tax );

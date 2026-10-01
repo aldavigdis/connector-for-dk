@@ -4,6 +4,11 @@ declare(strict_types = 1);
 
 use AldaVigdis\ConnectorForDK\Config;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+// Note: This is not a global variable assignment.
 $p = $GLOBALS['connector_for_dk_payment_method'];
 
 if ( ! $p instanceof WC_Payment_Gateway ) {

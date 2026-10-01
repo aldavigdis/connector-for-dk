@@ -1468,12 +1468,12 @@ class Products {
 			return (float) $price_before_tax;
 		}
 
-		$tax_percentage = BigDecimal::of( $tax_rate );
+		$tax_percentage = BigDecimal::of( (string) $tax_rate );
 
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,
 			24,
-			roundingMode: RoundingMode::HALF_CEILING
+			roundingMode: RoundingMode::HalfCeiling
 		);
 
 		return BigDecimal::of(
@@ -1499,12 +1499,12 @@ class Products {
 			return (float) $price_after_tax;
 		}
 
-		$tax_percentage = BigDecimal::of( $tax_rate );
+		$tax_percentage = BigDecimal::of( (string) $tax_rate );
 
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,
 			24,
-			roundingMode: RoundingMode::HALF_CEILING
+			roundingMode: RoundingMode::HalfCeiling
 		);
 
 		return BigDecimal::of(
@@ -1512,7 +1512,7 @@ class Products {
 		)->dividedBy(
 			BigDecimal::of( 1 )->plus( $tax_fraction ),
 			24,
-			RoundingMode::HALF_CEILING
+			RoundingMode::HalfCeiling
 		)->toFloat();
 	}
 

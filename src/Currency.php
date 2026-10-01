@@ -136,7 +136,7 @@ class Currency {
 			BigDecimal::of( 1 )->dividedBy(
 				$to_rate,
 				24,
-				RoundingMode::HALF_CEILING
+				RoundingMode::HalfCeiling
 			)
 		)->toFloat();
 	}

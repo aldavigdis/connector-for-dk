@@ -1468,7 +1468,7 @@ class Products {
 			return (float) $price_before_tax;
 		}
 
-		$tax_percentage = BigDecimal::of( $tax_rate );
+		$tax_percentage = BigDecimal::of( (string) $tax_rate );
 
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,
@@ -1499,7 +1499,7 @@ class Products {
 			return (float) $price_after_tax;
 		}
 
-		$tax_percentage = BigDecimal::of( $tax_rate );
+		$tax_percentage = BigDecimal::of( (string) $tax_rate );
 
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,

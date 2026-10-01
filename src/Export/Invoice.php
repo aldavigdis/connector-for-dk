@@ -192,7 +192,7 @@ class Invoice {
 
 		if ( $wc_order->is_paid() && $payment_mapping->add_line ) {
 			$total = BigDecimal::of(
-				$wc_order->get_total()
+				(string) $wc_order->get_total()
 			)->minus(
 				$wc_order->get_total_refunded()
 			);

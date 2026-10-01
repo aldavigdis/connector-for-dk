@@ -219,7 +219,9 @@ class Product {
 		if ( wc_prices_include_tax() ) {
 			if ( ! empty( $wc_product->get_sale_price() ) ) {
 				$price    = BigDecimal::of( $wc_product->get_sale_price() );
-				$tax_rate = BigDecimal::of( self::tax_rate( $wc_product ) );
+				$tax_rate = BigDecimal::of(
+					(string) self::tax_rate( $wc_product )
+				);
 
 				$tax_fraction = $tax_rate->dividedBy(
 					100,

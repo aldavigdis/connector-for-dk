@@ -237,7 +237,7 @@ class CreditInvoice {
 
 		if ( $wc_order->is_paid() && $payment_mapping->add_credit_line ) {
 			$total = BigDecimal::of(
-				$order_refund->get_total()
+				(string) $order_refund->get_total()
 			);
 
 			$invoice_body['Payments'] = array(

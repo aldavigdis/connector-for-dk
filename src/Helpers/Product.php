@@ -224,13 +224,13 @@ class Product {
 				$tax_fraction = $tax_rate->dividedBy(
 					100,
 					4,
-					roundingMode: RoundingMode::HALF_CEILING
+					roundingMode: RoundingMode::HalfCeiling
 				);
 
 				return $price->dividedBy(
 					$tax_fraction->plus( 1 ),
 					24,
-					roundingMode: RoundingMode::HALF_CEILING
+					roundingMode: RoundingMode::HalfCeiling
 				)->toFloat();
 			}
 		} else {
@@ -659,7 +659,7 @@ class Product {
 		)->dividedBy(
 			100,
 			24,
-			RoundingMode::HALF_CEILING
+			RoundingMode::HalfCeiling
 		);
 
 		$price_d          = BigDecimal::of( $group_price );

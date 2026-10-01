@@ -1473,7 +1473,7 @@ class Products {
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,
 			24,
-			roundingMode: RoundingMode::HALF_CEILING
+			roundingMode: RoundingMode::HalfCeiling
 		);
 
 		return BigDecimal::of(
@@ -1504,7 +1504,7 @@ class Products {
 		$tax_fraction = $tax_percentage->dividedBy(
 			100,
 			24,
-			roundingMode: RoundingMode::HALF_CEILING
+			roundingMode: RoundingMode::HalfCeiling
 		);
 
 		return BigDecimal::of(
@@ -1512,7 +1512,7 @@ class Products {
 		)->dividedBy(
 			BigDecimal::of( 1 )->plus( $tax_fraction ),
 			24,
-			RoundingMode::HALF_CEILING
+			RoundingMode::HalfCeiling
 		)->toFloat();
 	}
 

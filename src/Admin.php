@@ -23,7 +23,7 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.7.9';
+	const ASSET_VERSION = '0.8';
 	const PLUGIN_SLUG   = 'connector-for-dk';
 
 	const TRANSIENT_EXPIRY = 900;

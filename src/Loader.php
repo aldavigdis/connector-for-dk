@@ -20,39 +20,29 @@ class Loader {
 		new I18n();
 		new Admin();
 
-		new Activation();
-		new License();
-		new Rest\CheckLicense();
-
-		if ( License::is_valid() ) {
-			new Updater();
-		}
-
-		if ( License::is_ok() ) {
-			new BlockedCustomers();
-			new CreditInvoices();
-			new CustomerContacts();
-			new CustomerPaymentTerms();
-			new CustomerSync();
-			new Discounts();
-			new DefaultSKUs();
-			new FetchCustomer();
-			new ProductAttributeFilters();
-			new IcelandTweaks();
-			new InternationalCustomers();
-			new OrderMeta();
-			new KennitalaField();
-			new Metaboxes();
-			new OrderStatus();
-			new ProductCategories();
-			new ProductQuantityFilters();
-			new Cron\Schedule();
-			new Rest\Settings();
-			new Rest\GetImportStats();
-			new Rest\OrderDKCreditInvoice();
-			new Rest\OrderDKInvoice();
-			new Rest\OrderInvoiceNumber();
-			new Rest\OrderInvoicePdf();
-		}
+		new BlockedCustomers();
+		new CreditInvoices();
+		new CustomerContacts();
+		new CustomerPaymentTerms();
+		new CustomerSync();
+		new Discounts();
+		new DefaultSKUs();
+		new FetchCustomer();
+		new ProductAttributeFilters();
+		new IcelandTweaks();
+		new InternationalCustomers();
+		new OrderMeta();
+		new KennitalaField();
+		new Metaboxes();
+		new OrderStatus();
+		new ProductCategories();
+		new ProductQuantityFilters();
+		new Cron\Schedule();
+		new Rest\Settings();
+		new Rest\GetImportStats();
+		new Rest\OrderDKCreditInvoice();
+		new Rest\OrderDKInvoice();
+		new Rest\OrderInvoiceNumber();
+		new Rest\OrderInvoicePdf();
 	}
 }

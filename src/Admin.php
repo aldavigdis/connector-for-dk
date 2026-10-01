@@ -466,13 +466,6 @@ class Admin {
 	 * This includes our admin page
 	 */
 	public static function render_admin_page(): void {
-		if (
-			class_exists( 'AldaVigdis\ConnectorForDK\License' ) &&
-			! License::is_ok()
-		) {
-			wp_safe_redirect( 'admin.php?page=connector-for-dk-activation' );
-			return;
-		}
 		require dirname( __DIR__ ) . '/views/admin.php';
 	}
 

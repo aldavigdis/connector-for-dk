@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-30 11:23+0000\n"
+"POT-Creation-Date: 2026-10-01 11:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: connector-for-dk\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
 #. %1$d is the percentage and %2$d is the minimum number of items for a discount.
-#: src/Discounts.php:876
+#: src/Discounts.php:910
 #, php-format
 msgid "%1$d%% discount for %2$d or more"
 msgstr ""
 
-#. %1$s is for the number of products imported, %2$s is the number of total products. %3$s is the singular or plural dative form of "product".
 #. %1$s is for the number of products imported, %2$s is the number of total products and %2$s is the singular or plural, dative form of "product".
-#: views/admin_sections/products.php:138 src/Rest/GetImportStats.php:61
+#. %1$s is for the number of products imported, %2$s is the number of total products. %3$s is the singular or plural dative form of "product".
+#: src/Rest/GetImportStats.php:61 views/admin_sections/products.php:138
 #, php-format
 msgid "%1$s of %2$s %3$s imported"
 msgstr ""
@@ -50,12 +50,6 @@ msgid ""
 "try again."
 msgstr ""
 
-#. The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
-#: views/activation.php:65
-#, php-format
-msgid "%1$sError:%2$s The code you entered could not be validated."
-msgstr ""
-
 #. %1$s an %2$s stand for opening and closing <strong> tags.
 #: views/refund_credit_invoice_partial.php:78
 #, php-format
@@ -66,7 +60,7 @@ msgid ""
 msgstr ""
 
 #. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
-#: src/KennitalaField.php:548
+#: src/KennitalaField.php:549
 #, php-format
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
 msgstr ""
@@ -99,6 +93,12 @@ msgstr ""
 msgid "30 Day Payment Deadline (D30)"
 msgstr ""
 
+#: src/Rest/OrderDKCreditInvoice.php:79
+msgid ""
+"A credit invoice could not be created as invoicing for international orders "
+"is not available in this version of Connector for dk"
+msgstr ""
+
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:107
 #, php-format
@@ -122,13 +122,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:708
+#: src/Admin.php:701
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:720
+#: src/Admin.php:713
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
 msgstr ""
@@ -151,13 +151,13 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:632
+#: src/Admin.php:625
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:644
+#: src/Admin.php:637
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
@@ -166,24 +166,7 @@ msgstr ""
 msgid "About Connector for dk"
 msgstr ""
 
-#: views/activation.php:75 src/Activation.php:65 src/Activation.php:68
-#: src/Activation.php:73
-msgid "Activate"
-msgstr ""
-
-#: views/activation.php:37
-msgid "Activate Connector for dk"
-msgstr ""
-
-#: src/Activation.php:121
-msgid "Activate License"
-msgstr ""
-
-#: views/activation.php:40 views/activation.php:52
-msgid "Activation Code"
-msgstr ""
-
-#: views/credit_invoice_payment_line_partial.php:28
+#: views/credit_invoice_payment_line_partial.php:33
 msgid "Add payment line to credit invoices"
 msgstr ""
 
@@ -227,6 +210,12 @@ msgstr ""
 msgid ""
 "An invoice could not be automatically generated as the customer's account is "
 "blocked in DK."
+msgstr ""
+
+#: src/Rest/OrderDKInvoice.php:78
+msgid ""
+"An invoice could not be created as invoicing for international orders is not "
+"available in this version of Connector for dk"
 msgstr ""
 
 #: src/OrderStatus.php:307
@@ -360,7 +349,7 @@ msgid "Community Support"
 msgstr ""
 
 #. Name of the plugin
-#: views/admin.php:35 views/about.php:17 src/Admin.php:445 src/Admin.php:446
+#: src/Admin.php:445 src/Admin.php:446 views/about.php:17 views/admin.php:36
 msgid "Connector for dk"
 msgstr ""
 
@@ -391,10 +380,6 @@ msgid ""
 "Storage) enabled."
 msgstr ""
 
-#: src/License.php:223
-msgid "Connector Pro for DK"
-msgstr ""
-
 #: src/CustomerContacts.php:72
 msgid "Contact Person"
 msgstr ""
@@ -403,7 +388,7 @@ msgstr ""
 msgid "Cost SKU"
 msgstr ""
 
-#: views/refund_credit_invoice_partial.php:62 views/dk_invoice_metabox.php:71
+#: views/dk_invoice_metabox.php:71 views/refund_credit_invoice_partial.php:62
 msgid "Create in dk"
 msgstr ""
 
@@ -455,8 +440,8 @@ msgstr ""
 msgid "Customers Need to Request to have a Kennitala on Invoices"
 msgstr ""
 
-#: views/admin_sections/products.php:153 views/admin_sections/products.php:211
 #: src/Rest/GetImportStats.php:71 src/Rest/GetImportStats.php:87
+#: views/admin_sections/products.php:153 views/admin_sections/products.php:211
 msgctxt "dative"
 msgid "product"
 msgid_plural "products"
@@ -492,9 +477,9 @@ msgid ""
 "Delete products from WooCommerce if labelled as inactive or deleted in dk"
 msgstr ""
 
-#. %1$s is for the numberof products to be deleted. %2$s is the singular or plural dative form of "products".
 #. %1$s is for the numberof products to be deleted and %2$s is the singular or plural dative form of the word "product".
-#: views/admin_sections/products.php:201 src/Rest/GetImportStats.php:82
+#. %1$s is for the numberof products to be deleted. %2$s is the singular or plural dative form of "products".
+#: src/Rest/GetImportStats.php:82 views/admin_sections/products.php:201
 #, php-format
 msgid "Deleting %1$s %2$s"
 msgstr ""
@@ -503,15 +488,11 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/License.php:79
-msgid "Development, testing or staging environment detected 👷‍♀️"
-msgstr ""
-
 #: views/admin_with_errors.php:139
 msgid "Disable the Kennitala field in the Iceland Post plugin"
 msgstr ""
 
-#: src/Discounts.php:216
+#: src/Discounts.php:236
 msgid "Discount"
 msgstr ""
 
@@ -588,18 +569,6 @@ msgstr ""
 msgid "Do not allow backorders"
 msgstr ""
 
-#: views/activation.php:142
-msgid "Domain"
-msgstr ""
-
-#. The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
-#: views/activation.php:181
-#, php-format
-msgid ""
-"Don't have a Connector Basic or Pro license? — You can buy and renew "
-"licenses at %1$stengillpro.is%2$s."
-msgstr ""
-
 #: views/dk_product_variations.php:354
 msgid "Downloadable"
 msgstr ""
@@ -609,10 +578,6 @@ msgid ""
 "Due to limitations in dk, if this feature is enabled, manually editing the "
 "product stock quantity and availability in WooCommerce will not result in it "
 "being reflected in dk. It will be overwritten on next sync."
-msgstr ""
-
-#: views/activation.php:94
-msgid "Edition"
 msgstr ""
 
 #: views/admin_sections/kennitala.php:42
@@ -655,14 +620,6 @@ msgid ""
 "Settings page."
 msgstr ""
 
-#. Sprintf symbols 1 and 2 are opening and closing <strong> tags and 3 and 4 are the hyperlink to tengillpro.is.
-#: src/License.php:95
-#, php-format
-msgid ""
-"For production sites, licenses are sold on a %1$sper-domain basis only%2$s "
-"and can be %3$spurchased on tengillpro.is%4$s"
-msgstr ""
-
 #: views/refund_credit_invoice_partial.php:58
 msgid "Generate a new credit invoice for this order in dk"
 msgstr ""
@@ -671,7 +628,7 @@ msgstr ""
 msgid "Generate a new invoice for this order in dk"
 msgstr ""
 
-#: views/refund_credit_invoice_partial.php:54 views/dk_invoice_metabox.php:62
+#: views/dk_invoice_metabox.php:62 views/refund_credit_invoice_partial.php:54
 msgid "Get PDF"
 msgstr ""
 
@@ -812,11 +769,11 @@ msgstr ""
 msgid "International Customers"
 msgstr ""
 
-#: src/KennitalaField.php:603
+#: src/KennitalaField.php:604
 msgid "Invalid kennitala nonce"
 msgstr ""
 
-#: src/KennitalaField.php:814
+#: src/KennitalaField.php:815
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
 msgstr ""
 
@@ -850,7 +807,7 @@ msgstr ""
 msgid "Invoice Reference Prefix"
 msgstr ""
 
-#: src/KennitalaField.php:334
+#: src/KennitalaField.php:335
 msgid "Invoice with Kennitala Requested"
 msgstr ""
 
@@ -896,13 +853,13 @@ msgstr ""
 msgid "Item Quantity"
 msgstr ""
 
-#: src/KennitalaField.php:184 src/KennitalaField.php:327
-#: src/KennitalaField.php:384 src/KennitalaField.php:534
-#: src/KennitalaField.php:725 src/CustomerSync.php:119
+#: src/CustomerSync.php:119 src/KennitalaField.php:184
+#: src/KennitalaField.php:328 src/KennitalaField.php:385
+#: src/KennitalaField.php:535 src/KennitalaField.php:726
 msgid "Kennitala"
 msgstr ""
 
-#: src/KennitalaField.php:729
+#: src/KennitalaField.php:730
 msgid "Kennitala (Optional)"
 msgstr ""
 
@@ -910,7 +867,7 @@ msgstr ""
 msgid "Kennitala Field"
 msgstr ""
 
-#: src/KennitalaField.php:631
+#: src/KennitalaField.php:632
 msgid "Kennitala is a required field"
 msgstr ""
 
@@ -920,18 +877,6 @@ msgstr ""
 
 #: views/admin_sections/customers_international.php:115
 msgid "Ledger Code for International Customers"
-msgstr ""
-
-#: views/activation.php:130
-msgid "License Expires At"
-msgstr ""
-
-#: views/activation.php:106
-msgid "License ID"
-msgstr ""
-
-#: views/activation.php:118
-msgid "License Valid From"
 msgstr ""
 
 #: views/admin_sections/kennitala.php:98
@@ -1012,7 +957,7 @@ msgid "Pending…"
 msgstr ""
 
 #. The %s stands for the kennitala.
-#: src/Admin.php:692
+#: src/Admin.php:685
 #, php-format
 msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
@@ -1020,7 +965,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:555
+#: src/Admin.php:548
 #, php-format
 msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
@@ -1028,7 +973,7 @@ msgid ""
 msgstr ""
 
 #. The %s stands for the relevant sales person number.
-#: src/Admin.php:620
+#: src/Admin.php:613
 #, php-format
 msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
@@ -1064,7 +1009,7 @@ msgstr ""
 msgid "Price (%s)"
 msgstr ""
 
-#: views/user_discount_information.php:32 src/Discounts.php:212
+#: src/Discounts.php:232 views/user_discount_information.php:32
 msgid "Price Group"
 msgstr ""
 
@@ -1096,7 +1041,7 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: src/Discounts.php:710
+#: src/Discounts.php:738
 msgid "Regular Price:"
 msgstr ""
 
@@ -1108,11 +1053,11 @@ msgstr ""
 msgid "Replace Image"
 msgstr ""
 
-#: src/KennitalaField.php:567 src/KennitalaField.php:749
+#: src/KennitalaField.php:568 src/KennitalaField.php:750
 msgid "Request an Invoice with Kennitala"
 msgstr ""
 
-#: src/KennitalaField.php:753
+#: src/KennitalaField.php:754
 msgid "Request an Invoice with Kennitala (optional)"
 msgstr ""
 
@@ -1156,24 +1101,6 @@ msgstr ""
 
 #: src/Admin.php:455 src/Admin.php:456
 msgid "Settings"
-msgstr ""
-
-#. The sprintf tags are for opening and closing links to tengillpro.is.
-#: src/License.php:137
-#, php-format
-msgid ""
-"Settings, automatic invoice generation, customer sync, updates and other "
-"features have been disabled until you %1$spurchase a new license code on "
-"tengillpro.is%2$s."
-msgstr ""
-
-#. sprintf symbols 1 and 2 are opening and closing <strong> tags, the others are hyperlinks.
-#: src/License.php:116
-#, php-format
-msgid ""
-"Settings, automatic invoice generation, customer sync, updates and other "
-"features will be enabled once you %1$senter your license code%2$s. Licenses "
-"can be purchased on %3$stengillpro.is%4$s"
 msgstr ""
 
 #: src/Export/CreditInvoice.php:228 src/Export/Order.php:333
@@ -1257,13 +1184,13 @@ msgid "The dkPlus API key is missing."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:571
+#: src/Admin.php:564
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
 msgstr ""
 
 #. The %s stands for the relevant SKU.
-#: src/Admin.php:583
+#: src/Admin.php:576
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
 msgstr ""
@@ -1341,25 +1268,6 @@ msgid ""
 "limited capacity in a staging environment before putting it to full use."
 msgstr ""
 
-#. The %1$s and %2$s is a stand-in for an opening and closing <strong> tag.
-#: views/activation.php:163
-#, php-format
-msgid ""
-"This WordPress installation was identified as running in a %1$sdevelopment, "
-"testing or staging environment%2$s, so you can use a valid license assigned "
-"to any domain. Just remember that domain restrictions apply in production "
-"environments."
-msgstr ""
-
-#. %1$s and %2$s are for opening and closing <strong> tags, %3$s and %4$s are opening and closing links to tengillpro.is and %5$s is the expiry date.
-#: src/License.php:156
-#, php-format
-msgid ""
-"To keep your settings, automatic invoice generation, customer sync, updates "
-"and other features after %1$s%5$s%2$s, ensure that you %3$spurchase a new "
-"license code on tengillpro.is%4$s in time."
-msgstr ""
-
 #: views/dk_invoice_metabox.php:95
 msgid "Unable to create invoice in dk."
 msgstr ""
@@ -1368,7 +1276,7 @@ msgstr ""
 msgid "Unable to create invoice in DK: "
 msgstr ""
 
-#: views/refund_credit_invoice_partial.php:46 views/dk_invoice_metabox.php:54
+#: views/dk_invoice_metabox.php:54 views/refund_credit_invoice_partial.php:46
 msgid "Update"
 msgstr ""
 
@@ -1419,7 +1327,7 @@ msgstr ""
 msgid "Use default SKU if product SKU is missing"
 msgstr ""
 
-#: views/customer_payment_terms_line_partial.php:28
+#: views/customer_payment_terms_line_partial.php:33
 msgid "Use logged-in customers’ default payment terms"
 msgstr ""
 
@@ -1460,7 +1368,7 @@ msgstr ""
 msgid "Visit the WordPress.org plugin review page for this plugin"
 msgstr ""
 
-#: src/Config.php:1003
+#: src/Config.php:1018
 msgid ""
 "We are unable to check out your order. Please contact us for more "
 "information."
@@ -1473,28 +1381,12 @@ msgid ""
 "billing information supplied for the order."
 msgstr ""
 
-#: views/activation.php:44
-msgid ""
-"When you purchased your Connector Pro License, you received an activation "
-"code, which is a 320-character sequence of letters, numbers and symbols. "
-"Paste it into the field below to activate your license."
-msgstr ""
-
 #: views/admin_sections/products.php:241
 msgid ""
 "While the variation and attribute codes from dk are used internally, their "
 "values can be displayed as the descriptions that are set for each of them in "
 "dk. You can disable these if you want to use your own filters for displaying "
 "variations."
-msgstr ""
-
-#. The sprintf symbols are opening and closing <strong> tags.
-#: src/License.php:84
-#, php-format
-msgid ""
-"While updates are disabled, %1$sConnector for dk%2$s features such as "
-"automatic invoice generation, customer sync and other features are currently "
-"enabled for development and testing purposes."
 msgstr ""
 
 #: src/Rest/OrderInvoicePdf.php:55
@@ -1516,28 +1408,12 @@ msgid ""
 "we don't want to have two kennitala fields in the checkout form."
 msgstr ""
 
-#: src/License.php:132
-msgid "Your Connector for dk license has expired! 😱"
-msgstr ""
-
-#: src/License.php:111
-msgid "Your Connector for dk license key has not been entered yet 🤔"
-msgstr ""
-
-#: src/License.php:151
-msgid "Your Connector for dk license will expire soon! 🫣"
-msgstr ""
-
 #. The %1$s is a placeholder for the site's title.
 #: src/Export/CreditInvoice.php:278 src/Export/Invoice.php:131
 #, php-format
 msgid "Your Invoice From %1$s"
 msgstr ""
 
-#: views/activation.php:83
-msgid "Your License"
-msgstr ""
-
-#: src/Discounts.php:714
+#: src/Discounts.php:742
 msgid "Your Price:"
 msgstr ""

@@ -219,18 +219,20 @@ class Product {
 		if ( wc_prices_include_tax() ) {
 			if ( ! empty( $wc_product->get_sale_price() ) ) {
 				$price    = BigDecimal::of( $wc_product->get_sale_price() );
-				$tax_rate = BigDecimal::of( self::tax_rate( $wc_product ) );
+				$tax_rate = BigDecimal::of(
+					(string) self::tax_rate( $wc_product )
+				);
 
 				$tax_fraction = $tax_rate->dividedBy(
 					100,
 					4,
-					roundingMode: RoundingMode::HALF_CEILING
+					roundingMode: RoundingMode::HalfCeiling
 				);
 
 				return $price->dividedBy(
 					$tax_fraction->plus( 1 ),
 					24,
-					roundingMode: RoundingMode::HALF_CEILING
+					roundingMode: RoundingMode::HalfCeiling
 				)->toFloat();
 			}
 		} else {
@@ -659,7 +661,7 @@ class Product {
 		)->dividedBy(
 			100,
 			24,
-			RoundingMode::HALF_CEILING
+			RoundingMode::HalfCeiling
 		);
 
 		$price_d          = BigDecimal::of( $group_price );

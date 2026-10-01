@@ -1,9 +1,9 @@
 === Connector for dk ===
 Stable tag: 0.7.9
 Contributors: @aldavigdis
-Tags: WooCommerce, DK, dkPlus, Accounting, Inventory, Invoicing
-Requires at least: 6.8.3
-Tested up to: 7.0.3
+Tags: WooCommerce, DK, dkPlus, Inventory, Invoicing
+Requires at least: 6.9
+Tested up to: 7.1
 Requires PHP: 8.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html

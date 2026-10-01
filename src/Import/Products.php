@@ -200,7 +200,7 @@ class Products {
 	 * Filter a SQL database query
 	 *
 	 * Replaces the `wp_` prefix with the WP table prefix for the current
-	 * WordPress installation if it has been set to another value than .
+	 * WordPress installation if it has been set to another value.
 	 *
 	 * This currently supports the wp_posts and wp_postmeta tables.
 	 *
@@ -253,6 +253,10 @@ class Products {
 				return (int) $r->id;
 			},
 			$wpdb->get_results(
+				// Note: The query is based on $quantity being an integer, so SQL
+				// injections can't happen here. Caching is not appropriate
+				// for this function as the class is run during a cron job
+				// and the results need to be uncached.
 				//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 				self::filter_query(
 					//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -268,6 +272,10 @@ class Products {
 	public static function get_current_count(): int {
 		global $wpdb;
 		$result = $wpdb->get_results(
+			// Note: The SQL query in question is static, without variable
+			// parameters so injections do not happen here at all.
+			// Caching is also not useful here as this is run during a cron
+			// job that only runs this query once.
 			//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			self::filter_query( self::COUNT_CURRENT_QUERY )
 		);
@@ -289,6 +297,8 @@ class Products {
 				return (string) $r->sku;
 			},
 			$wpdb->get_results(
+				// Note: Caching and escaping are not required here as the data
+				// needs to be fresh and the code is not injectible.
 				//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 				self::filter_query( self::GET_CURRENT_SKUS_QUERY )
 			)
@@ -1896,6 +1906,8 @@ class Products {
 			}
 		}
 
+		// Note: The use of the exclude parameter has been carefully considered,
+		// with optimisation and speed in mind.
 		$variations_to_delete = wc_get_products(
 			array(
 				'type'    => 'variation',

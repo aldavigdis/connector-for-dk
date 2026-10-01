@@ -12,6 +12,10 @@ use WP_Filesystem_Base;
 use WP_Filesystem_Direct;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
 require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
 

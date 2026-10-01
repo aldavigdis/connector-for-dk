@@ -221,6 +221,7 @@ class KennitalaField {
 	 * Enqueue JS needed for the classic kennitala field
 	 */
 	public static function enqueue_classic_checkout_js(): void {
+		// Note: This does not need to be enqueued in the footer.
 		wp_enqueue_script(
 			'connector_for_dk_classic_kennitala',
 			plugins_url( 'js/classic_kennitala.js', __DIR__ ),

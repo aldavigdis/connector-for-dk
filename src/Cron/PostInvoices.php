@@ -60,7 +60,9 @@ class PostInvoices implements CronJobTemplate {
 	 * been exhausted. This maxes out at 50 orders within the past 48 hours.
 	 */
 	public static function recent_orders(): array {
-		$the_past      = gmdate( 'r', time() - self::PAST_ORDER_LIMIT );
+		$the_past = gmdate( 'r', time() - self::PAST_ORDER_LIMIT );
+		// Note: The meta query is the most optimal way of performing the order
+		// query without resorting to raw SQL.
 		$recent_orders = wc_get_orders(
 			array(
 				'status'       => array( 'completed', 'processing' ),

@@ -23,8 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CONNECTOR_FOR_DK_EDITION', 'connector_for_dk_pro' );
-
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 new Loader();

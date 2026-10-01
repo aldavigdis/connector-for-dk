@@ -12,7 +12,7 @@ Sync your WooCommerce store with DK, including product prices, inventory status 
 
 == About ==
 
-Synchronise products, prices and inventory status between your WooCommerce store and your DK account. Have DK generate invoices automatically on checkout without worrying about setitng up an email connection for your WordPress site.
+Synchronise products, prices and inventory status between your WooCommerce store and your DK account. Have DK generate invoices automatically on checkout without worrying about setting up an email connection for your WordPress site.
 
 Variant products, sale prices and stock quantity can be set to sync globally and on a per-product basis.
 
@@ -49,16 +49,16 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Changes to development tools
 
 = 0.7.7 =
-* Iproving the handling of products with no or empty price attribute, improving stability overall
+* Improving the handling of products with no or empty price attribute, improving stability overall
 
 = 0.7.6 =
 * Now updating products when settings are saved
 * Improving error handling when the WooCommerce product lookup table is out of sync
 
 = 0.7.5 =
-* Optimising configuration value cahcing, reducing database load
+* Optimising configuration value caching, reducing database load
 * Caching the current customer object, reducing database load
-* Skipping over transhed products when updating
+* Skipping over trashed products when updating
 
 = 0.7.4 =
 * Overhauling SQL queries for product sync
@@ -199,7 +199,7 @@ WooCommerce coupons are turned off completely by the plugin as they are currentl
 
 = Is data synchronisation fully bi-directional? =
 
-The general rule is not to write or replace information in DK unless it's nessecary. Besides new customer records and invoices, data is synced downstream (from DK to WooCommerce) only.
+The general rule is not to write or replace information in DK unless it's necessary. Besides new customer records and invoices, data is synced downstream (from DK to WooCommerce) only.
 
 = Does the plugin handle assigning Kennitala to orders and customers? =
 
@@ -223,11 +223,11 @@ The plugin does not depend on WordPress or your web server being able to send em
 
 = Does the plugin support the new block based WooCommerce Checkout form and Cart Page? =
 
-Yes. The aim is to support both the "Classic" shortcode based Checkout and Cart forms as well as their Block Editor based counterparts. There is a lot of work that goes into having to do things twice over, but we do intend to support and test for both versions.
+Yes. The plugin supports both the "Classic" shortcode based Checkout and Cart forms as well as their Block Editor based counterparts. There is a lot of work that goes into having to do things twice over, but we this plugin is developed for both versions of the checkout process.
 
 == Policies, Privacy and Legal ==
 
 This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per [their own General Terms and Conditions](https://dk.kreatives.is/wp-content/uploads/2024/08/General_Terms_and_Conditions_1_2024.pdf) (PDF) and [Privacy Policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanarenglish) (PDF).
 
-This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.
+This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is highly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.
 

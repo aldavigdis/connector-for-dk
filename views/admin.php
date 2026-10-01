@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Note: This is not a global variable assignment.
 $pre_activation_errors = Admin::pre_activation_errors();
 
 ?>

@@ -1,11 +1,11 @@
-class ConnectorForDK {
+class TengillForDk {
 	/**
 	 * The settings form
 	 *
 	 * @returns {HTMLFormElement|null}
 	 */
 	static settingsForm() {
-		return document.querySelector( '#connector-for-dk-settings-form' );
+		return document.querySelector( '#tengill-for-dk-settings-form' );
 	}
 
 	/**
@@ -14,7 +14,7 @@ class ConnectorForDK {
 	 * @returns {HTMLDivElement|null}
 	 */
 	static settingsErrorIndicator() {
-		return document.querySelector( '#connector-for-dk-settings-error' );
+		return document.querySelector( '#tengill-for-dk-settings-error' );
 	}
 
 	/**
@@ -23,7 +23,7 @@ class ConnectorForDK {
 	 * @returns {HTMLImageElement|null}
 	 */
 	static settingsLoader() {
-		return document.querySelector( '#connector-for-dk-settings-loader' );
+		return document.querySelector( '#tengill-for-dk-settings-loader' );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class ConnectorForDK {
 	 * @returns {HTMLInputElement|null}
 	 */
 	static settingsSubmit() {
-		return document.querySelector( '#connector-for-dk-settings-submit' );
+		return document.querySelector( '#tengill-for-dk-settings-submit' );
 	}
 
 	/**
@@ -105,16 +105,16 @@ class ConnectorForDK {
 	static onSettingsFormSubmit(event) {
 		event.preventDefault();
 
-		ConnectorForDK.settingsLoader().classList.remove( 'hidden' );
-		ConnectorForDK.settingsSubmit().disabled = true;
+		TengillForDk.settingsLoader().classList.remove( 'hidden' );
+		TengillForDk.settingsSubmit().disabled = true;
 
-		if ( false == ConnectorForDK.settingsForm().checkValidity() ) {
-			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
-			ConnectorForDK.settingsLoader().classList.add( 'hidden' );
-			ConnectorForDK.settingsSubmit().disabled = false;
+		if ( false == TengillForDk.settingsForm().checkValidity() ) {
+			TengillForDk.settingsErrorIndicator().classList.remove( 'hidden' );
+			TengillForDk.settingsLoader().classList.add( 'hidden' );
+			TengillForDk.settingsSubmit().disabled = false;
 			return false;
 		}
-		ConnectorForDK.settingsErrorIndicator().classList.add( 'hidden' );
+		TengillForDk.settingsErrorIndicator().classList.add( 'hidden' );
 
 		const formData = new FormData( event.target );
 
@@ -124,22 +124,22 @@ class ConnectorForDK {
 				fetch_products: false
 			}
 
-			ConnectorForDK.postSettingsData( formDataObject );
+			TengillForDk.postSettingsData( formDataObject );
 		} else {
 			let paymentIds   = formData.getAll( 'payment_id' );
 			let paymentModes = formData.getAll( 'payment_mode' );
 			let paymentTerms = formData.getAll( 'payment_term' );
 			let CategoryIds  = formData.getAll( 'category_id' );
 
-			let addLineCheckboxes         = ConnectorForDK.paymentAddLineCheckboxes();
-			let addCreditLineCheckboxes   = ConnectorForDK.paymentAddCreditLineCheckboxes();
-			let useDefaultTermsCheckboxes = ConnectorForDK.paymentUseDefaultTermsCheckboxes();
+			let addLineCheckboxes         = TengillForDk.paymentAddLineCheckboxes();
+			let addCreditLineCheckboxes   = TengillForDk.paymentAddCreditLineCheckboxes();
+			let useDefaultTermsCheckboxes = TengillForDk.paymentUseDefaultTermsCheckboxes();
 
 			let paymentMethods = [];
 			let paymentsLength = paymentIds.length;
 
 			for (let i = 0; i < paymentsLength; i++) {
-				let wooId         = ConnectorForDK.rowElements()[i].dataset.gatewayId;
+				let wooId         = TengillForDk.rowElements()[i].dataset.gatewayId;
 				let dkId          = parseInt( paymentIds[i] );
 				let dkMode        = paymentModes[i];
 				let dkTerm        = paymentTerms[i];
@@ -168,7 +168,7 @@ class ConnectorForDK {
 			let categoryMappings = [];
 			let categoriesLength = CategoryIds.length;
 			for (let i = 0; i < categoriesLength; i++) {
-				let dkGroup    = ConnectorForDK.categoryRows()[i].dataset.dkProductGroup;
+				let dkGroup    = TengillForDk.categoryRows()[i].dataset.dkProductGroup;
 				let categoryId = parseInt( CategoryIds[i] );
 
 				categoryMappings.push(
@@ -186,7 +186,7 @@ class ConnectorForDK {
 			};
 
 			let inputs = document.querySelectorAll(
-				'#connector-for-dk-settings-form input'
+				'#tengill-for-dk-settings-form input'
 			);
 
 			inputs.forEach(
@@ -212,7 +212,7 @@ class ConnectorForDK {
 				}
 			);
 
-			ConnectorForDK.postSettingsData( formDataObject );
+			TengillForDk.postSettingsData( formDataObject );
 
 			return true;
 		}
@@ -225,7 +225,7 @@ class ConnectorForDK {
 	 */
 	static async postSettingsData(formDataObject) {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/settings',
+			wpApiSettings.root + 'TengillForDk/v1/settings',
 			{
 				method: 'POST',
 				headers: {
@@ -236,12 +236,12 @@ class ConnectorForDK {
 			}
 		);
 
-		ConnectorForDK.settingsLoader().classList.add( 'hidden' );
+		TengillForDk.settingsLoader().classList.add( 'hidden' );
 
 		if ( response.ok ) {
 			window.location.reload();
 		} else {
-			ConnectorForDK.settingsErrorIndicator().classList.remove( 'hidden' );
+			TengillForDk.settingsErrorIndicator().classList.remove( 'hidden' );
 		}
 	}
 
@@ -279,7 +279,7 @@ class ConnectorForDK {
 	 */
 	static async getImportStats() {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/product_import_stats',
+			wpApiSettings.root + 'TengillForDk/v1/product_import_stats',
 			{
 				method: 'GET',
 				headers: {
@@ -292,11 +292,11 @@ class ConnectorForDK {
 		if ( response.ok ) {
 			const json = await response.json();
 
-			const importContainer = ConnectorForDK.importStatsContainer();
+			const importContainer = TengillForDk.importStatsContainer();
 
 			if ( importContainer ) {
-				const importProgressBar = ConnectorForDK.importProgressBar();
-				const importBarLabel    = ConnectorForDK.importProgressBarLabel();
+				const importProgressBar = TengillForDk.importProgressBar();
+				const importBarLabel    = TengillForDk.importProgressBarLabel();
 
 				importProgressBar.setAttribute( 'value', json['total'] - json['remaining'] );
 				importProgressBar.setAttribute( 'max', json['total'] );
@@ -309,10 +309,10 @@ class ConnectorForDK {
 				}
 			}
 
-			const deleteContainer = ConnectorForDK.deleteStatsContainer();
+			const deleteContainer = TengillForDk.deleteStatsContainer();
 
 			if ( deleteContainer ) {
-				const deleteBarLabel = ConnectorForDK.deleteProgressBarLabel();
+				const deleteBarLabel = TengillForDk.deleteProgressBarLabel();
 
 				deleteBarLabel.innerText = json['to_delete_h'];
 
@@ -386,7 +386,7 @@ class ConnectorForDK {
 	 * @returns {HTMLInputElement|null}
 	 */
 	static apiKeyField() {
-		return document.getElementById( 'connector-for-dk-key-input' );
+		return document.getElementById( 'tengill-for-dk-key-input' );
 	}
 
 	/**
@@ -395,12 +395,12 @@ class ConnectorForDK {
 	static assignFocusToAPIKeyField() {
 		this.apiKeyField().addEventListener(
 			'focus',
-			() => { ConnectorForDK.apiKeyField().type = 'text' }
+			() => { TengillForDk.apiKeyField().type = 'text' }
 		);
 
 		this.apiKeyField().addEventListener(
 			'blur',
-			() => { ConnectorForDK.apiKeyField().type = 'password' }
+			() => { TengillForDk.apiKeyField().type = 'password' }
 		);
 	}
 }
@@ -409,17 +409,17 @@ window.addEventListener(
 	'DOMContentLoaded',
 	() => {
 		if (document.body) {
-			if ( ConnectorForDK.settingsForm() ) {
-				ConnectorForDK.settingsForm().addEventListener(
+			if ( TengillForDk.settingsForm() ) {
+				TengillForDk.settingsForm().addEventListener(
 					'submit',
-					ConnectorForDK.onSettingsFormSubmit
+					TengillForDk.onSettingsFormSubmit
 				);
 
-				ConnectorForDK.assignClickToMasterCheckboxes();
+				TengillForDk.assignClickToMasterCheckboxes();
 
-				ConnectorForDK.setGetImportStatsInterval();
+				TengillForDk.setGetImportStatsInterval();
 
-				ConnectorForDK.assignFocusToAPIKeyField();
+				TengillForDk.assignFocusToAPIKeyField();
 			}
 		}
 	}

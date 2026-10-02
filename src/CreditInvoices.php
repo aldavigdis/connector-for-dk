@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Admin;
+use AldaVigdis\TengillForDk\Admin;
 
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 use WC_Payment_Gateway;
@@ -45,7 +45,7 @@ class CreditInvoices {
 	 */
 	public static function enqueue_script(): void {
 		wp_enqueue_script(
-			'connector-for-dk-credit-invoices',
+			'tengill-for-dk-credit-invoices',
 			plugins_url( 'js/credit_invoices.js', __DIR__ ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			Admin::ASSET_VERSION,

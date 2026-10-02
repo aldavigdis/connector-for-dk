@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Import\ProductVariations as ProductVariations;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Import\ProductVariations as ProductVariations;
 
 /**
  * The Product Attribute Filters class

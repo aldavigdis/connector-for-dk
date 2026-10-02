@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Helpers;
+namespace AldaVigdis\TengillForDk\Helpers;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 use WC_Customer;
 use WC_Order;
@@ -20,7 +20,7 @@ class Order {
 	/**
 	 * Check if an order can be invoiced in DK
 	 *
-	 * Checks if the order was created when Connector for dk was not installed
+	 * Checks if the order was created when Tengill for dk was not installed
 	 * and if so, returns `false`
 	 *
 	 * @param WC_Order $wc_order The WooCommerce order.

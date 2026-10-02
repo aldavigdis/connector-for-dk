@@ -1,4 +1,4 @@
-# Connector for dk
+# Tengill for dk
 
 <img alt="" src="/assets/icon.svg" width="128" height="128" />
 
@@ -10,7 +10,7 @@ This codebase originates as [an earlier work](https://github.com/1984hosting/198
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact the author directly via aldavigdis@aldavigdis.is or the WordPress Security Team instead.**
 
 > [!IMPORTANT]
-> This is a code repository used for the *development* of **Connector for dk**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
+> This is a code repository used for the *development* of **Tengill for dk**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
 
 ## Developer Documentation
 
@@ -113,7 +113,7 @@ DK will cut off some string values that exceed its limits without warning. This 
 
 We use UK/GB spelling whenever possible. The plugin is mainy run using the `is_IS` locale and it is important that the wording used for both locales corresponds with both the grown-up version of DK and dkPlus.
 
-POT and JSON files are generated using `cd wp-content/plugins/connector-for-dk && wp i18n make-pot . languages/connector-for-dk.pot --allow-root` from the Bash shell and then they get translated using the Loco Translate plugin.
+POT and JSON files are generated using `cd wp-content/plugins/tengill-for-dk && wp i18n make-pot . languages/tengill-for-dk.pot --allow-root` from the Bash shell and then they get translated using the Loco Translate plugin.
 
 ### Command Line Tools
 
@@ -138,7 +138,7 @@ The following command line tools are available for development and release purpo
 
 ## Contributing
 
-The main code repository for the plugin is at https://github.com/aldavigdis/connector-for-dk-and-woocommerce/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.
+The main code repository for the plugin is at https://github.com/aldavigdis/tengill-for-dk-and-woocommerce/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.
 
 If you are reporting a bug, please describe the steps needed to be taken so that we can replicate it, if possible.
 
@@ -183,9 +183,9 @@ The main author can be contacted via aldavigdis@aldavigdis.is. She is available 
 
 This plugin is provided to you as free software under the GPLv3 license. Runtime dependencies are provided under the MIT and Apache licenses, which are compatible with the GPLv3.
 
-Connector for dk
+Tengill for dk
 
-Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Connector for dk and WooCommerce
+Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Tengill for dk and WooCommerce
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

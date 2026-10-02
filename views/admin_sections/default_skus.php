@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Admin;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <hr />
 
 <h3>
-	<?php esc_html_e( 'Default Product Codes', 'connector-for-dk' ); ?>
+	<?php esc_html_e( 'Default Product Codes', 'tengill-for-dk' ); ?>
 </h3>
 
 <p>
 	<?php
 	esc_html_e(
-		'In cases where you would like to manually enter your products into WooCommerce without entering a SKU and do not wish to use the product management system in dk to maintain stock counts, Connector for dk can match them with a dk product code in order for an invoice to be generated.',
-		'connector-for-dk'
+		'In cases where you would like to manually enter your products into WooCommerce without entering a SKU and do not wish to use the product management system in dk to maintain stock counts, Tengill for dk can match them with a dk product code in order for an invoice to be generated.',
+		'tengill-for-dk'
 	);
 	?>
 </p>
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					esc_html_e(
 						'Use default SKU if product SKU is missing',
-						'connector-for-dk'
+						'tengill-for-dk'
 					);
 					?>
 				</label>
@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th scope="row" class="column-title column-primary">
 				<label for="sku_for_24_vat_field">
-					<?php esc_html_e( '24% VAT', 'connector-for-dk' ); ?>
+					<?php esc_html_e( '24% VAT', 'tengill-for-dk' ); ?>
 				</label>
 			</th>
 			<td>
@@ -81,7 +81,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th scope="row" class="column-title column-primary">
 				<label for="sku_for_11_vat_field">
-					<?php esc_html_e( '11% VAT', 'connector-for-dk' ); ?>
+					<?php esc_html_e( '11% VAT', 'tengill-for-dk' ); ?>
 				</label>
 			</th>
 			<td>
@@ -101,7 +101,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th scope="row" class="column-title column-primary">
 				<label for="sku_for_0_vat_field">
-					<?php esc_html_e( '0% VAT', 'connector-for-dk' ); ?>
+					<?php esc_html_e( '0% VAT', 'tengill-for-dk' ); ?>
 				</label>
 			</th>
 			<td>

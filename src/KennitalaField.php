@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Admin;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Admin;
 use WP_Error;
 use WC_Customer;
 use WC_Order;
@@ -181,7 +181,7 @@ class KennitalaField {
 			array_slice( $columns, 0, $array_offset, true ),
 			array(
 				'connector_for_dk_kennitala' =>
-				__( 'Kennitala', 'connector-for-dk' ),
+				__( 'Kennitala', 'tengill-for-dk' ),
 			),
 			array_slice( $columns, $array_offset, null, true )
 		);
@@ -325,7 +325,7 @@ class KennitalaField {
 	): array {
 		$additional_fields = array(
 			'kennitala' => array(
-				'label' => __( 'Kennitala', 'connector-for-dk' ),
+				'label' => __( 'Kennitala', 'tengill-for-dk' ),
 				'show'  => false,
 			),
 		);
@@ -334,7 +334,7 @@ class KennitalaField {
 			$additional_fields['kennitala_invoice_requested'] = array(
 				'label'   => __(
 					'Invoice with Kennitala Requested',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				'show'    => true,
 				'type'    => 'select',
@@ -382,7 +382,7 @@ class KennitalaField {
 		$billing = array_merge(
 			array(
 				'kennitala' => array(
-					'label'       => __( 'Kennitala', 'connector-for-dk' ),
+					'label'       => __( 'Kennitala', 'tengill-for-dk' ),
 					'description' => '',
 				),
 			),
@@ -534,7 +534,7 @@ class KennitalaField {
 					'type'              => 'text',
 					'label'             => __(
 						'Kennitala',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 					'custom_attributes' => array(
 						'pattern'   => self::KENNITALA_PATTERN,
@@ -548,7 +548,7 @@ class KennitalaField {
 				// Translators: %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
 				esc_html__(
 					'%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_attr( self::format_kennitala( $customer_kennitala ) ),
 				'<p class="kennitala-info">',
@@ -567,7 +567,7 @@ class KennitalaField {
 					'checked_value' => false,
 					'label'         => __(
 						'Request an Invoice with Kennitala',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 				),
 				1
@@ -601,7 +601,7 @@ class KennitalaField {
 		) {
 			$errors->add(
 				'invalid_kennitala_nonce',
-				__( 'Invalid kennitala nonce', 'connector-for-dk' )
+				__( 'Invalid kennitala nonce', 'tengill-for-dk' )
 			);
 		}
 
@@ -629,7 +629,7 @@ class KennitalaField {
 			) {
 				$errors->add(
 					'kennitala_not_set',
-					__( 'Kennitala is a required field', 'connector-for-dk' )
+					__( 'Kennitala is a required field', 'tengill-for-dk' )
 				);
 			}
 		}
@@ -725,11 +725,11 @@ class KennitalaField {
 					'required'          => Config::get_kennitala_is_mandatory(),
 					'label'             => __(
 						'Kennitala',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 					'optionalLabel'     => __(
 						'Kennitala (Optional)',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 					'location'          => 'order',
 					'type'              => 'text',
@@ -749,11 +749,11 @@ class KennitalaField {
 					'id'            => 'connector_for_dk/kennitala_invoice_requested',
 					'label'         => __(
 						'Request an Invoice with Kennitala',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 					'optionalLabel' => __(
 						'Request an Invoice with Kennitala (optional)',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 					'location'      => 'order',
 					'type'          => 'checkbox',
@@ -814,7 +814,7 @@ class KennitalaField {
 				'invalid_kennitala',
 				__(
 					'Invalid kennitala. A kennitala is a string of 10 numeric characters.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 			);
 		}

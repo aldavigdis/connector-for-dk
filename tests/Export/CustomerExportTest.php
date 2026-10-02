@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Tests\Export;
+namespace AldaVigdis\TengillForDk\Tests\Export;
 
-use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Export\Customer as ExportCustomer;
+use AldaVigdis\TengillForDk\Config;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;

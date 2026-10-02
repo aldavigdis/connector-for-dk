@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Import;
+namespace AldaVigdis\TengillForDk\Import;
 
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
-use AldaVigdis\ConnectorForDK\Currency;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
-use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
-use AldaVigdis\ConnectorForDK\ProductCategories;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Brick\Math\RoundingMode;
+use AldaVigdis\TengillForDk\Currency;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Helpers\Product as ProductHelper;
+use AldaVigdis\TengillForDk\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\TengillForDk\ProductCategories;
 use DateTime;
 use Exception;
 use WC_DateTime;
@@ -81,8 +81,8 @@ class Products {
 	 * `DELETE`, so we can go with a much higher number here than for the other
 	 * calls.
 	 *
-	 * @see AldaVigdis\ConnectorForDK\Cron\UpdateProducts::run()
-	 * @see AldaVigdis\ConnectorForDK\Import\Products::update_current()
+	 * @see AldaVigdis\TengillForDk\Cron\UpdateProducts::run()
+	 * @see AldaVigdis\TengillForDk\Import\Products::update_current()
 	 */
 	const DEFAULT_UPDATE_QUANTITY = 64;
 
@@ -96,8 +96,8 @@ class Products {
 	 * operations per hour and should safely with below the 30 second PHP
 	 * execution time limit per wp-cron run.
 	 *
-	 * @see AldaVigdis\ConnectorForDK\Cron\CreateProducts::run()
-	 * @see AldaVigdis\ConnectorForDK\Import\Products::create_new_products_from_dk()
+	 * @see AldaVigdis\TengillForDk\Cron\CreateProducts::run()
+	 * @see AldaVigdis\TengillForDk\Import\Products::create_new_products_from_dk()
 	 */
 	const DEFAULT_CREATE_QUANTITY = 64;
 
@@ -109,7 +109,7 @@ class Products {
 	/**
 	 * SQL query for counting the currently fetched products
 	 *
-	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_current_count()
+	 * @see AldaVigdis\TengillForDk\Import\Products::get_current_count()
 	 */
 	const COUNT_CURRENT_QUERY = <<<'SQL'
 	SELECT COUNT(*) AS `count`
@@ -129,7 +129,7 @@ class Products {
 	 * This is done for cross-checking the database before creating new
 	 * products, if any.
 	 *
-	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_current_skus()
+	 * @see AldaVigdis\TengillForDk\Import\Products::get_current_skus()
 	 */
 	const GET_CURRENT_SKUS_QUERY = <<<'SQL'
 	SELECT wp_postmeta.meta_value AS `sku`
@@ -151,7 +151,7 @@ class Products {
 	 * This gets suffixed with a LIMIT statement in the
 	 * `get_product_ids_to_update` function.
 	 *
-	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_product_ids_to_update()
+	 * @see AldaVigdis\TengillForDk\Import\Products::get_product_ids_to_update()
 	 */
 	const GET_BATCH_TO_UPDATE_QUERY = <<<'SQL'
 	SELECT wp_posts.id AS id,
@@ -590,7 +590,7 @@ class Products {
 	 * This uses an hour-long chache to retain the product objects, so they are
 	 * not fetched each time. Use the `get_all_from_dk()` to bypass the cache.
 	 *
-	 * @see AldaVigdis\ConnectorForDK\Import\Products::get_all_from_dk()
+	 * @see AldaVigdis\TengillForDk\Import\Products::get_all_from_dk()
 	 *
 	 * @return false|object[]
 	 */

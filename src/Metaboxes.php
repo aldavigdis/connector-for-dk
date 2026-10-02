@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Import\Products as ImportProducts;
+use AldaVigdis\TengillForDk\Config;
 use WC_Product;
 use WC_Product_Variable;
 use WC_Product_Variation;
@@ -94,7 +94,7 @@ class Metaboxes {
 	 */
 	public static function add_product_data_tab( array $tabs ): array {
 		$tabs['dk_connection'] = array(
-			'label'    => __( 'DK Sync', 'connector-for-dk' ),
+			'label'    => __( 'DK Sync', 'tengill-for-dk' ),
 			'target'   => 'dk_connection_product_tab',
 			'class'    => array( 'hide_if_grouped' ),
 			'priority' => 100,
@@ -149,7 +149,7 @@ class Metaboxes {
 		$tabs['attribute']['class'] = array( 'hide_if_variable' );
 
 		$tabs['connector_for_dk_variations'] = array(
-			'label'    => __( 'DK Variations', 'connector-for-dk' ),
+			'label'    => __( 'DK Variations', 'tengill-for-dk' ),
 			'target'   => 'dk_variations_tab',
 			'priority' => 60,
 			'class'    => array( 'show_if_variable' ),
@@ -186,7 +186,7 @@ class Metaboxes {
 	}
 
 	/**
-	 * Save the ConnectorForDK related meta tags for a product using superglobals
+	 * Save the TengillForDk related meta tags for a product using superglobals
 	 *
 	 * Fired during the `save_post_product` hook.
 	 *

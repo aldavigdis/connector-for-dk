@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
 /**
  * The i18n class
@@ -35,14 +35,14 @@ class I18n {
 	 * @see https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#plugins-on-wordpress-org
 	 *
 	 * @param string $mo_file An .mo file path as it is received by `load_textdomain_mofile`.
-	 * @param string $text_domain The plugin text domain (`connector-for-dk` in our case).
+	 * @param string $text_domain The plugin text domain (`tengill-for-dk` in our case).
 	 */
 	public static function load_mofile(
 		string $mo_file,
 		string $text_domain
 	): string {
 		if (
-			$text_domain !== 'connector-for-dk' ||
+			$text_domain !== 'tengill-for-dk' ||
 			str_contains( $mo_file, WP_LANG_DIR . '/plugins/' )
 		) {
 			return $mo_file;

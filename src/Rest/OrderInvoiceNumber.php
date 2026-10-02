@@ -2,21 +2,21 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
-use AldaVigdis\ConnectorForDK\Rest\PostEndpointTemplate;
-use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
+use AldaVigdis\TengillForDk\Opis\JsonSchema\Validator;
+use AldaVigdis\TengillForDk\Rest\PostEndpointTemplate;
+use AldaVigdis\TengillForDk\Export\Invoice as ExportInvoice;
 use WC_Order;
 
 /**
  * The Order Invoice Number REST API class
  */
 class OrderInvoiceNumber implements PostEndpointTemplate {
-	const NAMESPACE = 'ConnectorForDK/v1';
+	const NAMESPACE = 'TengillForDk/v1';
 	const PATH      = '/order_invoice_number/';
 	const SCHEMA    = 'rest/order_invoice_number.json';
 
@@ -90,7 +90,7 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 						// Translators: %1$s is a placeholder for the invoice number that was manually entered.
 						__(
 							'Invoice number set to %1$s.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						),
 						$rest_json->invoice_number
 					)

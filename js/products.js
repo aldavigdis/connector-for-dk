@@ -1,6 +1,6 @@
 const { __, _x, _n, _nx } = wp.i18n;
 
-class ConnectorForDKProducts {
+class TengillForDkProducts {
 	static assignClickToDKPriceCheckboxes() {
 		const checkboxes = document.querySelectorAll(
 			'[data-variation-price-checkbox-for]'
@@ -151,8 +151,8 @@ class ConnectorForDKProducts {
 						);
 						const mediaPopover               = wp.media(
 							{
-								title: __( 'Select or upload image for this variation', 'connector-for-dk' ),
-								button: { text: __( 'Use', 'connector-for-dk' ) },
+								title: __( 'Select or upload image for this variation', 'tengill-for-dk' ),
+								button: { text: __( 'Use', 'tengill-for-dk' ) },
 								multiple: false,
 								library: {
 									type: 'image'
@@ -222,10 +222,10 @@ class ConnectorForDKProducts {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		ConnectorForDKProducts.assignClickToDKPriceCheckboxes();
-		ConnectorForDKProducts.assignClickToDKInventoryCheckboxes();
-		ConnectorForDKProducts.assignClickToDKQuantityCheckboxes();
-		ConnectorForDKProducts.assignClickToDKThumbnailImages();
-		ConnectorForDKProducts.assignClickToDKThumbnailRemoveButton();
+		TengillForDkProducts.assignClickToDKPriceCheckboxes();
+		TengillForDkProducts.assignClickToDKInventoryCheckboxes();
+		TengillForDkProducts.assignClickToDKQuantityCheckboxes();
+		TengillForDkProducts.assignClickToDKThumbnailImages();
+		TengillForDkProducts.assignClickToDKThumbnailRemoveButton();
 	}
 );

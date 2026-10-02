@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Helpers\Product as ProductHelper;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;

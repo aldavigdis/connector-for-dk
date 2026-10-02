@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -32,7 +32,7 @@ $payment_map = Config::get_payment_mapping( $p->id );
 		<?php
 		esc_html_e(
 			'Add payment line to credit invoices',
-			'connector-for-dk'
+			'tengill-for-dk'
 		);
 		?>
 	</label>

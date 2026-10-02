@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Helpers;
+namespace AldaVigdis\TengillForDk\Helpers;
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 use WC_Customer;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
-use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Rest\EmptyBodyEndpointTemplate;
+use AldaVigdis\TengillForDk\Export\Invoice as ExportInvoice;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
 
 /**
  * The Order DK Invoice endpoint class
@@ -20,7 +20,7 @@ use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
  * order in DK.
  */
 class OrderDKInvoice implements EmptyBodyEndpointTemplate {
-	const NAMESPACE = 'ConnectorForDK/v1';
+	const NAMESPACE = 'TengillForDk/v1';
 	const PATH      = '/order_dk_invoice/(?P<order_id>[\d]+)';
 
 	/**
@@ -77,7 +77,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created as invoicing for international orders is not available in this version of Connector for dk',
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			);
 
@@ -88,7 +88,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in DK for this order as it was created before Connector for dk was activated.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			);
 
@@ -102,7 +102,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			$wc_order->add_order_note(
 				__(
 					'An invoice could not be created in dk for this order because one or more item does not have a SKU.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			);
 
@@ -117,7 +117,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				$wc_order->add_order_note(
 					__(
 						'An invoice could not be created in for this order as the DK customer record is labelled as blocked.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 
@@ -128,7 +128,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				$wc_order->add_order_note(
 					__(
 						"An invoice could not be created in for this order as the country indicated in the order's address does not match with the relevant DK customer record.",
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 
@@ -145,7 +145,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 			$wc_order->add_order_note(
 				__(
 					'DK could not create an invoice due to an error.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			);
 			return new WP_REST_Response( status: 400 );
@@ -156,7 +156,7 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				// Translators: %1$s is a placeholder for the invoice number generated in DK.
 				__(
 					'An invoice for this order has been created in DK. The invoice number is %1$s.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				$invoice_number
 			)
@@ -167,14 +167,14 @@ class OrderDKInvoice implements EmptyBodyEndpointTemplate {
 				$wc_order->add_order_note(
 					__(
 						'An email containing the invoice as a PDF attachment was sent to the customer via DK.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			} else {
 				$wc_order->add_order_note(
 					__(
 						'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}

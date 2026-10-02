@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
 use WC_Customer;
 use WC_Order;
 use WP_Error;
@@ -69,7 +69,7 @@ class CustomerContacts {
 		$billing = array_merge(
 			array(
 				'connector_for_dk_contact' => array(
-					'label'       => __( 'Contact Person', 'connector-for-dk' ),
+					'label'       => __( 'Contact Person', 'tengill-for-dk' ),
 					'description' => '',
 					'class'       => 'contacts',
 					'type'        => 'select',

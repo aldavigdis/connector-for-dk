@@ -11,13 +11,13 @@
  * Author URI: https://aldavigdis.is
  * License: GPL-3.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain: connector-for-dk
+ * Text Domain: tengill-for-dk
  * Requires Plugins: woocommerce
  */
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -29,5 +29,5 @@ new Loader();
 
 register_deactivation_hook(
 	__FILE__,
-	'AldaVigdis\ConnectorForDK\Cron\Schedule::deactivate'
+	'AldaVigdis\TengillForDk\Cron\Schedule::deactivate'
 );

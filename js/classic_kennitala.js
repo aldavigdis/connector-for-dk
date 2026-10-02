@@ -1,4 +1,4 @@
-class ConnectorForDKClassicKennitalaField {
+class TengillForDkClassicKennitalaField {
 	/**
 	 * The kennitala field
 	 *
@@ -57,6 +57,6 @@ class ConnectorForDKClassicKennitalaField {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		ConnectorForDKClassicKennitalaField.addEventListener();
+		TengillForDkClassicKennitalaField.addEventListener();
 	}
 );

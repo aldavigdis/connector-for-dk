@@ -1,4 +1,4 @@
-class ConnectorForDKFetchCustomer {
+class TengillForDkFetchCustomer {
 	/**
 	 * The "fetch" button
 	 *
@@ -6,7 +6,7 @@ class ConnectorForDKFetchCustomer {
 	 */
 	static fetchButton() {
 		return document.getElementById(
-			'connector-for-dk-fetch-customer-from-dk-button'
+			'tengill-for-dk-fetch-customer-from-dk-button'
 		);
 	}
 
@@ -77,7 +77,7 @@ class ConnectorForDKFetchCustomer {
 	static newErrorElement() {
 		let element = document.createElement( 'p' );
 
-		element.id = 'connector-for-dk-fetch-customer-from-dk-error';
+		element.id = 'tengill-for-dk-fetch-customer-from-dk-error';
 		element.setAttribute( 'style', 'display: inline-block; margin-left: 0.5em;' );
 		element.setAttribute( 'role', 'alert' );
 
@@ -95,12 +95,12 @@ class ConnectorForDKFetchCustomer {
 		if ( response.status == 404 ) {
 			this.errorElement().innerText = __(
 				'Could not find this customer in DK.',
-				'connector-for-dk'
+				'tengill-for-dk'
 			);
 		} else {
 			this.errorElement().innerText = __(
 				'An unexpected error occured.',
-				'connector-for-dk'
+				'tengill-for-dk'
 			);
 		}
 	}
@@ -121,7 +121,7 @@ class ConnectorForDKFetchCustomer {
 	 */
 	static errorElement() {
 		return document.getElementById(
-			'connector-for-dk-fetch-customer-from-dk-error'
+			'tengill-for-dk-fetch-customer-from-dk-error'
 		);
 	}
 
@@ -143,7 +143,7 @@ class ConnectorForDKFetchCustomer {
 	 */
 	static async getCustomerFromDK( kennitala ) {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/fetch_customer/' + kennitala,
+			wpApiSettings.root + 'TengillForDk/v1/fetch_customer/' + kennitala,
 			{
 				method: 'GET',
 				headers: {
@@ -164,7 +164,7 @@ class ConnectorForDKFetchCustomer {
 
 			Object.keys( json ).forEach(
 				( property ) => {
-					ConnectorForDKFetchCustomer.populateField(
+					TengillForDkFetchCustomer.populateField(
 						property,
 						json[property]
 					);
@@ -212,15 +212,15 @@ class ConnectorForDKFetchCustomer {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		if ( ConnectorForDKFetchCustomer.fetchButton() ) {
-			ConnectorForDKFetchCustomer.fetchButtonCell().appendChild(
-				ConnectorForDKFetchCustomer.newErrorElement()
+		if ( TengillForDkFetchCustomer.fetchButton() ) {
+			TengillForDkFetchCustomer.fetchButtonCell().appendChild(
+				TengillForDkFetchCustomer.newErrorElement()
 			);
-			ConnectorForDKFetchCustomer.fetchButton().addEventListener(
+			TengillForDkFetchCustomer.fetchButton().addEventListener(
 				'click',
 				( e ) => {
 					e.preventDefault();
-					ConnectorForDKFetchCustomer.fetchButtonClickEvent();
+					TengillForDkFetchCustomer.fetchButtonClickEvent();
 				}
 			);
 		}

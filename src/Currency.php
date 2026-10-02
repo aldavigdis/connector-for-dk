@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Brick\Math\RoundingMode;
 use WP_Error;
 
 /**
@@ -155,7 +155,7 @@ class Currency {
 				// Translators: The %s stands for the currency code.
 				__(
 					'The currency code ‘%s’ is invalid.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				strtoupper( $currency_code )
 			)
@@ -176,7 +176,7 @@ class Currency {
 				// Translators: The %s stands for the currency code.
 				__(
 					'The currency rate for ‘%s’ has not been set.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				strtoupper( $currency_code )
 			)

@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Import\SalesPayments as ImportSalesPayments;
-use AldaVigdis\ConnectorForDK\KennitalaField;
+use AldaVigdis\TengillForDk\Import\SalesPayments as ImportSalesPayments;
+use AldaVigdis\TengillForDk\KennitalaField;
 
 /**
  * The Config class
@@ -1017,7 +1017,7 @@ class Config {
 				'blocked_customers_message',
 				__(
 					'We are unable to check out your order. Please contact us for more information.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			)
 		);

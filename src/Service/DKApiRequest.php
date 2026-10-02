@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Service;
+namespace AldaVigdis\TengillForDk\Service;
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 use WP_Error;
 use WP_Http;
 
@@ -78,7 +78,7 @@ class DKApiRequest {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
-				__( 'The dkPlus API key is missing.', 'connector-for-dk' )
+				__( 'The dkPlus API key is missing.', 'tengill-for-dk' )
 			);
 		}
 
@@ -154,7 +154,7 @@ class DKApiRequest {
 		if ( empty( Config::get_dk_api_key() ) ) {
 			return new WP_Error(
 				'dk-api-key-missing',
-				__( 'The dkPlus API key is missing.', 'connector-for-dk' )
+				__( 'The dkPlus API key is missing.', 'tengill-for-dk' )
 			);
 		}
 

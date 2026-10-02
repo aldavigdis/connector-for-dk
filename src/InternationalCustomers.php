@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
 /**
  * The international customers class

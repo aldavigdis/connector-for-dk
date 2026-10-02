@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Helpers;
+namespace AldaVigdis\TengillForDk\Helpers;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 use WC_Customer;
 use WC_Order;

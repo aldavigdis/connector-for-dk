@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Helpers\Product as ProductHelper;
 use WC_Product_Variable;
 use WC_Product_Variation;
 
@@ -31,7 +31,7 @@ $wc_product = wc_get_product();
 			echo esc_html(
 				__(
 					"dk's own ‘Product Variations’ feature is required to add or remove product variations that originate in dk.",
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			);
 			?>
@@ -39,7 +39,7 @@ $wc_product = wc_get_product();
 	</div>
 
 	<div class="dk-variations-defaults">
-		<h3><?php echo esc_html( __( 'Default Attributes', 'connector-for-dk' ) ); ?></h3>
+		<h3><?php echo esc_html( __( 'Default Attributes', 'tengill-for-dk' ) ); ?></h3>
 		<div class="dk-variation-default">
 			<?php foreach ( $wc_product->get_attributes( 'edit' ) as $key => $attribute ) : ?>
 			<label>
@@ -49,7 +49,7 @@ $wc_product = wc_get_product();
 				<select
 					name="dk_variable_defaults[<?php echo esc_attr( $key ); ?>]"
 				>
-					<option value=""><?php echo esc_html( __( '(None)', 'connector-for-dk' ) ); ?></option>
+					<option value=""><?php echo esc_html( __( '(None)', 'tengill-for-dk' ) ); ?></option>
 					<?php foreach ( $attribute->get_options() as $option ) : ?>
 					<option
 						value="<?php echo esc_attr( $option ); ?>"
@@ -78,7 +78,7 @@ $wc_product = wc_get_product();
 					echo esc_html(
 						sprintf(
 							// Translators: The %d is the variation ID.
-							__( 'Variation #%d', 'connector-for-dk' ),
+							__( 'Variation #%d', 'tengill-for-dk' ),
 							$variation_id
 						)
 					);
@@ -88,7 +88,7 @@ $wc_product = wc_get_product();
 				<div class="dk-variation-image">
 					<button
 						class="add-thumbnail-button"
-						title="<?php echo esc_html( __( 'Replace Image', 'connector-for-dk' ) ); ?>"
+						title="<?php echo esc_html( __( 'Replace Image', 'tengill-for-dk' ) ); ?>"
 						data-variation-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
 					>
 						<img
@@ -102,7 +102,7 @@ $wc_product = wc_get_product();
 						data-remove-thumbnail-for="<?php echo esc_html( $variation_id ); ?>"
 						<?php disabled( empty( $variation->get_image_id( 'edit' ) ) ); ?>
 					>
-						<?php echo esc_html( __( 'Remove Image', 'connector-for-dk' ) ); ?>
+						<?php echo esc_html( __( 'Remove Image', 'tengill-for-dk' ) ); ?>
 					</button>
 					<input
 						type="hidden"
@@ -132,7 +132,7 @@ $wc_product = wc_get_product();
 									<?php checked( ProductHelper::variation_price_override( $variation ) ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Override price for this product variation', 'connector-for-dk' ) ); ?>
+									<?php echo esc_html( __( 'Override price for this product variation', 'tengill-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -147,7 +147,7 @@ $wc_product = wc_get_product();
 										echo esc_html(
 											sprintf(
 												// Translators: The %s is the currency symbol for WooCommerce.
-												__( 'Price (%s)', 'connector-for-dk' ),
+												__( 'Price (%s)', 'tengill-for-dk' ),
 												get_woocommerce_currency_symbol()
 											)
 										);
@@ -169,7 +169,7 @@ $wc_product = wc_get_product();
 										echo esc_html(
 											sprintf(
 												// Translators: The %s is the currency symbol for WooCommerce.
-												__( 'Sale Price (%s)', 'connector-for-dk' ),
+												__( 'Sale Price (%s)', 'tengill-for-dk' ),
 												get_woocommerce_currency_symbol()
 											)
 										);
@@ -189,7 +189,7 @@ $wc_product = wc_get_product();
 									<span>
 										<?php
 										echo esc_html(
-											__( 'On sale from', 'connector-for-dk' ),
+											__( 'On sale from', 'tengill-for-dk' ),
 										);
 										?>
 									</span>
@@ -206,7 +206,7 @@ $wc_product = wc_get_product();
 									<span>
 										<?php
 										echo esc_html(
-											__( 'On sale to', 'connector-for-dk' ),
+											__( 'On sale to', 'tengill-for-dk' ),
 										);
 										?>
 									</span>
@@ -228,7 +228,7 @@ $wc_product = wc_get_product();
 									<?php checked( ProductHelper::variation_inventory_override( $variation ) ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Override inventory', 'connector-for-dk' ) ); ?>
+									<?php echo esc_html( __( 'Override inventory', 'tengill-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -246,7 +246,7 @@ $wc_product = wc_get_product();
 										<?php checked( ProductHelper::variation_inventory_track_in_wc( $variation ) ); ?>
 									/>
 									<span>
-										<?php echo esc_html( __( 'Set stock quantity', 'connector-for-dk' ) ); ?>
+										<?php echo esc_html( __( 'Set stock quantity', 'tengill-for-dk' ) ); ?>
 									</span>
 								</label>
 							</div>
@@ -256,7 +256,7 @@ $wc_product = wc_get_product();
 								<div class="dk-variation-field">
 									<label>
 										<span>
-											<?php echo esc_html( __( 'Quantity', 'connector-for-dk' ) ); ?>
+											<?php echo esc_html( __( 'Quantity', 'tengill-for-dk' ) ); ?>
 										</span>
 										<input
 											type="number"
@@ -268,7 +268,7 @@ $wc_product = wc_get_product();
 								</div>
 								<fieldset>
 									<legend>
-										<?php echo esc_html( __( 'Backorders', 'connector-for-dk' ) ); ?>
+										<?php echo esc_html( __( 'Backorders', 'tengill-for-dk' ) ); ?>
 									</legend>
 									<div class="dk-variation-subcheckbox">
 										<label>
@@ -280,7 +280,7 @@ $wc_product = wc_get_product();
 												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
 											/>
 											<span>
-												<?php echo esc_html( __( 'Do not allow backorders', 'connector-for-dk' ) ); ?>
+												<?php echo esc_html( __( 'Do not allow backorders', 'tengill-for-dk' ) ); ?>
 											</span>
 										</label>
 									</div>
@@ -294,7 +294,7 @@ $wc_product = wc_get_product();
 												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
 											/>
 											<span>
-												<?php echo esc_html( __( 'Allow backorders, but notify customer', 'connector-for-dk' ) ); ?>
+												<?php echo esc_html( __( 'Allow backorders, but notify customer', 'tengill-for-dk' ) ); ?>
 											</span>
 										</label>
 									</div>
@@ -308,7 +308,7 @@ $wc_product = wc_get_product();
 												<?php disabled( ! ProductHelper::variation_inventory_override( $variation ) || ! $variation->get_manage_stock( 'edit' ) ); ?>
 											/>
 											<span>
-												<?php echo esc_html( __( 'Allow backorders', 'connector-for-dk' ) ); ?>
+												<?php echo esc_html( __( 'Allow backorders', 'tengill-for-dk' ) ); ?>
 											</span>
 										</label>
 									</div>
@@ -320,7 +320,7 @@ $wc_product = wc_get_product();
 					<div class="dk-variation-textarea">
 						<label>
 							<span>
-								<?php echo esc_html( __( 'Description', 'connector-for-dk' ) ); ?>
+								<?php echo esc_html( __( 'Description', 'tengill-for-dk' ) ); ?>
 							</span>
 							<textarea
 								name="dk_variable_description[<?php echo esc_attr( $variation_id ); ?>]"
@@ -338,7 +338,7 @@ $wc_product = wc_get_product();
 									<?php checked( in_array( $variation->get_status( 'edit' ), array( 'publish', false ), true ), true ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Enabled', 'connector-for-dk' ) ); ?>
+									<?php echo esc_html( __( 'Enabled', 'tengill-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -351,7 +351,7 @@ $wc_product = wc_get_product();
 									<?php checked( $variation->get_downloadable( 'edit' ), true ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Downloadable', 'connector-for-dk' ) ); ?>
+									<?php echo esc_html( __( 'Downloadable', 'tengill-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -364,7 +364,7 @@ $wc_product = wc_get_product();
 									<?php checked( $variation->get_virtual( 'edit' ), true ); ?>
 								/>
 								<span>
-									<?php echo esc_html( __( 'Virtual', 'connector-for-dk' ) ); ?>
+									<?php echo esc_html( __( 'Virtual', 'tengill-for-dk' ) ); ?>
 								</span>
 							</label>
 						</div>
@@ -372,7 +372,7 @@ $wc_product = wc_get_product();
 					<div class="dk-variation-textinput">
 						<label>
 							<span>
-								<?php echo esc_attr( __( 'Menu Order', 'connector-for-dk' ) ); ?>
+								<?php echo esc_attr( __( 'Menu Order', 'tengill-for-dk' ) ); ?>
 							</span>
 							<input
 								class="tiny"

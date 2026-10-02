@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Cron;
+namespace AldaVigdis\TengillForDk\Cron;
 
 /**
  * The cron task scheduling class
@@ -16,63 +16,63 @@ class Schedule {
 	public function __construct() {
 		add_action(
 			'connector_for_dk_clean_pdfs',
-			array( 'AldaVigdis\ConnectorForDK\Cron\CleanPDFs', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\CleanPDFs', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_get_currencies',
-			array( 'AldaVigdis\ConnectorForDK\Cron\GetCurrencies', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\GetCurrencies', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_get_customers',
-			array( 'AldaVigdis\ConnectorForDK\Cron\GetCustomers', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\GetCustomers', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_create_products',
-			array( 'AldaVigdis\ConnectorForDK\Cron\CreateProducts', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\CreateProducts', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_delete_products',
-			array( 'AldaVigdis\ConnectorForDK\Cron\DeleteProducts', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\DeleteProducts', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_update_products',
-			array( 'AldaVigdis\ConnectorForDK\Cron\UpdateProducts', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\UpdateProducts', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_get_sales_payments',
-			array( 'AldaVigdis\ConnectorForDK\Cron\GetSalesPayments', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\GetSalesPayments', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_post_invoices',
-			array( 'AldaVigdis\ConnectorForDK\Cron\PostInvoices', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\PostInvoices', 'run' ),
 			10,
 			0
 		);
 
 		add_action(
 			'connector_for_dk_get_product_variations',
-			array( 'AldaVigdis\ConnectorForDK\Cron\GetProductVariations', 'run' ),
+			array( 'AldaVigdis\TengillForDk\Cron\GetProductVariations', 'run' ),
 			10,
 			0
 		);
@@ -106,7 +106,7 @@ class Schedule {
 			'interval' => 15 * MINUTE_IN_SECONDS,
 			'display'  => __(
 				'Connector for dk 15 minute interval',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 		);
 
@@ -127,7 +127,7 @@ class Schedule {
 			'interval' => 2 * MINUTE_IN_SECONDS,
 			'display'  => __(
 				'Connector for dk 2 minute interval',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 		);
 

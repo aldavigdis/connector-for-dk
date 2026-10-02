@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Import;
+namespace AldaVigdis\TengillForDk\Import;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
 use WP_Error;
 
 /**

@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Export\SalesPerson;
-use AldaVigdis\ConnectorForDK\Export\Customer;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
-use AldaVigdis\ConnectorForDK\Import\Products;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Export\SalesPerson;
+use AldaVigdis\TengillForDk\Export\Customer;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Helpers\Product as ProductHelper;
+use AldaVigdis\TengillForDk\Import\Products;
 use WC_Payment_Gateways;
 use WC_Payment_Gateway;
 use WC_Order;
@@ -17,14 +17,14 @@ use WP_Error;
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
- * The ConnectorForDK Admin class
+ * The TengillForDk Admin class
  *
  * Handles the wp-admin related functionality for the plugin; loads views,
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
 	const ASSET_VERSION = '0.8';
-	const PLUGIN_SLUG   = 'connector-for-dk';
+	const PLUGIN_SLUG   = 'tengill-for-dk';
 
 	const TRANSIENT_EXPIRY = 900;
 	const CHECK_TAX_RATES  = [ 24.0, 11.0, 0.0 ];
@@ -173,7 +173,7 @@ class Admin {
 	public static function plugin_list_notice(): string {
 		$text = __(
 			'This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is higly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.',
-			'connector-for-dk'
+			'tengill-for-dk'
 		);
 
 		return "<p>$text</p>";
@@ -204,7 +204,7 @@ class Admin {
 	 * Get the URL for the plugin settings page
 	 */
 	private static function settings_url(): string {
-		return get_admin_url( path: 'admin.php?page=connector-for-dk' );
+		return get_admin_url( path: 'admin.php?page=tengill-for-dk' );
 	}
 
 	/**
@@ -230,7 +230,7 @@ class Admin {
 	 */
 	private static function community_link(): string {
 		$url  = self::community_url();
-		$text = __( 'Community Support', 'connector-for-dk' );
+		$text = __( 'Community Support', 'tengill-for-dk' );
 
 		return "<a href=\"$url\" target=\"_blank\">$text</a>";
 	}
@@ -240,8 +240,8 @@ class Admin {
 	 */
 	public static function add_dk_invoice_metabox(): void {
 		add_meta_box(
-			'connector-for-dk-invoice-metabox',
-			__( 'DK Invoice', 'connector-for-dk' ),
+			'tengill-for-dk-invoice-metabox',
+			__( 'DK Invoice', 'tengill-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'woocommerce_page_wc-orders',
 			context: 'side',
@@ -249,8 +249,8 @@ class Admin {
 		);
 
 		add_meta_box(
-			'connector-for-dk-invoice-metabox',
-			__( 'DK Invoice', 'connector-for-dk' ),
+			'tengill-for-dk-invoice-metabox',
+			__( 'DK Invoice', 'tengill-for-dk' ),
 			array( __CLASS__, 'render_dk_invoice_metabox' ),
 			'shop_order',
 			context: 'side',
@@ -278,7 +278,7 @@ class Admin {
 		return array_merge(
 			$first,
 			array(
-				'dk_invoice_id' => esc_html__( 'DK Invoice', 'connector-for-dk' ),
+				'dk_invoice_id' => esc_html__( 'DK Invoice', 'tengill-for-dk' ),
 			),
 			$last
 		);
@@ -319,7 +319,7 @@ class Admin {
 
 			echo '<span class="dashicons dashicons-marker pending"></span> ';
 			echo '<span class="pending">';
-			esc_html_e( 'Pending…', 'connector-for-dk' );
+			esc_html_e( 'Pending…', 'tengill-for-dk' );
 			echo '</span>';
 			return;
 		}
@@ -442,20 +442,20 @@ class Admin {
 	 */
 	public static function add_menu_page(): void {
 		add_menu_page(
-			__( 'Connector for dk', 'connector-for-dk' ),
-			__( 'Connector for dk', 'connector-for-dk' ),
+			__( 'Connector for dk', 'tengill-for-dk' ),
+			__( 'Connector for dk', 'tengill-for-dk' ),
 			'manage_options',
-			'connector-for-dk',
+			'tengill-for-dk',
 			array( __CLASS__, 'render_admin_page' ),
 			'dashicons-admin-links'
 		);
 
 		add_submenu_page(
-			'connector-for-dk',
-			__( 'Settings', 'connector-for-dk' ),
-			__( 'Settings', 'connector-for-dk' ),
+			'tengill-for-dk',
+			__( 'Settings', 'tengill-for-dk' ),
+			__( 'Settings', 'tengill-for-dk' ),
 			'manage_options',
-			'connector-for-dk',
+			'tengill-for-dk',
 			array( __CLASS__, 'render_admin_page' )
 		);
 	}
@@ -481,19 +481,19 @@ class Admin {
 	 */
 	public static function enqueue_styles_and_scripts(): void {
 		wp_enqueue_style(
-			handle: 'connector-for-dk',
+			handle: 'tengill-for-dk',
 			src: plugins_url( 'style/admin.css', __DIR__ ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_style(
-			handle: 'connector-for-dk-product',
+			handle: 'tengill-for-dk-product',
 			src: plugins_url( 'style/products.css', __DIR__ ),
 			ver: self::ASSET_VERSION
 		);
 
 		wp_enqueue_script(
-			'connector-for-dk-admin',
+			'tengill-for-dk-admin',
 			plugins_url( 'js/admin.js', __DIR__ ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -501,7 +501,7 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'connector-for-dk-products',
+			'tengill-for-dk-products',
 			plugins_url( 'js/products.js', __DIR__ ),
 			array( 'wp-api', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -509,7 +509,7 @@ class Admin {
 		);
 
 		wp_enqueue_script(
-			'connector-for-dk-order',
+			'tengill-for-dk-order',
 			plugins_url( 'js/order.js', __DIR__ ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			self::ASSET_VERSION,
@@ -517,8 +517,8 @@ class Admin {
 		);
 
 		wp_set_script_translations(
-			'connector-for-dk-products',
-			'connector-for-dk',
+			'tengill-for-dk-products',
+			'tengill-for-dk',
 			dirname( plugin_dir_path( __FILE__ ) ) . '/languages'
 		);
 	}
@@ -547,7 +547,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'Please make sure that a product with the Product Code ‘%s’ exsists in DK before saving.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -563,7 +563,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'The Item Code ‘%s’ was found in DK.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -575,7 +575,7 @@ class Admin {
 				// Translators: The %s stands for the relevant SKU.
 				__(
 					'The Item Code ‘%s’ was not found in DK.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $sku )
 			);
@@ -612,7 +612,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'Please make sure that a sales person with the number ‘%s’ exsists in DK before saving.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -624,7 +624,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was found in DK.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -636,7 +636,7 @@ class Admin {
 				// Translators: The %s stands for the relevant sales person number.
 				__(
 					'A sales person with the number ‘%s’ was not found in DK.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $number )
 			);
@@ -684,7 +684,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'Please make sure that a customer record with the kennitala ‘%s’ exsists in DK before you continue.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $default_kennitala )
 			);
@@ -700,7 +700,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A customer record with the kennitala ‘%s’ was found in DK.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $default_kennitala )
 			);
@@ -712,7 +712,7 @@ class Admin {
 				// Translators: The %s stands for the kennitala.
 				__(
 					'A customer record with the kennitala ‘%s’ was not found in DK.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				esc_html( $default_kennitala )
 			);

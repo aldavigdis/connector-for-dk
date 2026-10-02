@@ -1,5 +1,5 @@
-class ConnectorForDKCreditInvoices {
-	static formSelector = '.connector-for-dk-refund-credit-invoice-form';
+class TengillForDkCreditInvoices {
+	static formSelector = '.tengill-for-dk-refund-credit-invoice-form';
 
 	static forms() {
 		return document.querySelectorAll( this.formSelector );
@@ -138,7 +138,7 @@ class ConnectorForDKCreditInvoices {
 		};
 
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_number',
+			wpApiSettings.root + 'TengillForDk/v1/order_invoice_number',
 			{
 				method: 'POST',
 				headers: {
@@ -156,7 +156,7 @@ class ConnectorForDKCreditInvoices {
 
 	static async getPdf( refundId ) {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + refundId,
+			wpApiSettings.root + 'TengillForDk/v1/order_invoice_pdf/' + refundId,
 			{
 				method: 'GET',
 				headers: {
@@ -176,7 +176,7 @@ class ConnectorForDKCreditInvoices {
 	}
 
 	static async createInvoice( refundId ) {
-		const apiPath = 'ConnectorForDK/v1/order_dk_credit_invoice/';
+		const apiPath = 'TengillForDk/v1/order_dk_credit_invoice/';
 
 		const response = await fetch(
 			wpApiSettings.root + apiPath + refundId,
@@ -208,48 +208,48 @@ window.addEventListener(
 	'DOMContentLoaded',
 	() => {
 		if (document.body) {
-			ConnectorForDKCreditInvoices.textInputs().forEach(
+			TengillForDkCreditInvoices.textInputs().forEach(
 				(node) => {
 					node.addEventListener(
 						'input',
 						( e ) => {
-							ConnectorForDKCreditInvoices.invoiceNumberInputAction( node );
+							TengillForDkCreditInvoices.invoiceNumberInputAction( node );
 						}
 					);
 				}
 			);
 
-			ConnectorForDKCreditInvoices.updateButtons().forEach(
+			TengillForDkCreditInvoices.updateButtons().forEach(
 				(node) => {
 					node.addEventListener(
 						'click',
 						( e ) => {
 							e.preventDefault();
-							ConnectorForDKCreditInvoices.updateButtonClickAction( node );
+							TengillForDkCreditInvoices.updateButtonClickAction( node );
 						}
 					);
 				}
 			);
 
-			ConnectorForDKCreditInvoices.pdfButtons().forEach(
+			TengillForDkCreditInvoices.pdfButtons().forEach(
 				(node) => {
 					node.addEventListener(
 						'click',
 						( e ) => {
 							e.preventDefault();
-							ConnectorForDKCreditInvoices.pdfButtonClickAction( node );
+							TengillForDkCreditInvoices.pdfButtonClickAction( node );
 						}
 					);
 				}
 			);
 
-			ConnectorForDKCreditInvoices.createButtons().forEach(
+			TengillForDkCreditInvoices.createButtons().forEach(
 				(node) => {
 					node.addEventListener(
 						'click',
 						( e ) => {
 							e.preventDefault();
-							ConnectorForDKCreditInvoices.createButtonClickAction( node );
+							TengillForDkCreditInvoices.createButtonClickAction( node );
 						}
 					);
 				}

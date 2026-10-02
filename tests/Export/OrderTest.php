@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Tests\Export;
+namespace AldaVigdis\TengillForDk\Tests\Export;
 
-use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\OrderMeta;
+use AldaVigdis\TengillForDk\Export\Order as ExportOrder;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\OrderMeta;
 
 use WC\SmoothGenerator\Generator\Order as OrderGenerator;
 use PHPUnit\Framework\Attributes\Group;

@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Cron;
+namespace AldaVigdis\TengillForDk\Cron;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\OrderStatus;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\OrderStatus;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
 use WC_Order;
 use Automattic\WooCommerce\Admin\Overrides\OrderRefund;
 

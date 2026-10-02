@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Export;
+namespace AldaVigdis\TengillForDk\Export;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
-use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Export\Order as ExportOrder;
+use AldaVigdis\TengillForDk\Export\Customer as ExportCustomer;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
 use WC_Order;
 use WP_Error;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
 
 /**
  * The Invoice Export class
@@ -128,7 +128,7 @@ class Invoice {
 
 		$subject = sprintf(
 			// Translators: The %1$s is a placeholder for the site's title.
-			__( 'Your Invoice From %1$s', 'connector-for-dk' ),
+			__( 'Your Invoice From %1$s', 'tengill-for-dk' ),
 			get_bloginfo( 'name' )
 		);
 

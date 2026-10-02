@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Import\Products as ImportProducts;
 
 use WP_REST_Request;
 use WP_REST_Response;
@@ -18,7 +18,7 @@ use WP_Error;
  * settings page for displaying information and progress bars.
  */
 class GetImportStats {
-	const NAMESPACE = 'ConnectorForDK/v1';
+	const NAMESPACE = 'TengillForDk/v1';
 	const PATH      = '/product_import_stats/';
 
 	/**
@@ -60,7 +60,7 @@ class GetImportStats {
 			// Translators: %1$s is for the number of products imported, %2$s is the number of total products and %2$s is the singular or plural, dative form of "product".
 			esc_html__(
 				'%1$s of %2$s %3$s imported',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 			esc_html(
 				number_format_i18n( (float) $stats->total - $stats->remaining )
@@ -73,7 +73,7 @@ class GetImportStats {
 				'products',
 				$stats->total,
 				'dative',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 		);
 
@@ -81,7 +81,7 @@ class GetImportStats {
 			// Translators: %1$s is for the numberof products to be deleted and %2$s is the singular or plural dative form of the word "product".
 			esc_html__(
 				'Deleting %1$s %2$s',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 			esc_html( number_format_i18n( $stats->to_delete ) ),
 			_nx(
@@ -89,7 +89,7 @@ class GetImportStats {
 				'products',
 				$stats->to_delete,
 				'dative',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 		);
 

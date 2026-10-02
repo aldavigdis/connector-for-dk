@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Rest\FetchCustomer;
+use AldaVigdis\TengillForDk\Rest\FetchCustomer;
 
 /**
  * The Loader class

@@ -1,34 +1,34 @@
-.connector-for-dk-refund-credit-invoice-form {
+.tengill-for-dk-refund-credit-invoice-form {
 	border: 1px solid #c3c4c7;
 	box-shadow: 0 1px 1px rgba(0,0,0,.04);
 	padding: 1.2rem 1rem;
 	width: calc( 300px - 2rem );
 }
 
-.connector-for-dk-refund-credit-invoice-form .input {
+.tengill-for-dk-refund-credit-invoice-form .input {
 	margin-bottom: 0.5em;
 	display: flex;
 	flex-direction: column;
 }
 
-.connector-for-dk-refund-credit-invoice-form .input label {
+.tengill-for-dk-refund-credit-invoice-form .input label {
 	font-weight: 600;
 	font-size: 13px;
 	color: #666;
 	margin-bottom: 0.25rem;
 }
 
-.connector-for-dk-refund-credit-invoice-form .buttons {
+.tengill-for-dk-refund-credit-invoice-form .buttons {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 
-.connector-for-dk-refund-credit-invoice-form .buttons button {
+.tengill-for-dk-refund-credit-invoice-form .buttons button {
 	margin-right: 0.5rem;
 }
 
-.connector-for-dk-refund-credit-invoice-form .regular-text {
+.tengill-for-dk-refund-credit-invoice-form .regular-text {
 	padding: 0 8px !important;
 	width: 100%;
 }
@@ -43,61 +43,61 @@
 	vertical-align: baseline;
 }
 
-.connector-for-dk-notice {
+.tengill-for-dk-notice {
 	padding: 1em 2em !important;
 }
 
-.connector-for-dk-notice h2 {
+.tengill-for-dk-notice h2 {
 	margin-top: 0.7em;
 }
 
-.wrap#connector-for-dk-wrap {
+.wrap#tengill-for-dk-wrap {
 	width: calc(100%);
 	max-width: 60rem;
 	min-height: 100%;
 	margin: 0 auto;
 }
 
-#connector-for-dk-wrap {
+#tengill-for-dk-wrap {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	min-height: calc(100vh - 100px);
 }
 
-#connector-for-dk-wrap table.hidden {
+#tengill-for-dk-wrap table.hidden {
 	display: none;
 }
 
-#connector-for-dk-wrap .next-step-section {
+#tengill-for-dk-wrap .next-step-section {
 	margin: 2em;
 	margin-right: 4em;
 	margin-top: 3em;
 }
 
-#connector-for-dk-wrap .next-step-section h2 {
+#tengill-for-dk-wrap .next-step-section h2 {
 	margin-bottom: 0.5em;
 	font-weight: bold;
 	text-shadow: 1px 1px 0 #fff;
 }
 
-#connector-for-dk-wrap .form-table {
+#tengill-for-dk-wrap .form-table {
 	display: table;
 }
 
-#connector-for-dk-wrap table .with-padding {
+#tengill-for-dk-wrap table .with-padding {
 	padding: 20px 10px 20px 10px;
 }
 
-#connector-for-dk-wrap table th[scope=col] {
+#tengill-for-dk-wrap table th[scope=col] {
 	padding: 10px 10px 0px 10px;
 }
 
-#connector-for-dk-wrap table select {
+#tengill-for-dk-wrap table select {
 	max-width: 12em;
 }
 
-#connector-for-dk-wrap table select:invalid {
+#tengill-for-dk-wrap table select:invalid {
 	border: 1px solid #900;
 }
 
@@ -125,45 +125,45 @@
 	padding-bottom: 20px;
 }
 
-#connector-for-dk-settings-form textarea {
+#tengill-for-dk-settings-form textarea {
 	width: 100%;
 	height: 6em;
 }
 
-#connector-for-dk-settings-form input:invalid {
+#tengill-for-dk-settings-form input:invalid {
 	border-color: #900;
 }
 
-#connector-for-dk-settings-form .validity,
-#connector-for-dk-settings-form .infotext {
+#tengill-for-dk-settings-form .validity,
+#tengill-for-dk-settings-form .infotext {
 	display: none;
 }
 
-#connector-for-dk-invoice-metabox .infotext {
+#tengill-for-dk-invoice-metabox .infotext {
 	font-weight: 600;
 	margin: 0.25rem 0 0 0;
 }
 
-#connector-for-dk-settings-form input:valid ~ .valid,
-#connector-for-dk-settings-form .infotext.ok,
-#connector-for-dk-invoice-metabox .infotext.ok {
+#tengill-for-dk-settings-form input:valid ~ .valid,
+#tengill-for-dk-settings-form .infotext.ok,
+#tengill-for-dk-invoice-metabox .infotext.ok {
 	display: block;
 	color: #060;
 }
 
-#connector-for-dk-settings-form input:invalid ~ .invalid,
-#connector-for-dk-settings-form .infotext.error,
-#connector-for-dk-invoice-metabox .infotext.error {
+#tengill-for-dk-settings-form input:invalid ~ .invalid,
+#tengill-for-dk-settings-form .infotext.error,
+#tengill-for-dk-invoice-metabox .infotext.error {
 	display: block;
 	color: #900;
 }
 
-#connector-for-dk-settings-form .infotext.info {
+#tengill-for-dk-settings-form .infotext.info {
 	display: block;
 	color: #003eaa;
 }
 
-#connector-for-dk-wrap #api-key-form-table td {
+#tengill-for-dk-wrap #api-key-form-table td {
 	max-width: calc(100vw - 10px - 8rem);
 	width: calc(60rem - 10px - 5em - 4rem);
 }
@@ -172,11 +172,11 @@
 	width: 100%;
 }
 
-#connector-for-dk-wrap .form-table .sub-checkboxes {
+#tengill-for-dk-wrap .form-table .sub-checkboxes {
 	margin: 0.5em 2em;
 }
 
-#connector-for-dk-wrap .section {
+#tengill-for-dk-wrap .section {
 	width: calc(100% - 6rem);
 	background-color: #fff;
 	padding: 1rem 2rem;
@@ -186,7 +186,7 @@
 	border-radius: 5px;
 }
 
-#connector-for-dk-wrap h1 {
+#tengill-for-dk-wrap h1 {
 	margin-bottom: 0.2em;
 	margin-top: 1em;
 	margin-right: 1em;
@@ -197,7 +197,7 @@
 	text-shadow: 1px 1px 0 #fff;
 }
 
-#connector-for-dk-wrap .section hr {
+#tengill-for-dk-wrap .section hr {
 	margin: 3em 0;
 	color: #c3c4c7;
 	background-color: #c3c4c7;
@@ -205,7 +205,7 @@
 	height: 1px;
 }
 
-#connector-for-dk-wrap .submit-container {
+#tengill-for-dk-wrap .submit-container {
 	width: calc(100% - 2rem);
 	display: flex;
 	align-items: center;
@@ -213,25 +213,25 @@
 	justify-content: flex-end;
 }
 
-#connector-for-dk-wrap #connector-for-dk-settings-error {
+#tengill-for-dk-wrap #tengill-for-dk-settings-error {
 	flex: 1;
 	margin-right: 5em;
 }
 
-#connector-for-dk-wrap #connector-for-dk-settings-error p {
+#tengill-for-dk-wrap #tengill-for-dk-settings-error p {
 	font-size: 1.17em;
 }
 
-#connector-for-dk-wrap #connector-for-dk-settings-error {
+#tengill-for-dk-wrap #tengill-for-dk-settings-error {
 	flex: 1;
 	margin-right: 5em;
 }
 
-#connector-for-dk-wrap #connector-for-dk-settings-error p {
+#tengill-for-dk-wrap #tengill-for-dk-settings-error p {
 	font-size: 1.17em;
 }
 
-#connector-for-dk-wrap .loader {
+#tengill-for-dk-wrap .loader {
 	margin-right: 1rem;
 }
 
@@ -267,29 +267,29 @@
 	border-radius: 3px;
 }
 
-#connector-for-dk-wrap h2 {
+#tengill-for-dk-wrap h2 {
 	font-size: 1.5rem;
 }
 
-#connector-for-dk-wrap .admin-check-errors {
+#tengill-for-dk-wrap .admin-check-errors {
 	margin-top: 4em;
 }
 
-#connector-for-dk-wrap .admin-check-errors .button {
+#tengill-for-dk-wrap .admin-check-errors .button {
 	margin-top: 0.25em;
 }
 
-#connector-for-dk-wrap .admin-check-errors ul {
+#tengill-for-dk-wrap .admin-check-errors ul {
 	margin-bottom: 4em;
 	margin-top: 0.5em;
 }
 
-#connector-for-dk-wrap .admin-check-errors li span {
+#tengill-for-dk-wrap .admin-check-errors li span {
 	font-size: 1.4em;
 	font-weight: bold;
 }
 
-#connector-for-dk-wrap .admin-check-errors li ul li {
+#tengill-for-dk-wrap .admin-check-errors li ul li {
 	line-height: 1.2em;
 	margin-bottom: 0.5em;
 }
@@ -334,26 +334,26 @@ table .column-dk_invoice_id .invoice_error {
 	font-weight: 600;
 }
 
-#connector-for-dk-invoice-metabox .input-set {
+#tengill-for-dk-invoice-metabox .input-set {
 	margin: 1rem 0;
 }
 
-#connector-for-dk-invoice-metabox .input {
+#tengill-for-dk-invoice-metabox .input {
 	display: flex;
 	flex-direction: column;
 	margin: 0.5rem 0;
 }
 
-#connector-for-dk-invoice-metabox .input label {
+#tengill-for-dk-invoice-metabox .input label {
 	font-weight: 600;
 	margin-bottom: 0.25rem;
 }
 
-#connector-for-dk-invoice-metabox input[type="text"] {
+#tengill-for-dk-invoice-metabox input[type="text"] {
 	width: 100%;
 }
 
-#connector-for-dk-invoice-metabox .buttons {
+#tengill-for-dk-invoice-metabox .buttons {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -361,11 +361,11 @@ table .column-dk_invoice_id .invoice_error {
 	margin: 0.5rem 0;
 }
 
-#connector-for-dk-invoice-metabox .buttons button {
+#tengill-for-dk-invoice-metabox .buttons button {
 	margin-right: 0.5rem;
 }
 
-#connector-for-dk-invoice-metabox .hidden {
+#tengill-for-dk-invoice-metabox .hidden {
 	display: none !important;
 }
 
@@ -613,19 +613,19 @@ table.woocommerce_order_items .group_price {
 	display: none;
 }
 
-#connector-for-dk-activation-form textarea {
+#tengill-for-dk-activation-form textarea {
 	width: 100%;
 	padding: 1em;
 	font-family: monospace;
 	font-size: 1em;
 }
 
-#connector-for-dk-activation-form .submit-container {
+#tengill-for-dk-activation-form .submit-container {
 	width: 100%;
 	margin: 0.5em 0;
 }
 
-#connector-for-dk-activation-form .price-comparison-table-container {
+#tengill-for-dk-activation-form .price-comparison-table-container {
 	overflow: scroll;
 }
 
@@ -715,7 +715,7 @@ table.woocommerce_order_items .group_price {
 	font-family: monospace;
 }
 
-#connector-for-dk-activation-form .validation-error {
+#tengill-for-dk-activation-form .validation-error {
 	margin-right: 2em;
 }
 
@@ -821,15 +821,15 @@ a.activate-license.expired {
 }
 
 @media screen and (max-width: 782px) {
-	#connector-for-dk-wrap .subheading {
+	#tengill-for-dk-wrap .subheading {
 		margin: 0 21px;
 	}
 
-	#connector-for-dk-wrap h1 {
+	#tengill-for-dk-wrap h1 {
 		margin-left: 21px;
 		font-size: 2.5rem;
 	}
-	#connector-for-dk-wrap #api-key-form-table td {
+	#tengill-for-dk-wrap #api-key-form-table td {
 		max-width: calc(100vw - 10px - 6rem);
 	}
 	#payment-gateway-id-map-table td.method-id {
@@ -844,7 +844,7 @@ a.activate-license.expired {
 		padding-top: 0;
 	}
 
-	#connector-for-dk-wrap .form-table thead {
+	#tengill-for-dk-wrap .form-table thead {
 		display: none;
 	}
 

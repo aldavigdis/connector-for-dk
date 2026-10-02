@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Admin;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Admin;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,11 +21,11 @@ $pre_activation_errors = Admin::pre_activation_errors();
 <?php else : ?>
 
 	<div
-		class="wrap connector-for-dk-wrap"
-		id="connector-for-dk-wrap"
+		class="wrap tengill-for-dk-wrap"
+		id="tengill-for-dk-wrap"
 	>
 		<form
-			id="connector-for-dk-settings-form"
+			id="tengill-for-dk-settings-form"
 			class="type-form"
 			novalidate
 			<?php if ( ! Config::get_dk_api_key() ) : ?>
@@ -33,7 +33,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			<?php endif ?>
 		>
 			<h1 class="wp-heading-inline">
-				<?php esc_html_e( 'Connector for dk', 'connector-for-dk' ); ?>
+				<?php esc_html_e( 'Connector for dk', 'tengill-for-dk' ); ?>
 			</h1>
 
 			<?php

@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Tests\Helpers;
+namespace AldaVigdis\TengillForDk\Tests\Helpers;
 
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Config;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;

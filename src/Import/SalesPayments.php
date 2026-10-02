@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Import;
+namespace AldaVigdis\TengillForDk\Import;
 
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Config;
 use WP_Error;
 
 /**
@@ -71,21 +71,21 @@ class SalesPayments {
 	public static function get_payment_term_name( string $key ): string {
 		switch ( $key ) {
 			case 'D15':
-				return __( '15 Day Payment Deadline (D15)', 'connector-for-dk' );
+				return __( '15 Day Payment Deadline (D15)', 'tengill-for-dk' );
 			case 'D20':
-				return __( '20 Day Payment Deadline (D20)', 'connector-for-dk' );
+				return __( '20 Day Payment Deadline (D20)', 'tengill-for-dk' );
 			case 'D30':
-				return __( '30 Day Payment Deadline (D30)', 'connector-for-dk' );
+				return __( '30 Day Payment Deadline (D30)', 'tengill-for-dk' );
 			case 'LM':
-				return __( 'Current Month (LM)', 'connector-for-dk' );
+				return __( 'Current Month (LM)', 'tengill-for-dk' );
 			case 'M15':
-				return __( 'Current Month + 15 Days (M15)', 'connector-for-dk' );
+				return __( 'Current Month + 15 Days (M15)', 'tengill-for-dk' );
 			case 'M20':
-				return __( 'Current Month + 20 Days (M20)', 'connector-for-dk' );
+				return __( 'Current Month + 20 Days (M20)', 'tengill-for-dk' );
 			case 'POST':
-				return __( 'Postal COD (POST)', 'connector-for-dk' );
+				return __( 'Postal COD (POST)', 'tengill-for-dk' );
 			case 'STGR':
-				return __( 'Cash Payment (STGR)', 'connector-for-dk' );
+				return __( 'Cash Payment (STGR)', 'tengill-for-dk' );
 		}
 
 		return $key;
@@ -182,21 +182,21 @@ class SalesPayments {
 	public static function get_payment_mode_name( string $key ): string {
 		switch ( $key ) {
 			case 'ABG':
-				return __( 'A or B Giro Request (ABG)', 'connector-for-dk' );
+				return __( 'A or B Giro Request (ABG)', 'tengill-for-dk' );
 			case 'BM':
-				return __( 'Bank Transfer (BM)', 'connector-for-dk' );
+				return __( 'Bank Transfer (BM)', 'tengill-for-dk' );
 			case 'CG':
-				return __( 'C Giro Request (CG)', 'connector-for-dk' );
+				return __( 'C Giro Request (CG)', 'tengill-for-dk' );
 			case 'GKR':
-				return __( 'Card Payment (GKR)', 'connector-for-dk' );
+				return __( 'Card Payment (GKR)', 'tengill-for-dk' );
 			case 'GM':
-				return __( 'Giro Transfer (GM)', 'connector-for-dk' );
+				return __( 'Giro Transfer (GM)', 'tengill-for-dk' );
 			case 'IB':
-				return __( 'Bank Collection Service (IB)', 'connector-for-dk' );
+				return __( 'Bank Collection Service (IB)', 'tengill-for-dk' );
 			case 'STGR':
-				return __( 'Cash Payment (STGR)', 'connector-for-dk' );
+				return __( 'Cash Payment (STGR)', 'tengill-for-dk' );
 			case 'TGR':
-				return __( 'Cheque Payment (TGR)', 'connector-for-dk' );
+				return __( 'Cheque Payment (TGR)', 'tengill-for-dk' );
 		}
 
 		return $key;

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Tests;
+namespace AldaVigdis\TengillForDk\Tests;
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 

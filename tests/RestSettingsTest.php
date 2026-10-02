@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Tests;
+namespace AldaVigdis\TengillForDk\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Rest\Settings;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Rest\Settings;
 use WP_REST_Request;
 use WP_UnitTest_Factory_For_User;
 use WP_User;
@@ -77,11 +77,11 @@ final class RestSettingstest extends TestCase {
 		wp_delete_user( $this->admin_user );
 	}
 
-	#[TestDox( 'creates the ConnectorForDK/v1 namespace in the WP REST API' )]
+	#[TestDox( 'creates the TengillForDk/v1 namespace in the WP REST API' )]
 	public function testNamespaceExsists(): void {
 		$request  = new WP_REST_Request(
 			'GET',
-			'/ConnectorForDK/v1'
+			'/TengillForDk/v1'
 		);
 		$response = rest_do_request( $request );
 
@@ -93,7 +93,7 @@ final class RestSettingstest extends TestCase {
 		// We're assuming an external request here, so we're not using a nonce value.
 		$request  = new WP_REST_Request(
 			'POST',
-			'/ConnectorForDK/v1/settings'
+			'/TengillForDk/v1/settings'
 		);
 		$response = rest_do_request( $request );
 
@@ -109,7 +109,7 @@ final class RestSettingstest extends TestCase {
 		wp_set_current_user( $this->admin_user_id );
 		$request = new WP_REST_Request(
 			'POST',
-			'/ConnectorForDK/v1/settings'
+			'/TengillForDk/v1/settings'
 		);
 
 		$request->add_header( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );

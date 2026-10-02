@@ -4,7 +4,7 @@
 
 Sync your WooCommerce store with DK, including product prices, inventory status and generate invoices for customers on checkout.
 
-This codebase originates as [an earlier work](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce), which is currently defunct. This should be considered to be a continuation of the that project by the same developer. This fork of the software is **not supported or endorsed by 1984 Hosting** and the continued development of this fork is done by Alda Vigdís Skarphéðinsdóttir. License codes are sold on [tengillpro.is](https://tengillpro.is).
+This codebase originates as [an earlier work](https://github.com/1984hosting/1984-tengill-for-dk-and-woocommerce), which is currently defunct. This should be considered to be a continuation of the that project by the same developer. This fork of the software is **not supported or endorsed by 1984 Hosting** and the continued development of this fork is done by Alda Vigdís Skarphéðinsdóttir. License codes are sold on [tengillpro.is](https://tengillpro.is).
 
 > [!CAUTION]
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact the author directly via aldavigdis@aldavigdis.is or the WordPress Security Team instead.**
@@ -113,7 +113,7 @@ DK will cut off some string values that exceed its limits without warning. This 
 
 We use UK/GB spelling whenever possible. The plugin is mainy run using the `is_IS` locale and it is important that the wording used for both locales corresponds with both the grown-up version of DK and dkPlus.
 
-POT and JSON files are generated using `cd wp-content/plugins/connector-for-dk && wp i18n make-pot . languages/connector-for-dk.pot --allow-root` from the Bash shell and then they get translated using the Loco Translate plugin.
+POT and JSON files are generated using `cd wp-content/plugins/tengill-for-dk && wp i18n make-pot . languages/tengill-for-dk.pot --allow-root` from the Bash shell and then they get translated using the Loco Translate plugin.
 
 ### Command Line Tools
 
@@ -138,7 +138,7 @@ The following command line tools are available for development and release purpo
 
 ## Contributing
 
-The main code repository for the plugin is at https://github.com/aldavigdis/connector-for-dk-and-woocommerce/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.
+The main code repository for the plugin is at https://github.com/aldavigdis/tengill-for-dk-and-woocommerce/. The Subversion account for the WordPress plugin respository is used for "built" releases of the plugin.
 
 If you are reporting a bug, please describe the steps needed to be taken so that we can replicate it, if possible.
 

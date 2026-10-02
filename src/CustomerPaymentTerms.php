@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
 use WC_Payment_Gateway;
 use WC_Customer;
@@ -14,7 +14,7 @@ use WC_Order;
  * Adds support for customer-specific payment terms selected WooCommerce
  * payment gateways.
  *
- * @package AldaVigdis\ConnectorForDK
+ * @package AldaVigdis\TengillForDk
  */
 class CustomerPaymentTerms {
 	/**
@@ -138,7 +138,7 @@ class CustomerPaymentTerms {
 		WC_Customer $customer
 	): void {
 		echo '<tr><th>';
-		echo esc_html_e( 'Payment term', 'connector-for-dk' );
+		echo esc_html_e( 'Payment term', 'tengill-for-dk' );
 		echo '</th><td>';
 		echo '<input class="small-text" type="text" value="';
 		echo esc_attr(

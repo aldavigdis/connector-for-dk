@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;

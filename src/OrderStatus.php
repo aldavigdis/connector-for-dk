@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Export\Invoice as ExportInvoice;
-use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Export\Invoice as ExportInvoice;
+use AldaVigdis\TengillForDk\Export\Customer as ExportCustomer;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
 use WC_Order;
 use WP_Error;
 
@@ -109,7 +109,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'An invoice was not autmatically generated as the customer entered a kennitala.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -125,7 +125,7 @@ class OrderStatus {
 					$order->add_order_note(
 						__(
 							"An invoice could not be automatically generated as the customer's account is blocked in DK.",
-							'connector-for-dk'
+							'tengill-for-dk'
 						)
 					);
 				}
@@ -140,7 +140,7 @@ class OrderStatus {
 					$order->add_order_note(
 						__(
 							"An invoice could not be automatically generated as the country indicated in the order's address does not match with the relevant DK customer record.",
-							'connector-for-dk'
+							'tengill-for-dk'
 						)
 					);
 				}
@@ -156,7 +156,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'An invoice was not automatically generated as the customer did not enter a kennitala.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -168,7 +168,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'An invoice could not be created in DK for this order as it was created before Connector for dk was activated.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -184,7 +184,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'An invoice could not be created in dk for this order because one or more item does not have a SKU.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -201,7 +201,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'An invoice was not created in DK as you have chosen not to automatically create invoices for customers not registered as debtors in DK.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -219,7 +219,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'Invoicing for international orders is not available in this version of Connector for dk.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -235,7 +235,7 @@ class OrderStatus {
 				$order->add_order_note(
 					__(
 						'An invoice was not created in DK as you have chosen not to automatically create invoices for international orders.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 				);
 			}
@@ -259,7 +259,7 @@ class OrderStatus {
 					// Translators: %1$s is a placeholder for the invoice number generated in DK.
 					__(
 						'An invoice for this order has been created in DK. The invoice number is %1$s.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					),
 					$invoice_number
 				)
@@ -270,14 +270,14 @@ class OrderStatus {
 					$order->add_order_note(
 						__(
 							'An email containing the invoice as a PDF attachment was sent to the customer via DK.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						)
 					);
 				} else {
 					$order->add_order_note(
 						__(
 							'It was not possible to send an email to the customer containing the invoice as a PDF attachment.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						)
 					);
 				}
@@ -298,7 +298,7 @@ class OrderStatus {
 			$order->add_order_note(
 				__(
 					'Unable to create invoice in DK: ',
-					'connector-for-dk'
+					'tengill-for-dk'
 				) . $invoice_number->get_error_code()
 			);
 			$order->save();
@@ -306,7 +306,7 @@ class OrderStatus {
 			$order->add_order_note(
 				__(
 					'An invoice could not be created in DK due to an unhandled error.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				)
 			);
 		}

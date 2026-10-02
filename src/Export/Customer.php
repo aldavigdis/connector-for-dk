@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Export;
+namespace AldaVigdis\TengillForDk\Export;
 
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
 use WC_Customer;
 use WC_Order;
 use WP_Error;

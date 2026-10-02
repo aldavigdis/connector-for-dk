@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Export;
+namespace AldaVigdis\TengillForDk\Export;
 
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use AldaVigdis\ConnectorForDK\Export\Order as ExportOrder;
-use AldaVigdis\ConnectorForDK\Export\Customer as ExportCustomer;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Export\Order as ExportOrder;
+use AldaVigdis\TengillForDk\Export\Customer as ExportCustomer;
 use WP_Error;
 use WC_Order;
 use WC_Order_Item_Product;
@@ -199,7 +199,7 @@ class CreditInvoice {
 				'connector_for_dk_export_order_fee',
 				array(
 					'ItemCode'     => Config::get_cost_sku(),
-					'Text'         => __( 'Fee', 'connector-for-dk' ),
+					'Text'         => __( 'Fee', 'tengill-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => -1,
 					'Price'        => $fee_price,
@@ -225,7 +225,7 @@ class CreditInvoice {
 
 			$order_line_item = array(
 				'ItemCode'     => Config::get_shipping_sku(),
-				'Text'         => __( 'Shipping', 'connector-for-dk' ),
+				'Text'         => __( 'Shipping', 'tengill-for-dk' ),
 				'Text2'        => $shipping_method->get_name(),
 				'Quantity'     => -1,
 				'Price'        => $shipping_price,
@@ -275,7 +275,7 @@ class CreditInvoice {
 
 		$subject = sprintf(
 			// Translators: The %1$s is a placeholder for the site's title.
-			__( 'Your Invoice From %1$s', 'connector-for-dk' ),
+			__( 'Your Invoice From %1$s', 'tengill-for-dk' ),
 			get_bloginfo( 'name' )
 		);
 

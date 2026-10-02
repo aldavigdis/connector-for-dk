@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Cron;
+namespace AldaVigdis\TengillForDk\Cron;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Import\Currencies as ImportCurrencies;
 
 /**
  * The "Get Currencies" cron job

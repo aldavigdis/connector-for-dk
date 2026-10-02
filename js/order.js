@@ -1,80 +1,80 @@
-class ConnectorForDKOrder {
+class TengillForDkOrder {
 	static invoiceMetaBox() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox'
+			'tengill-for-dk-invoice-metabox'
 		);
 	}
 
 	static invoiceNumberInput() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-invoice-number-input'
+			'tengill-for-dk-invoice-metabox-invoice-number-input'
 		);
 	}
 
 	static invoiceNumberInvalid() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-invoice-number-invalid'
+			'tengill-for-dk-invoice-metabox-invoice-number-invalid'
 		);
 	}
 
 	static getPdfButton() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-invoice-get-pdf-button'
+			'tengill-for-dk-invoice-metabox-invoice-get-pdf-button'
 		);
 	}
 
 
 	static createDkInvoiceButton() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-make-dk-invoice-button'
+			'tengill-for-dk-invoice-metabox-make-dk-invoice-button'
 		);
 	}
 
 	static updateInvoiceButton() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-invoice-number-update-button'
+			'tengill-for-dk-invoice-metabox-invoice-number-update-button'
 		);
 	}
 
 	static invoiceLoader() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-invoice-loader'
+			'tengill-for-dk-invoice-metabox-invoice-loader'
 		);
 	}
 
 	static invoicePdfNotFoundError() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-pdf-not-found-error'
+			'tengill-for-dk-invoice-metabox-pdf-not-found-error'
 		);
 	}
 
 	static invoiceNumberAssignedMessage() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-number-assigned-message'
+			'tengill-for-dk-invoice-metabox-number-assigned-message'
 		);
 	}
 
 	static invoiceAssignmentError() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-number-not-assigned-error'
+			'tengill-for-dk-invoice-metabox-number-not-assigned-error'
 		);
 	}
 
 	static invoiceCreatedMessage() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-created-message'
+			'tengill-for-dk-invoice-metabox-created-message'
 		);
 	}
 
 	static invoiceCreationError() {
 		return document.getElementById(
-			'connector-for-dk-invoice-metabox-creation-error'
+			'tengill-for-dk-invoice-metabox-creation-error'
 		);
 	}
 
 	static resetMessages() {
 		const messageNodes = document.querySelectorAll(
-			'#connector-for-dk-invoice-messages p'
+			'#tengill-for-dk-invoice-messages p'
 		);
 
 		messageNodes.forEach(
@@ -98,7 +98,7 @@ class ConnectorForDKOrder {
 		this.resetMessages();
 		this.invoiceLoader().classList.remove( 'hidden' );
 
-		const orderID = ConnectorForDKOrder.formData().get( 'post_ID' );
+		const orderID = TengillForDkOrder.formData().get( 'post_ID' );
 
 		this.getInvoicePdf( orderID );
 	}
@@ -110,7 +110,7 @@ class ConnectorForDKOrder {
 
 	static async getInvoicePdf( orderID ) {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_pdf/' + orderID,
+			wpApiSettings.root + 'TengillForDk/v1/order_invoice_pdf/' + orderID,
 			{
 				method: 'GET',
 				headers: {
@@ -140,7 +140,7 @@ class ConnectorForDKOrder {
 		};
 
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_invoice_number',
+			wpApiSettings.root + 'TengillForDk/v1/order_invoice_number',
 			{
 				method: 'POST',
 				headers: {
@@ -202,7 +202,7 @@ class ConnectorForDKOrder {
 
 	static async requestNewDkInvoice( orderId ) {
 		const response = await fetch(
-			wpApiSettings.root + 'ConnectorForDK/v1/order_dk_invoice/' + orderId,
+			wpApiSettings.root + 'TengillForDk/v1/order_dk_invoice/' + orderId,
 			{
 				method: 'POST',
 				headers: {
@@ -248,35 +248,35 @@ class ConnectorForDKOrder {
 window.addEventListener(
 	'DOMContentLoaded',
 	() => {
-		if ( ConnectorForDKOrder.invoiceMetaBox() ) {
-			ConnectorForDKOrder.updateInvoiceButton().addEventListener(
+		if ( TengillForDkOrder.invoiceMetaBox() ) {
+			TengillForDkOrder.updateInvoiceButton().addEventListener(
 				'click',
 				( e ) => {
-					ConnectorForDKOrder.updateInvoiceButtonClickEvent( e );
+					TengillForDkOrder.updateInvoiceButtonClickEvent( e );
 				}
 			);
 
-			ConnectorForDKOrder.getPdfButton().addEventListener(
+			TengillForDkOrder.getPdfButton().addEventListener(
 				'click',
 				( e ) => {
-					ConnectorForDKOrder.getPdfClickEvent( e );
+					TengillForDkOrder.getPdfClickEvent( e );
 				}
 			);
 
-			ConnectorForDKOrder.invoiceNumberInput().addEventListener(
+			TengillForDkOrder.invoiceNumberInput().addEventListener(
 				'input',
 				( e ) => {
-					ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
+					TengillForDkOrder.disableUpdateInvoiceFieldIfInvalid();
 				}
 			);
 
-			ConnectorForDKOrder.disableUpdateInvoiceFieldIfInvalid();
+			TengillForDkOrder.disableUpdateInvoiceFieldIfInvalid();
 
-			if ( ConnectorForDKOrder.createDkInvoiceButton() ) {
-				ConnectorForDKOrder.createDkInvoiceButton().addEventListener(
+			if ( TengillForDkOrder.createDkInvoiceButton() ) {
+				TengillForDkOrder.createDkInvoiceButton().addEventListener(
 					'click',
 					( e ) => {
-						ConnectorForDKOrder.createDkInvoiceClickAction();
+						TengillForDkOrder.createDkInvoiceClickAction();
 					}
 				);
 			}

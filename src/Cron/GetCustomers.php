@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Cron;
+namespace AldaVigdis\TengillForDk\Cron;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
 
 /**
  * The "Get Customers" cron job

@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Export;
+namespace AldaVigdis\TengillForDk\Export;
 
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
-use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Helpers\Product as ProductHelper;
+use AldaVigdis\TengillForDk\Brick\Math\RoundingMode;
 use WC_Customer;
 use WC_Order;
 use WC_Order_Item_Product;
@@ -303,7 +303,7 @@ class Order {
 				'connector_for_dk_export_order_fee',
 				array(
 					'ItemCode'     => Config::get_cost_sku(),
-					'Text'         => __( 'Fee', 'connector-for-dk' ),
+					'Text'         => __( 'Fee', 'tengill-for-dk' ),
 					'Text2'        => $sanitized_name,
 					'Quantity'     => 1,
 					'Price'        => $fee_price,
@@ -330,7 +330,7 @@ class Order {
 					'connector_for_dk_export_order_shipping',
 					array(
 						'ItemCode'     => Config::get_shipping_sku(),
-						'Text'         => __( 'Shipping', 'connector-for-dk' ),
+						'Text'         => __( 'Shipping', 'tengill-for-dk' ),
 						'Text2'        => $shipping_method->get_name(),
 						'Quantity'     => 1,
 						'Price'        => $shipping_price,

@@ -2,18 +2,18 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Currency;
-use AldaVigdis\ConnectorForDK\Cron\Schedule;
-use AldaVigdis\ConnectorForDK\Import\Products as ImportProducts;
-use AldaVigdis\ConnectorForDK\Import\Currencies as ImportCurrencies;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
-use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
-use AldaVigdis\ConnectorForDK\InvoicePDF;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
-use AldaVigdis\ConnectorForDK\Opis\JsonSchema\Validator;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Currency;
+use AldaVigdis\TengillForDk\Cron\Schedule;
+use AldaVigdis\TengillForDk\Import\Products as ImportProducts;
+use AldaVigdis\TengillForDk\Import\Currencies as ImportCurrencies;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\TengillForDk\InvoicePDF;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Opis\JsonSchema\Validator;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -21,13 +21,13 @@ use WP_REST_Response;
 /**
  * The REST API Settings endpoint class
  *
- * Handles the `ConnectorForDK/v1/settings/` REST endpoint.
+ * Handles the `TengillForDk/v1/settings/` REST endpoint.
  */
 class Settings {
 	/**
 	 * The Constructor for the Settings REST endpoint
 	 *
-	 * Registers the ConnectorForDK/v1/settings/ endpoint, that receives
+	 * Registers the TengillForDk/v1/settings/ endpoint, that receives
 	 * requests from the admin interface.
 	 */
 	public function __construct() {
@@ -41,7 +41,7 @@ class Settings {
 	 */
 	public static function register_route(): bool {
 		return register_rest_route(
-			'ConnectorForDK/v1',
+			'TengillForDk/v1',
 			'/settings/',
 			array(
 				'methods'             => 'POST',

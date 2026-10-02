@@ -2,8 +2,8 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Admin;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="section">
-	<h2><?php esc_html_e( 'Invoices', 'connector-for-dk' ); ?></h2>
+	<h2><?php esc_html_e( 'Invoices', 'tengill-for-dk' ); ?></h2>
 	<p>
 		<?php
 		esc_html_e(
 			'Invoices may be made in dk upon successful checkout, or manually from the WooCommerce Order Editor. This can based on wether the customer supplies a kennitala and a kennitala field can be enabled as well.',
-			'connector-for-dk'
+			'tengill-for-dk'
 		);
 		?>
 	</p>
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'Create Invoices Automatically for Orders With a Kennitala',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</label>
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'When a customer requests to have a kennitala assigned to an invoice, a customer record is created in dk if it does not already exist, using the billing information supplied for the order.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'Create Invoices Automatically for Orders Without a Kennitala',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</label>
@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'If this is enabled, orders without a kennitala will be assigned the ‘Default Customer Kennitala’.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -93,7 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'Create Invoices Automatically for Customers not Registered in dk',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</label>
@@ -101,7 +101,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'If this is enabled, a new ‘debtor’ record witll be created in dk for every new customer who places an order and supplies a Kennitala that is not in dk already.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -122,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'Send Invoices Automatically via Email',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</label>
@@ -130,7 +130,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'If enabled, an email containing the invoice will be sent to the customer automatically after checkout. This uses the dk email functionality, so please make sure that email delivery is configured correctly in dk for this to work.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -150,7 +150,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'Defer invoice generation to a background task',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</label>
@@ -158,7 +158,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'This makes the checkout process a bit faster, but invoice generation may be on hold for up to 20 minutes. Disable this to generate invoices immediately on checkout.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -173,7 +173,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<th scope="row" class="column-title column-primary">
 					<label for="invoice_reference_prefix_field">
-						<?php esc_html_e( 'Invoice Reference Prefix', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Invoice Reference Prefix', 'tengill-for-dk' ); ?>
 					</label>
 				</th>
 				<td>
@@ -187,7 +187,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'A refence to the relevant orders is added to each invoice in dk that originates in WooCommerce. Here you can define a string of text to prefix the order with in your invoices.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -196,7 +196,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<th scope="row" class="column-title column-primary">
 					<label for="default_sales_person_number_field">
-						<?php esc_html_e( 'Default Sales Person Number', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Default Sales Person Number', 'tengill-for-dk' ); ?>
 					</label>
 				</th>
 				<td>
@@ -215,7 +215,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'A sales person needs to be referenced on every invoice in dk. A sales person number can be alphanumeric.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -228,12 +228,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<hr />
 
-	<h3><?php esc_html_e( 'Service SKUs', 'connector-for-dk' ); ?></h3>
+	<h3><?php esc_html_e( 'Service SKUs', 'tengill-for-dk' ); ?></h3>
 	<p>
 		<?php
 		esc_html_e(
 			'dk treats shipping and other costs as line items on invoices. In order for invoicing to work, you need to assign a product in dk to each of the following services and assign them below.',
-			'connector-for-dk'
+			'tengill-for-dk'
 		);
 		?>
 	</p>
@@ -242,7 +242,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<th scope="row" class="column-title column-primary">
 					<label for="shipping_sku_field">
-						<?php esc_html_e( 'Shipping SKU', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Shipping SKU', 'tengill-for-dk' ); ?>
 					</label>
 				</th>
 				<td>
@@ -262,7 +262,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<th scope="row" class="column-title column-primary">
 					<label for="cost_sku_field">
-						<?php esc_html_e( 'Cost SKU', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Cost SKU', 'tengill-for-dk' ); ?>
 					</label>
 				</th>
 				<td>

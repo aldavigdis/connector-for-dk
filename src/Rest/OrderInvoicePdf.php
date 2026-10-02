@@ -2,19 +2,19 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
-use AldaVigdis\ConnectorForDK\InvoicePDF;
+use AldaVigdis\TengillForDk\Rest\EmptyBodyEndpointTemplate;
+use AldaVigdis\TengillForDk\InvoicePDF;
 
 /**
  * The Order Invoice PDF REST API endpoint
  */
 class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
-	const NAMESPACE = 'ConnectorForDK/v1';
+	const NAMESPACE = 'TengillForDk/v1';
 	const PATH      = '/order_invoice_pdf/(?P<order_id>[\d]+)';
 
 	/**
@@ -52,7 +52,7 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 		if ( ! $order ) {
 			return new WP_Error(
 				'wc_order_not_found',
-				__( 'WooCommerce order not found', 'connector-for-dk' ),
+				__( 'WooCommerce order not found', 'tengill-for-dk' ),
 				array( 'status' => '404' ),
 			);
 		}
@@ -62,7 +62,7 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 				'invoice_number_not_set',
 				__(
 					'The DK invoice number has not been set for this order',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				array( 'status' => '400' ),
 			);
@@ -73,7 +73,7 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 		if ( ! $pdf->pdf_data ) {
 			return new WP_Error(
 				'dk_order_pdf_not_found',
-				__( 'DK order PDF not found', 'connector-for-dk' ),
+				__( 'DK order PDF not found', 'tengill-for-dk' ),
 				array( 'status' => '404' ),
 			);
 		}
@@ -81,7 +81,7 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 		if ( ! $pdf->file_saved ) {
 			return new WP_Error(
 				'file_not_saved',
-				__( 'File not saved', 'connector-for-dk' ),
+				__( 'File not saved', 'tengill-for-dk' ),
 				array( 'status' => '500' ),
 			);
 		}

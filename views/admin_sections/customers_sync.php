@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,15 +26,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					esc_html_e(
 						'Sync customer information from dk',
-						'connector-for-dk'
+						'tengill-for-dk'
 					);
 					?>
 				</label>
 				<p>
 					<?php
 					esc_html_e(
-						"Connector for dk can keep registered customers' discounts, addresses, email addresses and phone numbers in sync with dk. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant dk customer record.",
-						'connector-for-dk'
+						"Tengill for dk can keep registered customers' discounts, addresses, email addresses and phone numbers in sync with dk. This requires the customer to be registered as a user and to have the Kennitala field set to a value that corresponds with the relevant dk customer record.",
+						'tengill-for-dk'
 					);
 					?>
 				</p>

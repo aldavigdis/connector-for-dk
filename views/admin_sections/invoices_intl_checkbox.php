@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			esc_html_e(
 				'Create Invoices Automatically for International Orders',
-				'connector-for-dk'
+				'tengill-for-dk'
 			);
 			?>
 		</label>
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			esc_html_e(
 				'Invoices for international orders will result in or get associated with a customer record in dk using a customer number based on their WooCommerce user ID. (See ‘International Customers’ below for further details.)',
-				'connector-for-dk'
+				'tengill-for-dk'
 			);
 			?>
 		</p>

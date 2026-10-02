@@ -2,22 +2,22 @@
 
 version=$(jq -r .version ./composer.json)
 
-rm connector-for-dk*.zip
+rm tengill-for-dk*.zip
 rm -rf vendor/
 composer install --no-dev
 
-cd .. && zip -r connector-for-dk.zip connector-for-dk \
-             -x connector-for-dk/.git/\* \
-			 connector-for-dk/tests/*\* \
-			 connector-for-dk/*.xml \
-			 connector-for-dk/.* \
-			 connector-for-dk/.*\* \
-			 connector-for-dk/dockpress-secrets/\* \
-			 connector-for-dk/dockpress-secrets/ \
-			 connector-for-dk/bin/\* \
-			 connector-for-dk/bin/ \
-			 connector-for-dk/languages/*.*~ \
-			 connector-for-dk/assets/screenshot-*.png \
-			 connector-for-dk/static/
+cd .. && zip -r tengill-for-dk.zip tengill-for-dk \
+             -x tengill-for-dk/.git/\* \
+			 tengill-for-dk/tests/*\* \
+			 tengill-for-dk/*.xml \
+			 tengill-for-dk/.* \
+			 tengill-for-dk/.*\* \
+			 tengill-for-dk/dockpress-secrets/\* \
+			 tengill-for-dk/dockpress-secrets/ \
+			 tengill-for-dk/bin/\* \
+			 tengill-for-dk/bin/ \
+			 tengill-for-dk/languages/*.*~ \
+			 tengill-for-dk/assets/screenshot-*.png \
+			 tengill-for-dk/static/
 
-mv connector-for-dk.zip "./connector-for-dk/connector-for-dk-pro-v$version.zip"
+mv tengill-for-dk.zip "./tengill-for-dk/tengill-for-dk-pro-v$version.zip"

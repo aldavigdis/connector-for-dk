@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Cron;
+namespace AldaVigdis\TengillForDk\Cron;
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\InvoicePDF;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\InvoicePDF;
 
 /**
  * The "Clean PDFs" wp-cron job

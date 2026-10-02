@@ -1,43 +1,38 @@
+# Copyright (C) 2025 Alda Vigdis
+# This file is distributed under the GPL-3.0-or-later.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Connector for DK\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-03 17:22+0000\n"
-"PO-Revision-Date: 2026-10-01 11:37+0000\n"
-"Last-Translator: \n"
-"Language-Team: Icelandic\n"
-"Language: is_IS\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Project-Id-Version: Tengill for DK 0.6.4.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tengill-for-dk\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-01 11:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.7; wp-7.0.2; php-8.4.23\n"
-"X-Domain: connector-for-dk"
+"X-Domain: tengill-for-dk\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
 #. %1$d is the percentage and %2$d is the minimum number of items for a discount.
 #: src/Discounts.php:910
 #, php-format
 msgid "%1$d%% discount for %2$d or more"
-msgstr "%1$d%% afsláttur fyrir %2$d eða fleiri"
+msgstr ""
 
 #. %1$s is for the number of products imported, %2$s is the number of total products and %2$s is the singular or plural, dative form of "product".
 #. %1$s is for the number of products imported, %2$s is the number of total products. %3$s is the singular or plural dative form of "product".
 #: src/Rest/GetImportStats.php:61 views/admin_sections/products.php:138
 #, php-format
 msgid "%1$s of %2$s %3$s imported"
-msgstr "%1$s af %2$s %3$s fluttar inn"
+msgstr ""
 
 #. The sprintf tags represent opening and closing hyperlinks.
 #: views/about.php:42
 #, php-format
-#| msgid ""
-#| "%1$sAlda Vigdís%2$s, the lead author of the plugin also provide bespoke "
-#| "solutions for WordPress, WooCommerce and other systems, professional "
-#| "support and guidance for the use of this plugin as well as security, "
-#| "accessibility and perormance audits for your website, and you shouldn't "
-#| "hesitate to %4$sreach out to her%2$s if you have any questions. She also "
-#| "accepts %3$sdonations on Github Sponsors%2$s."
 msgid ""
 "%1$sAlda Vigdís%2$s, the lead author of the plugin also provides bespoke "
 "solutions for WordPress, WooCommerce and other systems, professional support "
@@ -46,12 +41,6 @@ msgid ""
 "%4$sreach out to her%2$s if you have any questions. She also accepts "
 "%3$sdonations on Github Sponsors%2$s."
 msgstr ""
-"%1$sAlda Vigdís%2$s, aðalhöfundur þessarar viðbótar býður uppá sérlausnir "
-"fyrir WordPress, WooCommerce og önnur kerfi, faglega aðstoð og handleiðslu "
-"við notkun á þessari viðbót og einnig yfirferð á öryggi, aðgengi og afköstum "
-"fyrir vefinn þinn og þú ættir ekki að hika við að %4$shafa samband við "
-"hana%2$s ef þú ert með einhverjar spurningar. Hún tekur einnig við framlögum "
-"í gegn um %3$sGithub Sponsors%2$s."
 
 #. The %1$s and %2$s indicate an opening and closing <strong> tag.
 #: views/admin_sections/submit.php:17
@@ -60,67 +49,55 @@ msgid ""
 "%1$sError:%2$s Please check if all the information was entered correctly and "
 "try again."
 msgstr ""
-"%1$sVilla:%2$s Athugaðu hvort allar upplýsingarnar hafi verið slegnar rétt "
-"inn og reyndu aftur."
 
 #. %1$s an %2$s stand for opening and closing <strong> tags.
 #: views/refund_credit_invoice_partial.php:78
 #, php-format
-#| msgid ""
-#| "%1$sNote:%2$s Invoicing for international orders is not available in this "
-#| "version of Connector for DK. You can manually create an invoice in DK and "
-#| "reference it here."
 msgid ""
 "%1$sNote:%2$s Invoicing for international orders is not available in this "
-"version of Connector for dk. You can manually create an invoice in dk and "
+"version of Tengill for dk. You can manually create an invoice in dk and "
 "reference it here."
 msgstr ""
-"%1$sAthugið:%2$s Reikningagerð fyrir erlendar pantanir er ekki til fyrir "
-"þessa útgáfu af Tengli fyrir dk. Þú getur gert reikning handvirkt og vísað í "
-"hann hér."
 
 #. %1$s is the current user's kennitala, %2$s and %3$s are opening and closing paragraph tags and %4$s and %5$s are opening and closing <strong> tags.
 #: src/KennitalaField.php:549
 #, php-format
-#| msgid "%2$sThe kennitala %4$s‘%1$s’%5$s will be assigned to this order.%3$s"
 msgid "%2$sThe kennitala %4$s%1$s%5$s will be assigned to this order.%3$s"
-msgstr "%2$sKennitalan%4$s %1$s%5$s verður skráð á þessa pöntun.%3$s"
+msgstr ""
 
 #: views/dk_product_variations.php:52
 msgid "(None)"
-msgstr "(Ekkert)"
+msgstr ""
 
 #: views/admin_sections/default_skus.php:104
 msgid "0% VAT"
-msgstr "0% VSK"
+msgstr ""
 
 #: views/admin_sections/default_skus.php:84
 msgid "11% VAT"
-msgstr "11% VSK"
+msgstr ""
 
 #: src/Import/SalesPayments.php:74
 msgid "15 Day Payment Deadline (D15)"
-msgstr "15 daga greiðslufrestur (D15)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:76
 msgid "20 Day Payment Deadline (D20)"
-msgstr "20 daga greiðslufrestur (D20)"
+msgstr ""
 
 #: views/admin_sections/default_skus.php:64
 msgid "24% VAT"
-msgstr "24% VSK"
+msgstr ""
 
 #: src/Import/SalesPayments.php:78
 msgid "30 Day Payment Deadline (D30)"
-msgstr "30 daga greiðslufrestur (D30)"
+msgstr ""
 
 #: src/Rest/OrderDKCreditInvoice.php:79
 msgid ""
 "A credit invoice could not be created as invoicing for international orders "
-"is not available in this version of Connector for dk"
+"is not available in this version of Tengill for dk"
 msgstr ""
-"Ekki var hægt að útbúa kreditreikning þar sem reikningagerð fyrir pantanir "
-"erlendis frá er ekki möguleg í þessari útgáfu af Tengli fyrir dk"
 
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:107
@@ -129,19 +106,12 @@ msgid ""
 "A credit invoice could not be created in DK for refund #%1$s as the DK "
 "customer record is labelled as blocked."
 msgstr ""
-"Ekki var hægt að útbúa kreditreikning fyrir endurgreiðslu #%1$s því lokað "
-"hefur verið fyrir viðskiptavininn í dk."
 
 #: src/Rest/OrderDKCreditInvoice.php:90
-#| msgid ""
-#| "A credit invoice could not be created in DK for this order as it was "
-#| "created before Connector for DK was activated."
 msgid ""
 "A credit invoice could not be created in DK for this order as it was created "
-"before Connector for dk was activated."
+"before Tengill for dk was activated."
 msgstr ""
-"Ekki var hægt að útbúa kreditreikning í DK því þessi pöntun var gerð áður en "
-"kveikt var á Tengli fyrir dk."
 
 #. %1$s is a placeholder for the invoice number generated in DK and %2$s for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:154
@@ -150,25 +120,22 @@ msgid ""
 "A credit invoice for refund #%2$s has been created in DK. The invoice number "
 "is %1$s."
 msgstr ""
-"Kreditreikningur hefur verið útbúinn fyrir endurgreiðslu #%2$s í DK. Númer "
-"reikningsins er %1$s."
 
 #. The %s stands for the kennitala.
 #: src/Admin.php:701
 #, php-format
 msgid "A customer record with the kennitala ‘%s’ was found in DK."
-msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst í dk."
+msgstr ""
 
 #. The %s stands for the kennitala.
 #: src/Admin.php:713
 #, php-format
-#| msgid "A custmer record with the kennitala ‘%s’ was not found in DK."
 msgid "A customer record with the kennitala ‘%s’ was not found in DK."
-msgstr "Skuldunautur með kennitöluna ‚%s‘ fannst ekki í dk."
+msgstr ""
 
 #: src/Import/SalesPayments.php:185
 msgid "A or B Giro Request (ABG)"
-msgstr "A eða B gíróseðlar (ABG)"
+msgstr ""
 
 #: views/admin_sections/invoices.php:188
 msgid ""
@@ -176,53 +143,48 @@ msgid ""
 "originates in WooCommerce. Here you can define a string of text to prefix "
 "the order with in your invoices."
 msgstr ""
-"Á hvern reikning í dk sem á uppruna sinn í WooCommerce er skráð tilvísun í "
-"pöntunina. Hér geturðu skilgreint forskeytið sem textastreng."
 
 #: views/admin_sections/invoices.php:216
 msgid ""
 "A sales person needs to be referenced on every invoice in dk. A sales person "
 "number can be alphanumeric."
 msgstr ""
-"Vísa þarf í sölumanneskju á öllum reikningum í dk. Númer sölumanneskju getur "
-"innihaldið bæði bókstafi og tölustafi."
 
 #. The %s stands for the relevant sales person number.
 #: src/Admin.php:625
 #, php-format
 msgid "A sales person with the number ‘%s’ was found in DK."
-msgstr "Sölumaður með númerið ‚%s‘ fannst í DK."
+msgstr ""
 
 #. The %s stands for the relevant sales person number.
 #: src/Admin.php:637
 #, php-format
 msgid "A sales person with the number ‘%s’ was not found in DK."
-msgstr "Sölumaður með númerið ‚%s‘  fannst ekki í DK."
+msgstr ""
 
 #: views/about.php:12
-#| msgid "About Connector for DK"
-msgid "About Connector for dk"
-msgstr "Upplýsingar um Tengil fyrir dk"
+msgid "About Tengill for dk"
+msgstr ""
 
 #: views/credit_invoice_payment_line_partial.php:33
 msgid "Add payment line to credit invoices"
-msgstr "Færa greiðslulínu á kreditreikninga"
+msgstr ""
 
 #: views/admin_sections/gateways.php:121
 msgid "Add payment line to invoices"
-msgstr "Færa greiðslulínu á reikninga"
+msgstr ""
 
 #. Author of the plugin
 msgid "Alda Vigdis"
-msgstr "Alda Vigdís"
+msgstr ""
 
 #: views/dk_product_variations.php:311
 msgid "Allow backorders"
-msgstr "Leyfa neikvæða lagerstöðu"
+msgstr ""
 
 #: views/dk_product_variations.php:297
 msgid "Allow backorders, but notify customer"
-msgstr "Leyfa neikvæða lagerstöðu, en láta viðskiptavin vita"
+msgstr ""
 
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:168
@@ -231,63 +193,46 @@ msgid ""
 "An email containing a credit invoice for refund #%1$s as a PDF attachment "
 "was sent to the customer via DK."
 msgstr ""
-"Tölvupóstur sem innihélt #%1$s sem innihélt kreditreikninginnn á PDF-formi "
-"var sendur til viðskiptavinarins í DK."
 
 #: src/OrderStatus.php:271 src/Rest/OrderDKInvoice.php:168
 msgid ""
 "An email containing the invoice as a PDF attachment was sent to the customer "
 "via DK."
 msgstr ""
-"Tölvupóstur sem innihélt reikninginn á PDF-formi var sendur til "
-"viðskiptavinarins í gegn um DK."
 
 #: src/OrderStatus.php:141
 msgid ""
 "An invoice could not be automatically generated as the country indicated in "
 "the order's address does not match with the relevant DK customer record."
 msgstr ""
-"Ekki var hægt að búa til reikning sjálfkrafa því landið sem var tekið fram í "
-"heimilisfangi stemmir ekki við skráningu viðskiptavinarins í DK."
 
 #: src/OrderStatus.php:126
 msgid ""
 "An invoice could not be automatically generated as the customer's account is "
 "blocked in DK."
 msgstr ""
-"Ekki var hægt að búa til reikning sjálfkrafa því lokað er fyrir viðskipti "
-"við skuldunautinn í DK."
 
 #: src/Rest/OrderDKInvoice.php:78
 msgid ""
 "An invoice could not be created as invoicing for international orders is not "
-"available in this version of Connector for dk"
+"available in this version of Tengill for dk"
 msgstr ""
-"Ekki var hægt að útbúa reikning þar sem reikningagerð fyrir pantanir "
-"erlendis frá er ekki til staðar í þessari útgáfu af Tengli fyrir dk"
 
 #: src/OrderStatus.php:307
 msgid "An invoice could not be created in DK due to an unhandled error."
-msgstr "Ekki var hægt að útbúa reikning í DK út af óþekktri villu."
+msgstr ""
 
 #: src/OrderStatus.php:169 src/Rest/OrderDKInvoice.php:89
-#| msgid ""
-#| "An invoice could not be created in DK for this order as it was created "
-#| "before Connector for DK was activated."
 msgid ""
 "An invoice could not be created in DK for this order as it was created "
-"before Connector for dk was activated."
+"before Tengill for dk was activated."
 msgstr ""
-"Ekki var hægt að útbúa reikning í dk því þessi pöntun var gerð áður en "
-"kveikt var á Tengli fyrir dk."
 
 #: src/OrderStatus.php:185 src/Rest/OrderDKInvoice.php:103
 msgid ""
 "An invoice could not be created in dk for this order because one or more "
 "item does not have a SKU."
 msgstr ""
-"Ekki var hægt að útbúa reikning í dk fyrir þessa pöntun því ein eða fleiri "
-"vara er ekki með vörunúmer skráð."
 
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:122
@@ -296,24 +241,18 @@ msgid ""
 "An invoice could not be created in for refund #%1$s as the country indicated "
 "not match with the relevant DK customer record."
 msgstr ""
-"Ekki var hægt að útbúa reikning fyrir endurgreiðslu #%1$s því landið sem "
-"tekið var fram í heimilisfangi passar ekki við skráningu skuldunautar í DK."
 
 #: src/Rest/OrderDKInvoice.php:129
 msgid ""
 "An invoice could not be created in for this order as the country indicated "
 "in the order's address does not match with the relevant DK customer record."
 msgstr ""
-"Ekki var hægt að útbúa reikning fyrir þessa pöntun því landið sem tekið var "
-"fram í heimilisfangi stemmir ekki við skráningu skuldunautar í DK."
 
 #: src/Rest/OrderDKInvoice.php:118
 msgid ""
 "An invoice could not be created in for this order as the DK customer record "
 "is labelled as blocked."
 msgstr ""
-"Ekki var hægt að útbúa reikning fyrir þessa pöntun því lokað hefur verið "
-"fyrir viðskiptavininn í DK."
 
 #. %1$s is a placeholder for the invoice number generated in DK.
 #: src/OrderStatus.php:260 src/Rest/OrderDKInvoice.php:157
@@ -321,442 +260,357 @@ msgstr ""
 msgid ""
 "An invoice for this order has been created in DK. The invoice number is %1$s."
 msgstr ""
-"Reikningur hefur verið útbúinn fyrir þessa pöntun í DK. Númer reikningsins "
-"er %1$s."
 
 #: src/OrderStatus.php:110
-#| msgid "An invoice was not created as the customer entered a kennitala."
 msgid ""
 "An invoice was not autmatically generated as the customer entered a "
 "kennitala."
 msgstr ""
-"Reikningur var ekki búinn til sjálfkrafa því viðskiptavinurinn sló inn "
-"kennitölu."
 
 #: src/OrderStatus.php:157
-#| msgid ""
-#| "An invoice was not created as the customer did not enter a kennitala."
 msgid ""
 "An invoice was not automatically generated as the customer did not enter a "
 "kennitala."
 msgstr ""
-"Reikningur var ekki búinn til sjálfkrafa því viðskiptavinurinn sló ekki inn "
-"kennitölu."
 
 #: src/OrderStatus.php:202
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for customers not registered as debtors in DK."
 msgstr ""
-"Reikningur var útbúinn í DK til því þú hefur ákveðið að útbúa þá ekki "
-"sjálfkrafa fyrir viðskiptavini sem ekki eru skráðir sem skuldunautar í DK."
 
 #: src/OrderStatus.php:236
 msgid ""
 "An invoice was not created in DK as you have chosen not to automatically "
 "create invoices for international orders."
 msgstr ""
-"Reikningur var ekki útbúinn í DK því þú hefur valið að búa ekki til "
-"reikninga fyrir erlendar pantanir sjálfkrafa."
 
 #. The %1$s is the product's original currency code and %2$s is the shop's currency.
 #: views/dk_connection_product_panel.php:81
 #, php-format
-#| msgid ""
-#| "As the product price is converted from ‘%1$s’ or is set manually to "
-#| "‘%2$s’ using the ‘Foreign Prices’ feature in DK, changes to the product "
-#| "price in WooCommerce will not be updated in DK and will be overwritten on "
-#| "sync. You can change the foreign price and currency in DK."
 msgid ""
 "As the product price is converted from ‘%1$s’ or is set manually to ‘%2$s’ "
 "using the ‘Foreign Prices’ feature in dk, changes to the product price in "
 "WooCommerce will not be updated in dk and will be overwritten on sync. You "
 "can change the foreign price and currency in dk."
 msgstr ""
-"Þar sem vöruverð er umbreytt úr ‚%1$s‘ eða er stillt handvirkt á ‚%2$s‘ í "
-"gegn um erlend verð í dk, þá verða breytingar á vöruverðinu í WooCommerce "
-"ekki uppfærðar í dkog verða yfirskrifaðar við uppfærslu. Þú getur breytt "
-"erlendum verðum og gjaldmiðlum í dk."
 
 #: views/admin_with_errors.php:126
 msgid ""
 "At least one payment gateway needs to be set up in WooCommerce before "
 "receiving orders from customers and creating invoices."
 msgstr ""
-"Það þarf að setja upp að minnsta kosti eina greiðslugátt í WooCommerce áður "
-"en tekið er við pöntunum og reikningar búnir til."
 
 #: views/admin_sections/authentication.php:14
 msgid "Authentication"
-msgstr "Auðkenning"
+msgstr ""
 
 #: views/dk_product_variations.php:271
 msgid "Backorders"
-msgstr "Neikvæð lagerstaða"
+msgstr ""
 
 #: src/Import/SalesPayments.php:195
 msgid "Bank Collection Service (IB)"
-msgstr "Innheimtuþjónusta banka (IB)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:187
 msgid "Bank Transfer (BM)"
-msgstr "Bankamillifærsla (BM)"
+msgstr ""
 
 #: views/admin_sections/product_categories.php:25
-#| msgid ""
-#| "Below, you can pair up each product group from DK with an equivalent "
-#| "category in WooCommerce. One WooCommerce category may be chosen for each "
-#| "DK product group."
 msgid ""
 "Below, you can pair up each product group from dk with an equivalent "
 "category in WooCommerce. One WooCommerce category may be chosen for each dk "
 "product group."
 msgstr ""
-"Hér fyrir neðan er hægt að para vöruhópa úr dk saman við vöruflokk í "
-"WooCommerce. Hægt er að velja einn vöruflokk fyrir hvern vöruhóp úr dk."
 
 #: views/admin_sections/blocked_customers.php:16
 msgid "Blocked Customers"
-msgstr "Lokað fyrir viðskipti"
+msgstr ""
 
 #: src/Import/SalesPayments.php:189
 msgid "C Giro Request (CG)"
-msgstr "C gíróseðlar (CG)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:191
 msgid "Card Payment (GKR)"
-msgstr "Greiðslukort (GKR)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:88 src/Import/SalesPayments.php:197
 msgid "Cash Payment (STGR)"
-msgstr "Staðgreitt (STGR)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:199
 msgid "Cheque Payment (TGR)"
-msgstr "Tékkagreiðsla (TGR)"
+msgstr ""
 
 #: src/Admin.php:233
 msgid "Community Support"
-msgstr "Aðstoð fyrir opnum tjöldum"
+msgstr ""
 
 #. Name of the plugin
 #: src/Admin.php:445 src/Admin.php:446 views/about.php:17 views/admin.php:36
-msgid "Connector for dk"
-msgstr "Tengill fyrir dk"
+msgid "Tengill for dk"
+msgstr ""
 
 #: src/Cron/Schedule.php:107
-msgid "Connector for dk 15 minute interval"
-msgstr "Tengill fyrir dk, 15 mínútna lykkja"
+msgid "Tengill for dk 15 minute interval"
+msgstr ""
 
 #: src/Cron/Schedule.php:128
-#| msgid "Connector for dk 5 minute interval"
-msgid "Connector for dk 2 minute interval"
-msgstr "Tengill fyrir dk, 2 mínútna lykkja"
+msgid "Tengill for dk 2 minute interval"
+msgstr ""
 
 #: views/admin_sections/customers_sync.php:35
 msgid ""
-"Connector for dk can keep registered customers' discounts, addresses, email "
+"Tengill for dk can keep registered customers' discounts, addresses, email "
 "addresses and phone numbers in sync with dk. This requires the customer to "
 "be registered as a user and to have the Kennitala field set to a value that "
 "corresponds with the relevant dk customer record."
 msgstr ""
-" Tengill fyrir dk getur haldið afsláttarkjörum. heimilisföngum, "
-"tölvupóstföngum og símanúmerum viðskiptavina samstilltum við dk. Þetta "
-"krefst þess að viðskiptavinurinn sé skráður sem notandi og með kennitölu "
-"stillta á sama gildi og samsvarandi skuldunaut í dk. "
 
 #: views/admin_with_errors.php:74
-#| msgid ""
-#| "Connector for DK only supports stores with the base location set to "
-#| "Iceland."
 msgid ""
-"Connector for dk only supports stores with the base location set to Iceland."
+"Tengill for dk only supports stores with the base location set to Iceland."
 msgstr ""
-"Tengill fyrir dk styður eingöngu verslanir sem staðsettar eru á Íslandi."
 
 #: views/admin_with_errors.php:52
 msgid ""
-"Connector for dk only supports stores with ‘HPOS’ (High Performance Order "
+"Tengill for dk only supports stores with ‘HPOS’ (High Performance Order "
 "Storage) enabled."
 msgstr ""
-"Tengill fyrir dk styður eingöngu vefverslanir sem hafa kveikt á ‚HPOS‘ (High "
-"Performance Order Storage)."
 
 #: src/CustomerContacts.php:72
 msgid "Contact Person"
-msgstr "Tengiliður"
+msgstr ""
 
 #: views/admin_sections/invoices.php:265
 msgid "Cost SKU"
-msgstr "Vörunúmer vegna kostnaðar"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:71 views/refund_credit_invoice_partial.php:62
-#| msgid "Create in DK"
 msgid "Create in dk"
-msgstr "Búa til í dk"
+msgstr ""
 
 #: views/admin_sections/invoices.php:94
-#| msgid "Create Invoices Automatically for Customers not Registered in DK"
 msgid "Create Invoices Automatically for Customers not Registered in dk"
 msgstr ""
-"Búa sjálfkrafa til reikninga fyrir viðskiptavini sem ekki eru skráðir í dk"
 
 #: views/admin_sections/invoices_intl_checkbox.php:25
 msgid "Create Invoices Automatically for International Orders"
-msgstr "Búa sjálfkrafa til reikninga fyrir erlendar pantanir"
+msgstr ""
 
 #: views/admin_sections/invoices.php:38
 msgid "Create Invoices Automatically for Orders With a Kennitala"
-msgstr "Búa sjálfkrafa til reikninga fyrir pantanir með kennitölu"
+msgstr ""
 
 #: views/admin_sections/invoices.php:66
 msgid "Create Invoices Automatically for Orders Without a Kennitala"
-msgstr "Búa til reikninga sjálfkrafa fyrir pantanir án kennitölu"
+msgstr ""
 
 #: views/refund_credit_invoice_partial.php:27
 msgid "Credit Invoice Number"
-msgstr "Númer kreditreiknings"
+msgstr ""
 
 #: src/Import/SalesPayments.php:80
 msgid "Current Month (LM)"
-msgstr "Líðandi mánuður (LM)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:82
 msgid "Current Month + 15 Days (M15)"
-msgstr "Líðandi mánuður + 15 dagar (M15)"
+msgstr ""
 
 #: src/Import/SalesPayments.php:84
 msgid "Current Month + 20 Days (M20)"
-msgstr "Líðandi mánuður + 20 dagar (M20)"
+msgstr ""
 
 #: views/user_discount_information.php:43
-#| msgid "Customer discount:"
 msgid "Customer Discount"
-msgstr "Afsláttur viðskiptavinar"
+msgstr ""
 
 #: views/user_discount_information.php:23
 msgid "Customer Price Group and Discount"
-msgstr "Verðhópur og afsláttur viðskiptavinar"
+msgstr ""
 
 #: views/admin_sections/customers.php:16
 msgid "Customers"
-msgstr "Viðskiptavinir"
+msgstr ""
 
 #: views/admin_sections/kennitala.php:70
 msgid "Customers Need to Request to have a Kennitala on Invoices"
-msgstr "Viðskiptavinir þurfa að biðja um að fá kennitölu á reikninga"
+msgstr ""
 
 #: src/Rest/GetImportStats.php:71 src/Rest/GetImportStats.php:87
 #: views/admin_sections/products.php:153 views/admin_sections/products.php:211
 msgctxt "dative"
 msgid "product"
 msgid_plural "products"
-msgstr[0] "vöru"
-msgstr[1] "vörum"
+msgstr[0] ""
+msgstr[1] ""
 
 #: views/dk_product_variations.php:42
 msgid "Default Attributes"
-msgstr "Sjálfgefin eigindi"
+msgstr ""
 
 #: views/admin_sections/customers.php:23
 msgid "Default Customer Kennitala"
-msgstr "Sjálfgefin kennitala viðskiptavina"
+msgstr ""
 
 #: views/admin_sections/customers_international.php:45
 msgid "Default Customer Number for International Customers"
-msgstr "Sjálfgefið númer fyrir erlenda skuldunauta"
+msgstr ""
 
 #: views/admin_sections/default_skus.php:17
 msgid "Default Product Codes"
-msgstr "Sjálfgefin vörunúmer"
+msgstr ""
 
 #: views/admin_sections/invoices.php:199
 msgid "Default Sales Person Number"
-msgstr "Númer sjálfgefins sölumanns"
+msgstr ""
 
 #: views/admin_sections/invoices.php:151
 msgid "Defer invoice generation to a background task"
-msgstr "Vísa reikningagerð í bakgrunnsferli"
+msgstr ""
 
 #: views/admin_sections/products.php:183
-#| msgid ""
-#| "Delete products from WooCommerce if labelled as inactive or deleted in DK"
 msgid ""
 "Delete products from WooCommerce if labelled as inactive or deleted in dk"
 msgstr ""
-"Eyða vörum úr WooCommerce ef þær eru óvirkar eða þeim hefur verið eytt úr dk"
 
 #. %1$s is for the numberof products to be deleted and %2$s is the singular or plural dative form of the word "product".
 #. %1$s is for the numberof products to be deleted. %2$s is the singular or plural dative form of "products".
 #: src/Rest/GetImportStats.php:82 views/admin_sections/products.php:201
 #, php-format
 msgid "Deleting %1$s %2$s"
-msgstr "Eyði %1$s %2$s"
+msgstr ""
 
 #: views/dk_product_variations.php:323
 msgid "Description"
-msgstr "Lýsing"
+msgstr ""
 
 #: views/admin_with_errors.php:139
 msgid "Disable the Kennitala field in the Iceland Post plugin"
-msgstr "Slökktu á kennitölureitnum í viðbótinni frá Íslandspósti"
+msgstr ""
 
 #: src/Discounts.php:236
 msgid "Discount"
-msgstr "Afsláttur"
+msgstr ""
 
 #: views/user_discount_information.php:25
 msgid "Discounts are set in dk and need to be edited there to be applied here."
 msgstr ""
-"Afslættir eru færðir inn í dk og þarf að breyta þar til að þeir birtist hér."
 
 #: views/admin_sections/products.php:260
-#| msgid "Display the Attribute Label Description from DK"
 msgid "Display the Attribute Label Description from dk"
-msgstr "Sýna lýsingu nafns eiginleika vöruafbrigða úr dk"
+msgstr ""
 
 #: views/admin_sections/products.php:283
-#| msgid "Display the Attribute Value Description from DK"
 msgid "Display the Attribute Value Description from dk"
-msgstr "Sýna lýsingu eiginleika vöruafbrigða úr dk"
+msgstr ""
 
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:142
 #, php-format
 msgid "DK could not create a credit invoice for refund #%1$s due to an error."
 msgstr ""
-"DK gat ekki búið til kreditreikning fyrir endurgreiðslu #%1$s vegna villu."
 
 #: src/Rest/OrderDKInvoice.php:146
 msgid "DK could not create an invoice due to an error."
-msgstr "DK gat ekki búið til reikning vegna villu."
+msgstr ""
 
 #: views/admin_sections/blocked_customers.php:21
-#| msgid ""
-#| "DK facilitates blocking customer accounts. You can enable this feature in "
-#| "your WooCommerce store below."
 msgid ""
 "dk facilitates blocking customer accounts. You can enable this feature in "
 "your WooCommerce store below."
 msgstr ""
-"Í dk er hægt að loka fyrir viðskipti við ákveðna viðskiptavini. Það er hægt "
-"að opna fyrir þetta í WooCommerce-versluninni þinni hér fyrir neðan."
 
 #: src/Admin.php:244 src/Admin.php:253 src/Admin.php:281
 msgid "DK Invoice"
-msgstr "Reikningur í DK"
+msgstr ""
 
 #: views/admin_sections/customers_international.php:23
-#| msgid ""
-#| "DK needs a way to identify international customers that don't have a "
-#| "kennitala but need their own customer records. Connector for DK handles "
-#| "this by generating an alphanumeric sequence based on the customer's ID "
-#| "number in WooCommerce."
 msgid ""
 "dk needs a way to identify international customers that don't have a "
-"kennitala but need their own customer records. Connector for dk handles this "
+"kennitala but need their own customer records. Tengill for dk handles this "
 "by generating an alphanumeric sequence based on the customer's ID number in "
 "WooCommerce."
 msgstr ""
-"dk þarf að ná að bera kennsl á erlenda viðskiptavini sem ekki eru með "
-"kennitölu en þurfa að vera skráðir. Tengill fyrir dk fer þá leið að búa til "
-"stafa- og talnarunu sem byggist á númeri viðskiptavina í WooCommerce."
 
 #: src/Rest/OrderInvoicePdf.php:76
 msgid "DK order PDF not found"
-msgstr "PDF fyrir pöntun úr DK fannst ekki"
+msgstr ""
 
 #: src/Metaboxes.php:97
 msgid "DK Sync"
-msgstr "Samstilling við DK"
+msgstr ""
 
 #: views/admin_sections/invoices.php:234
-#| msgid ""
-#| "DK treats shipping and other costs as line items on invoices. In order "
-#| "for invoicing to work, you need to assign a product in DK to each of the "
-#| "following services and assign them below."
 msgid ""
 "dk treats shipping and other costs as line items on invoices. In order for "
 "invoicing to work, you need to assign a product in dk to each of the "
 "following services and assign them below."
 msgstr ""
-"dk þarf að skrá sendingar og annan kostnað sem línur á reikning. Til að fá "
-"reikninga til að virka þarftu að tilgreina vörur í dk fyrir eftirfarandi "
-"þjónustur og skrá hér fyrir neðan."
 
 #: src/Metaboxes.php:152
 msgid "DK Variations"
-msgstr "Vöruafbrigði úr DK"
+msgstr ""
 
 #: views/dk_product_variations.php:32
-#| msgid ""
-#| "DK's own ‘Product Variations’ feature is required to add or remove "
-#| "product variations that originate in DK."
 msgid ""
 "dk's own ‘Product Variations’ feature is required to add or remove product "
 "variations that originate in dk."
 msgstr ""
-"Það er nauðsynlegt að vera með kveikt á vöruafbrigðum í dk til að bæta við "
-"eða fjarlægja vöruafbrigði sem eiga uppruna sinn í dk."
 
 #: views/admin_sections/authentication.php:28
 msgid "dkPlus API Key"
-msgstr "API-lykill fyrir dkPlus"
+msgstr ""
 
 #: views/dk_product_variations.php:283
 msgid "Do not allow backorders"
-msgstr "Ekki leyfa neikvæða lagerstöðu"
+msgstr ""
 
 #: views/dk_product_variations.php:354
 msgid "Downloadable"
-msgstr "Hægt að hlaða niður"
+msgstr ""
 
 #: views/dk_connection_product_panel.php:64
-#| msgid ""
-#| "Due to limitations in DK, if this feature is enabled, manually editing "
-#| "the product stock quantity and availability in WooCommerce will not "
-#| "result in it being reflected in DK. It will be overwritten on next sync."
 msgid ""
 "Due to limitations in dk, if this feature is enabled, manually editing the "
 "product stock quantity and availability in WooCommerce will not result in it "
 "being reflected in dk. It will be overwritten on next sync."
 msgstr ""
-"Út af ákveðnum takmörkunum í dk, þá koma þær breytingar sem þú gerir á "
-"fjölda á lager og fáanleika í WooCommerce ekki fram í dk og verða "
-"yfirskrifaðar næst þegar upplýsingar eru sóttar."
 
 #: views/admin_sections/kennitala.php:42
 msgid "Enable Kennitala Field in the Checkout Form"
-msgstr "Kveikja á kennitölureit í afgreiðsluformi"
+msgstr ""
 
 #: views/admin_with_errors.php:43
 msgid "Enable ‘HPOS’ Order Storage"
-msgstr "Kveiktu á ‚HPOS‘"
+msgstr ""
 
 #: views/dk_product_variations.php:341
 msgid "Enabled"
-msgstr "Kveikt"
+msgstr ""
 
 #: src/Export/CreditInvoice.php:202 src/Export/Order.php:306
 msgid "Fee"
-msgstr "Gjald"
+msgstr ""
 
 #: src/CustomerSync.php:128
 msgid "Fetch"
-msgstr "Sækja"
+msgstr ""
 
 #: src/CustomerSync.php:125
 msgid "Fetch from DK"
-msgstr "Sækja frá DK"
+msgstr ""
 
 #: views/admin_sections/products.php:49
-#| msgid "Fetch Product Data from DK"
 msgid "Fetch Product Data from dk"
-msgstr "Sækja gögn um vörur frá dk"
+msgstr ""
 
 #: src/Rest/OrderInvoicePdf.php:84
 msgid "File not saved"
-msgstr "Skrá ekki vistuð"
+msgstr ""
 
 #: views/admin_sections/authentication.php:17
 msgid ""
@@ -765,122 +619,79 @@ msgid ""
 "and then generating an API key for that user under ‘Tokens’ in that user’s "
 "Settings page."
 msgstr ""
-"Til að gera API-lykilinn, þá mælum við með því að búa til sérstakan notanda "
-"í dkPlus sem er með nægilegar aðgangsheimildir og ekki tengdur við "
-"raunverulegan starfsmann og búa svo lykilinn til undir ‚auðkenningartákn‘ á "
-"stillingasíðu þess notanda."
 
 #: views/refund_credit_invoice_partial.php:58
-#| msgid "Generate a new credit invoice for this order in DK"
 msgid "Generate a new credit invoice for this order in dk"
-msgstr "Búa til nýjan kreditreikning fyrir þessa pöntun í dk"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:68
-#| msgid "Generate a new invoice for this order in DK"
 msgid "Generate a new invoice for this order in dk"
-msgstr "Búa til reikning fyrir þessa pöntun í dk"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:62 views/refund_credit_invoice_partial.php:54
 msgid "Get PDF"
-msgstr "Sækja PDF"
+msgstr ""
 
 #: views/refund_credit_invoice_partial.php:50
 msgid "Get the credit invoice as a PDF file"
-msgstr "Sækja kreditreikning sem PDF-skrá"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:59
 msgid "Get the invoice as a PDF file"
-msgstr "Sækja reikninginn sem PDF-skrá."
+msgstr ""
 
 #: src/Import/SalesPayments.php:193
 msgid "Giro Transfer (GM)"
-msgstr "Gírómillifærsla (GM)"
+msgstr ""
 
 #. Author URI of the plugin
 msgid "https://aldavigdis.is"
-msgstr "https://aldavigdis.is"
+msgstr ""
 
 #. URI of the plugin
 msgid "https://tengillpro.is/"
-msgstr "https://tengillpro.is/"
+msgstr ""
 
 #: views/admin_sections/invoices.php:131
-#| msgid ""
-#| "If enabled, an email containing the invoice will be sent to the customer "
-#| "automatically after checkout. This uses the DK email functionality, so "
-#| "make sure that email delivery is configured correctly in DK."
 msgid ""
 "If enabled, an email containing the invoice will be sent to the customer "
 "automatically after checkout. This uses the dk email functionality, so "
 "please make sure that email delivery is configured correctly in dk for this "
 "to work."
 msgstr ""
-"Ef kveikt er á þessu, þá er tölvupóstur með reikningnum sendur til "
-"viðskiptavina sjálfkrafa eftir afgreiðslu. Þetta notar tölvupóststillingar í "
-"dk, sem krefst þess að þær séu réttar."
 
 #: views/admin_sections/products.php:264
-#| msgid ""
-#| "If enabled, the code for attribute labels will be replaced with the "
-#| "attribute description from DK. Disable this if you only need the "
-#| "attribute label code."
 msgid ""
 "If enabled, the code for attribute labels will be replaced with the "
 "attribute description from dk. Disable this if you only need the attribute "
 "label code."
 msgstr ""
-"Ef það er kveikt á þessu, þá er kóðanum fyrir lýsingu eiginleika "
-"vöruafbrigðis skipt út fyrir fulla lýsingu úr dk. Slökktu á þessu ef þú vilt "
-"bara nota kóða fyrir lýsingu vöruafbrigðis."
 
 #: views/admin_sections/products.php:287
-#| msgid ""
-#| "If enabled, the code for attribute values will be replaced with the "
-#| "attribute description from DK. Disable this if you only need the "
-#| "attribute value code."
 msgid ""
 "If enabled, the code for attribute values will be replaced with the "
 "attribute description from dk. Disable this if you only need the attribute "
 "value code."
 msgstr ""
-"Ef það er kveikt á þessu, þá er kóðanum fyrir eiginleika vöruafbrigða skipt "
-"út fyrir fulla lýsingu úr dk. Slökktu á þessu ef þú vilt bara nota kóða "
-"fyrir eiginleika vöruafbrigða."
 
 #: views/admin_sections/product_item_quantity.php:36
 msgid ""
 "If this enabled, the default sales quantity for each product as set in dk "
 "will be used as the minimum quantity for the product in WooCommerce."
 msgstr ""
-"Ef það er kveikt á þessu, þá er sjálfgefið sölumagn fyrir hverja vöru notað "
-"sem lágmarks sölumagn fyrir vörur í WooCommerce."
 
 #: views/dk_connection_product_panel.php:119
-#| msgid ""
-#| "If this feature is enabled, changes to the product’s prices and tax rate "
-#| "in DK will be reflected in WooCommerce. This includes sale prices and "
-#| "dates."
 msgid ""
 "If this feature is enabled, changes to the product’s prices and tax rate in "
 "dk will be reflected in WooCommerce. This includes sale prices and dates."
 msgstr ""
-"Ef kveikt er á þessu, þá munu breytingar á verði og VSK-þrepi í dk verða "
-"endurspeglaðar í WooCommerce. Það sama á við um útsöluverð og dagsetningar "
-"útsölu."
 
 #: views/dk_connection_product_panel.php:159
-#| msgid ""
-#| "If this feature is enabled, the product name gets set to the DK ‘product "
-#| "description’ on sync. Disabling this means that you can set a different "
-#| "name from the one you use in DK for the product in WooCommerce."
 msgid ""
 "If this feature is enabled, the product name gets set to the dk ‘product "
 "description’ on sync. Disabling this means that you can set a different name "
 "from the one you use in dk for the product in WooCommerce."
 msgstr ""
-"Ef kveikt er á þessu, þá er vöruheitið samstillt við ‚vörulýsingu‘ í dk við "
-"samtllingu. Ef slökkt er á þessu geturðu sett inn annað nafn en það sem þú "
-"notar í dk í WooCommerce."
 
 #: views/admin_sections/kennitala.php:78
 msgid ""
@@ -888,9 +699,6 @@ msgid ""
 "customer needs to tick in order to have a kennitala assigned to their "
 "invoice, or the invoice will be treated like one without a kennitala."
 msgstr ""
-"Ef kveikt er á þessu, þá er hak sett inn í afgreiðsluformið, sem "
-"viðskiptavinur þarf að merkja við til að fá kennitölu á reikning, annars er "
-"farið með pöntunina eins og hún sé án kennitölu."
 
 #: views/admin_sections/kennitala.php:21
 msgid ""
@@ -899,76 +707,44 @@ msgid ""
 "calculated and that no lookup is run against the Population Registry or the "
 "Company Registry."
 msgstr ""
-"Ef það er kveikt á þessu er reit fyrir kennitölu bætt inn í afgreiðsluformið."
-" Einnig er hægt að gera kennitölu að skyldu. Athugið að kennitalan er ekki "
-"vartöluprófuð og það er ekki leitað eftir henni í Þjóðskrá eða "
-"Fyrirtækjaskrá."
 
 #: views/admin_sections/invoices.php:102
-#| msgid ""
-#| "If this is enabled, a new ‘debtor’ record witll be created in DK for "
-#| "every new customer who places an order and supplies a Kennitala that is "
-#| "not in DK already."
 msgid ""
 "If this is enabled, a new ‘debtor’ record witll be created in dk for every "
 "new customer who places an order and supplies a Kennitala that is not in dk "
 "already."
 msgstr ""
-"Ef það er kveikt á þessu, þá er nýr skuldunautur stofnaður í dk fyrir hvern "
-"nýjan viðskiptavin sem gerir pöntun og gefur upp kennitölu sem ekki er þegar "
-"skráð í dk."
 
 #: views/admin_sections/product_item_quantity.php:59
-#| msgid ""
-#| "If this is enabled, default quantity will be used as a multiplier. This "
-#| "means that if the default quantity is 8, then the product can be ordered "
-#| "in quantities of 8, 16, 32, 64 etc."
 msgid ""
 "If this is enabled, default quantity will be used as a multiplier. This "
 "means that if the default quantity is 8, then the product can be ordered in "
 "quantities of 8, 16, 24, 32 etc."
 msgstr ""
-"Ef það er kveikt á þessu, þá er sjálfgefið sölumagn notað sem margfeldi. Það "
-"þýðir ef sölumagnið er 8, þá er hægt að panta vöruna í 8, 16, 24 eða 32 "
-"einingum o.s.frv."
 
 #: views/admin_sections/invoices.php:74
 msgid ""
 "If this is enabled, orders without a kennitala will be assigned the ‘Default "
 "Customer Kennitala’."
 msgstr ""
-"Ef kveikt er á þessu, þá verður ‚sjálfgefin kennitala‘ skráð á pantanir án "
-"kennitölu."
 
 #: views/admin_sections/kennitala.php:106
 msgid ""
 "If this is enabled, the Kennitala field is mandatory for finishing the "
 "checkout process."
 msgstr ""
-"Ef kvekt er á þessu, þá er skylda að fylla út kennitölureitinn til að klára "
-"afgreiðsluferli í vefverslun."
 
 #: views/admin_sections/products.php:120
 msgid "Import products"
-msgstr "Flytja inn vörur"
+msgstr ""
 
 #: views/admin_sections/default_skus.php:22
-#| msgid ""
-#| "In cases where you would like to manually enter your products into "
-#| "WooCommerce without entering a SKU and do not wish to use the product "
-#| "management system in dk to maintain stock counts, Connector for dk needs "
-#| "to match them with a dk product code in order for an invoice to be "
-#| "generated."
 msgid ""
 "In cases where you would like to manually enter your products into "
 "WooCommerce without entering a SKU and do not wish to use the product "
-"management system in dk to maintain stock counts, Connector for dk can match "
+"management system in dk to maintain stock counts, Tengill for dk can match "
 "them with a dk product code in order for an invoice to be generated."
 msgstr ""
-"Í tilfelum þar sem þú vilt skrá vörur handvirkt inn í WooCommerce án þess að "
-"slá inn SKU og vilt ekki nota vörurstjórnun í dk til að halda utan um fjölda "
-"á lager, þá getur Tengill fyrir dk stemmt vörurnar við samsvarandi vörunúmer "
-"í dk svo hægt sé að útbúa reikning."
 
 #: views/admin_sections/products.php:29
 msgid ""
@@ -978,114 +754,86 @@ msgid ""
 "from products registered in dk and not labelled as ‘for online store’, you "
 "can do it here below."
 msgstr ""
-"Hér fyrir neðan er hægt að kveikja á og fínstilla samstillingu við vörur, t."
-"d. ef þú vilt ekki skrifa yfir verð eða nöfn á þeim vörum sem skráð eru í "
-"WooCommerce eða ef þú vilt skrá þær vörur sem ekki eru merktar sem ‚í "
-"vefverslun‘ sem drög í WooCommerce. "
 
 #: views/admin_sections/customers_international.php:77
 msgid "International Customer Number Prefix"
-msgstr "Forskeyti fyrir númer erlendra viðskiptavina"
+msgstr ""
 
 #: views/admin_sections/customers_international.php:32
 msgid ""
 "International customer numbers are generated based on a combination of a "
 "prefix and the WooCommerce customer ID. The value can be alphanumeric."
 msgstr ""
-"Númer erlendra viðskiptavina eru útbúin út frá forskeyti og ID-númeri þeirra "
-"í WooCommerce. Númerin geta innihaldið bæði bókstafi og tölustafi."
 
 #: views/admin_sections/customers_international.php:18
 msgid "International Customers"
-msgstr "Erlendir viðskiptavinir"
+msgstr ""
 
 #: src/KennitalaField.php:604
 msgid "Invalid kennitala nonce"
-msgstr "Ógildur prufustrengur fyrir kennitölu"
+msgstr ""
 
 #: src/KennitalaField.php:815
 msgid "Invalid kennitala. A kennitala is a string of 10 numeric characters."
-msgstr "Ógild kennitala. Kennitölur eru 10 tölustafir að lengd."
+msgstr ""
 
 #: views/dk_invoice_metabox.php:88
-#| msgid "Invoice has been created in DK."
 msgid "Invoice has been created in dk."
-msgstr "Reikningur var útbúinn í dk."
+msgstr ""
 
 #: views/dk_invoice_metabox.php:116
-#| msgid "Invoice not found in DK."
 msgid "Invoice not found in dk."
-msgstr "Reikningur fannst ekki í dk."
+msgstr ""
 
 #: views/dk_invoice_metabox.php:26
 msgid "Invoice Number"
-msgstr "Reikningsnúmer"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:102
 msgid "Invoice number has been assigned."
-msgstr "Reikningsnúmer var skráð."
+msgstr ""
 
 #. %1$s is a placeholder for the invoice number that was manually entered.
 #: src/Rest/OrderInvoiceNumber.php:91
 #, php-format
 msgid "Invoice number set to %1$s."
-msgstr "Númer reiknings skráð sem %1$s."
+msgstr ""
 
 #: views/dk_invoice_metabox.php:109
 msgid "Invoice number was not assigned."
-msgstr "Reikningsnúmer var ekki skráð."
+msgstr ""
 
 #: views/admin_sections/invoices.php:176
 msgid "Invoice Reference Prefix"
-msgstr "Forskeyti fyrir tilvísun á reikningi"
+msgstr ""
 
 #: src/KennitalaField.php:335
 msgid "Invoice with Kennitala Requested"
-msgstr "Beðið um reikning með kennitölu"
+msgstr ""
 
 #: views/admin_sections/invoices.php:15
 msgid "Invoices"
-msgstr "Reikningar"
+msgstr ""
 
 #: views/admin_sections/invoices_intl_checkbox.php:33
-#| msgid ""
-#| "Invoices for international orders will result in or get associated with a "
-#| "customer record in DK using a customer number based on their WooCommerce "
-#| "user ID. (See ‘International Customers’ below for further details.)"
 msgid ""
 "Invoices for international orders will result in or get associated with a "
 "customer record in dk using a customer number based on their WooCommerce "
 "user ID. (See ‘International Customers’ below for further details.)"
 msgstr ""
-"Reikningar fyrir erlendar pantanir munu leiða af sér að nýr skuldunautur er "
-"búinn til í dk eða verða tengdar við viðskiptavin út frá ID-númeri í "
-"WooCommerce. (Sjá ‚erlendir viðskiptavinir‘ hér fyrir neðan.)"
 
 #: views/admin_sections/invoices.php:18
-#| msgid ""
-#| "Invoices may be made in DK upon successful checkout, or manually from the "
-#| "WooCommerce Order Editor. This can based on wether the customer supplies "
-#| "a kennitala and a kennitala field can be enabled as well."
 msgid ""
 "Invoices may be made in dk upon successful checkout, or manually from the "
 "WooCommerce Order Editor. This can based on wether the customer supplies a "
 "kennitala and a kennitala field can be enabled as well."
 msgstr ""
-"Hægt er að útbúa reikninga í dk þegar afgreiðsla hefur verið kláruð, eða "
-"handvirkt úr pantanaviðmótinu í WooCommerce. Hægt er að stilla þetta af "
-"eftir því hvort viðskiptavinur gefur upp kennitölu en einnig er hægt að "
-"kveikja á reit fyrir kennitölu,"
 
 #: src/OrderStatus.php:220
-#| msgid ""
-#| "Invoicing for international orders is not available in this version of "
-#| "Connector for DK."
 msgid ""
 "Invoicing for international orders is not available in this version of "
-"Connector for dk."
+"Tengill for dk."
 msgstr ""
-"Reikningar fyrir erlendar pantanir eru ekki fáanlegar í þessari útgáfu af "
-"Tengli fyrir dk."
 
 #. %1$s stands for the WooCommerce order return ID.
 #: src/Rest/OrderDKCreditInvoice.php:179
@@ -1094,68 +842,62 @@ msgid ""
 "It was not possible to send an email to the customer containing a credit "
 "invoice for refund #%1$s as a PDF attachment."
 msgstr ""
-"Ekki var hægt að senda tölvupóst til viðskiptavinarins sem innihélt "
-"kreditreikning fyrir endurgreiðslu #%1$s sem PDF-viðhengi"
 
 #: src/OrderStatus.php:278 src/Rest/OrderDKInvoice.php:175
 msgid ""
 "It was not possible to send an email to the customer containing the invoice "
 "as a PDF attachment."
 msgstr ""
-"Ekki var hægt að senda tölvupóst til viðskiptavinarins með reikninginn sem "
-"PDF-viðhengi"
 
 #: views/admin_sections/product_item_quantity.php:16
 msgid "Item Quantity"
-msgstr "Sjálfgefið sölumagn"
+msgstr ""
 
 #: src/CustomerSync.php:119 src/KennitalaField.php:184
 #: src/KennitalaField.php:328 src/KennitalaField.php:385
 #: src/KennitalaField.php:535 src/KennitalaField.php:726
 msgid "Kennitala"
-msgstr "Kennitala"
+msgstr ""
 
 #: src/KennitalaField.php:730
 msgid "Kennitala (Optional)"
-msgstr "Kennitala (valfrjálst)"
+msgstr ""
 
 #: views/admin_sections/kennitala.php:16
 msgid "Kennitala Field"
-msgstr "Reitur fyrir kennitölu"
+msgstr ""
 
 #: src/KennitalaField.php:632
 msgid "Kennitala is a required field"
-msgstr "Kennitölu þarf að fylla út"
+msgstr ""
 
 #: views/admin_sections/customers.php:55
 msgid "Ledger Code for Domestic Customers"
-msgstr "Bókunarflokkur fyrir innlenda viðskiptavini"
+msgstr ""
 
 #: views/admin_sections/customers_international.php:115
 msgid "Ledger Code for International Customers"
-msgstr "Bókunarflokkur fyrir erlenda viðskiptavini"
+msgstr ""
 
 #: views/admin_sections/kennitala.php:98
 msgid "Make Kennitala Field Mandatory"
-msgstr "Gera kennitölureit að skyldu"
+msgstr ""
 
 #: views/dk_product_variations.php:375
 msgid "Menu Order"
-msgstr "Röð í valmynd"
+msgstr ""
 
 #: views/admin_sections/blocked_customers.php:33
-#| msgid "Message for Blocked Users"
 msgid "Message for Blocked Customers"
-msgstr "Skilaboð fyrir viðskiptavini sem er lokað fyrir"
+msgstr ""
 
 #: views/admin_sections/gateways.php:22
-#| msgid "Method ID in DK"
 msgid "Method ID in dk"
-msgstr "Greiðsluaðferð í dk"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:43
 msgid "Needs to be numeric"
-msgstr "Þarf að vera tölusett"
+msgstr ""
 
 #: views/dk_connection_product_panel.php:51
 #: views/dk_connection_product_panel.php:54
@@ -1164,65 +906,55 @@ msgstr "Þarf að vera tölusett"
 #: views/dk_connection_product_panel.php:146
 #: views/dk_connection_product_panel.php:149
 msgid "No"
-msgstr "Nei"
+msgstr ""
 
 #: views/user_discount_information.php:27
 msgid ""
 "Note that changes to customer information in dk may take a while to make it "
 "to your WooCommerce setup."
 msgstr ""
-"Athugið að það getur tekið nokkra stund fyrir upplýsingar um viðskiptavini "
-"úr dk að birtast í WooCommerce-uppsetningunni þinni."
 
 #: views/dk_product_variations.php:192
 msgid "On sale from"
-msgstr "Á útsölu frá"
+msgstr ""
 
 #: views/dk_product_variations.php:209
 msgid "On sale to"
-msgstr "Á útsölu til"
+msgstr ""
 
 #: views/admin_with_errors.php:156
-#| msgid ""
-#| "Otherwise, Connector for DK is compatible with the Iceland Post plugin as "
-#| "it saves the kennitala in the same way."
 msgid ""
-"Otherwise, Connector for dk is compatible with the Iceland Post plugin as it "
+"Otherwise, Tengill for dk is compatible with the Iceland Post plugin as it "
 "saves the kennitala in the same way."
 msgstr ""
-"Að öðru leiti er Tengill fyrir dk samhæfður viðbótinni frá Íslandspósti þar "
-"sem kennitölur eru vistaðar á sama hátt."
 
 #: views/dk_product_variations.php:231
 msgid "Override inventory"
-msgstr "Hundsa lagerstöðu"
+msgstr ""
 
 #: views/dk_product_variations.php:135
 msgid "Override price for this product variation"
-msgstr "Yfirskrifa verð fyrir þetta vöruafbrigði"
+msgstr ""
 
 #: views/admin_sections/gateways.php:16
 msgid "Payment Gateways"
-msgstr "Greiðslugáttir"
+msgstr ""
 
 #: views/admin_sections/gateways.php:23
-#| msgid "Payment Mode in DK"
 msgid "Payment Mode in dk"
-msgstr "Greiðslumáti í dk"
+msgstr ""
 
 #: src/CustomerPaymentTerms.php:141
 msgid "Payment term"
-msgstr "Greiðsluskilmálar"
+msgstr ""
 
 #: views/admin_sections/gateways.php:24
-#| msgid "Payment Terms in DK"
 msgid "Payment Terms in dk"
-msgstr "Greiðsluskilmálar í dk"
+msgstr ""
 
 #: src/Admin.php:322
-#| msgid "Pending..."
 msgid "Pending…"
-msgstr "Í bið..."
+msgstr ""
 
 #. The %s stands for the kennitala.
 #: src/Admin.php:685
@@ -1231,8 +963,6 @@ msgid ""
 "Please make sure that a customer record with the kennitala ‘%s’ exsists in "
 "DK before you continue."
 msgstr ""
-"Vinsamlegast gakktu úr skugga um að skuldunautur með kennitöluna ‚%s‘ sé til "
-"í DK áður en þú heldur áfram."
 
 #. The %s stands for the relevant SKU.
 #: src/Admin.php:548
@@ -1241,8 +971,6 @@ msgid ""
 "Please make sure that a product with the Product Code ‘%s’ exsists in DK "
 "before saving."
 msgstr ""
-"Vinsamlegast athugaðu hvort vara með vörunúmerinu ‚%s‘ sé til í DK áður en "
-"þú vistar."
 
 #. The %s stands for the relevant sales person number.
 #: src/Admin.php:613
@@ -1251,160 +979,137 @@ msgid ""
 "Please make sure that a sales person with the number ‘%s’ exsists in DK "
 "before saving."
 msgstr ""
-"Vinsamlegast gangið úr skugga um að sölumanneskja með númerið ‚%s‘ sé til "
-"staðar í DK áður en þú vistar."
 
 #. %1$s stands for a opening and %2$s for a closing <abbr> tag. %3$s stands for a opening and %4$s for a closing <strong> tag.
 #: views/dk_connection_product_panel.php:23
 #, php-format
-#| msgid ""
-#| "Please make sure that the %1$sSKU%2$s is set to a unique value, which "
-#| "equals the intended %3$sItem Code%4$s in DK for sync and invoicing "
-#| "functionality to work."
 msgid ""
 "Please make sure that the %1$sSKU%2$s is set to a unique value, which equals "
 "the intended %3$sItem Code%4$s in dk for sync and invoicing functionality to "
 "work."
 msgstr ""
-"Passaðu að %1$sSKU%2$s sé einstakt og jafngildi því %3$svörunúmeri%4$s sömu "
-"vöru i dk svo samstilling og reikningagerð virki."
 
 #: views/admin_sections/gateways.php:17
-#| msgid ""
-#| "Please select the payment method name for each payment gateway as it "
-#| "appears in DK as well as the payment mode:"
 msgid ""
 "Please select the payment method name for each payment gateway as it appears "
 "in dk as well as the payment mode:"
 msgstr ""
-"Veldu greiðslumáta og greiðsluaðferð eins og hún kemur fram í dk fyrir "
-"hverja greiðslugátt:"
 
 #: views/admin_with_errors.php:21
 msgid "Please take care of this first!"
-msgstr "Kláraðu þetta fyrst!"
+msgstr ""
 
 #: src/Import/SalesPayments.php:86
 msgid "Postal COD (POST)"
-msgstr "Póstkrafa (POST)"
+msgstr ""
 
 #. The %s is the currency symbol for WooCommerce.
 #: views/dk_product_variations.php:150
 #, php-format
 msgid "Price (%s)"
-msgstr "Verð (%s)"
+msgstr ""
 
 #: src/Discounts.php:232 views/user_discount_information.php:32
 msgid "Price Group"
-msgstr "Verðhópur"
+msgstr ""
 
 #: views/admin_sections/product_categories.php:20
 msgid "Product Categories"
-msgstr "Vöruflokkar"
+msgstr ""
 
 #: views/admin_sections/products.php:18
 msgid "Product Sync"
-msgstr "Samstilling á vörum"
+msgstr ""
 
 #: views/admin_sections/products.php:21
-#| msgid ""
-#| "Product sync and invoice generation are based on matching a product's DK "
-#| "Product Code with its SKU in WooCommerce."
 msgid ""
 "Product sync and invoice generation are based on matching a product's dk "
 "Product Code with its SKU in WooCommerce."
 msgstr ""
-"Samstilling á vörum og reikningagerð byggjast á því að stemma saman "
-"vörunúmer úr dk og SKU í WooCommerce."
 
 #: views/admin_sections/products.php:17
 msgid "Products"
-msgstr "Vörur"
+msgstr ""
 
 #: views/admin_with_errors.php:104
-#| msgid ""
-#| "Products synced from DK will be matched with the relevant VAT rate, but "
-#| "it requires the relevant rate to be present in WooCommerce."
 msgid ""
 "Products synced from dk will be matched with the relevant VAT rate, but it "
 "requires the relevant rate to be present in WooCommerce."
 msgstr ""
-"Vörur sem koma inn frá dk eru paraðar við rétt VSK-þrep en það krefst þess "
-"að það sé til staðar í WooCommerce."
 
 #: views/dk_product_variations.php:259
 msgid "Quantity"
-msgstr "Fjöldi"
+msgstr ""
 
 #: src/Discounts.php:738
 msgid "Regular Price:"
-msgstr "Venjulegt verð:"
+msgstr ""
 
 #: views/dk_product_variations.php:105
 msgid "Remove Image"
-msgstr "Fjarlægja mynd"
+msgstr ""
 
 #: views/dk_product_variations.php:91
 msgid "Replace Image"
-msgstr "Skipta út mynd"
+msgstr ""
 
 #: src/KennitalaField.php:568 src/KennitalaField.php:750
 msgid "Request an Invoice with Kennitala"
-msgstr "Biðja um reikning með kennitölu"
+msgstr ""
 
 #: src/KennitalaField.php:754
 msgid "Request an Invoice with Kennitala (optional)"
-msgstr "Biðja um reikning með kennitölu (valfrjálst)"
+msgstr ""
 
 #. The %s is the currency symbol for WooCommerce.
 #: views/dk_product_variations.php:172
 #, php-format
 msgid "Sale Price (%s)"
-msgstr "Útsöluverð (%s)"
+msgstr ""
 
 #: views/admin_sections/submit.php:33
 msgid "Save"
-msgstr "Vista"
+msgstr ""
 
 #: views/about.php:49
 msgid "Send Alda an email"
-msgstr "Senda tölvupóst til Öldu"
+msgstr ""
 
 #: views/admin_sections/invoices.php:123
 msgid "Send Invoices Automatically via Email"
-msgstr "Senda reikninga sjálfkrafa í tölvupósti"
+msgstr ""
 
 #: views/admin_sections/invoices.php:231
 msgid "Service SKUs"
-msgstr "Vörunúmer fyrir þjónustu"
+msgstr ""
 
 #: views/dk_product_variations.php:249
 msgid "Set stock quantity"
-msgstr "Setja inn fjölda á lager"
+msgstr ""
 
 #: views/admin_with_errors.php:65
 msgid "Set store location to Iceland"
-msgstr "Gerðu Ísland að staðsetningu verslunarinnar"
+msgstr ""
 
 #: views/admin_with_errors.php:117
 msgid "Set Up WooCommerce Payment Gateways"
-msgstr "Settu upp greiðslugáttir í WooCommerce"
+msgstr ""
 
 #: views/admin_with_errors.php:87
 msgid "Set WooCommerce tax rates for 24%, 11% and 0% VAT rates"
-msgstr "Settu inn skattþrep fyrir 24%, 11% and 0% VSK."
+msgstr ""
 
 #: src/Admin.php:455 src/Admin.php:456
 msgid "Settings"
-msgstr "Stillingar"
+msgstr ""
 
 #: src/Export/CreditInvoice.php:228 src/Export/Order.php:333
 msgid "Shipping"
-msgstr "Sendingar"
+msgstr ""
 
 #: views/admin_sections/invoices.php:245
 msgid "Shipping SKU"
-msgstr "Vörunúmer fyrir sendingar"
+msgstr ""
 
 #: views/admin_sections/customers_international.php:66
 msgid ""
@@ -1412,150 +1117,105 @@ msgid ""
 "for international guest customers that can't, don't have or won't supply a "
 "kennitala during checkout."
 msgstr ""
-"Rétt eins og með kennitölu fyrir innlenda skuldunauta, þá er þetta númer "
-"notað fyrir erlenda viðskiptavini án innskráningar, sem gefa ekki upp "
-"kennitölu við afgreiðslu."
 
 #: views/dk_connection_product_panel.php:28
 msgid "stock keeping unit"
-msgstr "stock keeping unit"
+msgstr ""
 
 #: views/admin_sections/customers_sync.php:27
-#| msgid "Sync customer information from DK"
 msgid "Sync customer information from dk"
-msgstr "Samstilla upplýsingar um viðskiptavini frá dk"
+msgstr ""
 
 #: views/dk_connection_product_panel.php:45
-#| msgid "Sync Inventory with DK"
 msgid "Sync Inventory with dk"
-msgstr "Samstilla lagerstöðu við dk"
+msgstr ""
 
 #: views/dk_connection_product_panel.php:140
-#| msgid "Sync Name with DK"
 msgid "Sync Name with dk"
-msgstr "Samstilla heiti við dk"
+msgstr ""
 
 #: views/dk_connection_product_panel.php:100
-#| msgid "Sync Price with DK"
 msgid "Sync Price with dk"
-msgstr "Samstilla verð við dk"
+msgstr ""
 
 #. Description of the plugin
 msgid ""
 "Sync your WooCommerce store with DK, including prices, inventory status and "
 "generate invoices for customers on checkout."
 msgstr ""
-"Samstilltu ververslunina þína við DK; verð og lagerstöðu og búðu til "
-"reikninga fyrir viðskiptavini við afgreiðslu."
 
 #: views/admin_with_errors.php:96
 msgid ""
 "Tax rates need to be set up before we can start syncing product information "
 "and creating invoices."
 msgstr ""
-"Það er nauðsynlegt að setja upp skattþrep áður en við samstillum vörur og "
-"upplýsingar og búum til reikninga."
 
 #: views/admin_sections/authentication.php:47
-#| msgid ""
-#| "The API key is provided by DK for use with the dkPlus API. Do not share "
-#| "this key with anyone."
 msgid ""
 "The API key is provided by dk for use with the dkPlus API. Do not share this "
 "key with anyone."
 msgstr ""
-"Þú færð þennan lykil frá dk til að nota með API-viðmótinu fyrir dkPlus. Ekki "
-"deila þessum lykli með neinum."
 
 #. The %s stands for the currency code.
 #: src/Currency.php:156
 #, php-format
 msgid "The currency code ‘%s’ is invalid."
-msgstr "Gjaldeyriskóðinn ‚%s‘ er ógildur. "
+msgstr ""
 
 #. The %s stands for the currency code.
 #: src/Currency.php:177
 #, php-format
 msgid "The currency rate for ‘%s’ has not been set."
-msgstr "Gengisskráningu fyrir ‚%s‘ vantar."
+msgstr ""
 
 #: views/admin_sections/customers.php:44
-#| msgid ""
-#| "The default kennitala is used for guest customers that don't have or "
-#| "supply a kennitala during checkout. This should correspond with a DK "
-#| "customer record called ‘Various Customers’ etc."
 msgid ""
 "The default kennitala is used for guest customers that don't have or supply "
 "a kennitala during checkout. This should correspond with a dk customer "
 "record called ‘Various Customers’ etc."
 msgstr ""
-"Sjálfgefin kennitala er notuð fyrir viðskiptavini sem eru ekki með eða gefa "
-"ekki upp kennitölu við afgreiðslu. Þetta ætti að stemma við skuldunaut í dk "
-"sem heitir t.d. ‚Ýmsir skuldunautar‘."
 
 #: src/Rest/OrderInvoicePdf.php:63
 msgid "The DK invoice number has not been set for this order"
-msgstr "Númer reiknings úr DK hefur verið skráð á þessa pöntun"
+msgstr ""
 
 #: src/Service/DKApiRequest.php:81 src/Service/DKApiRequest.php:157
-#| msgid "The DK API key is missing."
 msgid "The dkPlus API key is missing."
-msgstr "API-lykil fyrir DK vantar"
+msgstr ""
 
 #. The %s stands for the relevant SKU.
 #: src/Admin.php:564
 #, php-format
 msgid "The Item Code ‘%s’ was found in DK."
-msgstr "Vörunúmerið ‚%s‘ fannst í DK."
+msgstr ""
 
 #. The %s stands for the relevant SKU.
 #: src/Admin.php:576
 #, php-format
 msgid "The Item Code ‘%s’ was not found in DK."
-msgstr "Vörunúmerið ‚%s‘ fannst ekki í DK"
+msgstr ""
 
 #: views/admin_sections/customers.php:67
-#| msgid ""
-#| "The ledger code is used for new customer records when they are created in "
-#| "DK."
 msgid ""
 "The ledger code is used for new customer records when they are created in dk."
 msgstr ""
-"Bókunarflokkurinn er notaður fyrir nýja viðskiptavini þegar þeir eru búnir "
-"til í dk."
 
 #. %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
 #: views/about.php:26
 #, php-format
-#| msgid ""
-#| "The plugin %1$sConnector for DK%2$s has taken hundreds of hours of "
-#| "development for the past years and is provided free of charge to everyone."
-#| " If you value what the plugin has to offer, then you may want to show "
-#| "your gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or "
-#| "%5$sstarring it on Github%4$s."
 msgid ""
-"The plugin %1$sConnector for dk%2$s has taken hundreds of hours of "
+"The plugin %1$sTengill for dk%2$s has taken hundreds of hours of "
 "development for the past years and is provided free of charge to everyone. "
 "If you value what the plugin has to offer, then you may want to show your "
 "gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or %5$sstarring it "
 "on Github%4$s."
 msgstr ""
-"Viðbótin %1$sTengill fyrir dk%2$s hefur tekið hundruðir klukkutíma í þróun "
-"síðustu árin en er engu að síður aðgengileg öllum án endurgjalds. Ef þú kant "
-"að meta það sem viðbótin hefur upp á að bjóða getur þú t.d. sýnt þakklæti í "
-"verki með því að %3$sgefa henni 5 stjörnur á WordPress.org%4$s eða "
-"%5$sstjörnumerkja hana á Github%4$s. "
 
 #: views/admin_with_errors.php:31
-#| msgid ""
-#| "There's a couple of things you need to do before we let you continue "
-#| "using the Connector for DK plugin."
 msgid ""
 "There's a couple of things you need to do before we let you continue using "
-"the Connector for dk plugin."
+"the Tengill for dk plugin."
 msgstr ""
-"Það eru nokkrir hlutir sem þú þarft að gera áður en við hleypum þér inn í "
-"viðbótina Tengil fyrir dk."
 
 #: views/admin_sections/kennitala.php:50
 msgid ""
@@ -1564,41 +1224,25 @@ msgid ""
 "new debtor redcord will be created for each new Kennitala used for an "
 "invoice."
 msgstr ""
-"Þetta bætir kennitölureit í afgreiðslusíðuna í WooCommerce. Bæði er "
-"stuðningur við ‚Classic‘ útgáfuna og útgáfuna sem notar blokkir. Athugið að "
-"nýr skuldunautur verður stofnaður fyrir hverja nýja kennitölu sem skráð er á "
-"reikning."
 
 #: views/admin_sections/authentication.php:43
 msgid "This is a required field"
-msgstr "Þennan reit þarf að fylla út"
+msgstr ""
 
 #. %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
 #: views/admin_sections/customers_international.php:93
 #, php-format
-#| msgid ""
-#| "This is used as the beginning of the 10-digit Customer Number. For "
-#| "example, with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would "
-#| "be saved as DK customer number ‘%3$s’."
 msgid ""
 "This is used as the beginning of the 10-digit Customer Number. For example, "
 "with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as "
 "dk customer number ‘%3$s’."
 msgstr ""
-"Þetta er notað sem upphafstafurinn í 10-stafa númeri skuldunauts. Til dæmis, "
-"þá þýðir forskeytið ‚%1$s‘ að viðskiptavinur númer ‚%2$s‘ verður skráður sem "
-"skuldunautur númer ‚%3$s‘ í dk."
 
 #: views/admin_sections/customers_international.php:127
-#| msgid ""
-#| "This ledger code is used for international customer records when they are "
-#| "created in DK."
 msgid ""
 "This ledger code is used for international customer records when they are "
 "created in dk."
 msgstr ""
-"Bókunarflokkurinn er notaður fyrir erlenda viðskiptavini þegar þeir eru "
-"búnir til í dk."
 
 #: views/admin_sections/invoices.php:159
 msgid ""
@@ -1606,20 +1250,12 @@ msgid ""
 "on hold for up to 20 minutes. Disable this to generate invoices immediately "
 "on checkout."
 msgstr ""
-"Þetta gerir afgreiðsluferlið örlítið fljótvirkara en það gæti tekið up 20 "
-"mínútna bið áður en reikningar eru útbúnir. Slökktu á þessu til að keyra "
-"reikninga strax út við afgreiðslu."
 
 #: views/admin_sections/blocked_customers.php:40
-#| msgid ""
-#| "This message is displayed when a blocked user attempts to check out an "
-#| "order."
 msgid ""
 "This message is displayed when a blocked customer attempts to check out an "
 "order."
 msgstr ""
-"Þessi skilaboð eru sýnd þegar viðskiptavinur sem er lokað fyrir reynir að "
-"klára pöntun."
 
 #: src/Admin.php:174
 msgid ""
@@ -1631,63 +1267,49 @@ msgid ""
 " Furthermore, it is higly recommended that you evaluate this plugin in a "
 "limited capacity in a staging environment before putting it to full use."
 msgstr ""
-"Þessi viðbót er þróuð, henni haldið við og stutt er við hana eftir bestu "
-"getu en engin ábyrgð eða loforð eru gefin um virkni eða villuleysi skv. "
-"GPLv3 leyfinu. Þar sem viðbótin tengist, notar og hefur áhrif á bókhaldsgögn "
-"í DK, þá er eindregið mælt með því að öll gögn úr DK séu til afrituð og að "
-"fylgst sé með því að það séu engar óvenjulegar hreyfingar. Ennfremur er mælt "
-"með því að viðbótin sé prófuð í lokuðu prufuumhverfi áður en hún fer í fulla "
-"notkun."
 
 #: views/dk_invoice_metabox.php:95
-#| msgid "Unable to create invoice in DK."
 msgid "Unable to create invoice in dk."
-msgstr "Gat ekki gert reikning í dk."
+msgstr ""
 
 #: src/OrderStatus.php:299
-#| msgid "Unable to create an invoice in DK: "
 msgid "Unable to create invoice in DK: "
-msgstr "Gat ekki gert reikning í DK:"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:54 views/refund_credit_invoice_partial.php:46
 msgid "Update"
-msgstr "Uppfæra"
+msgstr ""
 
 #: views/admin_sections/products.php:108
 msgid "Update Product Category"
-msgstr "Uppfæra vöruflokk"
+msgstr ""
 
 #: views/admin_sections/products.php:96
 msgid "Update Product Description"
-msgstr "Uppfæra vörulýsingar"
+msgstr ""
 
 #: views/admin_sections/products.php:85
 msgid "Update Product Names"
-msgstr "Uppfæra vöruheiti"
+msgstr ""
 
 #: views/admin_sections/products.php:63
 msgid "Update Product Prices"
-msgstr "Uppfæra vöruverð"
+msgstr ""
 
 #: views/admin_sections/products.php:74
 msgid "Update Stock Status"
-msgstr "Uppfæra lagerstöðu"
+msgstr ""
 
 #: views/refund_credit_invoice_partial.php:42
-#| msgid ""
-#| "Update the credit invoice number reference without generating a new "
-#| "credit invoice in DK"
 msgid ""
 "Update the credit invoice number reference without generating a new credit "
 "invoice in dk"
-msgstr "Uppfæra tilvísun í númer kreditreiknings án þess að búa nýjan til í dk"
+msgstr ""
 
 #: views/dk_invoice_metabox.php:51
-#| msgid ""
-#| "Update the invoice number reference without generating a new invoice in DK"
 msgid ""
 "Update the invoice number reference without generating a new invoice in dk"
-msgstr "Uppfæra tilvísun í númer reiknings án þess að búa nýjan til í dk"
+msgstr ""
 
 #. %1$s is the current yes/no value.
 #: views/dk_connection_product_panel.php:50
@@ -1695,99 +1317,81 @@ msgstr "Uppfæra tilvísun í númer reiknings án þess að búa nýjan til í 
 #: views/dk_connection_product_panel.php:145
 #, php-format
 msgid "Use Default (Currently ‘%1$s’)"
-msgstr "Nota sjálfgefna stillingu (er núna ‚%1$s‘)"
+msgstr ""
 
 #: views/admin_sections/product_item_quantity.php:32
 msgid "Use default quantity as the minimum"
-msgstr "Nota sjálfgefið sölumagn sem lágmark"
+msgstr ""
 
 #: views/admin_sections/default_skus.php:44
 msgid "Use default SKU if product SKU is missing"
-msgstr "Nota sjálfgefið vörunúmer ef vörunúmer vantar"
+msgstr ""
 
 #: views/customer_payment_terms_line_partial.php:33
 msgid "Use logged-in customers’ default payment terms"
-msgstr "Nota sjálfgefna greiðsluskilmála innskráðra notenda"
+msgstr ""
 
 #: views/admin_sections/product_item_quantity.php:55
 msgid "Use the default quantity as a multiplier"
-msgstr "Nota sjálfgefið sölumagn sem margfeldi"
+msgstr ""
 
 #: views/admin_sections/authentication.php:42
 msgid "Valid"
-msgstr "Gilt"
+msgstr ""
 
 #. The %d is the variation ID.
 #: views/dk_product_variations.php:81
 msgid "Variation #%d"
-msgstr "Vöruafbrigði #%d"
+msgstr ""
 
 #: views/admin_sections/products.php:238
 msgid "Variations and Attributes"
-msgstr "Afbrigði og eiginleikar"
+msgstr ""
 
 #: views/dk_product_variations.php:367
 msgid "Virtual"
-msgstr "Sýndarvara"
+msgstr ""
 
 #: views/about.php:48
 msgid "Visit Alda's Github Sponsors profile"
-msgstr "Skoða prófílinn hennar Öldu á Github Sponsors"
+msgstr ""
 
 #: views/about.php:46
 msgid "Visit Alda's website"
-msgstr "Skoða vefsíðuna hennar Öldu"
+msgstr ""
 
 #: views/about.php:34
 msgid "Visit the plugin's Github profile"
-msgstr "Skoða Github-síðuna fyrir viðbótina"
+msgstr ""
 
 #: views/about.php:32
 msgid "Visit the WordPress.org plugin review page for this plugin"
-msgstr "Skoða umsagnir fyrir þessa viðbót á WordPress.org"
+msgstr ""
 
 #: src/Config.php:1018
 msgid ""
 "We are unable to check out your order. Please contact us for more "
 "information."
 msgstr ""
-"Við gátum ekki klárað að afgreiða pöntunina þína. Hafðu samband við okkur "
-"fyrir nánari upplýsingar."
 
 #: views/admin_sections/invoices.php:46
-#| msgid ""
-#| "When a customer requests to have a kennitala assigned to an invoice, a "
-#| "customer record is created in DK if it does not already exist, using the "
-#| "billing information supplied for the order."
 msgid ""
 "When a customer requests to have a kennitala assigned to an invoice, a "
 "customer record is created in dk if it does not already exist, using the "
 "billing information supplied for the order."
 msgstr ""
-"Þegar viðskiptavinur biður um að skrá kennitölu á reikning er nýr "
-"skuldunautur stofnaður í dk ef hann er ekki þegar til, með þeim "
-"reikningsupplýsingum sem koma með pöntuninni."
 
 #: views/admin_sections/products.php:241
-#| msgid ""
-#| "While the variation and attribute codes from DK are used internally, "
-#| "their values can be displayed as the descriptions that are set for each "
-#| "of them in DK. You can disable these if you want to use your own filters "
-#| "for displaying variations."
 msgid ""
 "While the variation and attribute codes from dk are used internally, their "
 "values can be displayed as the descriptions that are set for each of them in "
 "dk. You can disable these if you want to use your own filters for displaying "
 "variations."
 msgstr ""
-"Þó svo að kóðar úr dk séu notaðir fyrir vöruafbrigði og eiginleika í bakenda,"
-" þá er hægt að sýna gildin eins og þau eru sýnd í lýsingu þeirra í dk. Hægt "
-"er að slökkva á þessu ef þú vilt nota þínar eigin síur til að sýna "
-"vöruafbrigði."
 
 #: src/Rest/OrderInvoicePdf.php:55
 msgid "WooCommerce order not found"
-msgstr "WooCommerce-pöntun fannst ekki"
+msgstr ""
 
 #: views/dk_connection_product_panel.php:51
 #: views/dk_connection_product_panel.php:53
@@ -1796,25 +1400,20 @@ msgstr "WooCommerce-pöntun fannst ekki"
 #: views/dk_connection_product_panel.php:146
 #: views/dk_connection_product_panel.php:148
 msgid "Yes"
-msgstr "Já"
+msgstr ""
 
 #: views/admin_with_errors.php:148
-#| msgid ""
-#| "You'll need to disable the Kennitala field from the Iceland Post plugin "
-#| "as we don't want to have two kennitala fields in the checkout form."
 msgid ""
 "You will need to disable the Kennitala field from the Iceland Post plugin as "
 "we don't want to have two kennitala fields in the checkout form."
 msgstr ""
-"Þú þarft að slökkva á kennitölureitnum úr viðbótinni frá Íslandspósti þar "
-"sem við viljum ekki hafa tvo kennitölureiti í afgreiðsluforminu."
 
 #. The %1$s is a placeholder for the site's title.
 #: src/Export/CreditInvoice.php:278 src/Export/Invoice.php:131
 #, php-format
 msgid "Your Invoice From %1$s"
-msgstr "Reikningurinn þinn frá %1$s"
+msgstr ""
 
 #: src/Discounts.php:742
 msgid "Your Price:"
-msgstr "Þitt verð:"
+msgstr ""

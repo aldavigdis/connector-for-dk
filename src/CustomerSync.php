@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Admin;
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Admin;
+use AldaVigdis\TengillForDk\Config;
 use WC_Customer;
 
 /**
@@ -116,16 +116,16 @@ class CustomerSync {
 		$billing = array_merge(
 			array(
 				'kennitala' => array(
-					'label'       => __( 'Kennitala', 'connector-for-dk' ),
+					'label'       => __( 'Kennitala', 'tengill-for-dk' ),
 					'description' => '',
 				),
 			),
 			array(
-				'connector-for-dk-fetch-customer-from-dk-button' => array(
-					'label'       => __( 'Fetch from DK', 'connector-for-dk' ),
+				'tengill-for-dk-fetch-customer-from-dk-button' => array(
+					'label'       => __( 'Fetch from DK', 'tengill-for-dk' ),
 					'description' => '',
 					'type'        => 'button',
-					'text'        => __( 'Fetch', 'connector-for-dk' ),
+					'text'        => __( 'Fetch', 'tengill-for-dk' ),
 					'class'       => '',
 				),
 			),
@@ -233,7 +233,7 @@ class CustomerSync {
 	 */
 	public static function enqueue_script(): void {
 		wp_enqueue_script(
-			'connector-for-dk-fetch-customer',
+			'tengill-for-dk-fetch-customer',
 			plugins_url( 'js/fetch_customer.js', __DIR__ ),
 			array( 'wp-api', 'wp-data', 'wp-i18n' ),
 			Admin::ASSET_VERSION,
@@ -241,8 +241,8 @@ class CustomerSync {
 		);
 
 		wp_set_script_translations(
-			'connector-for-dk-fetch-customer',
-			'connector-for-dk',
+			'tengill-for-dk-fetch-customer',
+			'tengill-for-dk',
 			dirname( plugin_dir_path( __FILE__ ) ) . '/languages'
 		);
 	}

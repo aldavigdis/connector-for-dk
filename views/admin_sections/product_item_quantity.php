@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <hr />
 
 <h3>
-	<?php esc_html_e( 'Item Quantity', 'connector-for-dk' ); ?>
+	<?php esc_html_e( 'Item Quantity', 'tengill-for-dk' ); ?>
 </h3>
 
 	<table id="dk-variations-table" class="form-table">
@@ -29,13 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php echo esc_attr( Config::get_use_default_product_quantity_as_minimum() ? 'checked' : '' ); ?>
 					/>
 					<label for="use_default_product_quantity_as_minimum_field">
-						<?php esc_html_e( 'Use default quantity as the minimum', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Use default quantity as the minimum', 'tengill-for-dk' ); ?>
 					</label>
 					<p class="description">
 						<?php
 						esc_html_e(
 							'If this enabled, the default sales quantity for each product as set in dk will be used as the minimum quantity for the product in WooCommerce.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>
@@ -52,13 +52,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php echo esc_attr( Config::get_use_default_product_quantity_as_multiplier() ? 'checked' : '' ); ?>
 					/>
 					<label for="use_default_product_quantity_as_multiplier_field">
-						<?php esc_html_e( 'Use the default quantity as a multiplier', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Use the default quantity as a multiplier', 'tengill-for-dk' ); ?>
 					</label>
 					<p class="description">
 						<?php
 						esc_html_e(
 							'If this is enabled, default quantity will be used as a multiplier. This means that if the default quantity is 8, then the product can be ordered in quantities of 8, 16, 24, 32 etc.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>

@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Helpers;
+namespace AldaVigdis\TengillForDk\Helpers;
 
-use AldaVigdis\ConnectorForDK\Import\ProductVariations as ImportProductVariations;
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
-use AldaVigdis\ConnectorForDK\Brick\Math\RoundingMode;
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Import\ProductVariations as ImportProductVariations;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Brick\Math\RoundingMode;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
 use WC_Customer;
 use WC_Product;
 use WC_Product_Variation;

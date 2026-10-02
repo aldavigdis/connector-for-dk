@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\ProductCategories;
-use AldaVigdis\ConnectorForDK\Import\ProductGroups as ImportProductGroups;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\ProductCategories;
+use AldaVigdis\TengillForDk\Import\ProductGroups as ImportProductGroups;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,14 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <hr />
 
 <h3>
-	<?php esc_html_e( 'Product Categories', 'connector-for-dk' ); ?>
+	<?php esc_html_e( 'Product Categories', 'tengill-for-dk' ); ?>
 </h3>
 
 <p>
 	<?php
 	esc_html_e(
 		'Below, you can pair up each product group from dk with an equivalent category in WooCommerce. One WooCommerce category may be chosen for each dk product group.',
-		'connector-for-dk'
+		'tengill-for-dk'
 	);
 	?>
 </p>

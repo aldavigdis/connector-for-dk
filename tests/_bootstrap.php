@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 define( 'TEST_ENV', true );
 
-use AldaVigdis\ConnectorForDK\Currency;
+use AldaVigdis\TengillForDk\Currency;
 
 require __DIR__ . '/../vendor/aldavigdis/wp-tests-strapon/bootstrap.php';
 require __DIR__ . '/../vendor/woocommerce/woocommerce/woocommerce.php';

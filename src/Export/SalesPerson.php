@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Export;
+namespace AldaVigdis\TengillForDk\Export;
 
-use AldaVigdis\ConnectorForDK\Service\DKApiRequest;
+use AldaVigdis\TengillForDk\Service\DKApiRequest;
 use WP_Error;
 
 /**

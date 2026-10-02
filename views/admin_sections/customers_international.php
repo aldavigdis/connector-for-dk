@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Admin;
-use AldaVigdis\ConnectorForDK\KennitalaField;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Admin;
+use AldaVigdis\TengillForDk\KennitalaField;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <hr />
 
 <h3>
-	<?php esc_html_e( 'International Customers', 'connector-for-dk' ); ?>
+	<?php esc_html_e( 'International Customers', 'tengill-for-dk' ); ?>
 </h3>
 
 <p>
 	<?php
 	esc_html_e(
-		"dk needs a way to identify international customers that don't have a kennitala but need their own customer records. Connector for dk handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
-		'connector-for-dk'
+		"dk needs a way to identify international customers that don't have a kennitala but need their own customer records. Tengill for dk handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
+		'tengill-for-dk'
 	);
 	?>
 </p>
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	esc_html_e(
 		'International customer numbers are generated based on a combination of a prefix and the WooCommerce customer ID. The value can be alphanumeric.',
-		'connector-for-dk'
+		'tengill-for-dk'
 	);
 	?>
 </p>
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					esc_html_e(
 						'Default Customer Number for International Customers',
-						'connector-for-dk'
+						'tengill-for-dk'
 					);
 					?>
 				</label>
@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					esc_html_e(
 						"Similarly to the default Kennitala for domestic customers, this one is used for international guest customers that can't, don't have or won't supply a kennitala during checkout.",
-						'connector-for-dk'
+						'tengill-for-dk'
 					)
 					?>
 				</p>
@@ -74,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th scope="row" class="column-title column-primary">
 				<label for="international_kennitala_prefix_field">
-					<?php esc_html_e( 'International Customer Number Prefix', 'connector-for-dk' ); ?>
+					<?php esc_html_e( 'International Customer Number Prefix', 'tengill-for-dk' ); ?>
 				</label>
 			</th>
 			<td>
@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						// Translators: %1$s the customer number prefix, %2$s is the customer number without the prefix and %3$s is the generated customer number.
 						esc_html__(
 							'This is used as the beginning of the 10-digit Customer Number. For example, with the prefix ‘%1$s’, WooCommerce customer number ‘%2$s’ would be saved as dk customer number ‘%3$s’.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						),
 						esc_attr( Config::get_international_kennitala_prefix() ),
 						'888',
@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th scope="row" class="column-title column-primary">
 				<label for="international_customer_ledger_code_field">
-					<?php esc_html_e( 'Ledger Code for International Customers', 'connector-for-dk' ); ?>
+					<?php esc_html_e( 'Ledger Code for International Customers', 'tengill-for-dk' ); ?>
 				</label>
 			</th>
 			<td>
@@ -126,7 +126,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					esc_html_e(
 						'This ledger code is used for international customer records when they are created in dk.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					);
 					?>
 				</p>

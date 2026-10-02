@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,14 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <hr />
 
 <h3>
-	<?php esc_html_e( 'Blocked Customers', 'connector-for-dk' ); ?>
+	<?php esc_html_e( 'Blocked Customers', 'tengill-for-dk' ); ?>
 </h3>
 
 <p>
 	<?php
 	esc_html_e(
 		'dk facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below.',
-		'connector-for-dk'
+		'tengill-for-dk'
 	);
 	?>
 </p>
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<th scope="row" class="column-title column-primary">
 				<label for="blocked_customer_message_field">
-					<?php esc_html_e( 'Message for Blocked Customers', 'connector-for-dk' ); ?>
+					<?php esc_html_e( 'Message for Blocked Customers', 'tengill-for-dk' ); ?>
 				</label>
 			</th>
 			<td>
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					esc_html_e(
 						'This message is displayed when a blocked customer attempts to check out an order.',
-						'connector-for-dk'
+						'tengill-for-dk'
 					);
 					?>
 				</p>

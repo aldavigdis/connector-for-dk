@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
-use AldaVigdis\ConnectorForDK\CustomerContacts;
-use AldaVigdis\ConnectorForDK\CustomerSync;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\CustomerContacts;
+use AldaVigdis\TengillForDk\CustomerSync;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
@@ -15,7 +15,7 @@ use WP_Error;
  * The Fetch Customer REST endpoint
  */
 class FetchCustomer {
-	const NAMESPACE = 'ConnectorForDK/v1';
+	const NAMESPACE = 'TengillForDk/v1';
 	const PATH      = '/fetch_customer/(?P<kennitala>[\d]+)';
 
 	/**

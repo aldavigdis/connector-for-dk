@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
 
 use WP_REST_Server;
 use WP_REST_Request;

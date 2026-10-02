@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK\Rest;
+namespace AldaVigdis\TengillForDk\Rest;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Rest\EmptyBodyEndpointTemplate;
-use AldaVigdis\ConnectorForDK\Export\CreditInvoice as ExportCreditInvoice;
-use AldaVigdis\ConnectorForDK\Import\Customers as ImportCustomers;
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Rest\EmptyBodyEndpointTemplate;
+use AldaVigdis\TengillForDk\Export\CreditInvoice as ExportCreditInvoice;
+use AldaVigdis\TengillForDk\Import\Customers as ImportCustomers;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
 
 /**
  * The Order DK Invoice endpoint class
@@ -20,7 +20,7 @@ use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
  * order in DK.
  */
 class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
-	const NAMESPACE = 'ConnectorForDK/v1';
+	const NAMESPACE = 'TengillForDk/v1';
 	const PATH      = '/order_dk_credit_invoice/(?P<refund_id>[\d]+)';
 
 	/**
@@ -77,8 +77,8 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 		) {
 			$wc_order->add_order_note(
 				__(
-					'A credit invoice could not be created as invoicing for international orders is not available in this version of Connector for dk',
-					'connector-for-dk'
+					'A credit invoice could not be created as invoicing for international orders is not available in this version of Tengill for dk',
+					'tengill-for-dk'
 				)
 			);
 
@@ -88,8 +88,8 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(
 				__(
-					'A credit invoice could not be created in DK for this order as it was created before Connector for dk was activated.',
-					'connector-for-dk'
+					'A credit invoice could not be created in DK for this order as it was created before Tengill for dk was activated.',
+					'tengill-for-dk'
 				)
 			);
 
@@ -106,7 +106,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'A credit invoice could not be created in DK for refund #%1$s as the DK customer record is labelled as blocked.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						),
 						(string) $refund->get_id()
 					)
@@ -121,7 +121,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'An invoice could not be created in for refund #%1$s as the country indicated not match with the relevant DK customer record.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						),
 						(string) $refund->get_id()
 					)
@@ -141,7 +141,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 				// Translators: %1$s stands for the WooCommerce order return ID.
 				__(
 					'DK could not create a credit invoice for refund #%1$s due to an error.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				(string) $refund->get_id()
 			);
@@ -153,7 +153,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 				// Translators: %1$s is a placeholder for the invoice number generated in DK and %2$s for the WooCommerce order return ID.
 				__(
 					'A credit invoice for refund #%2$s has been created in DK. The invoice number is %1$s.',
-					'connector-for-dk'
+					'tengill-for-dk'
 				),
 				$invoice_number,
 				(string) $refund->get_id()
@@ -167,7 +167,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'An email containing a credit invoice for refund #%1$s as a PDF attachment was sent to the customer via DK.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						),
 						(string) $refund->get_id()
 					)
@@ -178,7 +178,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 						// Translators: %1$s stands for the WooCommerce order return ID.
 						__(
 							'It was not possible to send an email to the customer containing a credit invoice for refund #%1$s as a PDF attachment.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						),
 						(string) $refund->get_id()
 					)

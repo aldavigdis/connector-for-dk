@@ -20,16 +20,16 @@ $customer = new WC_Customer( $user_id );
 
 ?>
 
-<h2><?php esc_html_e( 'Customer Price Group and Discount', 'connector-for-dk' ); ?></h2>
+<h2><?php esc_html_e( 'Customer Price Group and Discount', 'tengill-for-dk' ); ?></h2>
 
-<p><?php esc_html_e( 'Discounts are set in dk and need to be edited there to be applied here.', 'connector-for-dk' ); ?></p>
+<p><?php esc_html_e( 'Discounts are set in dk and need to be edited there to be applied here.', 'tengill-for-dk' ); ?></p>
 
-<p><?php esc_html_e( 'Note that changes to customer information in dk may take a while to make it to your WooCommerce setup.', 'connector-for-dk' ); ?></p>
+<p><?php esc_html_e( 'Note that changes to customer information in dk may take a while to make it to your WooCommerce setup.', 'tengill-for-dk' ); ?></p>
 
 <table class="form-table">
 	<tbody>
 		<tr>
-			<th><?php esc_html_e( 'Price Group', 'connector-for-dk' ); ?></th>
+			<th><?php esc_html_e( 'Price Group', 'tengill-for-dk' ); ?></th>
 			<td>
 				<input
 					class="small-text"
@@ -40,7 +40,7 @@ $customer = new WC_Customer( $user_id );
 			</td>
 		</tr>
 		<tr>
-			<th><?php esc_html_e( 'Customer Discount', 'connector-for-dk' ); ?></th>
+			<th><?php esc_html_e( 'Customer Discount', 'tengill-for-dk' ); ?></th>
 			<td>
 				<input
 					class="small-text"

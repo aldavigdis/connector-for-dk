@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Helpers\Order as OrderHelper;
+use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,18 +16,18 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 ?>
 
 <div
-	class="connector-for-dk-refund-credit-invoice-form"
+	class="tengill-for-dk-refund-credit-invoice-form"
 	action="#"
 	data-refund-id="<?php echo esc_attr( $refund->get_id() ); ?>"
 >
 	<div class="input">
 		<label
-			for="connector-for-dk-refund-credit-invoice-number-input-<?php echo esc_attr( $refund->get_id() ); ?>"
+			for="tengill-for-dk-refund-credit-invoice-number-input-<?php echo esc_attr( $refund->get_id() ); ?>"
 		>
-			<?php esc_html_e( 'Credit Invoice Number', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Credit Invoice Number', 'tengill-for-dk' ); ?>
 		</label>
 		<input
-			id="connector-for-dk-refund-credit-invoice-number-input-<?php echo esc_attr( $refund->get_id() ); ?>"
+			id="tengill-for-dk-refund-credit-invoice-number-input-<?php echo esc_attr( $refund->get_id() ); ?>"
 			class="regular-text"
 			name="connector_for_dk_credit_invoice_number"
 			type="text"
@@ -39,27 +39,27 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 	<div class="buttons">
 		<button
 			class="update button button-small button-secondary"
-			title="<?php esc_html_e( 'Update the credit invoice number reference without generating a new credit invoice in dk', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Update the credit invoice number reference without generating a new credit invoice in dk', 'tengill-for-dk' ); ?>"
 			<?php echo empty( $credit_invoice_number ) ? 'disabled' : ''; ?>
 			data-refund-id="<?php echo esc_attr( $refund->get_id() ); ?>"
 		>
-			<?php esc_html_e( 'Update', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Update', 'tengill-for-dk' ); ?>
 		</button>
 		<button
 			class="get-pdf button button-small button-primary"
-			title="<?php esc_html_e( 'Get the credit invoice as a PDF file', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Get the credit invoice as a PDF file', 'tengill-for-dk' ); ?>"
 			<?php echo empty( $credit_invoice_number ) ? 'disabled' : ''; ?>
 			data-refund-id="<?php echo esc_attr( $refund->get_id() ); ?>"
 		>
-			<?php esc_html_e( 'Get PDF', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Get PDF', 'tengill-for-dk' ); ?>
 		</button>
 		<button
 			class="make-dk-invoice button button-small button-primary"
-			title="<?php esc_html_e( 'Generate a new credit invoice for this order in dk', 'connector-for-dk' ); ?>"
+			title="<?php esc_html_e( 'Generate a new credit invoice for this order in dk', 'tengill-for-dk' ); ?>"
 			<?php echo empty( $credit_invoice_number ) ? '' : 'disabled'; ?>
 			data-refund-id="<?php echo esc_attr( $refund->get_id() ); ?>"
 		>
-			<?php esc_html_e( 'Create in dk', 'connector-for-dk' ); ?>
+			<?php esc_html_e( 'Create in dk', 'tengill-for-dk' ); ?>
 		</button>
 		<img
 			class="loader hidden"
@@ -76,8 +76,8 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 		echo sprintf(
 			// Translators: %1$s an %2$s stand for opening and closing <strong> tags.
 			esc_html__(
-				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Connector for dk. You can manually create an invoice in dk and reference it here.',
-				'connector-for-dk'
+				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Tengill for dk. You can manually create an invoice in dk and reference it here.',
+				'tengill-for-dk'
 			),
 			'<strong>',
 			'</strong>'

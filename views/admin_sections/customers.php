@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
-use AldaVigdis\ConnectorForDK\Admin;
-use AldaVigdis\ConnectorForDK\KennitalaField;
+use AldaVigdis\TengillForDk\Config;
+use AldaVigdis\TengillForDk\Admin;
+use AldaVigdis\TengillForDk\KennitalaField;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="section">
-	<h2><?php esc_html_e( 'Customers', 'connector-for-dk' ); ?></h2>
+	<h2><?php esc_html_e( 'Customers', 'tengill-for-dk' ); ?></h2>
 	<table>
 		<tbody class="form-table">
 			<tr>
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'Default Customer Kennitala',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</label>
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							"The default kennitala is used for guest customers that don't have or supply a kennitala during checkout. This should correspond with a dk customer record called ‘Various Customers’ etc.",
-							'connector-for-dk'
+							'tengill-for-dk'
 						)
 						?>
 					</p>
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<th scope="row" class="column-title column-primary">
 					<label for="domestic_customer_ledger_code_field">
-						<?php esc_html_e( 'Ledger Code for Domestic Customers', 'connector-for-dk' ); ?>
+						<?php esc_html_e( 'Ledger Code for Domestic Customers', 'tengill-for-dk' ); ?>
 					</label>
 				</th>
 				<td>
@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						esc_html_e(
 							'The ledger code is used for new customer records when they are created in dk.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						);
 						?>
 					</p>

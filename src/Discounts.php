@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace AldaVigdis\ConnectorForDK;
+namespace AldaVigdis\TengillForDk;
 
-use AldaVigdis\ConnectorForDK\Helpers\Product as ProductHelper;
-use AldaVigdis\ConnectorForDK\Helpers\Customer as CustomerHelper;
-use AldaVigdis\ConnectorForDK\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Helpers\Product as ProductHelper;
+use AldaVigdis\TengillForDk\Helpers\Customer as CustomerHelper;
+use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
 use WC_Customer;
 use WC_Order_Item;
 use WC_Order_Item_Product;
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Discounts {
 	const INDICATOR_CSS_CLASSES = array(
-		'connector-for-dk-discount',
+		'tengill-for-dk-discount',
 		'has-font-size',
 		'has-medium-font-size',
 	);
@@ -231,11 +231,11 @@ class Discounts {
 		$discount_columns = array(
 			'connector_for_dk_price_group' => __(
 				'Price Group',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 			'connector_for_dk_discount'    => __(
 				'Discount',
-				'connector-for-dk'
+				'tengill-for-dk'
 			),
 		);
 
@@ -735,11 +735,11 @@ class Discounts {
 		}
 
 		$html = "<span class='screen-reader-text'>" .
-				__( 'Regular Price:', 'connector-for-dk' ) .
+				__( 'Regular Price:', 'tengill-for-dk' ) .
 				'</span> ' .
 				"<del>{$display_regular_price}</del> " .
 				'<span class="screen-reader-text">' .
-				__( 'Your Price:', 'connector-for-dk' ) .
+				__( 'Your Price:', 'tengill-for-dk' ) .
 				'</span> ' .
 				"<ins>{$display_customer_price}</ins>";
 
@@ -907,7 +907,7 @@ class Discounts {
 			'connector_for_dk_discount_indicator_text',
 			sprintf(
 				// Translators: %1$d is the percentage and %2$d is the minimum number of items for a discount.
-				__( '%1$d%% discount for %2$d or more', 'connector-for-dk' ),
+				__( '%1$d%% discount for %2$d or more', 'tengill-for-dk' ),
 				$product_discount,
 				$discount_quantity
 			),

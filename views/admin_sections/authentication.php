@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-use AldaVigdis\ConnectorForDK\Config;
+use AldaVigdis\TengillForDk\Config;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -11,12 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <section class="section">
-	<h2><?php esc_html_e( 'Authentication', 'connector-for-dk' ); ?></h2>
+	<h2><?php esc_html_e( 'Authentication', 'tengill-for-dk' ); ?></h2>
 	<p>
 		<?php
 		esc_html_e(
 			'For creating an API key, we recommend creating a separate user with sufficient access priveleges, not connected to an actual employee in dkPlus and then generating an API key for that user under ‘Tokens’ in that user’s Settings page.',
-			'connector-for-dk'
+			'tengill-for-dk'
 		);
 		?>
 	</p>
@@ -24,13 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tbody>
 			<tr>
 				<th scope="row">
-					<label for="connector-for-dk-key-input">
-						<?php esc_html_e( 'dkPlus API Key', 'connector-for-dk' ); ?>
+					<label for="tengill-for-dk-key-input">
+						<?php esc_html_e( 'dkPlus API Key', 'tengill-for-dk' ); ?>
 					</label>
 				</th>
 				<td>
 					<input
-						id="connector-for-dk-key-input"
+						id="tengill-for-dk-key-input"
 						class="regular-text api-key-input"
 						name="api_key"
 						type="password"
@@ -39,14 +39,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 						required
 					/>
 
-					<p class="validity valid"><?php esc_html_e( 'Valid', 'connector-for-dk' ); ?><span class="dashicons dashicons-yes"></span></p>
-					<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'connector-for-dk' ); ?></p>
+					<p class="validity valid"><?php esc_html_e( 'Valid', 'tengill-for-dk' ); ?><span class="dashicons dashicons-yes"></span></p>
+					<p class="validity invalid"><?php esc_html_e( 'This is a required field', 'tengill-for-dk' ); ?></p>
 
 					<p class="description">
 						<?php
 						esc_html_e(
 							'The API key is provided by dk for use with the dkPlus API. Do not share this key with anyone.',
-							'connector-for-dk'
+							'tengill-for-dk'
 						)
 						?>
 					</p>

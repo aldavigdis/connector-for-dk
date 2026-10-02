@@ -33,7 +33,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			<?php endif ?>
 		>
 			<h1 class="wp-heading-inline">
-				<?php esc_html_e( 'Connector for dk', 'tengill-for-dk' ); ?>
+				<?php esc_html_e( 'Tengill for dk', 'tengill-for-dk' ); ?>
 			</h1>
 
 			<?php

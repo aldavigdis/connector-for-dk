@@ -9,12 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div id="tengill-for-dk-wrap" class="wrap">
-	<h1><?php esc_html_e( 'About Connector for dk', 'tengill-for-dk' ); ?></h1>
+	<h1><?php esc_html_e( 'About Tengill for dk', 'tengill-for-dk' ); ?></h1>
 
 	<div id="about-container">
 		<img
 			src="<?php echo esc_attr( dirname( plugin_dir_url( __FILE__ ) ) . '/assets/icon.svg' ); ?>"
-			alt="<?php esc_attr_e( 'Connector for dk', 'tengill-for-dk' ); ?>"
+			alt="<?php esc_attr_e( 'Tengill for dk', 'tengill-for-dk' ); ?>"
 			height="128"
 			width="128"
 		/>
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				echo sprintf(
 					// Translators: %1$s and %2$s are opening and closing <strong> tags. The others are opening and closing hyperlink tags.
 					esc_html__(
-						'The plugin %1$sConnector for dk%2$s has taken hundreds of hours of development for the past years and is provided free of charge to everyone. If you value what the plugin has to offer, then you may want to show your gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or %5$sstarring it on Github%4$s.',
+						'The plugin %1$sTengill for dk%2$s has taken hundreds of hours of development for the past years and is provided free of charge to everyone. If you value what the plugin has to offer, then you may want to show your gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or %5$sstarring it on Github%4$s.',
 						'tengill-for-dk'
 					),
 					'<strong>',

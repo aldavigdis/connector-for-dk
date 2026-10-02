@@ -3,7 +3,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Connector for DK 0.6.4.2\n"
+"Project-Id-Version: Tengill for DK 0.6.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tengill-for-dk\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgstr ""
 #, php-format
 msgid ""
 "%1$sNote:%2$s Invoicing for international orders is not available in this "
-"version of Connector for dk. You can manually create an invoice in dk and "
+"version of Tengill for dk. You can manually create an invoice in dk and "
 "reference it here."
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 #: src/Rest/OrderDKCreditInvoice.php:79
 msgid ""
 "A credit invoice could not be created as invoicing for international orders "
-"is not available in this version of Connector for dk"
+"is not available in this version of Tengill for dk"
 msgstr ""
 
 #. %1$s stands for the WooCommerce order return ID.
@@ -110,7 +110,7 @@ msgstr ""
 #: src/Rest/OrderDKCreditInvoice.php:90
 msgid ""
 "A credit invoice could not be created in DK for this order as it was created "
-"before Connector for dk was activated."
+"before Tengill for dk was activated."
 msgstr ""
 
 #. %1$s is a placeholder for the invoice number generated in DK and %2$s for the WooCommerce order return ID.
@@ -163,7 +163,7 @@ msgid "A sales person with the number ‘%s’ was not found in DK."
 msgstr ""
 
 #: views/about.php:12
-msgid "About Connector for dk"
+msgid "About Tengill for dk"
 msgstr ""
 
 #: views/credit_invoice_payment_line_partial.php:33
@@ -215,7 +215,7 @@ msgstr ""
 #: src/Rest/OrderDKInvoice.php:78
 msgid ""
 "An invoice could not be created as invoicing for international orders is not "
-"available in this version of Connector for dk"
+"available in this version of Tengill for dk"
 msgstr ""
 
 #: src/OrderStatus.php:307
@@ -225,7 +225,7 @@ msgstr ""
 #: src/OrderStatus.php:169 src/Rest/OrderDKInvoice.php:89
 msgid ""
 "An invoice could not be created in DK for this order as it was created "
-"before Connector for dk was activated."
+"before Tengill for dk was activated."
 msgstr ""
 
 #: src/OrderStatus.php:185 src/Rest/OrderDKInvoice.php:103
@@ -350,20 +350,20 @@ msgstr ""
 
 #. Name of the plugin
 #: src/Admin.php:445 src/Admin.php:446 views/about.php:17 views/admin.php:36
-msgid "Connector for dk"
+msgid "Tengill for dk"
 msgstr ""
 
 #: src/Cron/Schedule.php:107
-msgid "Connector for dk 15 minute interval"
+msgid "Tengill for dk 15 minute interval"
 msgstr ""
 
 #: src/Cron/Schedule.php:128
-msgid "Connector for dk 2 minute interval"
+msgid "Tengill for dk 2 minute interval"
 msgstr ""
 
 #: views/admin_sections/customers_sync.php:35
 msgid ""
-"Connector for dk can keep registered customers' discounts, addresses, email "
+"Tengill for dk can keep registered customers' discounts, addresses, email "
 "addresses and phone numbers in sync with dk. This requires the customer to "
 "be registered as a user and to have the Kennitala field set to a value that "
 "corresponds with the relevant dk customer record."
@@ -371,12 +371,12 @@ msgstr ""
 
 #: views/admin_with_errors.php:74
 msgid ""
-"Connector for dk only supports stores with the base location set to Iceland."
+"Tengill for dk only supports stores with the base location set to Iceland."
 msgstr ""
 
 #: views/admin_with_errors.php:52
 msgid ""
-"Connector for dk only supports stores with ‘HPOS’ (High Performance Order "
+"Tengill for dk only supports stores with ‘HPOS’ (High Performance Order "
 "Storage) enabled."
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 #: views/admin_sections/customers_international.php:23
 msgid ""
 "dk needs a way to identify international customers that don't have a "
-"kennitala but need their own customer records. Connector for dk handles this "
+"kennitala but need their own customer records. Tengill for dk handles this "
 "by generating an alphanumeric sequence based on the customer's ID number in "
 "WooCommerce."
 msgstr ""
@@ -742,7 +742,7 @@ msgstr ""
 msgid ""
 "In cases where you would like to manually enter your products into "
 "WooCommerce without entering a SKU and do not wish to use the product "
-"management system in dk to maintain stock counts, Connector for dk can match "
+"management system in dk to maintain stock counts, Tengill for dk can match "
 "them with a dk product code in order for an invoice to be generated."
 msgstr ""
 
@@ -832,7 +832,7 @@ msgstr ""
 #: src/OrderStatus.php:220
 msgid ""
 "Invoicing for international orders is not available in this version of "
-"Connector for dk."
+"Tengill for dk."
 msgstr ""
 
 #. %1$s stands for the WooCommerce order return ID.
@@ -924,7 +924,7 @@ msgstr ""
 
 #: views/admin_with_errors.php:156
 msgid ""
-"Otherwise, Connector for dk is compatible with the Iceland Post plugin as it "
+"Otherwise, Tengill for dk is compatible with the Iceland Post plugin as it "
 "saves the kennitala in the same way."
 msgstr ""
 
@@ -1204,7 +1204,7 @@ msgstr ""
 #: views/about.php:26
 #, php-format
 msgid ""
-"The plugin %1$sConnector for dk%2$s has taken hundreds of hours of "
+"The plugin %1$sTengill for dk%2$s has taken hundreds of hours of "
 "development for the past years and is provided free of charge to everyone. "
 "If you value what the plugin has to offer, then you may want to show your "
 "gratitude by %3$sgiving it 5 stars on WordPress.org%4$s or %5$sstarring it "
@@ -1214,7 +1214,7 @@ msgstr ""
 #: views/admin_with_errors.php:31
 msgid ""
 "There's a couple of things you need to do before we let you continue using "
-"the Connector for dk plugin."
+"the Tengill for dk plugin."
 msgstr ""
 
 #: views/admin_sections/kennitala.php:50

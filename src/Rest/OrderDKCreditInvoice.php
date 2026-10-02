@@ -77,7 +77,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 		) {
 			$wc_order->add_order_note(
 				__(
-					'A credit invoice could not be created as invoicing for international orders is not available in this version of Connector for dk',
+					'A credit invoice could not be created as invoicing for international orders is not available in this version of Tengill for dk',
 					'tengill-for-dk'
 				)
 			);
@@ -88,7 +88,7 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 		if ( ! OrderHelper::can_be_invoiced( $wc_order ) ) {
 			$wc_order->add_order_note(
 				__(
-					'A credit invoice could not be created in DK for this order as it was created before Connector for dk was activated.',
+					'A credit invoice could not be created in DK for this order as it was created before Tengill for dk was activated.',
 					'tengill-for-dk'
 				)
 			);

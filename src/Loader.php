@@ -10,7 +10,7 @@ use AldaVigdis\TengillForDk\Rest\FetchCustomer;
  * The Loader class
  *
  * This simply loads all our statically loaded classes based on the edition of
- * Connector for dk that is in use.
+ * Tengill for dk that is in use.
  */
 class Loader {
 	/**

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 	esc_html_e(
-		"dk needs a way to identify international customers that don't have a kennitala but need their own customer records. Connector for dk handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
+		"dk needs a way to identify international customers that don't have a kennitala but need their own customer records. Tengill for dk handles this by generating an alphanumeric sequence based on the customer's ID number in WooCommerce.",
 		'tengill-for-dk'
 	);
 	?>

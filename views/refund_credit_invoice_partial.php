@@ -76,7 +76,7 @@ $credit_invoice_number = $refund->get_meta( 'connector_for_dk_invoice_number' );
 		echo sprintf(
 			// Translators: %1$s an %2$s stand for opening and closing <strong> tags.
 			esc_html__(
-				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Connector for dk. You can manually create an invoice in dk and reference it here.',
+				'%1$sNote:%2$s Invoicing for international orders is not available in this version of Tengill for dk. You can manually create an invoice in dk and reference it here.',
 				'tengill-for-dk'
 			),
 			'<strong>',

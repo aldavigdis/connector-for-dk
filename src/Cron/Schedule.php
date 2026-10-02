@@ -105,7 +105,7 @@ class Schedule {
 		$cron_schedules['connector_for_dk_15_minutes'] = array(
 			'interval' => 15 * MINUTE_IN_SECONDS,
 			'display'  => __(
-				'Connector for dk 15 minute interval',
+				'Tengill for dk 15 minute interval',
 				'tengill-for-dk'
 			),
 		);
@@ -126,7 +126,7 @@ class Schedule {
 		$cron_schedules['connector_for_dk_2_minutes'] = array(
 			'interval' => 2 * MINUTE_IN_SECONDS,
 			'display'  => __(
-				'Connector for dk 2 minute interval',
+				'Tengill for dk 2 minute interval',
 				'tengill-for-dk'
 			),
 		);

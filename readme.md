@@ -1,16 +1,16 @@
-# Connector for dk
+# Tengill for dk
 
 <img alt="" src="/assets/icon.svg" width="128" height="128" />
 
 Sync your WooCommerce store with DK, including product prices, inventory status and generate invoices for customers on checkout.
 
-This codebase originates as [an earlier work](https://github.com/1984hosting/1984-tengill-for-dk-and-woocommerce), which is currently defunct. This should be considered to be a continuation of the that project by the same developer. This fork of the software is **not supported or endorsed by 1984 Hosting** and the continued development of this fork is done by Alda Vigdís Skarphéðinsdóttir. License codes are sold on [tengillpro.is](https://tengillpro.is).
+This codebase originates as [an earlier work](https://github.com/1984hosting/1984-connector-for-dk-and-woocommerce), which is currently defunct. This should be considered to be a continuation of the that project by the same developer. This fork of the software is **not supported or endorsed by 1984 Hosting** and the continued development of this fork is done by Alda Vigdís Skarphéðinsdóttir. License codes are sold on [tengillpro.is](https://tengillpro.is).
 
 > [!CAUTION]
 > **Do not open an issue ticket if you are reporting a security vulnerability. Contact the author directly via aldavigdis@aldavigdis.is or the WordPress Security Team instead.**
 
 > [!IMPORTANT]
-> This is a code repository used for the *development* of **Connector for dk**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
+> This is a code repository used for the *development* of **Tengill for dk**, a WordPress plugin. To purchase a subscription or get more user-centric information, please visit [tengillpro.is](https://tengillpro.is/).
 
 ## Developer Documentation
 
@@ -183,9 +183,9 @@ The main author can be contacted via aldavigdis@aldavigdis.is. She is available 
 
 This plugin is provided to you as free software under the GPLv3 license. Runtime dependencies are provided under the MIT and Apache licenses, which are compatible with the GPLv3.
 
-Connector for dk
+Tengill for dk
 
-Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Connector for dk and WooCommerce
+Copyright (C) 2024 Alda Vigdis and contributors - based on 1984 Tengill for dk and WooCommerce
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

@@ -442,8 +442,8 @@ class Admin {
 	 */
 	public static function add_menu_page(): void {
 		add_menu_page(
-			__( 'Connector for dk', 'tengill-for-dk' ),
-			__( 'Connector for dk', 'tengill-for-dk' ),
+			__( 'Tengill for dk', 'tengill-for-dk' ),
+			__( 'Tengill for dk', 'tengill-for-dk' ),
 			'manage_options',
 			'tengill-for-dk',
 			array( __CLASS__, 'render_admin_page' ),

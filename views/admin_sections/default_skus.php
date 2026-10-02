@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 	esc_html_e(
-		'In cases where you would like to manually enter your products into WooCommerce without entering a SKU and do not wish to use the product management system in dk to maintain stock counts, Connector for dk can match them with a dk product code in order for an invoice to be generated.',
+		'In cases where you would like to manually enter your products into WooCommerce without entering a SKU and do not wish to use the product management system in dk to maintain stock counts, Tengill for dk can match them with a dk product code in order for an invoice to be generated.',
 		'tengill-for-dk'
 	);
 	?>

@@ -29,7 +29,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 			<p class="subheading">
 		<?php
 		esc_html_e(
-			"There's a couple of things you need to do before we let you continue using the Connector for dk plugin.",
+			"There's a couple of things you need to do before we let you continue using the Tengill for dk plugin.",
 			'tengill-for-dk'
 		);
 		?>
@@ -50,7 +50,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							'Connector for dk only supports stores with ‘HPOS’ (High Performance Order Storage) enabled.',
+							'Tengill for dk only supports stores with ‘HPOS’ (High Performance Order Storage) enabled.',
 							'tengill-for-dk'
 						);
 						?>
@@ -72,7 +72,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							'Connector for dk only supports stores with the base location set to Iceland.',
+							'Tengill for dk only supports stores with the base location set to Iceland.',
 							'tengill-for-dk'
 						);
 						?>
@@ -154,7 +154,7 @@ $pre_activation_errors = Admin::pre_activation_errors();
 					<li>
 						<?php
 						esc_html_e(
-							'Otherwise, Connector for dk is compatible with the Iceland Post plugin as it saves the kennitala in the same way.',
+							'Otherwise, Tengill for dk is compatible with the Iceland Post plugin as it saves the kennitala in the same way.',
 							'tengill-for-dk'
 						);
 						?>

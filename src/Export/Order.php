@@ -217,7 +217,7 @@ class Order {
 			$discounted_price = BigDecimal::of(
 				$full_total,
 			)->dividedBy(
-				$item->get_quantity(),
+				(string) $item->get_quantity(),
 				24,
 				RoundingMode::HalfCeiling
 			)->toFloat();
@@ -229,7 +229,7 @@ class Order {
 				)->minus(
 					(string) $discounted_price
 				)->multipliedBy(
-					$item->get_quantity()
+					(string) $item->get_quantity()
 				)->toFloat(),
 				$item
 			);

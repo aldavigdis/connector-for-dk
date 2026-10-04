@@ -124,16 +124,18 @@ class Customer {
 	 *                       connection was established but the request was
 	 *                       rejected, WC_Error if there was a connection error.
 	 */
-	public static function is_in_dk( WC_Customer|string $customer ): bool|WP_Error {
+	public static function is_in_dk(
+		WC_Customer|string $customer
+	): bool|WP_Error {
 		$api_request = new DKApiRequest();
 
 		if ( is_string( $customer ) ) {
-			$dk_customer_number = $customer;
+			$customer_number = $customer;
 		} else {
-			$dk_customer_number = self::assume_dk_customer_number( $customer );
+			$customer_number = self::assume_dk_customer_number( $customer );
 		}
 
-		$transient_key = "customer_{$dk_customer_number}_is_in_dk";
+		$transient_key = "connector_for_dk_customer_{$customer_number}_in_dk";
 
 		if ( get_transient( $transient_key ) === '1' ) {
 			return true;
@@ -145,7 +147,7 @@ class Customer {
 		}
 
 		$result = $api_request->get_result(
-			'/Customer/' . rawurlencode( $dk_customer_number )
+			'/Customer/' . rawurlencode( $customer_number )
 		);
 
 		if ( $result instanceof WP_Error ) {

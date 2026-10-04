@@ -104,8 +104,11 @@ class OrderInvoiceNumber implements PostEndpointTemplate {
 	/**
 	 * The permission check
 	 */
-	public static function permission_check(): bool {
-		return current_user_can( 'edit_others_posts' );
+	public static function permission_check(
+		WP_REST_Request $request
+	): bool {
+		$order_id = (int) $request['order_id'];
+		return current_user_can( 'edit_shop_order', $order_id );
 	}
 
 	/**

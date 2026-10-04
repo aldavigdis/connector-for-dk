@@ -209,7 +209,11 @@ class OrderDKCreditInvoice implements EmptyBodyEndpointTemplate {
 	/**
 	 * The permission check
 	 */
-	public static function permission_check(): bool {
-		return current_user_can( 'edit_others_posts' );
+	public static function permission_check(
+		WP_REST_Request $request
+	): bool {
+		$refund   = wc_get_order( $request['refund_id'] );
+		$order_id = $refund->get_parent_id();
+		return current_user_can( 'edit_shop_order', $order_id );
 	}
 }

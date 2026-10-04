@@ -47,7 +47,7 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 	public static function rest_api_callback(
 		WP_REST_Request $request
 	): WP_REST_Response|WP_Error {
-		$order = wc_get_order( intval( $request['order_id'] ) );
+		$order = wc_get_order( (int) $request['order_id'] );
 
 		if ( ! $order ) {
 			return new WP_Error(
@@ -97,7 +97,10 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 	/**
 	 * The permission check
 	 */
-	public static function permission_check(): bool {
-		return current_user_can( 'edit_others_posts' );
+	public static function permission_check(
+		WP_REST_Request $request
+	): bool {
+		$order_id = (int) $request['order_id'];
+		return current_user_can( 'read_shop_order', $order_id );
 	}
 }

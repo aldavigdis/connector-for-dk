@@ -37,7 +37,11 @@ interface EmptyBodyEndpointTemplate {
 	/**
 	 * The WP REST API permission check
 	 *
+	 * @param WP_REST_Request $request The WP REST request object to process.
+	 *
 	 * @return bool True if the user is permitted to do the action, false if not.
 	 */
-	public static function permission_check(): bool;
+	public static function permission_check(
+		WP_REST_Request $request
+	): bool;
 }

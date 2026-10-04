@@ -598,13 +598,13 @@ class Discounts {
 		}
 
 		$original_subtotal = (string) BigDecimal::of(
-			$original_price
+			(string) $original_price
 		)->multipliedBy(
 			$cart_item['quantity']
 		)->toFloat();
 
 		$discounted_subtotal = (string) BigDecimal::of(
-			$discounted_price
+			(string) $discounted_price
 		)->multipliedBy(
 			$cart_item['quantity']
 		)->toFloat();

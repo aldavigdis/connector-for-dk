@@ -113,8 +113,8 @@ class Currency {
 			return self::rate_not_set_error( $from );
 		}
 
-		$amount_decimal    = BigDecimal::of( $amount );
-		$from_rate_decimal = BigDecimal::of( $from_rate );
+		$amount_decimal    = BigDecimal::of( (string) $amount );
+		$from_rate_decimal = BigDecimal::of( (string) $from_rate );
 
 		$base_currency_amount = $amount_decimal->multipliedBy(
 			$from_rate_decimal
@@ -134,7 +134,7 @@ class Currency {
 
 		return $base_currency_amount->multipliedBy(
 			BigDecimal::of( 1 )->dividedBy(
-				$to_rate,
+				(string) $to_rate,
 				24,
 				RoundingMode::HalfCeiling
 			)

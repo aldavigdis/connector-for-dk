@@ -1508,7 +1508,7 @@ class Products {
 		);
 
 		return BigDecimal::of(
-			$price_after_tax
+			(string) $price_after_tax
 		)->dividedBy(
 			BigDecimal::of( 1 )->plus( $tax_fraction ),
 			24,

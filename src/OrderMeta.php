@@ -85,7 +85,7 @@ class OrderMeta {
 						wc_get_rounding_precision()
 					)
 				)->multipliedBy(
-					$item->get_quantity()
+					(string) $item->get_quantity()
 				)->toFloat()
 			);
 

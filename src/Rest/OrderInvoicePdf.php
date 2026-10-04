@@ -96,6 +96,8 @@ class OrderInvoicePdf implements EmptyBodyEndpointTemplate {
 
 	/**
 	 * The permission check
+	 *
+	 * @param WP_REST_Request $request The request object.
 	 */
 	public static function permission_check(
 		WP_REST_Request $request

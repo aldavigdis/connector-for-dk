@@ -65,6 +65,13 @@ SOFTWARE.
 	<!-- Use WordPress as the basis of our ruleset -->
 	<rule ref="WordPress">
 		<!--
+		We are using the WooCommerce capabilties for some checks, so the
+		standard WordPress linter has no idea about them and it will result in
+		warnings.
+		-->
+		<exclude name="WordPress.WP.Capabilities.Unknown" />
+
+		<!--
 		Absolutely ignoring that slow queries may occur when looking things up
 		by meta.
 		-->

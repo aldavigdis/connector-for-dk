@@ -43,6 +43,7 @@ Always back up your accounting records, site data and disable any plugin that ma
 * Re-namespacing the plugin as per the WordPress.org plugin review team
 * Fixing how variable product prices are displayed
 * Updating BigDecimal to v1.0
+* Fixing a race condition that caused products to be added twice
 * Fixing various other issues per the WordPress.org plugin review team
 
 = 0.7.9 =

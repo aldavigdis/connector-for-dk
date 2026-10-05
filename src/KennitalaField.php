@@ -336,7 +336,6 @@ class KennitalaField {
 					'Invoice with Kennitala Requested',
 					'tengill-for-dk'
 				),
-				'show'    => true,
 				'type'    => 'select',
 				'show'    => false,
 				'options' => array(

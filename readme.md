@@ -22,7 +22,7 @@ This file is mainly intended for development and contribution purposes.
 
 We use Github actions as a continious integration process to automatically test the plugin using the following PHP and WordPress versions:
 
-* PHP 8.2 and above
+* PHP 8.3 and above
 * WordPress 6.8 and above
 
 We generally assume that the most recent version of WooCommerce is in use and use that for testing across the supported PHP and WordPress versions. This is done using a test martrix in the Github CI process.
@@ -152,7 +152,7 @@ Our coding style rules apply to PHP, CSS and JS files. Please make sure that you
 
 We also use PHP Intelephense to enable autocompletion and syntax highlighting for WordPress and WooCommerce specific functions. Please facilitate it by using and defining object classes specific to your use case.
 
-* We are PHP 8.2 compliant, use strict mode, type hinting, strong typing and PSR-4 autoloading via Imposter
+* We are PHP 8.3 compliant, use strict mode, type hinting, strong typing and PSR-4 autoloading via Imposter
 * We use `BigDecimal` from [brick/math](https://github.com/brick/math) for any financial calculations, even basic arithmetic
 * Due to the nature of WordPress' hooks, while the code is written in an object oriented style, classes are written using static functions to a large extent
 * Functions, objects, variables etc. are named using Ruby conventions (i.e. snake case and no shorthand names)

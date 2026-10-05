@@ -40,6 +40,12 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Changelog ==
 = 0.8 =
+* Re-namespacing the plugin as per the WordPress.org plugin review team
+* Fixing how variable product prices are displayed
+* Updating BigDecimal to v1.0
+* Fixing various other issues per the WordPress.org plugin review team
+
+= 0.7.9 =
 * Fixing a bug that prevented the settings form from being submitted
 
 = 0.7.8 =

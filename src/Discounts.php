@@ -465,6 +465,10 @@ class Discounts {
 			);
 		}
 
+		if ( $regular_price_range_string === $current_price_range_string ) {
+			return $regular_price_range_string;
+		}
+
 		return self::format(
 			$regular_price_range_string,
 			$current_price_range_string

@@ -1,42 +1,98 @@
 === Tengill for dk ===
 Stable tag: 0.8
 Contributors: @aldavigdis
-Tags: WooCommerce, DK, dkPlus, Inventory, Invoicing
+Tags: WooCommerce, dk, dkPlus, Inventory, Invoicing
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 8.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Donate link: https://github.com/sponsors/aldavigdis
 
-Sync your WooCommerce store with DK, including product prices, inventory status and generate invoices for customers on checkout.
+Sync your WooCommerce store with dk, including product prices and inventory status and generate invoices for customers on checkout.
 
 == About ==
 
-Synchronise products, prices and inventory status between your WooCommerce store and your DK account. Have DK generate invoices automatically on checkout without worrying about setting up an email connection for your WordPress site.
+**Tengill for dk** creates invoices for your WooCommerce orders and automatically syncs products prices and inventory status between your WooCommerce store and the dk accounting suite over the dkPlus API.
 
-Variant products, sale prices and stock quantity can be set to sync globally and on a per-product basis.
+This plugin runs entirely within your WordPress installation, without relying on 3rd party services (besides dk and dkPlus) and is used and recommended by WooCommerce shops with thousands of products and a large number of sales.
+
+Unlike other plugins in this category, Tengill is free software, still maintained and supported by the original author and is neither affiliated with or requires your site to be hosted with specific web hosting companies or to change your server settings to work properly and has been tested with various web hosts.
+
+The software comes free of charge, with commercial licenses available at [tengillpro.is](https://tengillpro.is/).
+
+== 🔄 Product Sync ==
+
+The product sync feature is adjustable so it is up to you which product attributes are synced or if you create and delete WooCommerce products automatically from your dk inventory records. You can even use Tengill without syncing your products to enjoy other features such as invoice generation.
+
+Product sync works as long as the plugin can match a WooCommerce product by comparing its SKU with the relevant dk Product Code.
+
+Tengill will not even break a sweat if you have a large selection of products as the sync process is split into small batches, ensuring that background processing works with most web hosting providers.
+
+== ✨ Product variations ==
+
+Product variations are fully supported and Tengill provides its own interface to handle those beyond the limited functionality that dk provides. Some B2B features are also supported including group prices, prices with and without VAT as well per-contact WooCommerce accounts, which eases corporate and public sector procurement.
+
+== 🧾 Invoicing ==
+
+Tengill for dk generates invoices automatically for every successful WooCommerce order. You can email invoices directly to your customers and download them directly from WooCommerce.
+
+If a WooCommerce product is missing a SKU, you can choose a stand-in dk Product Code based on its VAT. You can even define a criteria for when not to make an invoice automatically.
+
+== 🪪 Kennitala Support ==
+
+If you need to match your WooCommerce customers with your dk records, then Tengill for dk adds a *Kennitala* field to both the new Block-based WooCommerce checkout form as well as the *Classic* checkout, so it support most site builders as well. This field is compatible with the field added by the Iceland Post plugin.
+
+Adjust Tengill as you like. The kennitala field can be made mandatory or not and creating new customer records based on a kennitala is optional.
+
+If no *Kennitala* is needed, then you can define a *Default Kennitla* such as 000000-0000 for your WooCommerce orders.
+
+== 👔 Customer Records and B2B ==
+
+Tengill for dk adds a *Kennitala* field to your WooCommerce customer records, which lets you fetch price groups, fixed percentage discounts and more from dk for your logged-in customers.
+
+You can also define a contact person for each of your B2B customers, which enables you to have multiple WooCommerce user account per customer; one for each contact person or department.
+
+== 🤓 Commercial Licenses ==
+
+Tengill for dk is intended for use on large-scale, revenue-generating WooCommerce stores and is intended to help shop owners with optimising their workflow.
+
+Commercial licenses are available at [tengillpro.is](https://tengillpro.is).
+
+If you need bespoke solutions, assistance and support services outside of WordPress.org, a commercial license is the best way to receive support directly.
+
+== 💎 No Uppsells or Hidden Fees ==
+
+We believe that direct advertising and uppselling break the business workflow and that it does not belong in professional software at all, so there are no upsells, upgrade banners or advertising — and no feature is hidden behind a paywall.
+
+This version of Tengill for dk is the same as you get with a commercial license, with all the features that come with the commercial product.
+
+== 👩‍💻 Made by a Real Person ==
+
+I'm **[Alda Vigdís](https://aldavigdis.is)**. I make software for a living, conduct system audits and tame servers. Tengill for dk is made with love in Berlin by yours truly and was not generated by a machine.
 
 == Installation ==
 
-You will need to finish setting up your WooCommerce shop, including tax rates, payment methods, whether prices are VAT-inclusive etc in accordance with how things are set up in your DK installation before you install, activate and configure the plugin.
+You can set Tengill up on your own but do note that the plugin assumes that you have sufficient knowledge about both WooCommerce and your specific dkPlus and dk ERP envionment.
 
-In order to get started, you need to set up an account with DK's dkPlus web service:
+Before you get started, you need to set up an account with dk's dkPlus web service.
 
-Enter your dkPlus API key in the form provided for a user with sufficient privileges under *WooCommerce 🠆 Tengill for dk*, correlate your WooCommerce Payment Gateways with the Payment Methods in your DK account and make sure that other settings are in accordance with how they are set up in DK.
+You will also need to finish setting up your WooCommerce shop ot a minimum extent, including tax rates for 24%, 11% and 0% VAT, payment methods and whether prices are VAT-inclusive or not.
 
-Once a connection has been established, the plugin will work right away and will register products and other records in DK on creation in WooCommerce, as long as the correct inventory codes are set and a correct SKU is set for each item.
+Click the Tengill for dk item in your wp-admin sitebar to open the settings.
 
-Always back up your accounting records, site data and disable any plugin that may be incompatible with Tengill for dk.
+Enter your dkPlus API key in the form provided for a user with sufficient privileges under *WooCommerce 🠆 Tengill for dk*, correlate your WooCommerce Payment Gateways with the Payment Methods in your dk account and make sure that other settings are in accordance with how they are set up in dk.
+
+Ask your accountant or finance manager if you are not sure about some of the settings.
+
+Once a connection has been established, the plugin will work right away and will register products and other records in dk on creation in WooCommerce, as long as the correct inventory codes are set and a correct SKU is set for each item.
 
 == Screenshots ==
 
-1. Products can be fetched from DK on an hourly basis. The kind of information fetched and updated from DK can also be fine-tuned. Pulling product information from DK can also be disabled completely if you have entered your products manually into WooCommerce, with a SKU matching the corresponding DK Item Code.
-2. WooCommerce payment gateways can be matched to their respective counterparts in DK. Booking a payment automatically is also optional for each payment method.
-3. Invoices can be automatically generated on checkout. The plugin offers a plethora of optional conditions for automatic invoice generation taking place.
-4. If not automatically generated on checkout, invoices can be created with a single click from the Order Editor. If an invoice has been made manually in DK, it can still be assigned to the order and the same goes with credit invoices.
-5. A placeholder kennitala for both domestic and international customers can be set and the plugin has a method to assign customer numbers to international customers.
-6. The Product Variation Editor has been re-worked from scratch and adapted to support and facilitate DK product variations. Pricing and availability can be set on a per-variant basis.
-7. Product sync can be adjusted on a per-product basis under its own tab in the Product Editor.
+1. Tengill for dk provides a plethora of options. After you enter your API key, you can adjust product sync options, match WooCommerce payment gateways with payment methods and terms as well as toggle and fine-tune other features.
+2. Tengill for dk can add a *Kennitala* field to the WooCommerce checkout form. You can optoinally make it a mandatory field and use it to create new customer records.
+3. If you choose not to have some of your WooCommerce product corresponding with a dk product record, you can still generate an invoice on a per-VAT-level basis. Shipping and costs can also be assigned with a dk Product Code.
+4. You can use Tengill to match registered WooCommerce customers with a customer record in dk. For B2B customers, you can have multiple registered users per customer, each assigned to a different contact person.
 
 == Changelog ==
 = 0.8 =
@@ -190,51 +246,31 @@ Always back up your accounting records, site data and disable any plugin that ma
 
 == Frequently Asked Questions ==
 
-= Does the plugin support per-customer discounts and price groups? =
+= Why do my invoices look different? =
 
-Yes, the plugin fetches per-customer discounts from DK. However, this is only supported for registered users that have had the Kennitala field set to correspond with their Kennitala or Customer Number in DK.
+Tengill uses the dkPlus API to communicate with the dk ERP system. dkPlus uses its own set of templates for invoices and other printed material, which are different from the desktop version of the dk ERP.
 
-Group pricing is currently not supported for variable products. If an item is on sale, the sale price take prominence over the customer discount and group price regardless of which is lower than the other.
-
-= Is the plugin easy to use? =
-
-Once the plugin has been set up, it integrates with WooCommerce and tries its best to stay out of sight. Setting it up however may require hand-holding from your accountant or finance manager.
-
-= Does the plugin support WooCommerce coupons? =
-
-WooCommerce coupons are turned off completely by the plugin as they are currently not supported and require substantial work in order to be integrated with how DK handles discounts. If you need coupon support or any new feature that is not supported, feel free to reach out to the author if you'd like sponsor the feature.
-
-= Is data synchronisation fully bi-directional? =
-
-The general rule is not to write or replace information in DK unless it's necessary. Besides new customer records and invoices, data is synced downstream (from DK to WooCommerce) only.
-
-= Does the plugin handle assigning Kennitala to orders and customers? =
-
-The plugin adds a kennitala field to the checkout page as well as as a field under each registered customer's billing information. This field is compatible with the Iceland Post plugin.
-
-Kennitala entry is not checked for validity (including dates of birth and check digits) due to how DK handles them on their end and your customers may possibly enter typos and make other mistakes.
-
-If the Kennitala field is disabled or a kennitala is not provided on checkout, invoices will be assigned to a ‘default kennitala’, symbolising an anonymous payment.
-
-= Can my DK customer records be affected by the plugin? =
-
-Customers providing a kennitala can optionally be registered as debtors/customers in your DK setup if they are not registered already. However, at this point customer records are not automatically updated based on information from WooCommerce. The plugin will however not overwrite or edit existing customer records in DK.
-
-= Does the plugin support self-hosted DK? =
-
-As the plugin uses the dkPlus API and dkPlus does not support self-hosted DK setups as far as we know, they are currently unsupported. (But do let us know if you find out that's not the case and we will be happy to work with you!)
+If you need to add your logo or other branding to your dkPlus invoices, you can do so directly by logging into dkPlus and adjusting your templates there.
 
 = Do I need to set up email delivery for invoices? =
 
-The plugin does not depend on WordPress or your web server being able to send emails. As we are leveraging DK’s own email functionality, you need to enter the correct settings into DK and set the appropriate DNS settings such as your domain's SPF record in order for invoice delivery to work.
+The plugin does not depend on WordPress or your web server being able to send emails. As we are leveraging dkPlus' own email functionality, you need to enter the correct settings there and set the appropriate DNS settings such as your domain's SPF record in order for invoice delivery to work.
 
-= Does the plugin support the new block based WooCommerce Checkout form and Cart Page? =
+Alternatively, you can generate and download a PDF invoice directly from the WooCommerce order interface.
 
-Yes. The plugin supports both the "Classic" shortcode based Checkout and Cart forms as well as their Block Editor based counterparts. There is a lot of work that goes into having to do things twice over, but we this plugin is developed for both versions of the checkout process.
+= Is this the same software as the similar 1984 plugin? =
 
-== Policies, Privacy and Legal ==
+Tengill traces its roots to the same project and is made by the same main author but is strictly speaking not the same software. The name of the company, branding and other intellectual property that does not fall under the GPLv3 license have been removed and are not used for marketing or sales purposes as per 1984's request.
 
-This plugin's functionality depends on connecting to the dkPlus API, provided by DK Hugbúnaður ehf (DK). DK provides its services as per [their own General Terms and Conditions](https://dk.kreatives.is/wp-content/uploads/2024/08/General_Terms_and_Conditions_1_2024.pdf) (PDF) and [Privacy Policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanarenglish) (PDF).
+The progress that has happened since then has resulted in a completely separate WordPress plugin that is still actively maintained and supported.
 
-This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live DK accounting data, it is highly recommended that all information in your DK accounting software is backed up and that your DK accounting records are monitored for any unexpected changes. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.
+The two are incompatible and cannot work as drop-in replacements for each other.
+
+Just to name a few of the bugs and quirks that have been fixed, the scalability has been wastly improved which means that thousands of products can be synced, improved calculations for line item prices, totals and VAT, improved support for international customers, an improved user interface and new features such as product discount support, product category sync and customer contacts.
+
+== ⚖️ Policies, Privacy and Legal ==
+
+This plugin's functionality depends on connecting to the dkPlus API, provided by dk Hugbúnaður ehf (dk). dk provides its services as per [their own General Terms and Conditions](https://dk.kreatives.is/wp-content/uploads/2024/08/General_Terms_and_Conditions_1_2024.pdf) (PDF) and [Privacy Policy](https://www.dk.is/um-dk/stefnur-og-skilmalar/personuverndarstefna#nanarenglish) (PDF).
+
+This plugin is developed, maintained and supported on goodwill basis, without any warranty or guarantees as per the GPLv3 license. As the plugin connects to, uses and affects live dk accounting data, it is highly recommended that all information in your DK accounting software is backed up and that your dk ledger and other accounting records are monitored for any unexpected changes or discrepancies. Furthermore, it is higly recommended that you evaluate this plugin in a limited capacity in a staging environment before putting it to full use.
 

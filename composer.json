@@ -85,6 +85,8 @@
         ],
         "lint": "./vendor/bin/phpcs -s ./src/ ./js/ ./style/ ./views/",
         "lint:fix": "./vendor/bin/phpcbf -s ./src/ ./js/ ./style/ ./views/",
+        "release:svn": "bash ./bin/release-svn.sh",
+        "release:trunk": "bash ./bin/release-svn.sh",
         "release:zip": "bash ./bin/release-zip.sh",
         "checksums:generate": "bash ./bin/checksums-generate.sh",
         "checksums:validate": "bash ./bin/checksums-validate.sh",

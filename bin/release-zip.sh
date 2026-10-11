@@ -20,4 +20,4 @@ cd .. && zip -r tengill-for-dk.zip tengill-for-dk \
 			 tengill-for-dk/assets/screenshot-*.png \
 			 tengill-for-dk/static/
 
-mv tengill-for-dk.zip "./tengill-for-dk/tengill-for-dk-pro-v$version.zip"
+mv tengill-for-dk.zip "./tengill-for-dk/tengill-for-dk-v$version.zip"

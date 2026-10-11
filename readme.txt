@@ -1,5 +1,5 @@
 === Tengill for dk ===
-Stable tag: 0.8
+Stable tag: 0.8.1
 Contributors: @aldavigdis
 Tags: WooCommerce, dk, dkPlus, Inventory, Invoicing
 Requires at least: 6.9

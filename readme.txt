@@ -39,19 +39,13 @@ Tengill for dk generates invoices automatically for every successful WooCommerce
 
 If a WooCommerce product is missing a SKU, you can choose a stand-in dk Product Code based on its VAT. You can even define a criteria for when not to make an invoice automatically.
 
-== ✅ Credit Invoices for Returns ==
-
-If you initiate a manual refund for a WooCommerce order, you can generate a credit invoice directly from there using Tengill for dk.
-
-This means you can provide both debit and credit invoices throughout the whole WooCommerce order workflow, using a familiar user interface, without exposing frontline staff to dk.
-
 == 🪪 Kennitala Support ==
 
 If you need to match your WooCommerce customers with your dk records, then Tengill for dk adds a *Kennitala* field to both the new Block-based WooCommerce checkout form as well as the *Classic* checkout, so it support most site builders as well. This field is compatible with the field added by the Iceland Post plugin.
 
 Adjust Tengill as you like. The kennitala field can be made mandatory or not and creating new customer records based on a kennitala is optional.
 
-If no *Kennitala* is needed, then you can define a *Default Kennitala* such as 000000-0000 for your WooCommerce orders.
+If no *Kennitala* is needed, then you can define a *Default Kennitla* such as 000000-0000 for your WooCommerce orders.
 
 == 👔 Customer Records and B2B ==
 
@@ -64,8 +58,6 @@ You can also define a contact person for each of your B2B customers, which enabl
 Tengill for dk is intended for use on large-scale, revenue-generating WooCommerce stores and is intended to help shop owners with optimising their workflow.
 
 Commercial licenses are available at [tengillpro.is](https://tengillpro.is).
-
-With a commercial license, you get access to premium, hands-on priority support, early updates and installation assistance.
 
 If you need bespoke solutions, assistance and support services outside of WordPress.org, a commercial license is the best way to receive support directly.
 
@@ -98,8 +90,9 @@ Once a connection has been established, the plugin will work right away and will
 == Screenshots ==
 
 1. Tengill for dk provides a plethora of options. After you enter your API key, you can adjust product sync options, match WooCommerce payment gateways with payment methods and terms as well as toggle and fine-tune other features.
-2. Tengill for dk can handle product variations from dk using a specially designed user interface to overcome the shortcomings of dk's product variation feature.
-3. Invoices can be generated automatically as well as by clicking a button in the WooCommerce order interface.
+2. Tengill for dk can add a *Kennitala* field to the WooCommerce checkout form. You can optoinally make it a mandatory field and use it to create new customer records.
+3. If you choose not to have some of your WooCommerce product corresponding with a dk product record, you can still generate an invoice on a per-VAT-level basis. Shipping and costs can also be assigned with a dk Product Code.
+4. You can use Tengill to match registered WooCommerce customers with a customer record in dk. For B2B customers, you can have multiple registered users per customer, each assigned to a different contact person.
 
 == Changelog ==
 = 0.8 =

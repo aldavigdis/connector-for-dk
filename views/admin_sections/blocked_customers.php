@@ -16,15 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php esc_html_e( 'Blocked Customers', 'tengill-for-dk' ); ?>
 </h3>
 
-<p>
-	<?php
-	esc_html_e(
-		'dk facilitates blocking customer accounts. You can enable this feature in your WooCommerce store below.',
-		'tengill-for-dk'
-	);
-	?>
-</p>
-
 <table class="form-table">
 	<tbody>
 		<tr>

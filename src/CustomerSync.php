@@ -100,6 +100,15 @@ class CustomerSync {
 			$wc_customer->set_billing_phone( $dk_customer->Phone );
 		}
 
+		if ( property_exists( $dk_customer, 'Group' ) ) {
+			$wc_customer->update_meta_data(
+				'connector_for_dk_group',
+				$dk_customer->Phone
+			);
+		} else {
+			$wc_customer->delete_meta_data( 'connector_for_dk_group' );
+		}
+
 		$wc_customer->save_meta_data();
 	}
 
@@ -157,6 +166,7 @@ class CustomerSync {
 				'CountryCode',
 				'Email',
 				'Phone',
+				'Group',
 			),
 		);
 	}

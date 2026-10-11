@@ -95,6 +95,11 @@ Once a connection has been established, the plugin will work right away and will
 4. You can use Tengill to match registered WooCommerce customers with a customer record in dk. For B2B customers, you can have multiple registered users per customer, each assigned to a different contact person.
 
 == Changelog ==
+= 0.8.1 =
+* Fixing layout issue in the variation editor
+* Removing i18n files from the codebase, replacing them with the WordPress.org language packs
+* Updates to documentation and build scripts
+
 = 0.8 =
 * Re-namespacing the plugin as per the WordPress.org plugin review team
 * Fixing how variable product prices are displayed

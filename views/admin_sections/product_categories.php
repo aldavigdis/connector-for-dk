@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php foreach ( ProductCategories::get_woocommerce_categories() as $t ) : ?>
 					<option
 						value="<?php echo esc_attr( $t->term_id ); ?>"
-						<?php echo ProductCategories::product_group_matches_category( $key, (int) $t->term_id ) ? 'selected' : ''; ?>
+						<?php echo ProductCategories::product_group_matches_category( (string) $key, (int) $t->term_id ) ? 'selected' : ''; ?>
 					>
 						<?php echo esc_attr( $t->name ); ?>
 					</option>

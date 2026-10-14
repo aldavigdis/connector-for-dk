@@ -94,11 +94,13 @@
 }
 
 #tengill-for-dk-wrap table select {
+	width: calc( 100% - 1em );
+	margin-right: 1em;
 	max-width: 12em;
 }
 
 #tengill-for-dk-wrap table select:invalid {
-	border: 1px solid #900;
+	outline: 2px solid #a00;
 }
 
 #payment-gateway-id-map-table .payment-id {

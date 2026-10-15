@@ -3,14 +3,16 @@
 rm -rf vendor/
 composer install --no-dev
 
-rsync -r --exclude '.*' \
+rsync -r --delete \
+	--exclude '.*' \
 	--exclude 'tests/' \
 	--exclude '*.xml' \
 	--exclude 'bin/' \
 	--exclude 'assets/' \
 	--exclude '*.zip' \
+	--exclude '*.yml' \
 	--exclude 'compose.yml' \
 	--exclude 'dockpress-secrets/' \
 	. ../tengill-for-dk-svn/trunk
 
-rsync -r "assets/" "../tengill-for-dk-svn/assets/"
+rsync -r --delete "assets/" "../tengill-for-dk-svn/assets/"

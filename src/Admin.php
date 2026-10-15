@@ -429,11 +429,29 @@ class Admin {
 	public static function available_payment_gateways(): array {
 		$gateways = new WC_Payment_Gateways();
 
-		return array_filter(
+		$available_gateways = array_filter(
 			$gateways->payment_gateways(),
 			function ( WC_Payment_Gateway $gateway ): bool {
-				return $gateway->settings['enabled'] === 'yes';
+				if (
+					! property_exists( $gateway, 'enabled' ) &&
+					$gateway->enabled === 'yes'
+				) {
+					return true;
+				}
+
+				$s = $gateway->settings;
+
+				if ( ! array_key_exists( 'enabled', $s ) ) {
+					return false;
+				}
+
+				return $s['enabled'] === 'yes';
 			}
+		);
+
+		return apply_filters(
+			'connector_for_dk_payment_gateways',
+			$available_gateways
 		);
 	}
 

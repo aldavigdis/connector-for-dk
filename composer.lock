@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0719372909a5c3f8739eef212f852608",
+    "content-hash": "1e1132104b0f14ac603fb5d955ce0f18",
     "packages": [
         {
             "name": "brick/math",
@@ -256,128 +256,6 @@
                 "source": "https://github.com/opis/uri/tree/1.1.0"
             },
             "time": "2021-05-22T15:57:08+00:00"
-        },
-        {
-            "name": "silverassist/wp-github-updater",
-            "version": "v1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SilverAssist/wp-github-updater.git",
-                "reference": "e8f250aa11e05da302142bb5e2d8e9c64689bb85"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SilverAssist/wp-github-updater/zipball/e8f250aa11e05da302142bb5e2d8e9c64689bb85",
-                "reference": "e8f250aa11e05da302142bb5e2d8e9c64689bb85",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-                "php-stubs/wordpress-stubs": "^6.8",
-                "php-stubs/wordpress-tests-stubs": "^6.8 || ^7.0",
-                "phpcompatibility/phpcompatibility-wp": "^2.1",
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^9.6",
-                "silverassist/coding-standards": "^1.0",
-                "slevomat/coding-standard": "^8.0",
-                "squizlabs/php_codesniffer": "^3.7",
-                "szepeviktor/phpstan-wordpress": "^1.3",
-                "wp-coding-standards/wpcs": "^3.0",
-                "yoast/phpunit-polyfills": "^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SilverAssist\\WpGithubUpdater\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "PolyForm-Noncommercial-1.0.0"
-            ],
-            "authors": [
-                {
-                    "name": "Silver Assist",
-                    "email": "info@silverassist.com",
-                    "homepage": "https://silverassist.com"
-                }
-            ],
-            "description": "A reusable WordPress plugin updater that handles automatic updates from GitHub releases, public or private",
-            "homepage": "https://github.com/SilverAssist/wp-github-updater",
-            "keywords": [
-                "auto-update",
-                "github",
-                "plugin",
-                "updater",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/SilverAssist/wp-github-updater/issues",
-                "source": "https://github.com/SilverAssist/wp-github-updater/tree/v1.4.0"
-            },
-            "time": "2026-09-25T14:33:14+00:00"
-        },
-        {
-            "name": "tuupola/base85",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tuupola/base85.git",
-                "reference": "471430fec9ffb1b13e43ce93de7493dec639073c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tuupola/base85/zipball/471430fec9ffb1b13e43ce93de7493dec639073c",
-                "reference": "471430fec9ffb1b13e43ce93de7493dec639073c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1|^8.0"
-            },
-            "require-dev": {
-                "overtrue/phplint": "^1.0",
-                "paragonie/random_compat": "^2.0",
-                "phpbench/phpbench": "^0.13.0|1.0.0-alpha3",
-                "phpstan/phpstan": "^0.12.68",
-                "phpunit/phpunit": "^7.0|^8.0|^9.0",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Tuupola\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mika Tuupola",
-                    "email": "tuupola@appelsiini.net",
-                    "homepage": "http://www.appelsiini.net/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Base85 encoder and decoder for arbitrary data",
-            "homepage": "https://github.com/tuupola/base85",
-            "keywords": [
-                "base85"
-            ],
-            "support": {
-                "issues": "https://github.com/tuupola/base85/issues",
-                "source": "https://github.com/tuupola/base85/tree/2.1.1"
-            },
-            "time": "2025-12-29T14:43:37+00:00"
         },
         {
             "name": "typisttech/imposter",
@@ -3032,16 +2910,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.4.20",
+            "version": "v7.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d7bca2fe05241dc7732d0c8b6d551b879f5d0a7d"
+                "reference": "21f1bc2296f7ff6043241a8dcbc09559b3732820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d7bca2fe05241dc7732d0c8b6d551b879f5d0a7d",
-                "reference": "d7bca2fe05241dc7732d0c8b6d551b879f5d0a7d",
+                "url": "https://api.github.com/repos/symfony/console/zipball/21f1bc2296f7ff6043241a8dcbc09559b3732820",
+                "reference": "21f1bc2296f7ff6043241a8dcbc09559b3732820",
                 "shasum": ""
             },
             "require": {
@@ -3106,7 +2984,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.4.20"
+                "source": "https://github.com/symfony/console/tree/v7.4.21"
             },
             "funding": [
                 {
@@ -3126,7 +3004,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-18T15:55:00+00:00"
+            "time": "2026-10-12T18:45:38+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3623,16 +3501,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.4.19",
+            "version": "v7.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "02731ce2bd26514bec9efc0baef2cd0b0cf67f46"
+                "reference": "9bc35d074ad16a58c21cd52b18c5cacc4f4c3981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/02731ce2bd26514bec9efc0baef2cd0b0cf67f46",
-                "reference": "02731ce2bd26514bec9efc0baef2cd0b0cf67f46",
+                "url": "https://api.github.com/repos/symfony/string/zipball/9bc35d074ad16a58c21cd52b18c5cacc4f4c3981",
+                "reference": "9bc35d074ad16a58c21cd52b18c5cacc4f4c3981",
                 "shasum": ""
             },
             "require": {
@@ -3690,7 +3568,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.4.19"
+                "source": "https://github.com/symfony/string/tree/v7.4.21"
             },
             "funding": [
                 {
@@ -3710,20 +3588,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-11T14:46:58+00:00"
+            "time": "2026-10-03T15:15:30+00:00"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v7.4.18",
+            "version": "v7.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "e088da50b813f32473a76871616cbb8fa54653a8"
+                "reference": "55d06b02f49eca9bff61828548988e6f8763e8a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e088da50b813f32473a76871616cbb8fa54653a8",
-                "reference": "e088da50b813f32473a76871616cbb8fa54653a8",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/55d06b02f49eca9bff61828548988e6f8763e8a6",
+                "reference": "55d06b02f49eca9bff61828548988e6f8763e8a6",
                 "shasum": ""
             },
             "require": {
@@ -3777,7 +3655,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v7.4.18"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.4.21"
             },
             "funding": [
                 {
@@ -3797,7 +3675,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-30T20:10:52+00:00"
+            "time": "2026-10-13T05:48:33+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -4009,7 +3887,7 @@
     "platform": {},
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.3"
+        "php": "8.2"
     },
     "plugin-api-version": "2.9.0"
 }

@@ -1,5 +1,5 @@
 === Tengill for dk ===
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 Contributors: @aldavigdis
 Tags: WooCommerce, dk, dkPlus, Inventory, Invoicing
 Requires at least: 6.9
@@ -102,6 +102,11 @@ Once a connection has been established, the plugin will work right away and will
 3. Invoices can be generated automatically as well as by clicking a button in the WooCommerce order interface.
 
 == Changelog ==
+= 0.8.3 =
+* Adding support for the new WP Secrets API
+* Removing 3rd party dependencies
+* Enabling PHP 8.2 support
+
 = 0.8.2 =
 * Fixing a type error when dk product group numbers were actually numeric
 * Fixing automated test harness

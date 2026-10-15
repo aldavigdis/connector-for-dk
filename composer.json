@@ -10,7 +10,8 @@
         "yoast/phpunit-polyfills": "^3.1",
         "aldavigdis/wp-tests-strapon": "@dev",
         "woocommerce/woocommerce": "10.6.1",
-        "woocommerce/wc-smooth-generator": "1.2.2"
+        "woocommerce/wc-smooth-generator": "1.2.2",
+        "wordpress/wordpress-develop": "7.2"
     },
     "require": {
         "opis/json-schema": "^2.0@dev",
@@ -25,6 +26,17 @@
                 "version": "10.6.1",
                 "dist": {
                     "url": "https://github.com/woocommerce/woocommerce/releases/download/10.6.1/woocommerce.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wordpress/wordpress-develop",
+                "version": "7.2",
+                "dist": {
+                    "url": "https://github.com/WordPress/wordpress-develop/archive/2995d9665a205841390f6c5adc6419ac888428fb.zip",
                     "type": "zip"
                 }
             }

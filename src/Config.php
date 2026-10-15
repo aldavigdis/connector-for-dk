@@ -6,6 +6,7 @@ namespace AldaVigdis\TengillForDk;
 
 use AldaVigdis\TengillForDk\Import\SalesPayments as ImportSalesPayments;
 use AldaVigdis\TengillForDk\KennitalaField;
+use WP_Secret;
 
 /**
  * The Config class
@@ -14,6 +15,8 @@ use AldaVigdis\TengillForDk\KennitalaField;
  **/
 class Config {
 	const DK_API_KEY_REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$';
+
+	const DK_API_KEY_REFERENCE = 'connector_for_dk/dk_api_key';
 
 	const PREFIX = 'connector_for_dk_';
 
@@ -120,6 +123,14 @@ class Config {
 			return getenv( 'DK_API_KEY' );
 		}
 
+		if ( function_exists( 'wp_get_secret' ) ) {
+			$secret = wp_get_secret( self::DK_API_KEY_REFERENCE );
+
+			if ( $secret instanceof WP_Secret ) {
+				return $secret->reveal();
+			}
+		}
+
 		return self::get_option( 'api_key' );
 	}
 
@@ -135,6 +146,14 @@ class Config {
 		if ( preg_match( '/' . self::DK_API_KEY_REGEX . '/', $value ) === 0 ) {
 			return false;
 		}
+
+		if ( function_exists( 'wp_set_secret' ) ) {
+			if ( wp_set_secret( self::DK_API_KEY_REFERENCE, $value ) === true ) {
+				return true;
+			}
+			return false;
+		}
+
 		return self::update_option( 'api_key', $value );
 	}
 

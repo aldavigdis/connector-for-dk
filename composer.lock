@@ -3746,6 +3746,15 @@
             "type": "library"
         },
         {
+            "name": "wordpress/wordpress-develop",
+            "version": "7.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/WordPress/wordpress-develop/archive/2995d9665a205841390f6c5adc6419ac888428fb.zip"
+            },
+            "type": "library"
+        },
+        {
             "name": "wp-coding-standards/wpcs",
             "version": "3.4.1",
             "source": {

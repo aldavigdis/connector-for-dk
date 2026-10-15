@@ -15,9 +15,7 @@
     "require": {
         "opis/json-schema": "^2.0@dev",
         "typisttech/imposter-plugin": "^0.6.1@dev",
-        "brick/math": "^1.0",
-        "tuupola/base85": "^2.1",
-        "silverassist/wp-github-updater": "^1.2"
+        "brick/math": "^1.0"
     },
     "repositories": [
         {
@@ -45,7 +43,7 @@
     ],
     "config": {
         "platform": {
-            "php": "8.3"
+            "php": "8.2"
         },
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,

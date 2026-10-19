@@ -211,7 +211,7 @@ class Order {
 			)->dividedBy(
 				$item->get_quantity(),
 				24,
-				RoundingMode::HalfCeiling
+				RoundingMode::HALF_CEILING
 			)->toFloat();
 
 			$discounted_price = BigDecimal::of(
@@ -219,7 +219,7 @@ class Order {
 			)->dividedBy(
 				(string) $item->get_quantity(),
 				24,
-				RoundingMode::HalfCeiling
+				RoundingMode::HALF_CEILING
 			)->toFloat();
 
 			$discount = apply_filters(

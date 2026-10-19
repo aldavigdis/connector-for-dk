@@ -4,7 +4,7 @@ Contributors: @aldavigdis
 Tags: WooCommerce, dk, dkPlus, Inventory, Invoicing
 Requires at least: 6.9
 Tested up to: 7.1
-Requires PHP: 8.2
+Requires PHP: 8.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://github.com/sponsors/aldavigdis

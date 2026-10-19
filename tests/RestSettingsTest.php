@@ -116,6 +116,7 @@ final class RestSettingstest extends TestCase {
 		$request->set_body( wp_json_encode( self::VALID_POST_BODY ) );
 
 		$response = rest_do_request( $request );
+		var_dump( $response );
 		assertEquals( 200, $response->status );
 
 		$api_key_option = Config::get_dk_api_key();

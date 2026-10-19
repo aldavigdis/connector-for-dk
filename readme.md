@@ -89,6 +89,24 @@ add_filter(
 );
 ```
 
+Some payment gateways don't appear in the admin section due to common programming errors. You can do this to force them to appear:
+
+```php
+add_filter(
+	'connector_for_dk_payment_gateways',
+	function ( array $gateways ): array {
+		$all_gateways = new WC_Payment_Gateways();
+		$straumur     = $all_gateways->payment_gateways();
+
+		$gateways['straumur'] = $gateways['straumur'];
+
+		return $gateways;
+	},
+	10,
+	1
+);
+```
+
 ### The DK API
 
 #### The DK API documentation

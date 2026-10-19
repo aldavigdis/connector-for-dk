@@ -278,7 +278,10 @@ class SalesPayments {
 			is_array( $methods_transient ) &&
 			( $methods_updated > time() - self::TRANSIENT_EXPIRY )
 		) {
-			return $methods_transient;
+			return apply_filters(
+				'connector_for_dk_payment_methods',
+				$methods_transient
+			);
 		}
 
 		if ( is_string( Config::get_dk_api_key() ) ) {
@@ -294,7 +297,10 @@ class SalesPayments {
 					time()
 				);
 
-				return $methods;
+				return apply_filters(
+					'connector_for_dk_payment_methods',
+					$methods
+				);
 			}
 		}
 
@@ -302,7 +308,10 @@ class SalesPayments {
 			return array();
 		}
 
-		return $methods_transient;
+		return apply_filters(
+			'connector_for_dk_payment_methods',
+			$methods_transient
+		);
 	}
 
 	/**

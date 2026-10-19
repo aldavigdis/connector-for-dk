@@ -129,9 +129,31 @@ class Config {
 			if ( $secret instanceof WP_Secret ) {
 				return $secret->reveal();
 			}
+
+			// If the current API key is in the options table, we want to cast
+			// it into a secret on-the-fly instead of keeping it as an
+			// unencrypted WP option and delete the old API key option.
+			self::migrate_api_key_to_secret();
 		}
 
 		return self::get_option( 'api_key' );
+	}
+
+	/**
+	 * Migrate the API key stoe to the Secret store
+	 */
+	private static function migrate_api_key_to_secret(): bool {
+		if ( ! function_exists( 'wp_set_secret' ) ) {
+			return false;
+		}
+
+		$old_key = self::get_option( 'api_key' );
+
+		if ( is_string( $old_key ) && self::set_dk_api_key( $old_key ) ) {
+			return delete_option( self::PREFIX . 'api_key' );
+		}
+
+		return true;
 	}
 
 	/**

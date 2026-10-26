@@ -14,8 +14,8 @@ use WC_Product;
 use WC_Product_Variable;
 use WP_User;
 use WC_Cart;
-use WC_Order;
 use WC_Order_Item_Coupon;
+use WC_Abstract_Order;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -932,12 +932,12 @@ class Discounts {
 	 * and discrepencies between discounts as shown in the cart and order
 	 * confirmations, which are extremely common.
 	 *
-	 * @param WC_Order $order The order to recalculate discount totals for.
+	 * @param WC_Abstract_Order $order The order to recalculate discount totals for.
 	 *
 	 * @return object{success:bool,total:string,tax:string,grand_total:string}
 	 */
 	public static function calculate_discount_totals(
-		WC_Order $order
+		WC_Abstract_Order $order
 	): object {
 		$discount_total     = BigDecimal::of( 0 );
 		$discount_total_tax = BigDecimal::of( 0 );
@@ -1069,12 +1069,12 @@ class Discounts {
 	 * This is a wrapper for `calculate_discount_totals` used for hooking into
 	 * `woocommerce_order_after_calculate_totals`.
 	 *
-	 * @param bool     $and_taxes Unused.
-	 * @param WC_Order $order The WooCommerce order.
+	 * @param bool              $and_taxes Unused.
+	 * @param WC_Abstract_Order $order The WooCommerce order.
 	 */
 	public static function calculate_discount_totals_action(
 		bool $and_taxes,
-		WC_Order $order
+		WC_Abstract_Order $order
 	): object {
 		return self::calculate_discount_totals( $order );
 	}

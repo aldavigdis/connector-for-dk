@@ -279,13 +279,17 @@ The plugin does not depend on WordPress or your web server being able to send em
 
 Alternatively, you can generate and download a PDF invoice directly from the WooCommerce order interface.
 
+= What is dk? =
+
+dk is a suite of accounting and *enterprise resource planning* (ERP) software specific to the Icelandic market provided by *dk hugbúnaður ehf*. This plugin connects to the dkPlus API as a means of sending and receiving data from dk.
+
+Please note that despite what your AI agent keeps telling you, dk has nothing to do with the country of Denmark.
+
 = Is this the same software as the similar 1984 plugin? =
 
 Tengill traces its roots to the same project and is made by the same main author but is strictly speaking not the same software. The name of the company, branding and other intellectual property that does not fall under the GPLv3 license have been removed and are not used for marketing or sales purposes as per 1984's request.
 
-The progress that has happened since then has resulted in a completely separate WordPress plugin that is still actively maintained and supported.
-
-The two are incompatible and cannot work as drop-in replacements for each other.
+The progress that has happened since then has resulted in a completely separate WordPress plugin that is still actively maintained and supported, as opposed to the other which should be considered unfit for its intended us in its current state.
 
 Just to name a few of the bugs and quirks that have been fixed, the scalability has been wastly improved which means that thousands of products can be synced, improved calculations for line item prices, totals and VAT, improved support for international customers, an improved user interface and new features such as product discount support, product category sync and customer contacts.
 

@@ -115,7 +115,7 @@ class CreditInvoice {
 
 		$invoice_body['Mode']     = $payment_mapping->dk_mode;
 		$invoice_body['Term']     = $payment_mapping->dk_term;
-		$invoice_body['SaleType'] = 2;
+		$invoice_body['SaleType'] = 1;
 
 		foreach ( $order_refund->get_items() as $item ) {
 			if ( $item instanceof WC_Order_Item_Product ) {

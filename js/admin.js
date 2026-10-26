@@ -212,6 +212,12 @@ class TengillForDk {
 				}
 			);
 
+			const blockedCustomerText = document.getElementById(
+				'blocked_customer_message_field'
+			).value.trim();;
+
+			formDataObject['blocked_customers_message'] = blockedCustomerText;
+
 			TengillForDk.postSettingsData( formDataObject );
 
 			return true;

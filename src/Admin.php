@@ -23,7 +23,7 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
  * enqueues scripts and stylesheets etc.
  */
 class Admin {
-	const ASSET_VERSION = '0.8.4';
+	const ASSET_VERSION = '0.8.5';
 	const PLUGIN_SLUG   = 'tengill-for-dk';
 
 	const TRANSIENT_EXPIRY = 900;

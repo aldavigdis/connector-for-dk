@@ -1,5 +1,5 @@
 === Tengill for dk ===
-Stable tag: 0.8.4
+Stable tag: 0.8.5
 Contributors: @aldavigdis
 Tags: WooCommerce, dk, dkPlus, Inventory, Invoicing
 Requires at least: 6.9
@@ -9,11 +9,11 @@ License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://github.com/sponsors/aldavigdis
 
-Sync your WooCommerce store with dk, including product prices and inventory status and generate invoices for customers on checkout.
+Save time and automate the boring parts. Tenglill brings you automated invoicing and syncs inventory and customer data from your dk accounting suite.
 
 == About ==
 
-**Tengill for dk** creates invoices for your WooCommerce orders and automatically syncs products prices and inventory status between your WooCommerce store and the dk accounting suite over the dkPlus API.
+**Tengill for dk** creates invoices for your WooCommerce orders, fetches customer discounts and automatically syncs products prices and inventory status between your WooCommerce store and the dk accounting suite over the dkPlus API.
 
 This plugin runs entirely within your WordPress installation, without relying on 3rd party services (besides dk and dkPlus) and is used and recommended by WooCommerce shops with thousands of products and a large number of sales.
 
@@ -102,6 +102,9 @@ Once a connection has been established, the plugin will work right away and will
 3. Invoices can be generated automatically as well as by clicking a button in the WooCommerce order interface.
 
 == Changelog ==
+= 0.8.5 =
+* Fixed a bug with credit invoice handling that may cause price discrepancies
+
 = 0.8.4 =
 * Adding support for the new WordPress 7.2 Secrets class for storing the API key
 * Improving credit invoice handling

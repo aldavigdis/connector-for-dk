@@ -194,7 +194,7 @@ class Invoice {
 			$total = BigDecimal::of(
 				(string) $wc_order->get_total()
 			)->minus(
-				$wc_order->get_total_refunded()
+				(string) $wc_order->get_total_refunded()
 			);
 
 			$invoice_body['Payments'] = array(

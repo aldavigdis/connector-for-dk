@@ -9,7 +9,7 @@ License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://github.com/sponsors/aldavigdis
 
-Save time and automate the boring parts. Tenglill brings you automated invoicing and syncs inventory and customer data from your dk accounting suite.
+Save time and automate the boring parts. Automated WooCommerce invoicing, inventory sync and customer discounts from your dk accounting suite.
 
 == About ==
 

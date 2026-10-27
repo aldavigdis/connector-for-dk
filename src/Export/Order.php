@@ -224,13 +224,17 @@ class Order {
 
 			$discount = apply_filters(
 				'connector_for_dk_line_item_discount',
-				BigDecimal::of(
-					(string) $subtotal
-				)->minus(
-					(string) $discounted_price
-				)->multipliedBy(
-					(string) $item->get_quantity()
-				)->toFloat(),
+				round(
+					BigDecimal::of(
+						(string) $subtotal
+					)->minus(
+						(string) $discounted_price
+					)->multipliedBy(
+						(string) $item->get_quantity()
+					)->toFloat(),
+					$decimals,
+					PHP_ROUND_HALF_UP
+				),
 				$item
 			);
 

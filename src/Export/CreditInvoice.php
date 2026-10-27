@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace AldaVigdis\TengillForDk\Export;
 
 use AldaVigdis\TengillForDk\Brick\Math\BigDecimal;
+use AldaVigdis\TengillForDk\Brick\Math\RoundingMode;
 use AldaVigdis\TengillForDk\Config;
 use AldaVigdis\TengillForDk\Service\DKApiRequest;
 use AldaVigdis\TengillForDk\Helpers\Order as OrderHelper;
@@ -128,6 +129,10 @@ class CreditInvoice {
 						BigDecimal::of(
 							$item->get_subtotal_tax()
 						)->abs()
+					)->dividedBy(
+						abs( $item->get_quantity() ),
+						24,
+						RoundingMode::HalfCeiling
 					)->toFloat(),
 					$decimals,
 					PHP_ROUND_HALF_UP
